@@ -67,16 +67,16 @@
             "inhibitWhenAudio": true,
             "timeouts": [
                 {
-                    "timeout": 180,
+                    "timeout": 300,
                     "idleAction": "lock"
                 },
                 {
-                    "timeout": 300,
+                    "timeout": 330,
                     "idleAction": "dpms off",
                     "returnAction": "dpms on"
                 },
                 {
-                    "timeout": 600,
+                    "timeout": 1800,
                     "idleAction": ["systemctl", "suspend-then-hibernate"]
                 }
             ]
@@ -338,7 +338,7 @@
         "hideDelay": 2000
     },
     "paths": {
-        "mediaGif": "root:/assets/bongocat.gif",
+        "mediaGif": "",
         "sessionGif": "root:/assets/kurukuru.gif",
         "wallpaperDir": "~/Pictures/Wallpapers"
     },
