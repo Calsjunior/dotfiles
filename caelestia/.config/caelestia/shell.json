@@ -123,7 +123,7 @@
             },
             {
                 "id": "tray",
-                "enabled": true
+                "enabled": false
             },
             {
                 "id": "clock",
@@ -351,7 +351,7 @@
         "weatherLocation": "",
         "useFahrenheit": false,
         "useTwelveHourClock": false,
-        "smartScheme": true,
+        "smartScheme": false,
         "visualiserBars": 45
     },
     "session": {
