@@ -7,9 +7,9 @@
         },
         "font": {
             "family": {
-                "clock": "Rubik",
+                "clock": "JetBrainsMono Nerd Font",
                 "material": "Material Symbols Rounded",
-                "mono": "CaskaydiaCove NF",
+                "mono": "JetBrainsMono Nerd Font",
                 "sans": "Rubik"
             },
             "size": {
@@ -42,20 +42,20 @@
             "warnLevels": [
                 {
                     "level": 20,
-                    "title": "Low battery",
-                    "message": "You might want to plug in a charger",
+                    "title": "Low Battery",
+                    "message": "Plug in charger",
                     "icon": "battery_android_frame_2"
                 },
                 {
                     "level": 10,
-                    "title": "Did you see the previous message?",
-                    "message": "You should probably plug in a charger <b>now</b>",
+                    "title": "Very Low Battery",
+                    "message": "Battery at 10%",
                     "icon": "battery_android_frame_1"
                 },
                 {
                     "level": 5,
-                    "title": "Critical battery level",
-                    "message": "PLUG THE CHARGER RIGHT NOW!!",
+                    "title": "Critical Battery Level",
+                    "message": "Consider charging your device",
                     "icon": "battery_android_alert",
                     "critical": true
                 }
@@ -115,7 +115,7 @@
             },
             {
                 "id": "activeWindow",
-                "enabled": true
+                "enabled": false
             },
             {
                 "id": "spacer",
