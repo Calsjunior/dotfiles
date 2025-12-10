@@ -1,0 +1,138 @@
+#  ┏┓┏┳┓┏┓┳┓┏┓┓┏┳┏┓  ┳┳┓┳┳┓┳┳┳┓┏┓┓ 
+#  ┗┓ ┃ ┣┫┣┫┗┓┣┫┃┃┃━━┃┃┃┃┃┃┃┃┃┃┣┫┃ 
+#  ┗┛ ┻ ┛┗┛┗┗┛┛┗┻┣┛  ┛ ┗┻┛┗┻┛ ┗┛┗┗┛
+#                                  
+
+
+format = """
+$directory\
+$git_branch\
+$git_status\
+$fill\
+$python\
+$lua\
+$nodejs\
+$golang\
+$haskell\
+$rust\
+$ruby\
+$package\
+$aws\
+$docker_context\
+$jobs\
+$cmd_duration\
+$line_break\
+$character"""
+
+add_newline = true
+
+
+#--------------Directory-----------#
+#----------------------------------#
+[directory]
+style = 'bold fg:bright-cyan'
+format = '[$path ]($style)'
+truncation_length = 3
+truncation_symbol = '…/'
+truncate_to_repo = false
+
+[directory.substitutions]
+'Documents' = '󰈙'
+'Downloads' = ' '
+'Music' = ' '
+'Pictures' = ' '
+
+#-------------Character---------------#
+#-------------------------------------#
+[character]
+success_symbol = "[❯](bold fg:bright-purple)"
+error_symbol = "[❯](bold fg:bright-red)"
+vimcmd_symbol = "[❮](bold fg:bright-yellow)"
+vimcmd_visual_symbol = "[❮](bold fg:bright-blue)"
+vimcmd_replace_symbol = "[❮](bold fg:bright-purple)"
+vimcmd_replace_one_symbol = "[❮](bold fg:bright-purple)"
+
+#---------Git Modules----------#
+#------------------------------#
+[git_branch]
+style = 'fg:bright-purple'
+symbol = ' '
+format = '[on](white) [$symbol$branch ]($style)'
+
+[git_status]
+style = "fg:bright-purple"
+format = "[$modified$deleted$untracked$ahead_behind]($style) "
+modified = " "
+deleted = " "
+untracked = " "
+ahead = " "
+behind = " "
+up_to_date = " "
+
+#----Background Jobs-------#
+#--------------------------#
+[jobs]
+symbol = ' '
+style = 'bright-red'
+number_threshold = 1
+format = '[$symbol]($style)'
+
+#--------Cmd Duration------#
+#--------------------------#
+[cmd_duration]
+min_time = 500
+style = 'fg:black'
+format = '[$duration]($style)'
+
+
+[fill]
+symbol = ' '
+
+#---------Languages---------#
+#---------------------------#
+
+[python]
+style = 'bright-yellow'
+symbol = ' '
+format = '[${symbol}${pyenv_prefix}(${version} )(\($virtualenv\) )]($style)'
+pyenv_version_name = true
+pyenv_prefix = ''
+
+[lua]
+symbol = ' '
+
+[nodejs]
+style = 'bright-blue'
+symbol = ' '
+
+[golang]
+style = 'bright-blue'
+symbol = ' '
+
+[haskell]
+style = 'bright-blue'
+symbol = ' '
+
+[rust]
+style = 'bright-purple'
+symbol = ' '
+
+[ruby]
+style = 'bright-blue'
+symbol = ' '
+
+[package]
+symbol = '󰏗 '
+
+[aws]
+symbol = ' '
+style = 'bright-yellow'
+format = '[$symbol($profile )(\[$duration\] )]($style)'
+
+[docker_context]
+symbol = ' '
+style = 'fg:bright-blue'
+format = '[$symbol]($style) $path'
+detect_files = ['docker-compose.yml', 'docker-compose.yaml', 'Dockerfile']
+detect_extensions = ['Dockerfile']
+

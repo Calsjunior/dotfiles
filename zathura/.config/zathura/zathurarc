@@ -1,0 +1,3 @@
+set selection-clipboard clipboard
+set sandbox none
+map f follow
