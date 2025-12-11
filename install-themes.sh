@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 DEST="/usr/lib/python3.13/site-packages/caelestia/data/schemes"
-REPO_DIR="$(dirname "$(realpath "$0")")/colorschemes"
+REPO_DIR="$(dirname "$(realpath "$0")")/schemes"
 
 echo "Linking themes from $REPO_DIR to $DEST..."
 
