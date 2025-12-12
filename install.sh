@@ -15,6 +15,7 @@ declare -A packages=(
 declare -A install_packages=(
     [hypr]="hyprland:hyprland"
     [caelestia]="caelestia:caelestia-shell-git"
+    [schemes]="none"
 )
 
 packages_selected=false
@@ -104,6 +105,11 @@ check_dependencies() {
     local folder
     for folder in "${!install_packages[@]}"; do
         get_package_info "${install_packages["$folder"]}"
+
+        if [[ "$command_value" == "none" || -z "$command_value" ]]; then
+            continue
+        fi
+
         if ! command -v "$command_value" &>/dev/null; then
             missing_package+=("$package_value")
         fi
