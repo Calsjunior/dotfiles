@@ -109,10 +109,22 @@ check_dependencies() {
         fi
     done
 
-    if [[ ! -z "$missing_package" ]]; then
+    if [[ -n "$missing_package" ]]; then
         warn "Missing packages: ${missing_package[@]}. Installing now..."
         "$aur_helper" -S "${missing_package[@]}"
+        return
     fi
+
+    success "All dependencies satistied."
+}
+
+run_stow() {
+    log "Stowing packages..."
+
+    for folder in "${!install_packages[@]}"; do
+        success "Stowing $folder..."
+        stow -t "$HOME" "$folder"
+    done
 }
 
 # Start
@@ -188,5 +200,5 @@ else
     success "Skipping backup..."
 fi
 
-echo "${install_packages[@]}"
 check_dependencies
+run_stow
