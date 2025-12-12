@@ -24,19 +24,14 @@ warn() {
 }
 
 print_help() {
-    echo "Usage: ./install.sh [-h] [--options]"
-    echo
-    echo "options:"
-    echo "  -h, --help                 show this help message and exit"
-    echo "  --noconfirm                do not confirm package installation"
-    echo "  --fastfetch                install fastfetch config"
-    echo "  --kitty                    install kitty config"
-    echo "  --nvim                     install nvim config"
-    echo "  --starship                 install starship config"
-    echo "  --yazi                     install yazi config"
-    echo "  --zathura                  install zathura config"
-    echo "  --zshrc                    install zathura config"
-    echo "  --aur-helper=[yay|paru]    the AUR helper to use"
+    echo " Usage: ./install.sh [-h] [--options]"
+    echo " options:"
+    printf "%-30s %s\n" " -h, --help" "show this help message and exit"
+    printf "%-30s %s\n" " --noconfirm" "do not confirm package installation"
+    printf "%-30s %s\n" " --aur-helper=[yay|paru]" "the AUR helper to use"
+    for package in "${packages[@]}"; do
+        printf "%-30s %s\n" " --$package" "install $package config"
+    done
 }
 
 backup() {
