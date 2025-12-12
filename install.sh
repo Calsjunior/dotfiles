@@ -52,10 +52,10 @@ print_help() {
     printf "%-30s %s\n" " -h, --help" "show this help message and exit"
     printf "%-30s %s\n" " --noconfirm" "do not confirm package installation"
     printf "%-30s %s\n" " --aur-helper=[yay|paru]" "the AUR helper to use"
-    local package
-    for package in "${!packages[@]}"; do
-        get_package_info "${packages["$package"]}"
-        printf "%-30s %s\n" " --$package" "install $package_value config"
+    local folder
+    for folder in "${!packages[@]}"; do
+        get_package_info "${packages["$folder"]}"
+        printf "%-30s %s\n" " --$folder" "install $package_value config"
     done
 }
 
@@ -82,7 +82,7 @@ check_dependencies() {
     log "Checking dependencies..."
 
     # Check if user input aur_helper
-    if [[ ! -z "$aur_helper" ]]; then
+    if [[ -n "$aur_helper" ]]; then
         if ! command -v "$aur_helper" &>/dev/null; then
             warn "$aur_helper is not installed. Please install $aur_helper to proceed."
             return
@@ -101,9 +101,9 @@ check_dependencies() {
 
     # Check if selected packages are installed
     local missing_package=()
-    local package
-    for package in "${!install_packages[@]}"; do
-        get_package_info "${install_packages["$package"]}"
+    local folder
+    for folder in "${!install_packages[@]}"; do
+        get_package_info "${install_packages["$folder"]}"
         if ! command -v "$command_value" &>/dev/null; then
             missing_package+=("$package_value")
         fi
