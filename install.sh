@@ -197,7 +197,7 @@ for args in "$@"; do
             ;;
         "--"*)
             input_folder="${args#--}"
-            if [[ "${packages[*]}" != *"$input_folder"* ]]; then
+            if [[ ! -v packages["$input_folder"] ]]; then
                 warn "Unknown option: $args"
                 exit 1
             fi
