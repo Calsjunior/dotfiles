@@ -2,18 +2,19 @@
 
 # Hypr, caelestia will be always installed
 declare -A packages=(
-    [fastfetch]="fastfetch"
-    [kitty]="kitty"
-    [nvim]="nvim"
-    [starship]="starship"
-    [yazi]="yazi"
-    [zathura]="zathura"
-    [zsh]="zsh"
+    # [Folder] = "Command:Package"
+    [fastfetch]="fastfetch:fastfetch"
+    [kitty]="kitty:kitty"
+    [nvim]="nvim:nvim"
+    [starship]="starship:starship"
+    [yazi]="yazi:yazi"
+    [zathura]="zathura:zathura"
+    [zshrc]="zsh:zsh"
 )
 
 declare -A install_packages=(
-    [hyprland]="hyprland"
-    [caelestia]="caelestia-shell-git"
+    [hypr]="hyprland:hyprland"
+    [caelestia]="caelestia:caelestia-shell-git"
 )
 
 no_confirm=false
@@ -37,14 +38,24 @@ warn() {
     echo -e "${red} $1 ${default}"
 }
 
+get_package_info() {
+    local value=$1
+
+    # Get Command:Package
+    command_value="${value%%:*}"
+    package_value="${value##*:}"
+}
+
 print_help() {
     echo " Usage: ./install.sh [-h] [--options]"
     echo " options:"
     printf "%-30s %s\n" " -h, --help" "show this help message and exit"
     printf "%-30s %s\n" " --noconfirm" "do not confirm package installation"
     printf "%-30s %s\n" " --aur-helper=[yay|paru]" "the AUR helper to use"
-    for package in "${packages[@]}"; do
-        printf "%-30s %s\n" " --$package" "install $package config"
+    local package
+    for package in "${!packages[@]}"; do
+        get_package_info "${packages["$package"]}"
+        printf "%-30s %s\n" " --$package" "install $package_value config"
     done
 }
 
@@ -89,10 +100,12 @@ check_dependencies() {
     fi
 
     # Check if selected packages are installed
-    missing_package=()
+    local missing_package=()
+    local package
     for package in "${!install_packages[@]}"; do
-        if ! command -v "$package" &>/dev/null; then
-            missing_package+=("$package")
+        get_package_info "${install_packages["$package"]}"
+        if ! command -v "$command_value" &>/dev/null; then
+            missing_package+=("$package_value")
         fi
     done
 
@@ -128,7 +141,7 @@ for args in "$@"; do
 
             # Check for duplicate packages
             if [[ -z "${install_packages[$input_package]}" ]]; then
-                install_packages["$input_package"]="$input_package"
+                install_packages["$input_package"]="$input_package":"$input_package"
                 packages_selected=true
             fi
             ;;
@@ -137,7 +150,7 @@ done
 
 if ! "$packages_selected"; then
     for package in "${!packages[@]}"; do
-        install_packages["$package"]="${packages[$package]}"
+        install_packages["$package"]="${packages["$package"]}"
     done
 fi
 
