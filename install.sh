@@ -133,15 +133,15 @@ for args in "$@"; do
             fi
             ;;
         "--"*)
-            input_package="${args#--}"
-            if [[ "${packages[*]}" != *"$input_package"* ]]; then
+            input_folder="${args#--}"
+            if [[ "${packages[*]}" != *"$input_folder"* ]]; then
                 warn "Unknown option: $args"
                 exit 1
             fi
 
             # Check for duplicate packages
-            if [[ -z "${install_packages[$input_package]}" ]]; then
-                install_packages["$input_package"]="$input_package":"$input_package"
+            if [[ -z "${install_packages[$input_folder]}" ]]; then
+                install_packages["$input_folder"]="${packages["$input_folder"]}"
                 packages_selected=true
             fi
             ;;
@@ -149,8 +149,8 @@ for args in "$@"; do
 done
 
 if ! "$packages_selected"; then
-    for package in "${!packages[@]}"; do
-        install_packages["$package"]="${packages["$package"]}"
+    for folder in "${!packages[@]}"; do
+        install_packages["$folder"]="${packages["$folder"]}"
     done
 fi
 
