@@ -23,6 +23,7 @@ aur_helper=""
 
 dotfiles="$(dirname "$(realpath "$0")")"
 config="$HOME/.config"
+caelestia_schemes="/usr/lib/python3.13/site-packages/caelestia/data/schemes"
 
 # Colors
 blue='\033[0;34m'
@@ -124,11 +125,50 @@ check_dependencies() {
     success "All dependencies satistied."
 }
 
+install_schemes() {
+    log "Installing custom caelestia themes..."
+
+    local schemes_dir="$dotfiles/schemes"
+    if [[ ! -d "$schemes_dir" ]]; then
+        warn "Schemes folder missing in dotfiles. Schemes won't be installed."
+        return
+    fi
+
+    if [[ ! -d "$caelestia_schemes" ]]; then
+        warn "Caelestia schemes directory not found. Is caelestia-shell installed?"
+        return
+    fi
+
+    for theme_path in "$schemes_dir"/*; do
+        if [[ ! -d "$theme_path" ]]; then
+            continue
+        fi
+
+        local theme_name=$(basename "$theme_path")
+        local source_file="$theme_path/hard/dark.txt"
+        local target_dir="$caelestia_schemes/$theme_name/hard"
+
+        if [[ ! -f "$source_file" ]]; then
+            warn "Missing scheme file. Source file need to be at $source_file."
+        fi
+
+        log "Linking scheme: $theme_name..."
+        sudo mkdir -p "$target_dir"
+        sudo ln -sf "$source_file" "$target_dir/dark.txt"
+    done
+
+    success "Done linking themes."
+}
+
 run_stow() {
     log "Stowing packages..."
 
     local folder
     for folder in "${!install_packages[@]}"; do
+        if [[ "$folder" == "schemes" ]]; then
+            install_schemes
+        fi
+
         if [[ ! -d "$dotfiles/$folder" ]]; then
             warn "$folder doesn't exists. Skipping..."
             continue
