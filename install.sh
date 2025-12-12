@@ -3,7 +3,7 @@
 # Hypr, caelestia will be always installed
 no_confirm=false
 always_install=("hypr" "caelestia")
-packages=("fastfetch" "kitty" "neovim" "starship" "yazi" "zathura" "zshrc")
+packages=("fastfetch" "kitty" "nvim" "starship" "yazi" "zathura" "zshrc")
 install_packages=()
 aur_helper=""
 config="$HOME/.config"
@@ -31,7 +31,7 @@ print_help() {
     echo "  --noconfirm                do not confirm package installation"
     echo "  --fastfetch                install fastfetch config"
     echo "  --kitty                    install kitty config"
-    echo "  --neovim                   install neovim config"
+    echo "  --nvim                     install nvim config"
     echo "  --starship                 install starship config"
     echo "  --yazi                     install yazi config"
     echo "  --zathura                  install zathura config"
@@ -78,6 +78,19 @@ check_dependencies() {
         warn "AUR helper is not installed. Please install an AUR helper like yay or paru to proceed."
         return
     fi
+
+    # Check if selected packages are installed
+    missing_package=()
+    for package in "${install_packages[@]}"; do
+        if ! command -v "$package" &>/dev/null; then
+            missing_package+=("$package")
+        fi
+    done
+
+    if [[ ! -z "$missing_package" ]]; then
+        log "Missing packages: ${missing_package[@]}. Installing now..."
+        "$aur_helper" -S "${missing_package[@]}"
+    fi
 }
 
 # Start
@@ -99,11 +112,14 @@ for args in "$@"; do
             ;;
         "--"*)
             input_package="${args#--}"
-            if [[ " ${packages[*]}" == *"$input_package"* ]]; then
-                install_packages+=("$input_package")
-            else
+            if [[ "${packages[*]}" != *"$input_package"* ]]; then
                 warn "Unknown option: $args"
                 exit 1
+            fi
+
+            # Check for duplicate packages
+            if [[ "${install_packages[*]}" != *"$input_package"* ]]; then
+                install_packages+=("$input_package")
             fi
             ;;
     esac
