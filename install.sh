@@ -1,10 +1,22 @@
 #!/usr/bin/env bash
 
 # Hypr, caelestia will be always installed
+declare -A packages=(
+    [fastfetch]="fastfetch"
+    [kitty]="kitty"
+    [nvim]="nvim"
+    [starship]="starship"
+    [yazi]="yazi"
+    [zathura]="zathura"
+    [zsh]="zsh"
+)
+
+declare -A install_packages=(
+    [hyprland]="hyprland"
+    [caelestia]="caelestia-shell-git"
+)
+
 no_confirm=false
-always_install=("hypr" "caelestia")
-packages=("fastfetch" "kitty" "nvim" "starship" "yazi" "zathura" "zshrc")
-install_packages=()
 aur_helper=""
 config="$HOME/.config"
 
@@ -12,15 +24,16 @@ config="$HOME/.config"
 blue='\033[0;34m'
 green='\033[0;32m'
 red='\033[0;31m'
+default='\033[0m'
 
 log() {
-    echo -e "${blue} $1"
+    echo -e "${blue} $1 ${default}"
 }
 success() {
-    echo -e "${green} $1"
+    echo -e "${green} $1 ${default}"
 }
 warn() {
-    echo -e "${red} $1"
+    echo -e "${red} $1 ${default}"
 }
 
 print_help() {
@@ -76,14 +89,14 @@ check_dependencies() {
 
     # Check if selected packages are installed
     missing_package=()
-    for package in "${install_packages[@]}"; do
+    for package in "${!install_packages[@]}"; do
         if ! command -v "$package" &>/dev/null; then
             missing_package+=("$package")
         fi
     done
 
     if [[ ! -z "$missing_package" ]]; then
-        log "Missing packages: ${missing_package[@]}. Installing now..."
+        warn "Missing packages: ${missing_package[@]}. Installing now..."
         "$aur_helper" -S "${missing_package[@]}"
     fi
 }
@@ -113,8 +126,8 @@ for args in "$@"; do
             fi
 
             # Check for duplicate packages
-            if [[ "${install_packages[*]}" != *"$input_package"* ]]; then
-                install_packages+=("$input_package")
+            if [[ -z "${install_packages[$input_package]}" ]]; then
+                install_packages["$input_package"]="$input_package"
             fi
             ;;
     esac
@@ -154,4 +167,5 @@ else
     success "Skipping backup..."
 fi
 
+echo "${install_packages[@]}"
 check_dependencies
