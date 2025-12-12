@@ -76,7 +76,11 @@ check_dependencies() {
     fi
 
     # Check if yay and paru installed on system if user did not input
-    if ! command -v yay &>/dev/null && ! command -v paru &>/dev/null; then
+    if command -v yay &>/dev/null; then
+        aur_helper="yay"
+    elif command -v paru &>/dev/null; then
+        aur_helper="paru"
+    else
         warn "AUR helper is not installed. Please install an AUR helper like yay or paru to proceed."
         return
     fi
@@ -145,7 +149,7 @@ echo "   ███    ███     ███       ███    ███     �
 echo "   ███    █▀     ▄████▀     ███    █▀      ██████████  ▀█   █▀    ███    █▀  "
 echo ""
 log "Welcome to athena dotfiles installer!"
-if [[ "$no_confirm" = "true" ]]; then
+if "$no_confirm"; then
     backup
     check_dependencies
     exit 1
