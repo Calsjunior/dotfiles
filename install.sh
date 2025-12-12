@@ -181,8 +181,6 @@ run_stow() {
         stow -n -t "$HOME" "$folder"
     done
 
-    echo ""
-    success "Done! Enjoy the setup!"
 }
 
 # Start
@@ -251,3 +249,6 @@ fi
 
 check_dependencies
 run_stow
+
+echo ""
+success "Done! Enjoy the setup!"
