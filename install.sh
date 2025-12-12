@@ -19,6 +19,8 @@ declare -A install_packages=(
 
 packages_selected=false
 aur_helper=""
+
+dotfiles="$(dirname "$(realpath "$0")")"
 config="$HOME/.config"
 
 # Colors
@@ -119,10 +121,17 @@ check_dependencies() {
 run_stow() {
     log "Stowing packages..."
 
+    local folder
     for folder in "${!install_packages[@]}"; do
+        if [[ ! -d "$dotfiles/$folder" ]]; then
+            warn "$folder doesn't exists. Skipping..."
+            continue
+        fi
         success "Stowing $folder..."
-        stow -t "$HOME" "$folder"
+        stow -n -t "$HOME" "$folder"
     done
+    echo ""
+    success "Done! Enjoy the setup!"
 }
 
 # Start
