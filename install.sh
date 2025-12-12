@@ -17,6 +17,7 @@ declare -A install_packages=(
 )
 
 no_confirm=false
+packages_selected=false
 aur_helper=""
 config="$HOME/.config"
 
@@ -128,10 +129,17 @@ for args in "$@"; do
             # Check for duplicate packages
             if [[ -z "${install_packages[$input_package]}" ]]; then
                 install_packages["$input_package"]="$input_package"
+                packages_selected=true
             fi
             ;;
     esac
 done
+
+if ! "$packages_selected"; then
+    for package in "${!packages[@]}"; do
+        install_packages["$package"]="${packages[$package]}"
+    done
+fi
 
 echo ""
 echo "    ▄████████     ███        ▄█    █▄       ▄████████ ███▄▄▄▄      ▄████████ "
