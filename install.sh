@@ -4,7 +4,7 @@
 no_confirm=false
 install_fastfetch=false
 install_kitty=false
-install_nvim=false
+install_neovim=false
 install_starship=false
 install_yazi=false
 install_zathura=false
@@ -36,7 +36,7 @@ print_help() {
     echo "  --noconfirm                do not confirm package installation"
     echo "  --fastfetch                install fastfetch config"
     echo "  --kitty                    install kitty config"
-    echo "  --nvim                     install nvim config"
+    echo "  --neovim                   install neovim config"
     echo "  --starship                 install starship config"
     echo "  --yazi                     install yazi config"
     echo "  --zathura                  install zathura config"
@@ -102,8 +102,8 @@ while [[ $# -gt 0 ]]; do
             install_kitty=true
             shift
             ;;
-        --nvim)
-            install_nvim=true
+        --neovim)
+            install_neovim=true
             shift
             ;;
         --starship)
