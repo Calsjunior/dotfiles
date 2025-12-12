@@ -1,16 +1,10 @@
 #!/usr/bin/env bash
 
-# Hypr, caelestia, and gtks config will be always installed
+# Hypr, caelestia will be always installed
 no_confirm=false
-install_fastfetch=false
-install_kitty=false
-install_neovim=false
-install_starship=false
-install_yazi=false
-install_zathura=false
-install_fastfetch=false
+install_packages=("hypr" "caelestia")
+packages=("fastfetch" "kitty" "neovim" "starship" "yazi" "zathura" "zshrc")
 aur_helper=""
-
 config="$HOME/.config"
 
 # Colors
@@ -42,7 +36,6 @@ print_help() {
     echo "  --zathura                  install zathura config"
     echo "  --zshrc                    install zathura config"
     echo "  --aur-helper=[yay|paru]    the AUR helper to use"
-    exit 0
 }
 
 backup() {
@@ -87,53 +80,30 @@ check_dependencies() {
 }
 
 # Start
-while [[ $# -gt 0 ]]; do
-    case "$1" in
-        -h | --help) print_help ;;
-        --noconfirm)
+for args in "$@"; do
+    case "$args" in
+        "-h" | "--help")
+            print_help
+            exit 0
+            ;;
+        "--noconfirm")
             no_confirm=true
-            shift
             ;;
-        --fastfetch)
-            install_fastfetch=true
-            shift
+        "--aur-helper="*)
+            aur_helper="${args#--aur-helper}"
+            if [[ "$aur_helper" != "yay" && "$aur_helper" != "paru" ]]; then
+                warn "--aur-helper must be yay or paru"
+                exit 0
+            fi
             ;;
-        --kitty)
-            install_kitty=true
-            shift
-            ;;
-        --neovim)
-            install_neovim=true
-            shift
-            ;;
-        --starship)
-            install_starship=true
-            shift
-            ;;
-        --yazi)
-            install_yazi=true
-            shift
-            ;;
-        --zathura)
-            install_zathura=true
-            shift
-            ;;
-        --zshrc)
-            install_fastfetch=true
-            shift
-            ;;
-        --aur-helper=*)
-            helper="${1#*=}"
-            if [[ "$helper" != "yay" && "$helper" != "paru" ]]; then
-                echo "Error: --aur-helper must be 'yay' or 'paru'"
+        "--"*)
+            input_package="${args#--}"
+            if [[ " ${packages[*]}" == *"$input_package"* ]]; then
+                install_packages+=("$input_package")
+            else
+                warn "Unknown option: $args"
                 exit 1
             fi
-            aur_helper="$helper"
-            shift
-            ;;
-        *)
-            echo "Unknown option: $1"
-            exit 1
             ;;
     esac
 done
@@ -152,7 +122,7 @@ log "Welcome to athena dotfiles installer!"
 if "$no_confirm"; then
     backup
     check_dependencies
-    exit 1
+    exit 0
 fi
 
 log "Before we start, would you like to backup your config directory?"
@@ -163,7 +133,7 @@ read -sn 1 choice
 
 if [[ ! "$choice" =~ [1-2] ]]; then
     log "Exiting..."
-    exit 1
+    exit 0
 fi
 
 if [ "$choice" == 1 ]; then
