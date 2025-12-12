@@ -176,7 +176,7 @@ run_stow() {
             continue
         fi
         success "Stowing $folder..."
-        stow -n -t "$HOME" "$folder"
+        stow -t "$HOME" "$folder"
     done
 
 }
