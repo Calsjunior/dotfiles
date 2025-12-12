@@ -69,7 +69,8 @@ backup() {
 
     warn "Backup already exists. Do you want to overwrite? [Y/N]"
     read -sn 1 choice
-    if [[ "$choice" == "y" || "$choice" == "Y" ]]; then
+
+    if [[ "$choice" =~ [yY] ]]; then
         rm -rf $config.bak
         cp -r $config $config.bak
         return
@@ -153,8 +154,8 @@ install_schemes() {
             warn "Missing scheme file. Source file need to be at $source_file."
         fi
 
-        success "Linking scheme: $theme_name..."
         sudo mkdir -p "$target_dir"
+        success "Linking scheme: $theme_name..."
         sudo ln -sf "$source_file" "$target_dir/dark.txt"
     done
 
@@ -163,15 +164,12 @@ install_schemes() {
 }
 
 run_stow() {
-    local folder
-    for folder in "${!install_packages[@]}"; do
-        if [[ "$folder" == "schemes" ]]; then
-            install_schemes
-            break
-        fi
-    done
+    if [[ -v install_packages["schemes"] ]]; then
+        install_schemes
+    fi
 
     log "Stowing packages..."
+    local folder
     for folder in "${!install_packages[@]}"; do
         if [[ ! -d "$dotfiles/$folder" ]]; then
             warn "$folder doesn't exists. Skipping..."
