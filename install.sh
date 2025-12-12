@@ -2,8 +2,9 @@
 
 # Hypr, caelestia will be always installed
 no_confirm=false
-install_packages=("hypr" "caelestia")
+always_install=("hypr" "caelestia")
 packages=("fastfetch" "kitty" "neovim" "starship" "yazi" "zathura" "zshrc")
+install_packages=()
 aur_helper=""
 config="$HOME/.config"
 
@@ -90,7 +91,7 @@ for args in "$@"; do
             no_confirm=true
             ;;
         "--aur-helper="*)
-            aur_helper="${args#--aur-helper}"
+            aur_helper="${args#--aur-helper=}"
             if [[ "$aur_helper" != "yay" && "$aur_helper" != "paru" ]]; then
                 warn "--aur-helper must be yay or paru"
                 exit 0
