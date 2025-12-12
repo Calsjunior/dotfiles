@@ -123,6 +123,7 @@ check_dependencies() {
     fi
 
     success "All dependencies satistied."
+    echo ""
 }
 
 install_schemes() {
@@ -157,8 +158,8 @@ install_schemes() {
         sudo ln -sf "$source_file" "$target_dir/dark.txt"
     done
 
-    echo ""
     success "Done linking themes."
+    echo ""
 }
 
 run_stow() {
