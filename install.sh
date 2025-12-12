@@ -17,7 +17,6 @@ declare -A install_packages=(
     [caelestia]="caelestia:caelestia-shell-git"
 )
 
-no_confirm=false
 packages_selected=false
 aur_helper=""
 config="$HOME/.config"
@@ -50,7 +49,6 @@ print_help() {
     echo " Usage: ./install.sh [-h] [--options]"
     echo " options:"
     printf "%-30s %s\n" " -h, --help" "show this help message and exit"
-    printf "%-30s %s\n" " --noconfirm" "do not confirm package installation"
     printf "%-30s %s\n" " --aur-helper=[yay|paru]" "the AUR helper to use"
     local folder
     for folder in "${!packages[@]}"; do
@@ -134,9 +132,6 @@ for args in "$@"; do
             print_help
             exit 0
             ;;
-        "--noconfirm")
-            no_confirm=true
-            ;;
         "--aur-helper="*)
             aur_helper="${args#--aur-helper=}"
             if [[ "$aur_helper" != "yay" && "$aur_helper" != "paru" ]]; then
@@ -177,12 +172,6 @@ echo "   ███    ███     ███       ███    ███     �
 echo "   ███    █▀     ▄████▀     ███    █▀      ██████████  ▀█   █▀    ███    █▀  "
 echo ""
 log "Welcome to athena dotfiles installer!"
-if "$no_confirm"; then
-    backup
-    check_dependencies
-    exit 0
-fi
-
 log "Before we start, would you like to backup your config directory?"
 echo ""
 log "[1] Yes, please!    [2] Nope, I already did."
