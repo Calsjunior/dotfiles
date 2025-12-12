@@ -152,23 +152,26 @@ install_schemes() {
             warn "Missing scheme file. Source file need to be at $source_file."
         fi
 
-        log "Linking scheme: $theme_name..."
+        success "Linking scheme: $theme_name..."
         sudo mkdir -p "$target_dir"
         sudo ln -sf "$source_file" "$target_dir/dark.txt"
     done
 
+    echo ""
     success "Done linking themes."
 }
 
 run_stow() {
-    log "Stowing packages..."
-
     local folder
     for folder in "${!install_packages[@]}"; do
         if [[ "$folder" == "schemes" ]]; then
             install_schemes
+            break
         fi
+    done
 
+    log "Stowing packages..."
+    for folder in "${!install_packages[@]}"; do
         if [[ ! -d "$dotfiles/$folder" ]]; then
             warn "$folder doesn't exists. Skipping..."
             continue
@@ -176,6 +179,7 @@ run_stow() {
         success "Stowing $folder..."
         stow -n -t "$HOME" "$folder"
     done
+
     echo ""
     success "Done! Enjoy the setup!"
 }
