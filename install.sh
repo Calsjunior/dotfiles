@@ -104,6 +104,12 @@ check_dependencies() {
         return
     fi
 
+    # Always install stow
+    if ! command -v stow &>/dev/null; then
+        warn "Stow is missing. Installing..."
+        "$aur_helper" -S stow
+    fi
+
     # Check if selected packages are installed
     local missing_package=()
     local folder
