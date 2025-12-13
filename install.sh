@@ -16,7 +16,6 @@ declare -A install_packages=(
     [hypr]="hyprland:hyprland"
     [caelestia]="caelestia:caelestia-shell-git"
     [schemes]="none"
-    [scripts]="inotifywait:inotify-tools"
 )
 
 packages_selected=false
@@ -181,22 +180,6 @@ run_stow() {
 
         install_schemes
         unset install_packages[schemes]
-    fi
-
-    # Handle scripts
-    local local_bin="$HOME/.local/bin"
-    if [[ -v install_packages["scripts"] ]]; then
-        if [[ ! -d "$dotfiles/scripts" ]]; then
-            warn "Scripts folder missing. Skipping..."
-            return
-        fi
-
-        mkdir -p "$local_bin"
-        stow -t "$local_bin" scripts
-        log "Stowing scripts to $local_bin..."
-        success "Stowed scripts."
-        echo ""
-        unset install_packages["scripts"]
     fi
 
     # Handle packages
