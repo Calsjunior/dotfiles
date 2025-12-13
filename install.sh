@@ -157,7 +157,7 @@ install_schemes() {
         fi
 
         sudo mkdir -p "$target_dir"
-        success "Linking scheme: $theme_name..."
+        log "Linking scheme: $theme_name..."
         sudo ln -sf "$source_file" "$target_dir/dark.txt"
     done
 
@@ -189,6 +189,7 @@ run_stow() {
         stow -t "$local_bin" scripts
         log "Stowing scripts to $local_bin..."
         success "Stowed scripts."
+        echo ""
         unset install_packages["scripts"]
     fi
 
@@ -269,6 +270,7 @@ if [ "$choice" == 1 ]; then
     backup
 else
     success "Skipping backup..."
+    echo ""
 fi
 
 check_dependencies
