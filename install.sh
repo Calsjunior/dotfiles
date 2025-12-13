@@ -167,10 +167,16 @@ install_schemes() {
 
 run_stow() {
     if [[ -v install_packages["schemes"] ]]; then
+        if [[ ! -d "$dotfiles/schemes" ]]; then
+            warn "schemes folder missing. Skipping..."
+            return
+        fi
+
         install_schemes
         unset install_packages[schemes]
     fi
 
+    # Handle scripts
     local local_bin="$HOME/.local/bin"
     if [[ -v install_packages["scripts"] ]]; then
         if [[ ! -d "$dotfiles/scripts" ]]; then
