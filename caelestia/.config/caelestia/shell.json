@@ -306,7 +306,7 @@
             }
         ],
         "dragThreshold": 50,
-        "vimKeybinds": false,
+        "vimKeybinds": true,
         "enableDangerousActions": false,
         "maxShown": 7,
         "maxWallpapers": 9,
@@ -357,7 +357,7 @@
     "session": {
         "dragThreshold": 30,
         "enabled": true,
-        "vimKeybinds": false,
+        "vimKeybinds": true,
         "commands": {
             "logout": ["loginctl", "terminate-user", ""],
             "shutdown": ["systemctl", "poweroff"],
