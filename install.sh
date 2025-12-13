@@ -16,7 +16,7 @@ declare -A install_packages=(
     [hypr]="hyprland:hyprland"
     [caelestia]="caelestia:caelestia-shell-git"
     [schemes]="none"
-    [scripts]="scripts:inotify-tools"
+    [scripts]="inotifywait:inotify-tools"
 )
 
 packages_selected=false
@@ -166,6 +166,7 @@ install_schemes() {
 }
 
 run_stow() {
+    # Handle schemes
     if [[ -v install_packages["schemes"] ]]; then
         if [[ ! -d "$dotfiles/schemes" ]]; then
             warn "schemes folder missing. Skipping..."
@@ -191,16 +192,19 @@ run_stow() {
         unset install_packages["scripts"]
     fi
 
+    # Handle packages
     log "Stowing packages..."
     local folder
+    local to_stow=()
     for folder in "${!install_packages[@]}"; do
         if [[ ! -d "$dotfiles/$folder" ]]; then
             warn "$folder doesn't exists. Skipping..."
             continue
         fi
-        stow -t "$HOME" "$folder"
-        success "Stowing $folder..."
+        to_stow+=("$folder")
     done
+    stow -n -t "$HOME" "$folder"
+    success "Stowing ${!folder[@]}..."
 }
 
 # Start
