@@ -16,6 +16,7 @@ declare -A install_packages=(
     [hypr]="hyprland:hyprland"
     [caelestia]="caelestia:caelestia-shell-git"
     [schemes]="none"
+    [scripts]="scripts:inotify-tools"
 )
 
 packages_selected=false
@@ -164,12 +165,24 @@ install_schemes() {
     echo ""
 }
 
-# TODO: implement kitty color setup
-
 run_stow() {
     if [[ -v install_packages["schemes"] ]]; then
         install_schemes
         unset install_packages[schemes]
+    fi
+
+    local local_bin="$HOME/.local/bin"
+    if [[ -v install_packages["scripts"] ]]; then
+        if [[ ! -d "$dotfiles/scripts" ]]; then
+            warn "Scripts folder missing. Skipping..."
+            return
+        fi
+
+        mkdir -p "$local_bin"
+        stow -t "$local_bin" scripts
+        log "Stowing scripts to $local_bin..."
+        success "Stowed scripts."
+        unset install_packages["scripts"]
     fi
 
     log "Stowing packages..."
@@ -179,10 +192,9 @@ run_stow() {
             warn "$folder doesn't exists. Skipping..."
             continue
         fi
-        success "Stowing $folder..."
         stow -t "$HOME" "$folder"
+        success "Stowing $folder..."
     done
-
 }
 
 # Start
