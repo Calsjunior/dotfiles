@@ -61,6 +61,7 @@ print_help() {
     done
 }
 
+# TODO: implement a better backup logic instead of backing up the entire .config
 backup() {
     if [[ ! -d "$config.bak" ]]; then
         cp -r $config $config.bak
@@ -163,9 +164,12 @@ install_schemes() {
     echo ""
 }
 
+# TODO: implement kitty color setup
+
 run_stow() {
     if [[ -v install_packages["schemes"] ]]; then
         install_schemes
+        unset install_packages[schemes]
     fi
 
     log "Stowing packages..."
