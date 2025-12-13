@@ -193,7 +193,6 @@ run_stow() {
     fi
 
     # Handle packages
-    log "Stowing packages..."
     local folder
     local to_stow=()
     for folder in "${!install_packages[@]}"; do
@@ -203,8 +202,9 @@ run_stow() {
         fi
         to_stow+=("$folder")
     done
-    stow -n -t "$HOME" "$folder"
-    success "Stowing ${!folder[@]}..."
+    stow -t "$HOME" "$folder"
+    log "Stowing packages: ${to_stow[*]}"
+    success "Finished stowing packages."
 }
 
 # Start
