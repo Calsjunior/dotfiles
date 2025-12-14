@@ -36,7 +36,7 @@
             "terminal": ["kitty"],
             "audio": ["pavucontrol"],
             "playback": ["mpv"],
-            "explorer": ["kitty yazi"]
+            "explorer": ["kitty", "-e", "yazi"]
         },
         "battery": {
             "warnLevels": [
