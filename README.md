@@ -23,13 +23,13 @@ git clone https://github.com/Calsjunior/dotfiles.git ~/athena-dotfiles
 cd ~/athena-dotfiles
 ```
 
-1. Run the installer:
+2. Run the installer:
 ```bash
 chmod +x install.sh
 ./install.sh
 ```
 
-1. Follow the prompts: the script will ask for you to backup your existing configs and check for dependencies
+3. Follow the prompts: the script will ask for you to backup your existing configs and check for dependencies
 
 ## Usage
 The installer is modular, meaning you can pick and choose specific components.
