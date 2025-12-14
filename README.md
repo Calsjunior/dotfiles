@@ -32,7 +32,7 @@ chmod +x install.sh
 ## Usage
 The installer is modular, meaning you can pick and choose specific components.
 
-| Flag         | Descriptiong                                  |
+| Flag         | Description                                  |
 | ------------ | --------------------------------------------- |
 | --aur-helper | specify aur helper you want to use (yay/paru) |
 | --fastfetch  | install fastfetch config                      |
