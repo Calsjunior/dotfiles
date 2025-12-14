@@ -2,6 +2,8 @@
 
 A highly configured and automated dotfiles setup for Arch Linux, featuring **Hyprland**, **Caelestia Shell**, and a custom live theme synchronization system.
 
+![Demo](assets/showcase.gif)
+
 ## Features
 - **Hyprland**: Tiling window manager configuration
 - **Caelestia Shell**: The beauty of this dotfiles
