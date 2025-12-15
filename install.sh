@@ -2,19 +2,19 @@
 
 # Hypr, caelestia will be always installed
 declare -A packages=(
-    # [Folder] = "Command:Package"
+    # [Folder] = "Command:Package Command:Package"
     [fastfetch]="fastfetch:fastfetch"
-    [kitty]="kitty:kitty"
-    [nvim]="nvim:nvim"
+    [kitty]="kitty:kitty inotifywait:inotify-tools"
+    [nvim]="nvim:nvim fd:fd ripgrep:ripgrep"
     [starship]="starship:starship"
-    [yazi]="yazi:yazi"
+    [yazi]="yazi:yazi ripdrag:ripdrag"
     [zathura]="zathura:zathura"
-    [zshrc]="zsh:zsh"
+    [zshrc]="zsh:zsh zoxide:zoxide"
 )
 
 declare -A install_packages=(
-    [hypr]="hyprland:hyprland"
-    [caelestia]="caelestia:caelestia-shell-git"
+    [hypr]="hyprland:hyprland stow:stow"
+    [caelestia]="caelestia:caelestia-shell-git wtype:wtype"
     [schemes]="none"
 )
 
@@ -103,25 +103,23 @@ check_dependencies() {
         return
     fi
 
-    # Always install stow
-    if ! command -v stow &>/dev/null; then
-        warn "Stow is missing. Installing..."
-        "$aur_helper" -S stow
-    fi
-
     # Check if selected packages are installed
     local missing_package=()
     local folder
     for folder in "${!install_packages[@]}"; do
-        get_package_info "${install_packages["$folder"]}"
-
-        if [[ "$command_value" == "none" || -z "$command_value" ]]; then
+        local entry="${install_packages["$folder"]}"
+        if [[ "$entry" == "none" || -z "$entry" ]]; then
             continue
         fi
 
-        if ! command -v "$command_value" &>/dev/null; then
-            missing_package+=("$package_value")
-        fi
+        IFS=" " read -r -a depends <<<"$entry"
+        for depend in "${depends[@]}"; do
+            get_package_info "$depend"
+
+            if ! command -v "$command_value" &>/dev/null; then
+                missing_package+=("$package_value")
+            fi
+        done
     done
 
     if [[ -n "$missing_package" ]]; then
