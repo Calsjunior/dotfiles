@@ -190,7 +190,7 @@ run_stow() {
         fi
         to_stow+=("$folder")
     done
-    stow -t "$HOME" "$folder"
+    stow -t "$HOME" "${to_stow[@]}"
     log "Stowing packages: ${to_stow[*]}"
     success "Finished stowing packages."
 }
