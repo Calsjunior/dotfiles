@@ -18,18 +18,18 @@ A highly configured and automated dotfiles setup for Arch Linux, featuring **Hyp
 
 ## Installation
 1. Clone the repository:
-```bash
-git clone https://github.com/Calsjunior/dotfiles.git ~/athena-dotfiles
-cd ~/athena-dotfiles
-```
+    ```bash
+    git clone https://github.com/Calsjunior/dotfiles.git ~/athena-dotfiles
+    cd ~/athena-dotfiles
+    ```
 
-2. Run the installer:
-```bash
-chmod +x install.sh
-./install.sh
-```
+1. Run the installer:
+    ```bash
+    chmod +x install.sh
+    ./install.sh
+    ```
 
-3. Follow the prompts: the script will ask for you to backup your existing configs and check for dependencies
+1. Follow the prompts: the script will ask for you to backup your existing configs and check for dependencies
 
 ## Usage
 The installer is modular, meaning you can pick and choose specific components.
