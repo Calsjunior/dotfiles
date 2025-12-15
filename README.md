@@ -57,6 +57,11 @@ The dotfiles contain custom-made themes for caelestia and the installer will run
 /usr/lib/python3.13/site-packages/caelestia/data/schemes
 ```
 
+## Disclaimer
+If you do not want to include kitty when installing the dotfile, please do the following:
+1. Remove `theme_bridge.sh` script from `~/.config/hypr/scripts/theme_bridge.sh`
+2. Remove `exec-once = $scripts/theme_bridge.sh` from `~/.config/hypr/hyprland.conf` at line 123
+
 # Credits
 - Window Manager: [Hyprland](https://github.com/hyprwm/Hyprland)
 - Shell: [Caelestia-Shell](https://github.com/caelestia-dots/shell)
