@@ -4,7 +4,7 @@
 declare -A packages=(
     # [Folder] = "Command:Package Command:Package"
     [fastfetch]="fastfetch:fastfetch"
-    [kitty]="kitty:kitty inotifywait:inotify-tools"
+    [kitty]="kitty:kitty"
     [nvim]="nvim:nvim fd:fd ripgrep:ripgrep"
     [starship]="starship:starship"
     [yazi]="yazi:yazi ripdrag:ripdrag"
@@ -14,7 +14,7 @@ declare -A packages=(
 )
 
 declare -A install_packages=(
-    [hypr]="hyprland:hyprland stow:stow gammastep:gammastep"
+    [hypr]="hyprland:hyprland stow:stow gammastep:gammastep inotifywait:inotify-tools"
     [caelestia]="caelestia:caelestia-shell-git wtype:wtype"
 )
 
