@@ -156,16 +156,29 @@ install_schemes() {
         fi
 
         local theme_name=$(basename "$theme_path")
-        local source_file="$theme_path/hard/dark.txt"
-        local target_dir="$caelestia_schemes/$theme_name/hard"
+        for flavour_path in "$theme_path"/*; do
+            if [[ ! -d "$flavour_path" ]]; then
+                continue
+            fi
 
-        if [[ ! -f "$source_file" ]]; then
-            warn "Missing scheme file. Source file need to be at $source_file."
-        fi
+            local flavour_name=$(basename "$flavour_path")
+            for mode_file in "$flavour_path"/*; do
+                if [[ ! -f "$mode_file" ]]; then
+                    continue
+                fi
 
-        sudo mkdir -p "$target_dir"
-        log "Linking scheme: $theme_name..."
-        sudo ln -sf "$source_file" "$target_dir/dark.txt"
+                local mode_name=$(basename "$mode_file")
+                local target_dir="$caelestia_schemes/$theme_name/$flavour_name"
+                if [[ ! -d "$target_dir" ]]; then
+                    log "Creating scheme: $theme_name/$flavour_name"
+                    sudo mkdir -p "$target_dir"
+                fi
+
+                sudo mkdir -p "$target_dir"
+                log "Linking scheme: $theme_name..."
+                sudo ln -sf "$mode_file" "$target_dir/$mode_name"
+            done
+        done
     done
 
     success "Done linking themes."
@@ -177,11 +190,11 @@ run_stow() {
     if [[ -v install_packages["schemes"] ]]; then
         if [[ ! -d "$dotfiles/schemes" ]]; then
             warn "schemes folder missing. Skipping..."
-            return
+            unset install_packages[schemes]
+        else
+            install_schemes
+            unset install_packages[schemes]
         fi
-
-        install_schemes
-        unset install_packages[schemes]
     fi
 
     # Handle packages
