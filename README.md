@@ -58,7 +58,7 @@ The dotfiles contain custom-made themes for caelestia and the installer will run
 ```
 
 ## Disclaimer
-If you do not want to include kitty when installing the dotfile, please do the following:
+If you do not want to include kitty or neovim when installing the dotfile, please do the following:
 1. Remove `theme_bridge.sh` script from `~/.config/hypr/scripts/theme_bridge.sh`
 2. Remove `exec-once = $scripts/theme_bridge.sh` from `~/.config/hypr/hyprland.conf` at line 123
 
