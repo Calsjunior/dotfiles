@@ -1,15 +1,5 @@
 return {
     {
-        "folke/tokyonight.nvim",
-        name = "tokyonight",
-        enabled = false,
-    },
-    {
-        "catppuccin/nvim",
-        name = "catppuccin",
-        enabled = false,
-    },
-    {
         "nvim-treesitter/nvim-treesitter",
         opts = {
             indent = {
@@ -27,6 +17,10 @@ return {
     },
     {
         "mfussenegger/nvim-dap-python",
+        enabled = false,
+    },
+    {
+        "nvim-telescope/telescope.nvim",
         enabled = false,
     },
 }
