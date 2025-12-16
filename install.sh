@@ -54,8 +54,12 @@ print_help() {
     echo " options:"
     printf "%-30s %s\n" " -h, --help" "show this help message and exit"
     printf "%-30s %s\n" " --aur-helper=[yay|paru]" "the AUR helper to use"
+    printf "%-30s %s\n" " --schemes" "install/update schemes"
     local folder
     for folder in "${!packages[@]}"; do
+        if [[ "$folder" == "schemes" ]]; then
+            continue
+        fi
         get_package_info "${packages["$folder"]}"
         printf "%-30s %s\n" " --$folder" "install $package_value config"
     done
