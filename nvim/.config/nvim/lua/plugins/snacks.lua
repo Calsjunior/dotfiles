@@ -6,7 +6,6 @@ return {
         { "<leader>fe", false },
         { "<leader>fE", false },
     },
-
     opts = {
         explorer = { enabled = false },
         indent = {
@@ -32,25 +31,57 @@ return {
                 "svg",
             },
         },
+        picker = {
+            enabled = true,
+            actions = {
+                delete_projects = function(picker, _)
+                    Snacks.picker.actions.close(picker)
+                    local items = picker:selected({ fallback = true })
+
+                    vim.schedule(function()
+                        local shada_path = vim.fn.stdpath("state") .. "/shada/main.shada"
+                        local saved_lazyredraw = vim.o.lazyredraw
+                        vim.o.lazyredraw = true
+                        vim.cmd("silent! edit " .. shada_path)
+
+                        local buf = vim.api.nvim_get_current_buf()
+                        local deleted_count = 0
+
+                        for _, item in ipairs(items) do
+                            local regex = "^\\S\\(\\n\\s\\|[^\\n]\\)\\{-}"
+                                .. vim.fn.escape(item.file, "/\\")
+                                .. "\\_.\\{-}\\n*\\ze\\(^\\S\\|\\%$\\)"
+
+                            if pcall(vim.cmd, "silent! %s/" .. regex .. "//g") then
+                                deleted_count = deleted_count + 1
+                            end
+                        end
+
+                        -- Save and clean up
+                        vim.cmd("silent! write!")
+                        vim.cmd("silent! bwipeout! " .. buf)
+                        vim.cmd("silent! rshada!")
+                        vim.o.lazyredraw = saved_lazyredraw
+                        if deleted_count > 0 then
+                            Snacks.notify.info("Deleted " .. deleted_count .. " project(s).")
+                        else
+                            Snacks.notify.warn("Project not found in history.")
+                        end
+                        Snacks.picker.projects()
+                    end)
+                end,
+            },
+            sources = {
+                projects = {
+                    win = {
+                        input = {
+                            keys = {
+                                ["<C-x>"] = { "delete_projects", mode = { "n", "i" } },
+                            },
+                        },
+                    },
+                },
+            },
+        },
     },
-    config = function(_, opts)
-        require("snacks").setup(opts)
-
-        -- Define custom terminal highlights after setup
-        vim.api.nvim_create_autocmd("ColorScheme", {
-            callback = function()
-                local normal = vim.api.nvim_get_hl(0, { name = "Normal" })
-                local darker_bg = normal.bg and normal.bg - 0x0a0a0a or 0x2d353b
-
-                vim.api.nvim_set_hl(0, "SnacksTerminalNormal", {
-                    fg = normal.fg,
-                    bg = darker_bg,
-                })
-                vim.api.nvim_set_hl(0, "SnacksTerminalNormalNC", {
-                    fg = normal.fg,
-                    bg = darker_bg,
-                })
-            end,
-        })
-    end,
 }
