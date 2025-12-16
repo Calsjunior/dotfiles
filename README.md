@@ -51,11 +51,23 @@ Example:
 ./install.sh --kitty --aur-helper=paru
 ```
 
-## Theming
-The dotfiles contain custom-made themes for caelestia and the installer will run with sudo because caelestia stores their theme at
-```bash
-/usr/lib/python3.13/site-packages/caelestia/data/schemes
-```
+## Themes and Schemes
+This dotfiles setup includes a collection of custom themes for Caelestia Shell. I update these themes regularly to add new colors and fixes.
+
+**To update your themes without reinstalling everything:**
+
+1. Pull the latest changes:
+    ```bash
+    cd ~/dotfiles
+    git pull
+    ```
+
+1. Run the installer with the schemes flag:
+    ```bash
+    ./install.sh --schemes
+    ```
+
+This will instantly relink the latest theme files into your system directories at `/usr/lib/python3.13/site-packages/caelestia/data/schemes` so caelestia can see them.
 
 ## Disclaimer
 If you do not want to include kitty or neovim when installing the dotfile, please do the following:
