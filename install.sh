@@ -10,12 +10,12 @@ declare -A packages=(
     [yazi]="yazi:yazi ripdrag:ripdrag"
     [zathura]="zathura:zathura"
     [zshrc]="zsh:zsh zoxide:zoxide"
+    [schemes]="none"
 )
 
 declare -A install_packages=(
     [hypr]="hyprland:hyprland stow:stow gammastep:gammastep"
     [caelestia]="caelestia:caelestia-shell-git wtype:wtype"
-    [schemes]="none"
 )
 
 packages_selected=false
