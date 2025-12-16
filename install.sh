@@ -13,7 +13,7 @@ declare -A packages=(
 )
 
 declare -A install_packages=(
-    [hypr]="hyprland:hyprland stow:stow"
+    [hypr]="hyprland:hyprland stow:stow gammastep:gammastep"
     [caelestia]="caelestia:caelestia-shell-git wtype:wtype"
     [schemes]="none"
 )
