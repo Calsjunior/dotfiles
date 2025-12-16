@@ -5,7 +5,7 @@ nvim_theme_file="$HOME/.config/nvim/lua/config/current_theme.lua"
 
 declare -A theme_templates=(
     ["everforest"]="require('everforest').setup({ background = '%s' }); vim.cmd.colorscheme('everforest')"
-    ["gruvbox-material"]="require('gruvbox-material').setup({ contrast = '%s' }); vim.cmd.colorscheme('gruvbox-material')"
+    ["gruvbox"]="require('gruvbox').setup({ contrast = '%s' }); vim.cmd.colorscheme('gruvbox')"
 )
 
 update_term() {

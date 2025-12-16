@@ -6,7 +6,7 @@ return {
         priority = 1000,
     },
     {
-        "f4z3r/gruvbox-material.nvim",
+        "ellisonleao/gruvbox.nvim",
         lazy = false,
         priority = 1000,
     },
