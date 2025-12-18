@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 scheme_state="$HOME/.local/state/caelestia/scheme.json"
+wallpaper_state="$HOME/.local/state/caelestia/wallpaper/path.txt"
 nvim_theme_file="$HOME/.config/nvim/lua/config/current_theme.lua"
 wallpaper_dir="$HOME/Pictures/Wallpapers"
 
@@ -13,6 +14,14 @@ update_wallpaper() {
     local name=$1
 
     target_wallpaper_dir="$wallpaper_dir/$name"
+    if [[ -f "$wallpaper_state" ]]; then
+        content=$(cat "$wallpaper_state")
+        current_wallpaper_theme_name=$(basename "$(dirname "$content")")
+        if [[ "$current_wallpaper_theme_name" == "$name" ]]; then
+            return
+        fi
+    fi
+
     if [[ ! -d "$target_wallpaper_dir" ]]; then
         target_wallpaper_dir="$wallpaper_dir/default"
     fi
