@@ -13,10 +13,10 @@ declare -A theme_templates=(
 update_wallpaper() {
     local name=$1
 
-    target_wallpaper_dir="$wallpaper_dir/$name"
+    local target_wallpaper_dir="$wallpaper_dir/$name"
     if [[ -f "$wallpaper_state" ]]; then
-        content=$(cat "$wallpaper_state")
-        current_wallpaper_theme_name=$(basename "$(dirname "$content")")
+        local content=$(cat "$wallpaper_state")
+        local current_wallpaper_theme_name=$(basename "$(dirname "$content")")
         if [[ "$current_wallpaper_theme_name" == "$name" ]]; then
             return
         fi
@@ -33,11 +33,11 @@ update_kitty() {
     local mode=$2
     local flavour=$3
 
-    clean_name="${name//-/ }"
+    local clean_name="${name//-/ }"
     if [[ "$flavour" == "default" || -z "$flavour" ]]; then
-        theme="$clean_name $mode"
+        local theme="$clean_name $mode"
     else
-        theme="$clean_name $mode $flavour"
+        local theme="$clean_name $mode $flavour"
     fi
 
     kitten themes --reload-in=all "$theme"
@@ -60,6 +60,7 @@ update_neovim() {
     echo "$lua_cmd" >"$nvim_theme_file"
 
     # Send Live Update
+    local server
     for server in /run/user/$(id -u)/nvim.*; do
         if [[ -S "$server" ]]; then
             nvim --server "$server" --remote-expr "execute('lua dofile(\"$nvim_theme_file\")')" &>/dev/null &
@@ -68,11 +69,11 @@ update_neovim() {
 }
 
 sync_system() {
-    content=$(cat "$scheme_state")
+    local content=$(cat "$scheme_state")
 
-    name=$(echo "$content" | grep -oP '"name":\s*"\K[^"]+')
-    mode=$(echo "$content" | grep -oP '"mode":\s*"\K[^"]+')
-    flavour=$(echo "$content" | grep -oP '"flavour":\s*"\K[^"]+')
+    local name=$(echo "$content" | grep -oP '"name":\s*"\K[^"]+')
+    local mode=$(echo "$content" | grep -oP '"mode":\s*"\K[^"]+')
+    local flavour=$(echo "$content" | grep -oP '"flavour":\s*"\K[^"]+')
 
     update_wallpaper "$name"
 
