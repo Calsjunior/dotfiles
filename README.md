@@ -88,8 +88,8 @@ This will instantly relink the latest theme files into your system directories a
 └── default/
 ```
 
-## Notes
-The theme-bridge.sh script runs automatically via Hyprland (exec-once). It checks for installed apps, so if you don't use Kitty or Neovim, it will simply skip them and just sync your wallpapers.
+> [!Notes]
+> The theme-bridge.sh script runs automatically via Hyprland (exec-once). It checks for installed apps, so if you don't use Kitty or Neovim, it will simply skip them, and just sync your wallpapers to themes and vice versa!
 
 # Credits
 - Window Manager: [Hyprland](https://github.com/hyprwm/Hyprland)
