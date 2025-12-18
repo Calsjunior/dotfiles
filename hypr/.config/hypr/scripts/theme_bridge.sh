@@ -68,7 +68,10 @@ update_neovim() {
     done
 }
 
-sync_system() {
+sync_from_theme() {
+    if [[ ! -f "$scheme_state" ]]; then
+        return
+    fi
     local content=$(cat "$scheme_state")
 
     local name=$(echo "$content" | grep -oP '"name":\s*"\K[^"]+')
@@ -86,8 +89,40 @@ sync_system() {
     fi
 }
 
-sync_system
+sync_from_wallpaper() {
+    if [[ ! -f "$wallpaper_state" ]]; then
+        return
+    fi
+    local wallpaper_content=$(cat "$wallpaper_state")
+    local current_wallpaper_theme_name=$(basename "$(dirname "$wallpaper_content")")
 
-while inotifywait -e close_write,moved_to,create -q "$scheme_state"; do
-    sync_system
+    if [[ -f "$scheme_state" ]]; then
+        local scheme_content=$(cat "$scheme_state")
+        local name=$(echo "$scheme_content" | grep -oP '"name":\s*"\K[^"]+')
+    fi
+
+    if [[ -n "$current_wallpaper_theme_name" && "$current_wallpaper_theme_name" != "$name" ]]; then
+        if [[ "$current_wallpaper_theme_name" != "default" ]]; then
+            caelestia scheme set -n "$current_wallpaper_theme_name"
+        else
+            caelestia scheme set -n "dynamic"
+        fi
+    fi
+}
+
+watch_scheme_dir=$(dirname "$scheme_state")
+watch_scheme_file=$(basename "$scheme_state")
+watch_wallpaper_dir=$(dirname "$wallpaper_state")
+watch_wallpaper_file=$(basename "$wallpaper_state")
+
+# Initiate once when starting
+sync_from_theme
+
+inotifywait -m -q -e close_write,moved_to,create "$watch_scheme_dir" "$watch_wallpaper_dir" | while read -r directory events filename; do
+    if [[ "$filename" == "$watch_scheme_file" ]]; then
+        sync_from_theme
+        echo "hi"
+    elif [[ "$filename" == "$watch_wallpaper_file" ]]; then
+        sync_from_wallpaper
+    fi
 done
