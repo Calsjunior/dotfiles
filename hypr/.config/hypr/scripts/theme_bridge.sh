@@ -2,8 +2,15 @@
 
 scheme_state="$HOME/.local/state/caelestia/scheme.json"
 wallpaper_state="$HOME/.local/state/caelestia/wallpaper/path.txt"
-nvim_theme_file="$HOME/.config/nvim/lua/config/current_theme.lua"
+nvim_theme_file="$HOME/.config/nvim/lua/current_theme.lua"
 wallpaper_dir="$HOME/Pictures/Wallpapers"
+
+nvim_cmd="$HOME/.local/share/bob/nvim-bin/nvim"
+
+if [[ ! -x "$nvim_cmd" ]]; then
+	nvim_cmd="nvim"
+	nvim_theme_file="$HOME/.config/nvim/lua/config/current_theme.lua"
+fi
 
 declare -A theme_templates=(
     ["everforest"]="require('everforest').setup({ background = '%s' }); vim.cmd.colorscheme('everforest')"
@@ -63,7 +70,7 @@ update_neovim() {
     local server
     for server in /run/user/$(id -u)/nvim.*; do
         if [[ -S "$server" ]]; then
-            nvim --server "$server" --remote-expr "execute('lua dofile(\"$nvim_theme_file\")')" &>/dev/null &
+            nvim_cmd --server "$server" --remote-expr "execute('lua dofile(\"$nvim_theme_file\")')" &>/dev/null &
         fi
     done
 }
@@ -89,6 +96,7 @@ sync_from_theme() {
     fi
 }
 
+# TODO: add mode and flavour when I make more schemes
 sync_from_wallpaper() {
     if [[ ! -f "$wallpaper_state" ]]; then
         return
@@ -121,7 +129,6 @@ sync_from_theme
 inotifywait -m -q -e close_write,moved_to,create "$watch_scheme_dir" "$watch_wallpaper_dir" | while read -r directory events filename; do
     if [[ "$filename" == "$watch_scheme_file" ]]; then
         sync_from_theme
-        echo "hi"
     elif [[ "$filename" == "$watch_wallpaper_file" ]]; then
         sync_from_wallpaper
     fi
