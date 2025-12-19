@@ -8,6 +8,10 @@
       "rev": "557bce922401e247a596583679bc181d4d688554",
       "src": "https://github.com/neanias/everforest-nvim"
     },
+    "gitsigns.nvim": {
+      "rev": "5813e4878748805f1518cee7abb50fd7205a3a48",
+      "src": "https://github.com/lewis6991/gitsigns.nvim"
+    },
     "gruvbox.nvim": {
       "rev": "5e0a460d8e0f7f669c158dedd5f9ae2bcac31437",
       "src": "https://github.com/ellisonleao/gruvbox.nvim"
@@ -43,6 +47,14 @@
     "nvim-surround": {
       "rev": "1098d7b3c34adcfa7feb3289ee434529abd4afd1",
       "src": "https://github.com/kylechui/nvim-surround"
+    },
+    "nvim-treesitter": {
+      "rev": "4fc09bee78e91bf4ba471cdab4bf9dfa37fde51c",
+      "src": "https://github.com/nvim-treesitter/nvim-treesitter"
+    },
+    "nvim-web-devicons": {
+      "rev": "8dcb311b0c92d460fac00eac706abd43d94d68af",
+      "src": "https://github.com/nvim-tree/nvim-web-devicons"
     },
     "plenary.nvim": {
       "rev": "b9fd5226c2f76c951fc8ed5923d85e4de065e509",
