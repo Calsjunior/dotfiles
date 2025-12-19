@@ -16,6 +16,10 @@
       "rev": "5e0a460d8e0f7f669c158dedd5f9ae2bcac31437",
       "src": "https://github.com/ellisonleao/gruvbox.nvim"
     },
+    "indent-blankline.nvim": {
+      "rev": "005b56001b2cb30bfa61b7986bc50657816ba4ba",
+      "src": "https://github.com/lukas-reineke/indent-blankline.nvim"
+    },
     "lazygit.nvim": {
       "rev": "2305deed25bc61b866d5d39189e9105a45cf1cfb",
       "src": "https://github.com/kdheepak/lazygit.nvim"
@@ -28,17 +32,25 @@
       "rev": "ef31826ebc1e198e78b4a55a26bd22996825a1a0",
       "src": "https://github.com/YousefHadder/markdown-plus.nvim"
     },
-    "mini.icons": {
-      "rev": "ff2e4f1d29f659cc2bad0f9256f2f6195c6b2428",
-      "src": "https://github.com/nvim-mini/mini.icons"
+    "mason.nvim": {
+      "rev": "57e5a8addb8c71fb063ee4acda466c7cf6ad2800",
+      "src": "https://github.com/mason-org/mason.nvim"
     },
-    "mini.pick": {
-      "rev": "6b7974543b17cf2e294993fc3d8545a342258232",
-      "src": "https://github.com/echasnovski/mini.pick"
+    "mini.pairs": {
+      "rev": "d5a29b6254dad07757832db505ea5aeab9aad43a",
+      "src": "https://github.com/nvim-mini/mini.pairs"
     },
     "neotab.nvim": {
       "rev": "e99d3e28c5a2066d2d368dfe4ef3827c8d75d337",
       "src": "https://github.com/kawre/neotab.nvim"
+    },
+    "neovim-project": {
+      "rev": "cfe4ffe8deb89a72b0a46b8f22183a3b534d9f00",
+      "src": "https://github.com/coffebar/neovim-project"
+    },
+    "neovim-session-manager": {
+      "rev": "3409dc920d40bec4c901c0a122a80bee03d6d1e1",
+      "src": "https://github.com/Shatur/neovim-session-manager"
     },
     "nvim-lspconfig": {
       "rev": "c4f67bf85b01a57e3c130352c0a0e453ab8cd5b9",
@@ -51,10 +63,6 @@
     "nvim-treesitter": {
       "rev": "4fc09bee78e91bf4ba471cdab4bf9dfa37fde51c",
       "src": "https://github.com/nvim-treesitter/nvim-treesitter"
-    },
-    "nvim-web-devicons": {
-      "rev": "8dcb311b0c92d460fac00eac706abd43d94d68af",
-      "src": "https://github.com/nvim-tree/nvim-web-devicons"
     },
     "plenary.nvim": {
       "rev": "b9fd5226c2f76c951fc8ed5923d85e4de065e509",
