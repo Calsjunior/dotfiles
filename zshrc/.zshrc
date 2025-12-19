@@ -78,6 +78,7 @@ bindkey '^y' autosuggest-accept
 # =============================================================================
 #  EXPORTS
 # =============================================================================
+export PATH="$HOME/.local/share/bob/nvim-bin:$PATH"
 export EDITOR=nvim
 export VISUAL=nvim
 export BROWSER=zen-browser
