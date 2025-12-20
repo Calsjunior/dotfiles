@@ -1,17 +1,17 @@
-local api = vim.api
+local api = vim.api.nvim_create_autocmd
 
 -- Don't auto comment new line
-api.nvim_create_autocmd("BufEnter", { command = [[set formatoptions-=cro]] })
+api("BufEnter", { command = [[set formatoptions-=cro]] })
 
 -- Restore terminal clear
-vim.api.nvim_create_autocmd("TermEnter", {
+api("TermEnter", {
     callback = function(ev)
         vim.keymap.set("t", "<c-l>", "<c-l>", { buffer = ev.buf, nowait = true })
     end,
 })
 
 -- Fix terminal escape key override
-vim.api.nvim_create_autocmd("TermOpen", {
+api("TermOpen", {
     desc = "Manage Terminal Escape Behavior",
     callback = function(event)
         local passthrough_ft = { "lazygit", "yazi", "snacks_terminal" }
@@ -52,10 +52,10 @@ local function activate_venv()
     end
     return false
 end
-vim.api.nvim_create_autocmd("DirChanged", { callback = activate_venv })
+api("DirChanged", { callback = activate_venv })
 
 -- Auto indent after closing attribute tags
-vim.api.nvim_create_autocmd("FileType", {
+api("FileType", {
     pattern = { "html", "htmldjango", "xml", "javascriptreact", "typescriptreact" },
     callback = function()
         vim.keymap.set("i", "<CR>", function()
@@ -83,7 +83,7 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 -- Fix python's stupid indents
-vim.api.nvim_create_autocmd("FileType", {
+api("FileType", {
     pattern = { "python" },
     callback = function()
         vim.bo.indentexpr = "v:lua.LazyVim.treesitter.indentexpr()"
