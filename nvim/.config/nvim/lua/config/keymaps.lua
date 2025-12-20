@@ -1,25 +1,15 @@
--- Add comma after brackets
-vim.keymap.set("i", "<C-,>", function()
-    local line = vim.api.nvim_get_current_line()
-    local row, col = unpack(vim.api.nvim_win_get_cursor(0))
-    local next_char = line:sub(col + 1, col + 1)
-    if next_char == "}" or next_char == "]" or next_char == ")" then
-        local new_line = line:sub(1, col + 1) .. "," .. line:sub(col + 2)
-        vim.api.nvim_set_current_line(new_line)
-    end
-end, { desc = "Add comma after bracket" })
+local map = vim.keymap.set
 
--- Add semicolon at end of line
-vim.keymap.set("i", "<C-;>", function()
-    local line = vim.api.nvim_get_current_line()
-    local row, col = unpack(vim.api.nvim_win_get_cursor(0))
-    if not line:match(";%s*$") then
-        vim.api.nvim_set_current_line(line .. ";")
-    end
-end, { desc = "Add semicolon at end of line" })
+-- General
+map("n", "<leader>o", "<cmd>update<CR><cmd>source %<CR>")
+map("n", "th", "<cmd>bprev<CR>", { desc = "Prev Buffer" })
+map("n", "tl", "<cmd>bnext<CR>", { desc = "Next Buffer" })
 
-vim.keymap.set("n", "th", "<cmd>bprev<CR>", { desc = "Prev Buffer" })
-vim.keymap.set("n", "tl", "<cmd>bnext<CR>", { desc = "Next Buffer" })
-vim.keymap.set("n", "H", "g^", { desc = "Start of line (non-blank)" })
-vim.keymap.set("n", "L", "g$", { desc = "End of line (non-blank)" })
-vim.keymap.set("n", "<leader>wn", "<cmd>noautocmd write<CR>", { desc = "Save without formatting" })
+-- Movement
+map("n", "H", "g^", { desc = "Start of line (non-blank)" })
+map("n", "L", "g$", { desc = "End of line (non-blank)" })
+
+-- Plugins
+map("n", "<leader>wn", "<cmd>noautocmd write<CR>", { desc = "Save without formatting" })
+map("n", "<leader>e", "<cmd>Yazi<CR>")
+map("n", "<leader>E", "<cmd>Yazi cwd<CR>")

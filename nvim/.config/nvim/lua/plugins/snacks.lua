@@ -8,15 +8,11 @@ return {
     },
     opts = {
         explorer = { enabled = false },
-        indent = {
-            scope = { enabled = false },
-        },
+        indent = { scope = { enabled = false } },
         terminal = {
             win = {
                 style = "terminal",
-                wo = {
-                    winhighlight = "Normal:SnacksTerminalNormal,NormalNC:SnacksTerminalNormalNC",
-                },
+                wo = { winhighlight = "Normal:SnacksTerminalNormal,NormalNC:SnacksTerminalNormalNC" },
             },
         },
         image = {
