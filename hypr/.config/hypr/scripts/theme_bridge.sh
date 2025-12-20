@@ -2,14 +2,30 @@
 
 scheme_state="$HOME/.local/state/caelestia/scheme.json"
 wallpaper_state="$HOME/.local/state/caelestia/wallpaper/path.txt"
-nvim_theme_file="$HOME/.config/nvim/lua/current_theme.lua"
 wallpaper_dir="$HOME/Pictures/Wallpapers"
 
-nvim_cmd="$HOME/.local/share/bob/nvim-bin/nvim"
+nvim_locations=(
+    "$HOME/.local/share/bob/nvim-bin/nvim"
+    "$HOME/.local/bin/nvim"
+    "/usr/bin/nvim"
+    "/bin/nvim"
+)
 
-if [[ ! -x "$nvim_cmd" ]]; then
-	nvim_cmd="nvim"
-	nvim_theme_file="$HOME/.config/nvim/lua/config/current_theme.lua"
+nvim_cmd=""
+for cmd in "${nvim_locations[@]}"; do
+    if [[ -x "$cmd" ]]; then
+        nvim_cmd="$cmd"
+        break
+    fi
+done
+
+if [[ -n "$nvim_cmd" ]]; then
+    build_type=$("$nvim_cmd" --version | grep -oP 'Build type: \K.*')
+    if [[ "$build_type" == "Release" ]]; then
+        nvim_theme_file="$HOME/.config/nvim/lua/config/current_theme.lua"
+    else
+        nvim_theme_file="$HOME/.config/nvim/lua/current_theme.lua"
+    fi
 fi
 
 declare -A theme_templates=(
@@ -70,7 +86,7 @@ update_neovim() {
     local server
     for server in /run/user/$(id -u)/nvim.*; do
         if [[ -S "$server" ]]; then
-            nvim_cmd --server "$server" --remote-expr "execute('lua dofile(\"$nvim_theme_file\")')" &>/dev/null &
+            "$nvim_cmd" --server "$server" --remote-expr "execute('lua dofile(\"$nvim_theme_file\")')" &>/dev/null &
         fi
     done
 }
@@ -91,7 +107,7 @@ sync_from_theme() {
         update_kitty "$name" "$mode" "$flavour"
     fi
 
-    if command -v nvim &>/dev/null; then
+    if [[ -n "$nvim_cmd" ]]; then
         update_neovim "$name" "$flavour"
     fi
 }
