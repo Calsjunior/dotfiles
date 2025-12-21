@@ -1,3 +1,95 @@
+vim.g.mapleader = ","
+
+-- Basic settings
+vim.opt.number = true
+vim.opt.relativenumber = true
+vim.opt.cursorline = true
+vim.opt.wrap = false
+vim.opt.scrolloff = 10
+vim.opt.sidescrolloff = 8
+
+-- Indentation
+vim.opt.tabstop = 4
+vim.opt.shiftwidth = 4
+vim.opt.softtabstop = 4
+vim.opt.expandtab = true
+vim.opt.smartindent = true
+vim.opt.autoindent = true
+
+-- Search settings
+vim.opt.ignorecase = true
+vim.opt.smartcase = true
+vim.opt.hlsearch = true
+vim.opt.incsearch = true
+
+-- Visual settings
+vim.opt.termguicolors = true
+vim.opt.winborder = "rounded"
+vim.opt.signcolumn = "yes"
+vim.opt.showmode = false
+vim.opt.pumheight = 10 -- Pop up menu height
+
+-- File handling
+vim.opt.undofile = true
+vim.opt.swapfile = false
+
+-- Behavior settings
+vim.opt.hidden = true
+vim.opt.backspace = "indent,eol,start" -- Better backspace behavior
+vim.opt.clipboard = "unnamedplus"
+
+-- Cursor settings
+vim.opt.guicursor =
+    "n-v-c:block-Cursor/lCursor-blinkwait1000-blinkon100-blinkoff100,i-ci:ver25-Cursor/lCursor,r-cr:hor20-Cursor/lCursor"
+
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+
+local map = vim.keymap.set
+
+-- ==========
+-- General
+-- ==========
+
+-- Editing
+map("n", "Y", "y$", { desc = "Yank to end of line" })
+map("x", "<leader>p", '"_dP', { desc = "Paste without yanking" })
+map({ "n", "v" }, "<leader>d", '"_d', { desc = "Delete without yanking" })
+
+-- Center screen when jumping
+map("n", "n", "nzzzv", { desc = "Next search result (centered)" })
+map("n", "N", "Nzzzv", { desc = "Previous search result (centered)" })
+map("n", "<C-d>", "<C-d>zz", { desc = "Half page down (centered)" })
+map("n", "<C-u>", "<C-u>zz", { desc = "Half page up (centered)" })
+
+-- Buffer mappings
+map("n", "<leader>o", "<cmd>update<CR><cmd>source %<CR>")
+map("n", "tn", "<cmd>bnext<CR>", { desc = "Next Buffer" })
+map("n", "tp", "<cmd>bprev<CR>", { desc = "Prev Buffer" })
+
+-- Move lines up and down
+map("n", "<C-S-j>", ":m .+1<CR>==", { desc = "Move line down" })
+map("n", "<C-S-k>", ":m .-2<CR>==", { desc = "Move line up" })
+map("v", "<C-S-j>", ":m '>+1<CR>gv=gv", { desc = "Move selection down" })
+map("v", "<C-S-k>", ":m '<-2<CR>gv=gv", { desc = "Move selection up" })
+
+-- Better indenting in visual mode
+map("v", "<", "<gv", { desc = "Indent left and reselect" })
+map("v", ">", ">gv", { desc = "Indent right and reselect" })
+
+-- Movement
+map("n", "H", "g^", { desc = "Start of line (non-blank)" })
+map("n", "L", "g$", { desc = "End of line (non-blank)" })
+
+-- Plugins
+map("n", "<leader>wn", "<cmd>noautocmd write<CR>", { desc = "Save without formatting" })
+map("n", "<leader>e", "<cmd>Yazi<CR>")
+map("n", "<leader>E", "<cmd>Yazi cwd<CR>")
+
+-- ==========
+-- Autocmds
+-- ==========
+
 local api = vim.api.nvim_create_autocmd
 
 -- Don't auto comment new line
