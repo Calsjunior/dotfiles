@@ -63,7 +63,7 @@ map("n", "<C-d>", "<C-d>zz", { desc = "Half page down (centered)" })
 map("n", "<C-u>", "<C-u>zz", { desc = "Half page up (centered)" })
 
 -- Buffer mappings
-map("n", "<leader>o", "<cmd>update<CR><cmd>source %<CR>")
+map("n", "<leader>o", "<cmd>update<CR><cmd>source %<CR><cmd>nohlsearch<CR>")
 map("n", "tn", "<cmd>bnext<CR>", { desc = "Next Buffer" })
 map("n", "tp", "<cmd>bprev<CR>", { desc = "Prev Buffer" })
 
