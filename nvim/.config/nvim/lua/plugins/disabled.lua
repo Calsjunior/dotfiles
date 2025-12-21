@@ -1,7 +1,15 @@
 return {
-    { "nvim-treesitter/nvim-treesitter", opts = { indent = { enable = false } } },
+    { "nvim-treesitter/nvim-treesitter-textobjects", enabled = false },
     { "folke/flash.nvim", enabled = false },
+    { "folke/trouble.nvim", enabled = false },
+    { "folke/todo-comments.nvim", enabled = false },
+    { "folke/ts-comments.nvim", enabled = false },
     { "linux-cultist/venv-selector.nvim", enabled = false },
     { "mfussenegger/nvim-dap-python", enabled = false },
+    { "mfussenegger/nvim-lint", enabled = false },
     { "nvim-telescope/telescope.nvim", enabled = false },
+    { "rafamadriz/friendly-snippets", enabled = false },
+    { "nvim-mini/mini.ai", enabled = false },
+    { "nvim-mini/mini.hipatterns", enabled = false },
+    { "MagicDuck/grug-far.nvim", enabled = false },
 }
