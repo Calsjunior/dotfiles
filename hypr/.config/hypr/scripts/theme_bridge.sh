@@ -3,6 +3,7 @@
 scheme_state="$HOME/.local/state/caelestia/scheme.json"
 wallpaper_state="$HOME/.local/state/caelestia/wallpaper/path.txt"
 wallpaper_dir="$HOME/Pictures/Wallpapers"
+nvim_theme_file="$HOME/.config/nvim/lua/config/current_theme.lua"
 
 nvim_locations=(
     "$HOME/.local/share/bob/nvim-bin/nvim"
@@ -18,15 +19,6 @@ for cmd in "${nvim_locations[@]}"; do
         break
     fi
 done
-
-if [[ -n "$nvim_cmd" ]]; then
-    build_type=$("$nvim_cmd" --version | grep -oP 'Build type: \K.*')
-    if [[ "$build_type" == "Release" ]]; then
-        nvim_theme_file="$HOME/.config/nvim/lua/config/current_theme.lua"
-    else
-        nvim_theme_file="$HOME/.config/nvim/lua/current_theme.lua"
-    fi
-fi
 
 declare -A theme_templates=(
     ["everforest"]="require('everforest').setup({ background = '%s' }); vim.cmd.colorscheme('everforest')"
