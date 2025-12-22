@@ -100,5 +100,36 @@ return {
                 end,
             },
         },
+        dashboard = {
+            enabled = true,
+            preset = {
+                header = [[
+███▄▄▄▄      ▄████████  ▄██████▄   ▄█    █▄   ▄█    ▄▄▄▄███▄▄▄▄   
+███▀▀▀██▄   ███    ███ ███    ███ ███    ███ ███  ▄██▀▀▀███▀▀▀██▄ 
+███   ███   ███    █▀  ███    ███ ███    ███ ███▌ ███   ███   ███ 
+███   ███  ▄███▄▄▄     ███    ███ ███    ███ ███▌ ███   ███   ███ 
+███   ███ ▀▀███▀▀▀     ███    ███ ███    ███ ███▌ ███   ███   ███ 
+███   ███   ███    █▄  ███    ███ ███    ███ ███  ███   ███   ███ 
+███   ███   ███    ███ ███    ███ ███    ███ ███  ███   ███   ███ 
+ ▀█   █▀    ██████████  ▀██████▀   ▀██████▀  █▀    ▀█   ███   █▀  
+                ]],
+                keys = {
+                    {
+                        icon = " ",
+                        key = "c",
+                        desc = "Config",
+                        action = ":lua Snacks.dashboard.pick('files', {cwd = vim.fn.stdpath('config')})",
+                    },
+                    {
+                        icon = " ",
+                        key = "r",
+                        desc = "Recent Files",
+                        action = ":lua Snacks.dashboard.pick('oldfiles')",
+                    },
+                    { icon = " ", key = "p", desc = "Projects", action = ":lua Snacks.picker.projects()" },
+                },
+                { section = "startup" },
+            },
+        },
     },
 }
