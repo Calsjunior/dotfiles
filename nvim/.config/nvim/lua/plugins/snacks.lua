@@ -6,9 +6,12 @@ return {
         { "<leader>fe", false },
         { "<leader>fE", false },
         { "<leader><space>", false },
-        { "<leader>fg", false },
+        { "<leader>ff", false },
         { "<leader>fF", false },
+        { "<leader>fg", false },
         { "<leader>/", false },
+        { "<leader>sg", false },
+        { "<leader>sG", false },
     },
     opts = {
         explorer = { enabled = false },

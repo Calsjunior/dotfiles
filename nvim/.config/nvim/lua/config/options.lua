@@ -83,9 +83,23 @@ map("n", "gl", "$", { desc = "End of line (non-blank)" })
 
 -- Plugins
 map("n", "<leader>wn", "<cmd>noautocmd write<CR>", { desc = "Save without formatting" })
+map("n", "<leader>e", "<cmd>Yazi<CR>", { desc = "Open Yazi" })
+map("n", "<leader>E", "<cmd>Yazi cwd<CR>", { desc = "Open Yazi (Current Working Dir)" })
+map("n", "<leader>ff", function()
+    Snacks.picker.files({ cwd = vim.fn.expand("%:p:h") })
+end, { desc = "Find Files (Current File Dir)" })
+map("n", "<leader>fF", function()
+    Snacks.picker.files({ cwd = vim.fn.getcwd() })
+end, { desc = "Find Files (Current Working Dir)" })
 map("n", "<leader>fh", function()
     Snacks.picker.files({ cwd = vim.fn.expand("~") })
 end, { desc = "Find Files (Home)" })
+map("n", "<leader>sg", function()
+    Snacks.picker.grep({ cwd = vim.fn.getcwd() })
+end, { desc = "Grep (Current Working Dir)" })
+map("n", "<leader>sG", function()
+    Snacks.picker.grep({ cwd = vim.fn.expand("~") })
+end, { desc = "Grep (Home)" })
 
 -- ==========
 -- Autocmds
