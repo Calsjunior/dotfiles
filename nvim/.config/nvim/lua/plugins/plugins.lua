@@ -27,7 +27,6 @@ return {
             act_as_tab = true,
         },
     },
-    { "mikavilpas/yazi.nvim" },
     { "MeanderingProgrammer/render-markdown.nvim", lazy = true },
     { "yousefhadder/markdown-plus.nvim", lazy = true },
     {

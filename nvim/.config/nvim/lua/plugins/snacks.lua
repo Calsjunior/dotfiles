@@ -5,6 +5,10 @@ return {
         { "<leader>E", false },
         { "<leader>fe", false },
         { "<leader>fE", false },
+        { "<leader><space>", false },
+        { "<leader>fg", false },
+        { "<leader>fF", false },
+        { "<leader>/", false },
     },
     opts = {
         explorer = { enabled = false },
@@ -15,20 +19,45 @@ return {
                 wo = { winhighlight = "Normal:SnacksTerminalNormal,NormalNC:SnacksTerminalNormalNC" },
             },
         },
-        image = {
-            filetypes = {
-                "png",
-                "jpg",
-                "jpeg",
-                "gif",
-                "bmp",
-                "webp",
-                "tiff",
-                "svg",
-            },
-        },
         picker = {
+            matcher = { frecency = true },
             enabled = true,
+            sources = {
+                files = {
+                    cmd = "fd",
+                    args = {
+                        "--color=never",
+                        "--type",
+                        "f",
+                        "--hidden",
+                        "--follow",
+                        "--exclude",
+                        ".git",
+                        "--no-ignore",
+                    },
+                },
+                grep = {
+                    cmd = "rg",
+                    args = {
+                        "--follow",
+                        "--no-heading",
+                        "--with-filename",
+                        "--line-number",
+                        "--column",
+                        "--smart-case",
+                        "--hidden",
+                    },
+                },
+                projects = {
+                    win = {
+                        input = {
+                            keys = {
+                                ["<C-x>"] = { "delete_projects", mode = { "n", "i" } },
+                            },
+                        },
+                    },
+                },
+            },
             actions = {
                 delete_projects = function(picker, _)
                     Snacks.picker.actions.close(picker)
@@ -66,17 +95,6 @@ return {
                         Snacks.picker.projects()
                     end)
                 end,
-            },
-            sources = {
-                projects = {
-                    win = {
-                        input = {
-                            keys = {
-                                ["<C-x>"] = { "delete_projects", mode = { "n", "i" } },
-                            },
-                        },
-                    },
-                },
             },
         },
     },
