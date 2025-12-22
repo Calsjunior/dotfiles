@@ -78,13 +78,14 @@ map("v", "<", "<gv", { desc = "Indent left and reselect" })
 map("v", ">", ">gv", { desc = "Indent right and reselect" })
 
 -- Movement
-map("n", "H", "_", { desc = "Start of line (non-blank)" })
-map("n", "L", "$", { desc = "End of line (non-blank)" })
+map("n", "gh", "_", { desc = "Start of line (non-blank)" })
+map("n", "gl", "$", { desc = "End of line (non-blank)" })
 
 -- Plugins
 map("n", "<leader>wn", "<cmd>noautocmd write<CR>", { desc = "Save without formatting" })
-map("n", "<leader>e", "<cmd>Yazi<CR>")
-map("n", "<leader>E", "<cmd>Yazi cwd<CR>")
+map("n", "<leader>fh", function()
+    Snacks.picker.files({ cwd = vim.fn.expand("~") })
+end, { desc = "Find Files (Home)" })
 
 -- ==========
 -- Autocmds
