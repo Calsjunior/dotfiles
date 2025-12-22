@@ -68,18 +68,18 @@ map("n", "tn", "<cmd>bnext<CR>", { desc = "Next Buffer" })
 map("n", "tp", "<cmd>bprev<CR>", { desc = "Prev Buffer" })
 
 -- Move lines up and down
-map("n", "<C-S-j>", ":m .+1<CR>==", { desc = "Move line down" })
-map("n", "<C-S-k>", ":m .-2<CR>==", { desc = "Move line up" })
-map("v", "<C-S-j>", ":m '>+1<CR>gv=gv", { desc = "Move selection down" })
-map("v", "<C-S-k>", ":m '<-2<CR>gv=gv", { desc = "Move selection up" })
+map("n", "<C-S-j>", ":m .+1<CR>==", { desc = "Move line down", silent = true })
+map("v", "<C-S-k>", ":m '<-2<CR>gv=gv", { desc = "Move selection up", silent = true })
+map("n", "<C-S-k>", ":m .-2<CR>==", { desc = "Move line up", silent = true })
+map("v", "<C-S-j>", ":m '>+1<CR>gv=gv", { desc = "Move selection down", silent = true })
 
 -- Better indenting in visual mode
 map("v", "<", "<gv", { desc = "Indent left and reselect" })
 map("v", ">", ">gv", { desc = "Indent right and reselect" })
 
 -- Movement
-map("n", "H", "g^", { desc = "Start of line (non-blank)" })
-map("n", "L", "g$", { desc = "End of line (non-blank)" })
+map("n", "H", "_", { desc = "Start of line (non-blank)" })
+map("n", "L", "$", { desc = "End of line (non-blank)" })
 
 -- Plugins
 map("n", "<leader>wn", "<cmd>noautocmd write<CR>", { desc = "Save without formatting" })
@@ -178,8 +178,8 @@ api("FileType", {
 api("FileType", {
     pattern = { "python" },
     callback = function()
-        vim.bo.indentexpr = "v:lua.LazyVim.treesitter.indentexpr()"
-        -- vim.bo.indentexpr = "nvim_treesitter#indent()"
+        -- vim.bo.indentexpr = "v:lua.LazyVim.treesitter.indentexpr()"
+        vim.bo.indentexpr = "nvim_treesitter#indent()"
         vim.bo.autoindent = true
         vim.bo.smartindent = false
     end,

@@ -12,11 +12,24 @@ return {
         end,
     },
     { "nvim-lualine/lualine.nvim" },
-    { "kylechui/nvim-surround" },
-    { "kawre/neotab.nvim" },
+    {
+        "kylechui/nvim-surround",
+        config = function()
+            require("nvim-surround").setup()
+        end,
+    },
+    {
+        "kawre/neotab.nvim",
+        event = "InsertEnter",
+        opts = {
+            tabkey = "<Tab>",
+            reverse_key = "<S-Tab>",
+            act_as_tab = true,
+        },
+    },
     { "mikavilpas/yazi.nvim" },
-    { "MeanderingProgrammer/render-markdown.nvim" },
-    { "yousefhadder/markdown-plus.nvim" },
+    { "MeanderingProgrammer/render-markdown.nvim", lazy = true },
+    { "yousefhadder/markdown-plus.nvim", lazy = true },
     {
         "mason-org/mason.nvim",
         opts = {
