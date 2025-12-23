@@ -1,0 +1,15 @@
+BasedOnStyle: Microsoft
+IndentWidth: 4
+TabWidth: 4
+ColumnLimit: 120
+IndentCaseLabels: true
+SpaceAfterCStyleCast: true
+AllowShortFunctionsOnASingleLine: Empty
+BreakBeforeBraces: Custom
+BraceWrapping:
+  AfterCaseLabel: true
+  AfterControlStatement: true
+  AfterFunction: true
+  AfterStruct: true
+  BeforeElse: true
+  BeforeWhile: true
