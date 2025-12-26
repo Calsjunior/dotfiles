@@ -5,6 +5,8 @@ return {
         { "<leader>E", false },
         { "<leader>fe", false },
         { "<leader>fE", false },
+        { "<leader>ft", false },
+        { "<leader>fT", false },
         { "<leader><space>", false },
         { "<leader>ff", false },
         { "<leader>fF", false },
@@ -52,6 +54,7 @@ return {
                     },
                 },
                 projects = {
+                    dev = { "~/Projects", "~/Documents" },
                     win = {
                         input = {
                             keys = {
