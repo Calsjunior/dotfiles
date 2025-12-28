@@ -17,8 +17,8 @@ map("n", "<C-u>", "<C-u>zz", { desc = "Half page up (centered)" })
 
 -- Buffer mappings
 map("n", "<leader>o", "<cmd>update<CR><cmd>source %<CR><cmd>nohlsearch<CR>")
-map("n", "tn", "<cmd>bnext<CR>", { desc = "Next Buffer" })
-map("n", "tp", "<cmd>bprev<CR>", { desc = "Prev Buffer" })
+map("n", "<A-L>", "<cmd>bnext<CR>")
+map("n", "<A-H>", "<cmd>bprevious<CR>")
 
 -- Move lines up and down
 map("n", "<C-S-j>", ":m .+1<CR>==", { desc = "Move line down", silent = true })
