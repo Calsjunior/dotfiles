@@ -19,15 +19,6 @@ for cmd in "${nvim_locations[@]}"; do
     fi
 done
 
-if [[ -n "$nvim_cmd" ]]; then
-    build_type=$("$nvim_cmd" --version | grep -oP 'Build type: \K.*')
-    if [[ "$build_type" == "Release" ]]; then
-        nvim_theme_file="$HOME/.config/nvim/lua/config/current_theme.lua"
-    else
-        nvim_theme_file="$HOME/.config/nvim/lua/current_theme.lua"
-    fi
-fi
-
 declare -A theme_templates=(
     ["everforest"]="require('everforest').setup({ background = '%s' }); vim.cmd.colorscheme('everforest')"
     ["gruvbox"]="require('gruvbox').setup({ contrast = '%s' }); vim.cmd.colorscheme('gruvbox')"
@@ -67,6 +58,15 @@ update_kitty() {
 }
 
 update_neovim() {
+    if [[ -n "$nvim_cmd" ]]; then
+        local build_type=$("$nvim_cmd" --version | grep -oP 'Build type: \K.*')
+        if [[ "$build_type" == "Release" ]]; then
+            nvim_theme_file="$HOME/.config/nvim/lua/config/current_theme.lua"
+        else
+            nvim_theme_file="$HOME/.config/nvim/lua/current_theme.lua"
+        fi
+    fi
+
     local name=$1
     local contrast=$2
 
