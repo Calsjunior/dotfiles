@@ -44,7 +44,11 @@ zle -N zle-line-init
 # =============================================================================
 # Initialize completion system
 autoload -Uz compinit
-compinit
+if [[ -n "$HOME/.zcompdump"(#qN.mh+24) ]]; then
+    compinit
+else
+    compinit -C
+fi
 
 # Enable the "Interactive Menu"
 zstyle ':completion:*' menu select
