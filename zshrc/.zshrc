@@ -154,3 +154,9 @@ eval "$(starship init zsh)"
 eval "$(zoxide init --cmd cd zsh)"
 
 source <(fzf --zsh)
+
+# Lazy Load Node Version Manager
+declare -a nvm_triggers=(node npm nvm pnpm yarn)
+for cmd in $nvm_triggers; do
+    eval "$cmd() { unset -f $nvm_triggers; source /usr/share/nvm/init-nvm.sh; $cmd \"\$@\"; }"
+done
