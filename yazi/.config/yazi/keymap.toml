@@ -6,7 +6,7 @@
 
 keymap = [
     { on = "<C-n>", run = '''shell 'ripdrag "$@" -x 2>/dev/null &' --confirm''', desc = "Drag and Drop"},
-    { on = "p", run = '''shell 'rm -rf picks && mkdir picks && nsxiv -t0o . | xargs -0 -I {} cp {} picks/' ''', desc = "Open image gallery with picking functionality"},
+    { on = "<C-p>", run = '''shell 'rm -rf picks && mkdir picks && nsxiv -t0o . | xargs -0 -I {} cp {} picks/' ''', desc = "Open image gallery with picking functionality"},
 	{ on = "<Esc>", run = "escape",             desc = "Exit visual mode, clear selection, or cancel search" },
 	{ on = "<C-[>", run = "escape",             desc = "Exit visual mode, clear selection, or cancel search" },
 	{ on = "q",     run = "quit",               desc = "Quit the process" },
