@@ -105,34 +105,6 @@ local function activate_venv()
 end
 api("DirChanged", { callback = activate_venv })
 
--- Auto indent after closing attribute tags
-api("FileType", {
-    pattern = { "html", "htmldjango", "xml", "javascriptreact", "typescriptreact" },
-    callback = function()
-        vim.keymap.set("i", "<CR>", function()
-            -- If blink.cmp is active, let it handle <CR>
-            local ok, blink_cmp = pcall(require, "blink.cmp")
-            if ok and blink_cmp.is_visible and blink_cmp.is_visible() then
-                blink_cmp.accept()
-                return ""
-            end
-
-            local line = vim.api.nvim_get_current_line()
-            local row, col = unpack(vim.api.nvim_win_get_cursor(0))
-            local before = line:sub(1, col)
-            local after = line:sub(col + 1)
-
-            -- Check if between tags: >|</
-            if before:match(">$") and after:match("^</") then
-                return "<CR><Esc>O"
-            end
-
-            -- Normal enter
-            return "<CR>"
-        end, { buffer = true, expr = true, desc = "Smart enter for HTML tags" })
-    end,
-})
-
 -- Fix python's stupid indents
 api("FileType", {
     pattern = { "python" },
