@@ -27,6 +27,26 @@ return {
             act_as_tab = true,
         },
     },
+    {
+        "windwp/nvim-autopairs",
+        event = "InsertEnter",
+        config = true,
+        opts = {
+            check_ts = true,
+            ts_config = {
+                lua = { "string" },
+                javascript = { "template_string" },
+            },
+        },
+    },
+    {
+        "norcalli/nvim-colorizer.lua",
+        config = function()
+            require("colorizer").setup({
+                css = { css = true },
+            })
+        end,
+    },
     { "mikavilpas/yazi.nvim" },
     { "MeanderingProgrammer/render-markdown.nvim", lazy = true },
     { "yousefhadder/markdown-plus.nvim", lazy = true },
@@ -54,8 +74,18 @@ return {
                 pyright = { mason = false, autostart = false },
                 html = {
                     filetypes = { "html", "htmldjango", "jinja", "jinga2" },
-                    settings = { html = { format = { enabled = true, indentInnerHtml = true, templating = true } } },
+                    settings = {
+                        html = {
+                            format = {
+                                wrapLineLength = 160,
+                                extraLiners = "",
+                                indentInnerHtml = true,
+                                templating = true,
+                            },
+                        },
+                    },
                 },
+                emmet_language_server = { "html", "css", "javascript", "javascriptreact", "typescriptreact" },
             },
         },
     },
