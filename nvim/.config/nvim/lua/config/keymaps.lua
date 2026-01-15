@@ -5,6 +5,8 @@ local map = vim.keymap.set
 -- ==========
 
 -- Editing
+map("n", "<leader>cs", "<cmd>w<CR>", { desc = "Save file" })
+map("n", "<leader>cn", "<cmd>noautocmd write<CR>", { desc = "Save without formatting" })
 map("n", "Y", "y$", { desc = "Yank to end of line" })
 map("x", "<leader>p", '"_dP', { desc = "Paste without yanking" })
 map({ "n", "v" }, "<leader>d", '"_d', { desc = "Delete without yanking" })
@@ -35,7 +37,6 @@ map("n", "H", "_", { desc = "Start of line (non-blank)" })
 map("n", "L", "$", { desc = "End of line (non-blank)" })
 
 -- Plugins
-map("n", "<leader>wn", "<cmd>noautocmd write<CR>", { desc = "Save without formatting" })
 map("n", "<leader>e", "<cmd>Yazi<CR>", { desc = "Open Yazi (cwd)" })
 map("n", "<leader>E", "<cmd>Yazi cwd<CR>", { desc = "Open Yazi (Root Dir)" })
 map("n", "<leader>ff", function()
