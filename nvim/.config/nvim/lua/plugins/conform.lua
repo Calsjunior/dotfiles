@@ -56,7 +56,6 @@ return {
             cpp = { "clang-format" },
             python = { "ruff_format" },
             lua = { "stylua" },
-            htmldjango = { "djlint" },
             javascript = { "biome" },
             typescript = { "biome" },
             json = { "biome" },

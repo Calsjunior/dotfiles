@@ -47,7 +47,16 @@ return {
             })
         end,
     },
-    { "mikavilpas/yazi.nvim" },
+    {
+        "mikavilpas/yazi.nvim",
+        init = function()
+            vim.g.loaded_netrwPlugin = 1
+        end,
+        event = "VeryLazy",
+        opts = {
+            open_for_directories = true,
+        },
+    },
     { "MeanderingProgrammer/render-markdown.nvim", lazy = true },
     { "yousefhadder/markdown-plus.nvim", lazy = true },
     {
@@ -58,7 +67,6 @@ return {
                 "shfmt",
                 "clangd",
                 "clang-format",
-                "biome",
                 "html-lsp",
                 "css-lsp",
                 "ruff",
@@ -71,7 +79,6 @@ return {
             inlay_hints = { enabled = false },
             folds = { enabled = false },
             servers = {
-                pyright = { mason = false, autostart = false },
                 html = {
                     filetypes = { "html", "htmldjango", "jinja", "jinga2" },
                     settings = {
@@ -86,6 +93,9 @@ return {
                     },
                 },
                 emmet_language_server = { "html", "css", "javascript", "javascriptreact", "typescriptreact" },
+                docker_language_server = {
+                    filetypes = { "yaml" },
+                },
             },
         },
     },
