@@ -24,7 +24,7 @@ aur_helper=""
 
 dotfiles="$(dirname "$(realpath "$0")")"
 config="$HOME/.config"
-caelestia_schemes="/usr/lib/python3.13/site-packages/caelestia/data/schemes"
+caelestia_schemes="/usr/lib/python3.14/site-packages/caelestia/data/schemes"
 
 # Colors
 blue='\033[0;34m'
