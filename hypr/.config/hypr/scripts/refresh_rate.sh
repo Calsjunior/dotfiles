@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-config_file="$HOME/.config/hypr/hyprland.conf"
-
 monitor_info=$(hyprctl monitors -j | jq -r '.[] | select(.focused == true)')
 
 name=$(echo "$monitor_info" | jq -r '.name')
@@ -28,11 +26,6 @@ else
     target_rate=$max_rate
 fi
 
-new_line="monitor = $name,${width}x${height}@${target_rate},${x_pos}x${y_pos},$scale"
-
-cp "$config_file" "${config_file}.bak"
-sed -i "s|^monitor\s*=\s*$name.*|$new_line|" "$config_file"
-
-hyprctl reload
+hyprctl keyword monitor "$name,${width}x${height}@${target_rate},${x_pos}x${y_pos},$scale"
 
 notify-send "Refresh Rate" "Set to ${target_rate}Hz"
