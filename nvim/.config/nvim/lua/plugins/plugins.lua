@@ -1,8 +1,8 @@
 return {
     { "neanias/everforest-nvim", lazy = false, priority = 1000 },
-    { "ellisonleao/gruvbox.nvim", lazy = false, priority = 1000 },
     { "folke/tokyonight.nvim", lazy = false, priority = 1000 },
     { "catppuccin/nvim", lazy = false, priority = 1000 },
+    { "sainnhe/gruvbox-material", lazy = false, priority = 1000 },
     {
         "LazyVim/LazyVim",
         opts = { colorscheme = "habamax" },
@@ -57,8 +57,8 @@ return {
             open_for_directories = true,
         },
     },
-    { "MeanderingProgrammer/render-markdown.nvim", lazy = true },
-    { "yousefhadder/markdown-plus.nvim", lazy = true },
+    { "MeanderingProgrammer/render-markdown.nvim" },
+    { "yousefhadder/markdown-plus.nvim", ft = "markdown", opts = {} },
     {
         "mason-org/mason.nvim",
         opts = {
@@ -98,5 +98,11 @@ return {
                 },
             },
         },
+    },
+    {
+        "lambdalisue/suda.vim",
+        init = function()
+            vim.g.suda_smart_edit = 1
+        end,
     },
 }
