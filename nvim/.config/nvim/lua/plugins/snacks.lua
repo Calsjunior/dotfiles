@@ -137,7 +137,7 @@ return {
         image = {
             enabled = true,
             doc = {
-                enabled = true,
+                enabled = false,
                 inline = true,
             },
         },
