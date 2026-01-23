@@ -21,7 +21,7 @@ done
 
 declare -A theme_templates=(
     ["everforest"]="require('everforest').setup({ background = '%s' }); vim.cmd.colorscheme('everforest')"
-    ["gruvbox-material"]="require('gruvbox-material').setup({ background = '%s' }); vim.cmd.colorscheme('gruvbox-material')"
+    ["gruvbox-material"]="vim.g.gruvbox_material_background = '%s'; vim.cmd.colorscheme('gruvbox-material')"
 )
 
 update_wallpaper() {
