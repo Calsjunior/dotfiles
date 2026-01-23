@@ -1,0 +1,76 @@
+local api = vim.api.nvim_create_autocmd
+
+-- Don't auto comment new line
+api("BufEnter", { command = [[set formatoptions-=cro]] })
+
+-- Restore terminal clear
+api("TermEnter", {
+    callback = function(ev)
+        vim.keymap.set("t", "<c-l>", "<c-l>", { buffer = ev.buf, nowait = true })
+    end,
+})
+
+-- Fix terminal escape key override
+api("TermOpen", {
+    desc = "Manage Terminal Escape Behavior",
+    callback = function(event)
+        local passthrough_ft = { "lazygit", "yazi", "snacks_terminal" }
+        local is_passthrough = vim.tbl_contains(passthrough_ft, vim.bo[event.buf].filetype)
+
+        -- Also check if the buffer name contains specific strings
+        local bufname = vim.api.nvim_buf_get_name(event.buf)
+        if bufname:match("lazygit") or bufname:match("yazi") then
+            is_passthrough = true
+        end
+
+        if is_passthrough then
+            -- Let <Esc> pass through to the terminal app
+            vim.keymap.set("t", "<Esc>", "<Esc>", { buffer = event.buf, nowait = true })
+        else
+            -- For generic terminals (like :term), let <Esc> enter Normal Mode
+            vim.keymap.set("t", "<Esc>", "<C-\\><C-n>", { buffer = event.buf })
+        end
+    end,
+})
+
+-- Auto activate python env if detected
+local function activate_venv()
+    local venv_paths = {
+        vim.fn.getcwd() .. "/venv",
+        vim.fn.getcwd() .. "/.venv",
+        vim.fn.getcwd() .. "/env",
+    }
+
+    for _, path in ipairs(venv_paths) do
+        local python_path = path .. "/bin/python"
+        if vim.fn.executable(python_path) == 1 then
+            vim.env.VIRTUAL_ENV = path
+            vim.env.PATH = path .. "/bin:" .. vim.env.PATH
+            vim.notify("🐍 Activated: " .. vim.fn.fnamemodify(path, ":t"))
+            return true
+        end
+    end
+    return false
+end
+api("DirChanged", { callback = activate_venv })
+
+-- Fix python's stupid indents
+api("FileType", {
+    pattern = { "python" },
+    callback = function()
+        -- vim.bo.indentexpr = "v:lua.LazyVim.treesitter.indentexpr()"
+        vim.bo.indentexpr = "nvim_treesitter#indent()"
+        vim.bo.autoindent = true
+        vim.bo.smartindent = false
+    end,
+})
+
+-- Enable snacks image for specific file type
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = "markdown",
+    callback = function(e)
+        if vim.api.nvim_buf_is_valid(e.buf) then
+            require("snacks.image.doc").attach(e.buf)
+        end
+    end,
+})
