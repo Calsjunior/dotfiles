@@ -134,5 +134,12 @@ return {
                 { section = "startup" },
             },
         },
+        image = {
+            enabled = true,
+            doc = {
+                enabled = true,
+                inline = true,
+            },
+        },
     },
 }
