@@ -1,8 +1,10 @@
 BasedOnStyle: Microsoft
 IndentWidth: 4
+IndentAccessModifiers: false
+IndentCaseLabels: false
+AccessModifierOffset: -4
 TabWidth: 4
 ColumnLimit: 120
-IndentCaseLabels: true
 SpaceAfterCStyleCast: true
 AllowShortFunctionsOnASingleLine: Empty
 BreakBeforeBraces: Custom
@@ -13,3 +15,4 @@ BraceWrapping:
   AfterStruct: true
   BeforeElse: true
   BeforeWhile: true
+SortIncludes: Never
