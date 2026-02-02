@@ -344,6 +344,7 @@
     },
     "services": {
         "audioIncrement": 0.1,
+        "brightnessIncrement": 0.05,
         "maxVolume": 1.0,
         "defaultPlayer": "Spotify",
         "gpuType": "",
