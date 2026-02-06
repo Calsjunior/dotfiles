@@ -143,8 +143,8 @@
             ]
         },
         "tray": {
-            "background": false,
-            "recolour": false,
+            "background": true,
+            "recolour": true,
             "compact": false,
             "iconSubs": []
         },
