@@ -2,7 +2,6 @@ return {
     { "nvim-treesitter/nvim-treesitter-textobjects", enabled = false },
     { "folke/flash.nvim", enabled = false },
     { "folke/trouble.nvim", enabled = false },
-    { "folke/todo-comments.nvim", enabled = false },
     { "folke/ts-comments.nvim", enabled = false },
     { "mfussenegger/nvim-lint", enabled = false },
     { "nvim-telescope/telescope.nvim", enabled = false },
