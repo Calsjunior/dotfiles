@@ -94,3 +94,4 @@ This will instantly relink the latest theme files into your system directories a
 # Credits
 - Window Manager: [Hyprland](https://github.com/hyprwm/Hyprland)
 - Shell: [Caelestia-Shell](https://github.com/caelestia-dots/shell)
+- Wallpapers are not mine and are credited to their original owners.
