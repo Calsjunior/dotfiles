@@ -2,8 +2,8 @@
 #  ZSH HISTORY
 # =============================================================================
 HISTFILE="$HOME/.zsh_history"    # Where to save history
-HISTSIZE=10000                   # How many lines to keep in memory
-SAVEHIST=10000                   # How many lines to save to disk
+HISTSIZE=100000                  # How many lines to keep in memory
+SAVEHIST=100000                  # How many lines to save to disk
 setopt SHARE_HISTORY             # Share history across terminals immediately
 setopt HIST_IGNORE_DUPS          # Don't record duplicates
 setopt HIST_IGNORE_SPACE         # Don't record commands starting with space
