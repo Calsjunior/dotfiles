@@ -119,7 +119,7 @@ alias duu="du -sh *"
 
 # Pandoc
 md2pdf() {
-    pandoc "$1" -o "${1%.*}.pdf" --pdf-engine=tectonic -V geometry:margin=1in
+    pandoc "$1" -f markdown+hard_line_breaks -o "${1%.*}.pdf" --pdf-engine=tectonic -V geometry:margin=1in
     echo "Converted $1 to ${1%.*}.pdf"
 }
 # =============================================================================
