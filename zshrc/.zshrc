@@ -102,12 +102,12 @@ export GTK_THEME=adw-gtk3-dark
 alias v="nvim"
 
 # Package Management (Pacman/Yay)
-alias ip="sudo pacman -S"
-alias rp="sudo pacman -Rns"
-alias up="sudo pacman -Syu"
-alias iy="yay -S"
-alias ry="yay -Rns"
-alias uy="yay -Syu"
+# alias ip="sudo pacman -S"
+# alias rp="sudo pacman -Rns"
+# alias up="sudo pacman -Syu"
+# alias iy="yay -S"
+# alias ry="yay -Rns"
+# alias uy="yay -Syu"
 
 # Search & File Operations
 alias f="find . -iname"
