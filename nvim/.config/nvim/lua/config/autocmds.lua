@@ -69,8 +69,9 @@ api("FileType", {
 vim.api.nvim_create_autocmd("FileType", {
     pattern = "markdown",
     callback = function(e)
-        if vim.api.nvim_buf_is_valid(e.buf) then
-            require("snacks.image.doc").attach(e.buf)
+        local ok, image_doc = pcall(require, "snacks.image.doc")
+        if ok then
+            image_doc.attach(e.buf)
         end
     end,
 })
