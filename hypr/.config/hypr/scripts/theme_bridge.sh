@@ -1,4 +1,28 @@
 #!/usr/bin/env bash
+# theme-bridge.sh
+#
+# Watches for theme and wallpaper changes and syncs them across:
+#   - Wallpaper (via caelestia)
+#   - Kitty terminal (via kitten themes)
+#   - Neovim (via remote-expr to all running instances)
+#
+# State files:
+#   - ~/.local/state/caelestia/scheme.json: current theme (name, mode, flavour)
+#   - ~/.local/state/caelestia/wallpaper/path.txt: current wallpaper path
+#
+# Neovim theme syncing:
+#   Writes the appropriate lua colorscheme command to current_theme.lua, then
+#   sends a live update to all running Neovim instances via --remote-expr.
+#   On next Neovim startup, current_theme.lua is read to determine which
+#   colorscheme plugin to load eagerly (see plugins/colorschemes.lua).
+#
+# Usage:
+#   Run as a background service or add to your compositor autostart.
+#   Requires: inotifywait, caelestia, kitten (optional)
+#
+# Sync modes:
+#   sync_from_theme    — scheme.json changed, update wallpaper + kitty + neovim
+#   sync_from_wallpaper — wallpaper changed, update scheme via caelestia
 
 scheme_state="$HOME/.local/state/caelestia/scheme.json"
 wallpaper_state="$HOME/.local/state/caelestia/wallpaper/path.txt"
