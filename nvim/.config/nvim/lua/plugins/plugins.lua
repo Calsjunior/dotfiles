@@ -1,8 +1,4 @@
 return {
-    { "neanias/everforest-nvim", lazy = false, priority = 1000 },
-    { "folke/tokyonight.nvim", lazy = false, priority = 1000 },
-    { "catppuccin/nvim", lazy = false, priority = 1000 },
-    { "sainnhe/gruvbox-material", lazy = false, priority = 1000 },
     {
         "LazyVim/LazyVim",
         opts = { colorscheme = "habamax" },
