@@ -10,6 +10,7 @@ return {
     { "nvim-lualine/lualine.nvim" },
     {
         "kylechui/nvim-surround",
+        event = "BufReadPre",
         config = function()
             require("nvim-surround").setup()
         end,
@@ -37,6 +38,7 @@ return {
     },
     {
         "norcalli/nvim-colorizer.lua",
+        event = "BufReadPre",
         config = function()
             require("colorizer").setup({
                 css = { css = true },
