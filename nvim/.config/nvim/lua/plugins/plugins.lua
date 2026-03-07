@@ -47,8 +47,6 @@ return {
             })
         end,
     },
-    { "MeanderingProgrammer/render-markdown.nvim" },
-    { "yousefhadder/markdown-plus.nvim", ft = "markdown", opts = {} },
     {
         "lambdalisue/suda.vim",
         init = function()
