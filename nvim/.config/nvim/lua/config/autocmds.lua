@@ -76,3 +76,30 @@ vim.api.nvim_create_autocmd("FileType", {
 
 -- Disable wrapping
 vim.api.nvim_create_augroup("lazyvim_wrap_spell", { clear = true })
+
+-- When opening a project via `nvim .`, yazi intercepts the directory and opens it.
+-- However, mksession (used by persistence.nvim) saves the directory as a buffer
+-- entry in the session file. On next project load, the directory buffer gets
+-- restored as an empty unlisted buffer. This autocmd fires after persistence writes
+-- the session file and rewrites it, stripping any `badd` or `argadd` lines that
+-- point to directories.
+vim.api.nvim_create_autocmd("User", {
+    pattern = "PersistenceSavePost",
+    callback = function()
+        local session_file = require("persistence").current()
+        if not session_file or vim.fn.filereadable(session_file) == 0 then
+            return
+        end
+        local lines = vim.fn.readfile(session_file)
+        local filtered = vim.tbl_filter(function(line)
+            if line:match("^badd") or line:match("^%$argadd") or line:match("^argadd") then
+                local path = line:match("%s(.+)$")
+                if path and vim.fn.isdirectory(vim.fn.expand(path)) == 1 then
+                    return false
+                end
+            end
+            return true
+        end, lines)
+        vim.fn.writefile(filtered, session_file)
+    end,
+})
