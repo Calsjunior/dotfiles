@@ -1,5 +1,7 @@
--- This config uses the script from theme-bridge.lua from my dotfile
--- to dynamically update neovim's theme while lazy loading unused themes
+-- This config uses the script from theme-bridge.sh from my dotfile to
+-- dynamically update neovim's theme while lazy loading unused themes
+-- Without the theme-bridge.sh, you need to update the current_theme.lua to
+-- use your desired theme since theme-bridge writes to that file.
 local theme_file = vim.fn.stdpath("config") .. "/lua/config/current_theme.lua"
 local current_theme = ""
 if vim.fn.filereadable(theme_file) == 1 then
