@@ -1,17 +1,15 @@
-local api = vim.api.nvim_create_autocmd
-
 -- Don't auto comment new line
-api("BufEnter", { command = [[set formatoptions-=cro]] })
+vim.api.nvim_create_autocmd("BufEnter", { command = [[set formatoptions-=cro]] })
 
 -- Restore terminal clear
-api("TermEnter", {
+vim.api.nvim_create_autocmd("TermEnter", {
     callback = function(ev)
         vim.keymap.set("t", "<c-l>", "<c-l>", { buffer = ev.buf, nowait = true })
     end,
 })
 
 -- Fix terminal escape key override
-api("TermOpen", {
+vim.api.nvim_create_autocmd("TermOpen", {
     desc = "Manage Terminal Escape Behavior",
     callback = function(event)
         local passthrough_ft = { "lazygit", "yazi", "snacks_terminal" }
@@ -52,10 +50,10 @@ local function activate_venv()
     end
     return false
 end
-api("DirChanged", { callback = activate_venv })
+vim.api.nvim_create_autocmd("DirChanged", { callback = activate_venv })
 
 -- Fix python's stupid indents
-api("FileType", {
+vim.api.nvim_create_autocmd("FileType", {
     pattern = { "python" },
     callback = function()
         -- vim.bo.indentexpr = "v:lua.LazyVim.treesitter.indentexpr()"
@@ -75,3 +73,6 @@ vim.api.nvim_create_autocmd("FileType", {
         end
     end,
 })
+
+-- Disable wrapping
+vim.api.nvim_create_augroup("lazyvim_wrap_spell", { clear = true })
