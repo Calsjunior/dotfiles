@@ -3,12 +3,9 @@ return {
     opts = {
         completion = {
             accept = { auto_brackets = { enabled = false } },
-            list = {
-                max_items = 100, -- shrink the popup
-            },
             menu = {
                 auto_show = false, -- don't auto popup, trigger manually
-                max_height = 5,
+                max_height = 10,
             },
         },
         sources = {
