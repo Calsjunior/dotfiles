@@ -28,8 +28,12 @@ return {
             -- Close menu
             ["<Esc>"] = {
                 function(cmp)
-                    cmp.cancel()
-                    vim.cmd("stopinsert")
+                    if cmp.is_visible() then
+                        cmp.cancel()
+                    end
+                    vim.schedule(function()
+                        vim.cmd("stopinsert")
+                    end)
                 end,
             },
         },
