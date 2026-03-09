@@ -3,6 +3,8 @@
 -- causing subsequent lines to break. The issue exists regardless of whether
 -- <Esc> is mapped in the keymap config or not, meaning blink intercepts it
 -- internally. Pinned to v1.8.x until this is fixed upstream.
+-- Bugged with flash.nvim on version 1.9.x
+
 return {
     "saghen/blink.cmp",
     version = "1.8.*",
@@ -10,7 +12,7 @@ return {
         completion = {
             accept = { auto_brackets = { enabled = false } },
             menu = {
-                auto_show = false, -- don't auto popup, trigger manually
+                auto_show = false,
                 max_height = 10,
             },
         },
