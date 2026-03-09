@@ -1,5 +1,11 @@
+-- blink.cmp v1.9.x introduced a regression where its internal <Esc> handling
+-- intercepts the escape character during `norm` commands (e.g. `g/pattern/norm Itext ^[f.r:`),
+-- causing subsequent lines to break. The issue exists regardless of whether
+-- <Esc> is mapped in the keymap config or not, meaning blink intercepts it
+-- internally. Pinned to v1.8.x until this is fixed upstream.
 return {
     "saghen/blink.cmp",
+    version = "1.8.*",
     opts = {
         completion = {
             accept = { auto_brackets = { enabled = false } },
@@ -18,19 +24,12 @@ return {
         keymap = {
             preset = "default",
             ["<C-space>"] = { "show", "show_documentation", "hide_documentation" },
-
-            -- Accept completion
             ["<C-CR>"] = { "select_and_accept", "fallback" },
 
-            -- Close menu
             ["<Esc>"] = {
                 function(cmp)
-                    if cmp.is_visible() then
-                        cmp.cancel()
-                    end
-                    vim.schedule(function()
-                        vim.cmd("stopinsert")
-                    end)
+                    cmp.cancel()
+                    vim.cmd("stopinsert")
                 end,
             },
         },
