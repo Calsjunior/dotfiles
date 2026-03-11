@@ -5,7 +5,8 @@ HISTFILE="$HOME/.zsh_history"    # Where to save history
 HISTSIZE=100000                  # How many lines to keep in memory
 SAVEHIST=100000                  # How many lines to save to disk
 setopt SHARE_HISTORY             # Share history across terminals immediately
-setopt HIST_IGNORE_DUPS          # Don't record duplicates
+setopt HIST_IGNORE_ALL_DUPS      # Delete old recorded entry if new entry is a duplicate
+setopt HIST_SAVE_NO_DUPS         # Don't write duplicate entries to the history file
 setopt HIST_IGNORE_SPACE         # Don't record commands starting with space
 
 # =============================================================================
