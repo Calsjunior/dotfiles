@@ -12,10 +12,10 @@ map("x", "<leader>p", '"_dP', { desc = "Paste without yanking" })
 map({ "n", "v" }, "<leader>d", '"_d', { desc = "Delete without yanking" })
 
 -- Center screen when jumping
-map("n", "n", "nzzzv", { desc = "Next search result (centered)" })
-map("n", "N", "Nzzzv", { desc = "Previous search result (centered)" })
-map("n", "<C-d>", "<C-d>zz", { desc = "Half page down (centered)" })
-map("n", "<C-u>", "<C-u>zz", { desc = "Half page up (centered)" })
+-- map("n", "n", "nzzzv", { desc = "Next search result (centered)" })
+-- map("n", "N", "Nzzzv", { desc = "Previous search result (centered)" })
+-- map("n", "<C-d>", "<C-d>zz", { desc = "Half page down (centered)" })
+-- map("n", "<C-u>", "<C-u>zz", { desc = "Half page up (centered)" })
 
 -- Buffer mappings
 map("n", "<leader>o", "<cmd>update<CR><cmd>source %<CR><cmd>nohlsearch<CR>")
