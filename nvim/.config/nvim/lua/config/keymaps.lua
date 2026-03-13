@@ -54,8 +54,13 @@ end, { desc = "Grep (cwd)" })
 map("n", "<leader>sG", function()
     Snacks.picker.grep({ cwd = vim.fn.expand("~") })
 end, { desc = "Grep (Home)" })
+local _terminal_cwd = nil
 map({ "n", "t" }, "<C-/>", function()
-    Snacks.terminal.toggle(nil, { cwd = vim.fn.expand("%:p:h") })
+    if not _terminal_cwd then
+        local cwd = vim.fn.expand("%:p:h")
+        _terminal_cwd = vim.fn.isdirectory(cwd) == 1 and cwd or vim.fn.getcwd()
+    end
+    Snacks.terminal.toggle(nil, { cwd = _terminal_cwd })
 end, { desc = "Terminal (cwd)" })
 map({ "n", "t" }, "<C-S-/>", function()
     Snacks.terminal.toggle(nil, { cwd = vim.fn.getcwd() })
