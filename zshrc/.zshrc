@@ -95,6 +95,7 @@ export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_CACHE_HOME="$HOME/.cache"
 export STARSHIP_CONFIG="$HOME/.config/starship/starship.toml"
 export GTK_THEME=adw-gtk3-dark
+export MANPAGER='nvim +Man!'
 
 # =============================================================================
 #  ALIASES
