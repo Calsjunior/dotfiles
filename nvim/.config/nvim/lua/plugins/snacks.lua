@@ -71,34 +71,46 @@ return {
 
                     vim.schedule(function()
                         local shada_path = vim.fn.stdpath("state") .. "/shada/main.shada"
-                        local saved_lazyredraw = vim.o.lazyredraw
-                        vim.o.lazyredraw = true
-                        vim.cmd("silent! edit " .. shada_path)
+                        local buf = vim.fn.bufadd(shada_path)
+                        vim.fn.bufload(buf)
 
-                        local buf = vim.api.nvim_get_current_buf()
-                        local deleted_count = 0
-
+                        -- Remove from oldfiles immediately so picker doesn't show it
+                        local deleted_dirs = {}
                         for _, item in ipairs(items) do
-                            local regex = "^\\S\\(\\n\\s\\|[^\\n]\\)\\{-}"
-                                .. vim.fn.escape(item.file, "/\\")
-                                .. "\\_.\\{-}\\n*\\ze\\(^\\S\\|\\%$\\)"
-
-                            if pcall(vim.cmd, "silent! %s/" .. regex .. "//g") then
-                                deleted_count = deleted_count + 1
+                            local dir = vim.fn.fnamemodify(item.file, ":p")
+                            if dir:sub(-1) ~= "/" then
+                                dir = dir .. "/"
                             end
+                            deleted_dirs[dir] = true
                         end
+                        vim.v.oldfiles = vim.tbl_filter(function(f)
+                            local normalized = vim.fn.fnamemodify(f, ":p")
+                            for dir, _ in pairs(deleted_dirs) do
+                                if normalized:sub(1, #dir) == dir then
+                                    return false
+                                end
+                            end
+                            return true
+                        end, vim.v.oldfiles)
 
-                        -- Save and clean up
-                        vim.cmd("silent! write!")
-                        vim.cmd("silent! bwipeout! " .. buf)
-                        vim.cmd("silent! rshada!")
-                        vim.o.lazyredraw = saved_lazyredraw
-                        if deleted_count > 0 then
-                            Snacks.notify.info("Deleted " .. deleted_count .. " project(s).")
-                        else
-                            Snacks.notify.warn("Project not found in history.")
-                        end
+                        local deleted_count = #items
+                        Snacks.notify.info("Deleted " .. deleted_count .. " project(s).")
                         Snacks.picker.projects()
+
+                        -- Write shada in background
+                        vim.defer_fn(function()
+                            vim.api.nvim_buf_call(buf, function()
+                                for _, item in ipairs(items) do
+                                    local regex = "^\\S\\(\\n\\s\\|[^\\n]\\)\\{-}"
+                                        .. vim.fn.escape(item.file, "/\\")
+                                        .. "\\_.\\{-}\\n*\\ze\\(^\\S\\|\\%$\\)"
+                                    pcall(vim.cmd, "silent! %s/" .. regex .. "//g")
+                                end
+                                vim.cmd("silent! write!")
+                            end)
+                            vim.api.nvim_buf_delete(buf, { force = true })
+                            vim.cmd("silent! rshada!")
+                        end, 0)
                     end)
                 end,
             },
