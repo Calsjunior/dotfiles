@@ -4,7 +4,7 @@ return {
         completion = {
             accept = { auto_brackets = { enabled = false } },
             menu = {
-                auto_show = false,
+                auto_show = true,
                 max_height = 10,
             },
         },
