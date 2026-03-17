@@ -16,6 +16,11 @@ return {
         { "<leader>sG", false },
     },
     opts = {
+        scroll = {
+            animate = {
+                duration = { step = 20, total = 250 },
+            },
+        },
         explorer = { enabled = false },
         indent = { scope = { enabled = false } },
         terminal = {
