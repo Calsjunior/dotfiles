@@ -1,0 +1,17 @@
+# =============================================================================
+#  EXPORTS
+# =============================================================================
+export PATH="$HOME/.local/share/bob/nvim-bin:$HOME/.local/bin:$PATH"
+export EDITOR=nvim
+export VISUAL=nvim
+export BROWSER=zen-browser
+export TERMINAL=kitty
+export XDG_CONFIG_HOME="$HOME/.config"
+export XDG_DATA_HOME="$HOME/.local/share"
+export XDG_CACHE_HOME="$HOME/.cache"
+export STARSHIP_CONFIG="$HOME/.config/starship/starship.toml"
+export GTK_THEME=adw-gtk3-dark
+export MANPAGER='nvim +Man!'
+export FZF_DEFAULT_COMMAND="fd --type f --hidden --exclude .git --exclude node_modules --exclude .cache --exclude Trash"
+export FZF_DEFAULT_OPTS="--scheme=path --tiebreak=end,length --preview 'bat --color=always {}'"
+
