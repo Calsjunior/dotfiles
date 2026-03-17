@@ -8,6 +8,10 @@ on   = [ "<C-n>" ]
 run  = "plugin drag"
 desc = "Drag Files"
 
+[[mgr.prepend_keymap]]
+on  = "M"
+run = "plugin mount"
+
 # Additional keymaps (requires nsxiv and gThumb)
 [[mgr.prepend_keymap]]
 on   = "<C-p>"
