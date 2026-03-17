@@ -97,6 +97,9 @@ export STARSHIP_CONFIG="$HOME/.config/starship/starship.toml"
 export GTK_THEME=adw-gtk3-dark
 export MANPAGER='nvim +Man!'
 
+export FZF_DEFAULT_COMMAND="fd --type f --hidden --exclude .git --exclude node_modules --exclude .cache --exclude Trash"
+export FZF_DEFAULT_OPTS="--scheme=path --tiebreak=end,length --preview 'bat --color=always {}'"
+
 # =============================================================================
 #  ALIASES
 # =============================================================================
