@@ -1,3 +1,4 @@
+zmodload zsh/zprof
 # =============================================================================
 #  ZSH HISTORY
 # =============================================================================
@@ -27,11 +28,11 @@ bindkey -M viins '^N' down-line-or-history
 
 # Change cursor shape (Beam in Insert Mode, Block in Normal Mode)
 function zle-keymap-select {
-  if [[ ${KEYMAP} == vicmd ]] || [[ $1 = 'block' ]]; then
-    echo -ne '\e[1 q' # Block cursor
-  elif [[ ${KEYMAP} == main ]] || [[ ${KEYMAP} == viins ]] || [[ ${KEYMAP} = '' ]] || [[ $1 = 'beam' ]]; then
-    echo -ne '\e[5 q' # Beam cursor
-  fi
+    if [[ ${KEYMAP} == vicmd ]] || [[ $1 = 'block' ]]; then
+        echo -ne '\e[1 q' # Block cursor
+    elif [[ ${KEYMAP} == main ]] || [[ ${KEYMAP} == viins ]] || [[ ${KEYMAP} = '' ]] || [[ $1 = 'beam' ]]; then
+        echo -ne '\e[5 q' # Beam cursor
+    fi
 }
 zle -N zle-keymap-select
 zle-line-init() {
@@ -45,10 +46,10 @@ zle -N zle-line-init
 # =============================================================================
 # Initialize completion system
 autoload -Uz compinit
-if [[ -n "$HOME/.zcompdump"(#qN.mh+24) ]]; then
-    compinit
+if [[ -z ~/.zcompdump(#qN.mh+24) ]]; then
+    compinit -d ~/.zcompdump
 else
-    compinit -C
+    compinit -C -d ~/.zcompdump
 fi
 
 # Enable the "Interactive Menu"
@@ -135,8 +136,8 @@ if [ -f /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh ]; th
 fi
 
 # 2. Syntax Highlighting 
-if [ -f /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
-    source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+if [ -f /usr/share/zsh/plugins/zsh-fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh ]; then
+    source /usr/share/zsh/plugins/zsh-fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
 fi
 
 # =============================================================================
@@ -167,3 +168,4 @@ else
 fi
 
 eval "$(starship init zsh)"
+zprof
