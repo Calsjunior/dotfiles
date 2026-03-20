@@ -1,6 +1,7 @@
 return {
     {
         "goerz/jupytext.vim",
+        ft = "ipynb",
         config = function()
             vim.g.jupytext_fmt = "py:percent"
         end,
