@@ -3,22 +3,22 @@ add_newline = true
 
 # Format of the status
 format = """
-$directory\
-$git_branch\
-$git_status\
-$fill\
-$python\
-$lua\
-$nodejs\
-$golang\
-$haskell\
-$rust\
-$ruby\
-$package\
-$aws\
-$docker_context\
-$jobs\
-$cmd_duration\
+$directory \
+$git_branch \
+$git_status \
+$fill \
+$python \
+$lua \
+$nodejs \
+$golang \
+$haskell \
+$rust \
+$ruby \
+$package \
+$aws \
+$docker_context \
+$jobs \
+$cmd_duration \
 $line_break\
 $character
 """
