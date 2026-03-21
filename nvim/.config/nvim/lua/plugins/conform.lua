@@ -33,23 +33,6 @@ return {
                 args = { "check", "--fix", "--stdin-filename", "$FILENAME" },
                 stdin = true,
             },
-            djlint = {
-                command = "djlint",
-                args = {
-                    "--reformat",
-                    "--max-attribute-length",
-                    "120",
-                    "--max-line-length",
-                    "60",
-                    "--max-blank-lines",
-                    "1",
-                    "--preserve-blank-lines",
-                    "--custom-blocks",
-                    "for,endfor,block,endblock",
-                    "-",
-                },
-                stdin = true,
-            },
         },
         formatters_by_ft = {
             c = { "clang-format" },
