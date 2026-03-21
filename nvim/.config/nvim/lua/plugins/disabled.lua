@@ -1,7 +1,6 @@
 return {
     { "folke/trouble.nvim", enabled = false },
     { "folke/ts-comments.nvim", enabled = false },
-    { "mfussenegger/nvim-lint", enabled = false },
     { "nvim-telescope/telescope.nvim", enabled = false },
     { "rafamadriz/friendly-snippets", enabled = false },
     { "nvim-mini/mini.ai", enabled = false },
