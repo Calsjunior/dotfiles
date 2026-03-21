@@ -11,18 +11,6 @@ return {
             shfmt = {
                 prepend_args = { "-i", "4", "-ci" },
             },
-            biome = {
-                command = "biome",
-                args = {
-                    "format",
-                    "--stdin-file-path",
-                    "$FILENAME",
-                    "--indent-style=space",
-                    "--indent-width=4",
-                    "--line-width=160",
-                },
-                stdin = true,
-            },
             ruff_format = {
                 command = "ruff",
                 args = { "format", "--line-length", "160", "--stdin-filename", "$FILENAME" },
@@ -39,6 +27,7 @@ return {
             cpp = { "clang-format" },
             python = { "ruff_format" },
             lua = { "stylua" },
+            html = { "biome" },
             javascript = { "biome" },
             typescript = { "biome" },
             json = { "biome" },
