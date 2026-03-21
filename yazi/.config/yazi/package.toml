@@ -18,5 +18,10 @@ use = "lpnh/fr"
 rev = "aa88cd4"
 hash = "8b0e87c3176e0d44f79a8656f79f0fa"
 
+[[plugin.deps]]
+use = "simla33/ucp"
+rev = "96f54af"
+hash = "2011ef145f7d4aaa23cbc64c05cd6a7f"
+
 [flavor]
 deps = []

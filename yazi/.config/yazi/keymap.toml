@@ -17,6 +17,16 @@ on = [ "S" ]
 run = "plugin fr rg"
 desc = "Search file by content (rg)"
 
+[[mgr.prepend_keymap]]
+on   = "y"
+run  = "plugin ucp copy notify"
+desc = "Copy to system clipboard"
+
+[[mgr.prepend_keymap]]
+on   = "p"
+run  = "plugin ucp paste notify"
+desc = "Paste from system clipboard"
+
 # Additional keymaps (requires nsxiv and gThumb)
 [[mgr.prepend_keymap]]
 on   = [ "<C-p>" ]
