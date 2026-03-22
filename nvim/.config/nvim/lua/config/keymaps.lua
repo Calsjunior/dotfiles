@@ -37,31 +37,49 @@ map("n", "H", "_", { desc = "Start of line (non-blank)" })
 map("n", "L", "$", { desc = "End of line (non-blank)" })
 
 -- Plugins
-map("n", "<leader>e", "<cmd>Yazi<CR>", { desc = "Open Yazi (cwd)" })
-map("n", "<leader>E", "<cmd>Yazi cwd<CR>", { desc = "Open Yazi (Root Dir)" })
+-- Yazi
+map("n", "<leader>e", "<cmd>Yazi<CR>", { desc = "Open Yazi (Current File)" })
+map("n", "<leader>E", "<cmd>Yazi cwd<CR>", { desc = "Open Yazi (cwd)" })
+
+-- Find Files
 map("n", "<leader>ff", function()
     Snacks.picker.files({ cwd = vim.fn.expand("%:p:h") })
-end, { desc = "Find Files (cwd)" })
+end, { desc = "Find Files (Current File)" })
+
 map("n", "<leader>fF", function()
     Snacks.picker.files({ cwd = vim.fn.getcwd() })
-end, { desc = "Find Files (Root Dir)" })
+end, { desc = "Find Files (cwd)" })
+
 map("n", "<leader>fh", function()
     Snacks.picker.files({ cwd = vim.fn.expand("~") })
 end, { desc = "Find Files (Home)" })
+
+-- Grep
 map("n", "<leader>sg", function()
+    Snacks.picker.grep({ cwd = vim.fn.expand("%:p:h") })
+end, { desc = "Grep (Current File)" })
+
+map("n", "<leader>sG", function()
     Snacks.picker.grep({ cwd = vim.fn.getcwd() })
 end, { desc = "Grep (cwd)" })
-map("n", "<leader>sG", function()
+
+map("n", "<leader>sH", function()
     Snacks.picker.grep({ cwd = vim.fn.expand("~") })
 end, { desc = "Grep (Home)" })
-local _terminal_cwd = nil
+
+-- Terminal
 map({ "n", "t" }, "<C-/>", function()
-    if not _terminal_cwd then
-        local cwd = vim.fn.expand("%:p:h")
-        _terminal_cwd = vim.fn.isdirectory(cwd) == 1 and cwd or vim.fn.getcwd()
+    if vim.bo.buftype == "terminal" then
+        vim.api.nvim_win_hide(0)
+        return
     end
-    Snacks.terminal.toggle(nil, { cwd = _terminal_cwd })
-end, { desc = "Terminal (cwd)" })
-map({ "n", "t" }, "<C-S-/>", function()
+    local cwd = vim.fn.expand("%:p:h")
+    if cwd == "" or cwd:match("^%a+://") then
+        cwd = vim.fn.getcwd()
+    end
+    Snacks.terminal.toggle(nil, { id = "file_term", cwd = cwd })
+end, { desc = "Terminal (Current File)" })
+
+map({ "n", "t" }, "<C-->", function()
     Snacks.terminal.toggle(nil, { cwd = vim.fn.getcwd() })
-end, { desc = "Terminal (Root Dir)" })
+end, { desc = "Terminal (cwd)" })
