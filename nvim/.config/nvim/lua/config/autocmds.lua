@@ -63,14 +63,20 @@ vim.api.nvim_create_autocmd("FileType", {
     end,
 })
 
--- Enable snacks image for specific file type
+-- Markdown configs
 vim.api.nvim_create_autocmd("FileType", {
     pattern = "markdown",
     callback = function(e)
+        -- Enable snacks image
         local ok, image_doc = pcall(require, "snacks.image.doc")
         if ok then
             image_doc.attach(e.buf)
         end
+
+        vim.opt_local.spell = true
+        vim.opt_local.shiftwidth = 2
+        vim.opt_local.tabstop = 2
+        vim.opt_local.softtabstop = 2
     end,
 })
 
