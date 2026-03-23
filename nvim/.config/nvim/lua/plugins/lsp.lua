@@ -23,7 +23,9 @@ return {
             inlay_hints = { enabled = false },
             folds = { enabled = false },
             servers = {
-                emmet_language_server = { "html", "css", "javascript", "javascriptreact", "typescriptreact" },
+                emmet_language_server = {
+                    filetypes = { "html", "css", "javascript", "javascriptreact", "typescriptreact" },
+                },
                 docker_language_server = {
                     filetypes = { "yaml" },
                 },
