@@ -10,6 +10,7 @@ return {
                 "html-lsp",
                 "css-lsp",
                 "ruff",
+                "biome",
                 "docker-language-server",
                 "emmet-language-server",
                 "typescript-language-server",
