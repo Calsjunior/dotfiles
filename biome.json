@@ -10,7 +10,10 @@
     "html": {
         "formatter": {
             "enabled": true,
-            "whitespaceSensitivity": "ignore"
+            "bracketSameLine": true,
+            "whitespaceSensitivity": "ignore",
+            "attributePosition": "auto",
+            "lineWidth": 90
         }
     },
     "linter": {
