@@ -28,6 +28,7 @@ return {
             python = { "ruff_format" },
             lua = { "stylua" },
             html = { "biome" },
+            css = { "biome" },
             javascript = { "biome" },
             typescript = { "biome" },
             json = { "biome" },
