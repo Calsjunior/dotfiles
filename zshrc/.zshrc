@@ -80,7 +80,11 @@ md2pdf() {
 # =============================================================================
 #  PLUGINS (zinit turbo mode - deferred after prompt)
 # =============================================================================
-zinit ice wait lucid atload"_zsh_autosuggest_start; ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(menu-complete)"
+autoload -Uz compinit
+zinit ice wait"0" lucid atinit"compinit -C -d ~/.zcompdump"
+zinit light zdharma-continuum/null
+
+zinit ice wait lucid atload"_zsh_autosuggest_start"
 zinit light zsh-users/zsh-autosuggestions
 
 zinit ice wait lucid
@@ -88,12 +92,6 @@ zinit light zdharma-continuum/fast-syntax-highlighting
 
 zinit ice wait lucid blockf
 zinit light zsh-users/zsh-completions
-
-# Defer compinit until after prompt
-autoload -Uz compinit
-zinit ice wait"0" lucid atinit"compinit -C -d ~/.zcompdump"
-zinit light zdharma-continuum/null
-
 # =============================================================================
 #  INITIALIZATION
 # =============================================================================
