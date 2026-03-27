@@ -97,7 +97,7 @@ zinit light zsh-users/zsh-completions
 # =============================================================================
 
 # Lazy Load NVM
-declare -a nvm_triggers=(node npm nvm pnpm yarn)
+declare -a nvm_triggers=(node npm nvm pnpm yarn live-server)
 for cmd in $nvm_triggers; do
     eval "$cmd() { unset -f $nvm_triggers; source /usr/share/nvm/init-nvm.sh; $cmd \"\$@\"; }"
 done
