@@ -73,6 +73,7 @@ vim.api.nvim_create_autocmd("FileType", {
             image_doc.attach(e.buf)
         end
 
+        vim.opt.textwidth = 75
         vim.opt_local.spell = true
         vim.opt_local.shiftwidth = 2
         vim.opt_local.tabstop = 2
