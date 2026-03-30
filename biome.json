@@ -1,6 +1,5 @@
 {
-    "$schema": "https://biomejs.dev/schemas/2.4.8/schema.json",
-    "root": false,
+    "$schema": "https://biomejs.dev/schemas/2.4.9/schema.json",
     "formatter": {
         "enabled": true,
         "indentStyle": "space",
@@ -10,7 +9,6 @@
     "html": {
         "formatter": {
             "enabled": true,
-            "bracketSameLine": true,
             "whitespaceSensitivity": "ignore",
             "attributePosition": "auto",
             "lineWidth": 90
@@ -20,6 +18,15 @@
         "enabled": true,
         "rules": {
             "recommended": true
+        }
+    },
+    "assist": {
+        "enabled": true,
+        "actions": {
+            "source": {
+                "useSortedProperties": "on",
+                "useSortedAttributes": "on"
+            }
         }
     }
 }
