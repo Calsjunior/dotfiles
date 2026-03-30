@@ -27,6 +27,11 @@ on   = "p"
 run  = "plugin ucp paste notify"
 desc = "Paste from system clipboard"
 
+[[mgr.prepend_keymap]]
+on   = "F"
+run  = "plugin smart-filter"
+desc = "Smart filter"
+
 # Additional keymaps (requires nsxiv and gThumb)
 [[mgr.prepend_keymap]]
 on   = [ "<C-p>" ]
