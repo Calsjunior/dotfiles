@@ -11,7 +11,6 @@ return {
                 "css-lsp",
                 "ruff",
                 "biome",
-                "docker-language-server",
                 "emmet-language-server",
                 "typescript-language-server",
             },
@@ -25,9 +24,6 @@ return {
             servers = {
                 emmet_language_server = {
                     filetypes = { "html", "css", "javascript", "javascriptreact", "typescriptreact" },
-                },
-                docker_language_server = {
-                    filetypes = { "yaml" },
                 },
             },
         },
