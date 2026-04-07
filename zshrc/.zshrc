@@ -96,15 +96,11 @@ zinit light zsh-users/zsh-completions
 #  INITIALIZATION
 # =============================================================================
 
-# Lazy Load NVM
-declare -a nvm_triggers=(node npm nvm pnpm yarn live-server)
-for cmd in $nvm_triggers; do
-    eval "$cmd() { unset -f $nvm_triggers; source /usr/share/nvm/init-nvm.sh; $cmd \"\$@\"; }"
-done
-
 # Tools
 eval "$(zoxide init --cmd cd zsh)"
 source <(fzf --zsh)
+
+eval "$(mise activate zsh)"
 
 # Fastfetch
 if [[ $(tty) == *"pts"* ]] && [[ -z "$ZSH_EXECUTION_STRING" ]]; then
