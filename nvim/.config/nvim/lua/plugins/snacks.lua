@@ -59,7 +59,8 @@ return {
                     },
                 },
                 projects = {
-                    dev = { "~/Projects", "~/Documents" },
+                    dev = { "~/dev", "~/Documents" },
+                    max_depth = 4,
                     win = {
                         input = {
                             keys = {
