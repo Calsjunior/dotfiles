@@ -36,6 +36,52 @@ map("v", ">", ">gv", { desc = "Indent right and reselect" })
 map("n", "H", "_", { desc = "Start of line (non-blank)" })
 map("n", "L", "$", { desc = "End of line (non-blank)" })
 
+-- Compiling/Running current file
+vim.keymap.set("n", "<leader>r", function()
+    vim.cmd("w")
+
+    local ft = vim.bo.filetype
+    local file = vim.fn.shellescape(vim.fn.expand("%:p"))
+    local file_no_ext = vim.fn.shellescape(vim.fn.expand("%:p:r"))
+    local dir = vim.fn.shellescape(vim.fn.expand("%:p:h"))
+    local raw_dir = vim.fn.expand("%:p:h")
+
+    local runners = {
+        javascript = "node " .. file,
+        python = "python3 " .. file,
+        sh = "bash " .. file,
+        c = function()
+            if vim.fn.filereadable(raw_dir .. "/Makefile") == 1 then
+                return "cd " .. dir .. " && make"
+            end
+            return "cd " .. dir .. " && gcc *.c -o " .. file_no_ext .. " && " .. file_no_ext
+        end,
+
+        cpp = function()
+            if vim.fn.filereadable(raw_dir .. "/Makefile") == 1 then
+                return "cd " .. dir .. " && make"
+            end
+            return "cd " .. dir .. " && g++ *.cpp -o " .. file_no_ext .. " && " .. file_no_ext
+        end,
+    }
+
+    local runner = runners[ft]
+    local cmd = ""
+
+    if type(runner) == "function" then
+        cmd = runner()
+    elseif type(runner) == "string" then
+        cmd = runner
+    else
+        print("No run command configured for filetype: " .. ft)
+        return
+    end
+
+    vim.cmd("botright 15new")
+    vim.fn.jobstart(cmd, { term = true })
+    vim.cmd("startinsert")
+end, { desc = "Run/Compile Current File" })
+
 -- Plugins
 -- Yazi
 map("n", "<leader>e", "<cmd>Yazi<CR>", { desc = "Open Yazi (Current File)" })
