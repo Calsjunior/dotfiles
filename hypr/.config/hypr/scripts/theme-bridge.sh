@@ -115,7 +115,14 @@ update_neovim() {
     done
 }
 
+last_sync=0
 sync_from_theme() {
+    local now=$(date +%s%3N) # milliseconds
+    if ((now - last_sync < 500)); then
+        return
+    fi
+    last_sync=$now
+
     if [[ ! -f "$scheme_state" ]]; then
         return
     fi
