@@ -18,7 +18,7 @@ setopt HIST_IGNORE_SPACE
 #  VIM MODE & CURSOR FIXES
 # =============================================================================
 bindkey -v
-export KEYTIMEOUT=1
+export KEYTIMEOUT=5
 
 bindkey '^R' history-incremental-search-backward
 bindkey '^A' beginning-of-line
@@ -80,8 +80,7 @@ md2pdf() {
 # =============================================================================
 #  PLUGINS (zinit turbo mode - deferred after prompt)
 # =============================================================================
-autoload -Uz compinit
-zinit ice wait"0" lucid atinit"compinit -C -d ~/.zcompdump"
+zinit ice wait"0" lucid atinit"autoload -Uz compinit; compinit -C -d ~/.zcompdump"
 zinit light zdharma-continuum/null
 
 zinit ice wait lucid atload"_zsh_autosuggest_start"
@@ -92,15 +91,19 @@ zinit light zdharma-continuum/fast-syntax-highlighting
 
 zinit ice wait lucid blockf
 zinit light zsh-users/zsh-completions
+
+zinit ice wait lucid
+zinit light romkatv/zsh-defer
+
 # =============================================================================
 #  INITIALIZATION
 # =============================================================================
-
-# Tools
-eval "$(zoxide init --cmd cd zsh)"
-source <(fzf --zsh)
-
-eval "$(mise activate zsh)"
+zinit ice wait"1" lucid atload"
+    zsh-defer eval \"\$(zoxide init --cmd cd zsh)\"
+    zsh-defer source <(fzf --zsh)
+    zsh-defer eval \"\$(mise activate zsh)\"
+"
+zinit light zdharma-continuum/null
 
 # Fastfetch
 if [[ $(tty) == *"pts"* ]] && [[ -z "$ZSH_EXECUTION_STRING" ]]; then
@@ -114,5 +117,4 @@ else
         echo "Start Hyprland with command Hyprland"
     fi
 fi
-
 eval "$(starship init zsh)"
