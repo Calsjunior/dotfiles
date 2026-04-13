@@ -109,7 +109,7 @@ vim.keymap.set("n", "<leader>is", function()
         confirm = function(picker, item)
             picker:close()
             if item then
-                vim.cmd("r " .. vim.fn.fnameescape(vim.fn.expand(snippet_dir) .. "/" .. item.file))
+                vim.cmd("0r " .. vim.fn.fnameescape(vim.fn.expand(snippet_dir) .. "/" .. item.file))
             end
         end,
     })
