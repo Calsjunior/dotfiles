@@ -38,7 +38,7 @@ map("n", "L", "$", { desc = "End of line (non-blank)" })
 
 -- Compiling/Running current file
 vim.keymap.set("n", "<leader>r", function()
-    vim.cmd("w")
+    vim.cmd("silent! w")
 
     local ft = vim.bo.filetype
     local file = vim.fn.shellescape(vim.fn.expand("%:p"))
@@ -73,7 +73,7 @@ vim.keymap.set("n", "<leader>r", function()
     elseif type(runner) == "string" then
         cmd = runner
     else
-        print("No run command configured for filetype: " .. ft)
+        vim.notify("No run command configured for filetype: " .. ft, vim.log.levels.WARN)
         return
     end
 
