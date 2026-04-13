@@ -23,7 +23,7 @@ return {
             folds = { enabled = false },
             servers = {
                 emmet_language_server = {
-                    filetypes = { "html", "css", "javascript", "javascriptreact", "typescriptreact" },
+                    filetypes = { "html", "css" },
                 },
             },
         },
