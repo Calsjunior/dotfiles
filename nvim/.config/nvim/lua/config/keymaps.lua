@@ -84,25 +84,22 @@ end, { desc = "Run/Compile Current File" })
 
 -- Inserting snippets
 vim.keymap.set("n", "<leader>is", function()
+    -- NOTE: Change these path to your specific folders
+    local base_dir = "~/dev"
     local ft_map = {
-        html = "web",
-        css = "web",
-        javascript = "web",
-        typescript = "web",
-        javascriptreact = "web",
-        typescriptreact = "web",
-        c = "c",
-        cpp = "c",
+        html = "web/snippets/html",
+        css = "web/snippets/css",
+        javascript = "web/snippets/js",
+        c = "c/snippets",
+        cpp = "cpp/snippets",
     }
     local folder = ft_map[vim.bo.filetype]
     if not folder then
         vim.notify("No snippet folder for: " .. vim.bo.filetype, vim.log.levels.WARN)
         return
     end
-
-    -- NOTE: Change this line if your path is different
-    local snippet_dir = "~/dev/" .. folder .. "/snippets"
-    if vim.fn.isdirectory(vim.fn.expand(snippet_dir)) == 0 then
+    local snippet_dir = vim.fn.expand(base_dir .. "/" .. folder)
+    if vim.fn.isdirectory(snippet_dir) == 0 then
         vim.notify("Snippet directory not found: " .. snippet_dir, vim.log.levels.ERROR)
         return
     end
