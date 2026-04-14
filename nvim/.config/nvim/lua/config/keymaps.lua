@@ -109,7 +109,12 @@ vim.keymap.set("n", "<leader>is", function()
         confirm = function(picker, item)
             picker:close()
             if item then
-                vim.cmd("0r " .. vim.fn.fnameescape(vim.fn.expand(snippet_dir) .. "/" .. item.file))
+                -- Insert content at cursor without blank lines above or below
+                local full_path = snippet_dir .. "/" .. item.file
+                local lines = vim.fn.readfile(full_path)
+                local row = vim.api.nvim_win_get_cursor(0)[1]
+                local is_empty = vim.api.nvim_get_current_line():match("^%s*$") ~= nil
+                vim.api.nvim_buf_set_lines(0, row - 1, is_empty and row or (row - 1), false, lines)
             end
         end,
     })
