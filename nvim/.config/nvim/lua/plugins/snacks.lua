@@ -60,7 +60,7 @@ return {
                 },
                 projects = {
                     dev = { "~/dev", "~/Documents" },
-                    max_depth = 4,
+                    max_depth = 3,
                     win = {
                         input = {
                             keys = {
