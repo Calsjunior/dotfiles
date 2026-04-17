@@ -1,12 +1,27 @@
+# Base Style
 BasedOnStyle: Microsoft
-IndentWidth: 4
-IndentAccessModifiers: false
-IndentCaseLabels: false
-AccessModifierOffset: -4
-TabWidth: 4
+
+# Layout & Indentation
 ColumnLimit: 120
-SpaceAfterCStyleCast: true
+TabWidth: 4
+IndentWidth: 4
+
+# Classes & Access Modifiers
+AccessModifierOffset: -4
+IndentAccessModifiers: false
+
+# Switch Statements
+IndentCaseLabels: false
+
+# Functions & Templates
 AllowShortFunctionsOnASingleLine: Empty
+AlwaysBreakTemplateDeclarations: Yes
+
+# Headers & Casts
+SortIncludes: Never
+SpaceAfterCStyleCast: true
+
+# Brace Wrapping Rules
 BreakBeforeBraces: Custom
 BraceWrapping:
   AfterCaseLabel: true
@@ -15,4 +30,3 @@ BraceWrapping:
   AfterStruct: true
   BeforeElse: true
   BeforeWhile: true
-SortIncludes: Never
