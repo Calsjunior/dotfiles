@@ -77,7 +77,12 @@ vim.keymap.set("n", "<leader>r", function()
         return
     end
 
-    local cmd = type(runner) == "function" and runner() or runner
+    local cmd
+    if type(runner) == "function" then
+        cmd = runner()
+    else
+        cmd = runner
+    end
     if not cmd then
         return
     end
