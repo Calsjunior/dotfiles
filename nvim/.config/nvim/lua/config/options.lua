@@ -38,6 +38,7 @@ vim.opt.swapfile = false
 vim.opt.hidden = true
 vim.opt.backspace = "indent,eol,start" -- Better backspace behavior
 vim.opt.clipboard = "unnamedplus"
+vim.g.root_spec = { ".git", "cwd" } -- Prioritize .git folders over whatever the LSP thinks the root is
 
 -- Cursor settings
 vim.opt.guicursor =
