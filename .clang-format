@@ -18,7 +18,6 @@ AllowShortFunctionsOnASingleLine: Empty
 AlwaysBreakTemplateDeclarations: Yes
 
 # Headers & Casts
-SortIncludes: Never
 SpaceAfterCStyleCast: true
 
 # Brace Wrapping Rules
