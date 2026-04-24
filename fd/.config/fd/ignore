@@ -1,0 +1,19 @@
+# VS Code junk
+.vscode/
+.config/Code
+.devcontainer/
+
+# Python
+.venv/
+
+# Node & Web junk
+node_modules/
+.npm/
+
+# Python junk
+__pycache__/
+
+# System & Cache
+.cache/
+.local/
+.git/
