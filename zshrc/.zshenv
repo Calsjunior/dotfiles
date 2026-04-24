@@ -15,5 +15,12 @@ export MANPAGER='nvim +Man!'
 export FZF_DEFAULT_COMMAND="fd --hidden --exclude .git --exclude node_modules --exclude .cache --exclude .local"
 export FZF_CTRL_T_COMMAND="fd --type f --hidden --exclude .git --exclude node_modules --exclude .cache --exclude .local"
 export FZF_ALT_C_COMMAND="fd --type d --hidden --exclude .git --exclude node_modules --exclude .cache --exclude .local"
-export FZF_DEFAULT_OPTS="--scheme=path --tiebreak=end,length --preview 'bat --color=always {}'"
+export FZF_DEFAULT_OPTS="--scheme=path --tiebreak=end,length \
+--preview '
+if [[ -d {} ]]; then
+    eza --tree --level=2 --color=always --icons=always --git {}
+else
+  bat --color=always {}
+fi'
+"
 
