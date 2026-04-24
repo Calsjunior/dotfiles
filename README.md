@@ -5,6 +5,7 @@ A highly configured and automated dotfiles setup for Arch Linux, featuring **Hyp
 ![Demo](assets/showcase.gif)
 
 ## Features
+
 - **Hyprland**: Tiling window manager configuration
 - **Caelestia Shell**: The beauty of this dotfiles
 - **Live Theming**: Changing themes instantly updates Kitty, Neovim, and your wallpapers
@@ -12,26 +13,29 @@ A highly configured and automated dotfiles setup for Arch Linux, featuring **Hyp
 - **Modular Installer**: A script to install only what you want from this configuration
 
 ## Requirements
+
 - **OS**: Arch Linux
 - **AUR Helper**: `yay` or `paru`
 - **Dependencies**: `stow`, `wtype`, `gammastep`, `inotify-tools` (other dependencies depends on configs you want to install)
 
 ## Installation
+
 1. Clone the repository:
     ```bash
     git clone https://github.com/Calsjunior/dotfiles.git ~/athena-dotfiles
     cd ~/athena-dotfiles
     ```
 
-1. Run the installer:
+2. Run the installer:
     ```bash
     chmod +x install.sh
     ./install.sh
     ```
 
-1. Follow the prompts: the script will ask for you to backup your existing configs and check for dependencies
+3. Follow the prompts: the script will ask for you to backup your existing configs and check for dependencies
 
 ## Usage
+
 The installer is modular, meaning you can pick and choose specific components.
 
 | Flag         | Description                                   |
@@ -53,9 +57,11 @@ Example:
 ```
 
 ## Themes and Schemes
+
 This setup includes a custom theme bridge script that synchronizes your system in **real-time**.
 
 ### How it works
+
 1. Open Caelestia launcher and type `>scheme` or `SUPER CTRL W` if you use my hypr config, and pick a theme (e.g., "everforest").
 2. The bridge script detects the change and:
     - Updates **kitty** colors.
@@ -70,7 +76,7 @@ This setup includes a custom theme bridge script that synchronizes your system i
     git pull
     ```
 
-1. Run the installer with the schemes flag:
+2. Run the installer with the schemes flag:
     ```bash
     ./install.sh --schemes
     ```
@@ -92,6 +98,7 @@ This will instantly relink the latest theme files into your system directories a
 > The theme-bridge.sh script runs automatically via Hyprland (exec-once). It checks for installed apps, so if you don't use Kitty or Neovim, it will simply skip them, and just sync your wallpapers to themes and vice versa!
 
 # Credits
+
 - Window Manager: [Hyprland](https://github.com/hyprwm/Hyprland)
 - Shell: [Caelestia-Shell](https://github.com/caelestia-dots/shell)
 - Wallpapers are not mine and are credited to their original owners.
