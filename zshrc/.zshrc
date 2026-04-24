@@ -98,9 +98,10 @@ zinit light romkatv/zsh-defer
 # =============================================================================
 #  INITIALIZATION
 # =============================================================================
+source <(fzf --zsh)
+
 zinit ice wait"1" lucid atload"
     zsh-defer eval \"\$(zoxide init --cmd cd zsh)\"
-    zsh-defer source <(fzf --zsh)
     zsh-defer eval \"\$(mise activate zsh)\"
 "
 zinit light zdharma-continuum/null
