@@ -12,13 +12,13 @@ export XDG_CACHE_HOME="$HOME/.cache"
 export STARSHIP_CONFIG="$HOME/.config/starship/starship.toml"
 export GTK_THEME=adw-gtk3-dark
 export MANPAGER='nvim +Man!'
-export FZF_DEFAULT_COMMAND="fd --hidden --exclude .git --exclude node_modules --exclude .cache --exclude .local"
-export FZF_CTRL_T_COMMAND="fd --type f --hidden --exclude .git --exclude node_modules --exclude .cache --exclude .local"
-export FZF_ALT_C_COMMAND="fd --type d --hidden --exclude .git --exclude node_modules --exclude .cache --exclude .local"
+export FZF_DEFAULT_COMMAND="fd --hidden"
+export FZF_CTRL_T_COMMAND="fd --type f"
+export FZF_ALT_C_COMMAND="fd --type d"
 export FZF_DEFAULT_OPTS="--scheme=path --tiebreak=end,length \
 --preview '
 if [[ -d {} ]]; then
-    eza --tree --level=2 --color=always --icons=always --git {}
+    eza --tree --level=1 --color=always --icons=always
 else
   bat --color=always {}
 fi'
