@@ -144,7 +144,14 @@ sync_from_theme() {
 }
 
 # TODO: add mode and flavour when I make more schemes
+last_sync=0
 sync_from_wallpaper() {
+    local now=$(date +%s%3N) # milliseconds
+    if ((now - last_sync < 500)); then
+        return
+    fi
+    last_sync=$now
+
     if [[ ! -f "$wallpaper_state" ]]; then
         return
     fi
