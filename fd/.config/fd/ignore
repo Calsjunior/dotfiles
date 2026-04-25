@@ -5,6 +5,7 @@
 
 # Python
 .venv/
+.ipython/
 
 # Node & Web junk
 node_modules/
