@@ -2,43 +2,26 @@
 # If you encounter any issues, please make an issue at https://github.com/yazi-rs/schemas.
 "$schema" = "https://yazi-rs.github.io/schemas/keymap.json"
 
-# Plugins keymaps
-[[mgr.prepend_keymap]]
-on   = [ "<C-n>" ]
-run  = "plugin drag"
-desc = "Drag Files"
+[mgr]
+prepend_keymap = [
+    #  Plugins
+    { on = "<C-n>", run = "plugin drag", desc = "Drag Files" },
+    { on = "M",     run = "plugin mount" },
+    { on = "S",     run = "plugin fr rg", desc = "Search file by content (rg)" },
+    { on = "y",     run = "plugin ucp copy notify", desc = "Copy to system clipboard" },
+    { on = "p",     run = "plugin ucp paste notify", desc = "Paste from system clipboard" },
+    { on = "F",     run = "plugin smart-filter", desc = "Smart filter" },
 
-[[mgr.prepend_keymap]]
-on  = "M"
-run = "plugin mount"
+    #  Simple-tag Plugin
+    { on = [ "T", "t", "k" ], run = "plugin simple-tag -- toggle-tag", desc = "Toggle a tag" },
+    { on = [ "T", "a", "k" ], run = "plugin simple-tag -- add-tag", desc = "Add a tag" },
+    { on = [ "T", "d", "k" ], run = "plugin simple-tag -- remove-tag", desc = "Remove a tag" },
+    { on = [ "T", "e" ],      run = "plugin simple-tag -- edit-tag", desc = "Edit tag(s) via input box" },
+    { on = [ "T", "c" ],      run = "plugin simple-tag -- clear", desc = "Clear all tags" },
+    { on = [ "T", "u", "s" ], run = "plugin simple-tag -- toggle-ui", desc = "Toggle tag indicator (icon > text > hidden)" },
+    { on = [ "T", "f" ],      run = "plugin simple-tag -- filter", desc = "Filter current view by a tag" },
 
-[[mgr.prepend_keymap]]
-on = [ "S" ]
-run = "plugin fr rg"
-desc = "Search file by content (rg)"
-
-[[mgr.prepend_keymap]]
-on   = "y"
-run  = "plugin ucp copy notify"
-desc = "Copy to system clipboard"
-
-[[mgr.prepend_keymap]]
-on   = "p"
-run  = "plugin ucp paste notify"
-desc = "Paste from system clipboard"
-
-[[mgr.prepend_keymap]]
-on   = "F"
-run  = "plugin smart-filter"
-desc = "Smart filter"
-
-# Additional keymaps (requires nsxiv and gThumb)
-[[mgr.prepend_keymap]]
-on   = [ "<C-p>" ]
-run  = '''shell 'rm -rf picks && mkdir picks && nsxiv -t0o . | xargs -0 -I {} cp {} picks/' '''
-desc = "Open image gallery with picking functionality"
-
-[[mgr.prepend_keymap]]
-on   = [ "e" ]
-run  = '''shell "gthumb \"$@\"" --orphan '''
-desc = "Edit with gThumb"
+    #  Additional keymaps (requires nsxiv & gThumb)
+    { on = "<C-p>", run = '''shell 'rm -rf picks && mkdir picks && nsxiv -t0o . | xargs -0 -I {} cp {} picks/' ''', desc = "Open image gallery with picking functionality" },
+    { on = "e",     run = '''shell "gthumb \"$@\"" --orphan ''', desc = "Edit with gThumb" },
+]
