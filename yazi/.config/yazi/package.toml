@@ -28,5 +28,10 @@ use = "yazi-rs/plugins:smart-filter"
 rev = "1962818"
 hash = "c887903a63a2ff520081b6d90a4b3392"
 
+[[plugin.deps]]
+use = "boydaihungst/simple-tag"
+rev = "e8be031"
+hash = "50ba6725b86ae62c626d27eb5836decb"
+
 [flavor]
 deps = []
