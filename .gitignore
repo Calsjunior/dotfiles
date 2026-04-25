@@ -7,3 +7,4 @@ nvim/.config/nvim/lazyvim.json
 kitty/.config/kitty/current-theme.conf
 nvim/.config/nvim/lua/config/current_theme.lua
 yazi/.config/yazi/plugins/
+yazi/.config/yazi/tags/
