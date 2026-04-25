@@ -4,6 +4,19 @@ A highly configured and automated dotfiles setup for Arch Linux, featuring **Hyp
 
 ![Demo](assets/showcase.gif)
 
+<!-- TOC -->
+
+## Table of Contents
+
+- [Features](#features)
+- [System Philosophy](#system-philosophy)
+- [Requirements](#requirements)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Themes and Schemes](#themes-and-schemes)
+
+<!-- /TOC -->
+
 ## Features
 
 - **Hyprland**: Tiling window manager configuration
