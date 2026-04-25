@@ -1,4 +1,13 @@
 require("full-border"):setup()
+require("simple-tag"):setup({
+    ui_mode = "icon",
+    colors = {
+        ["c"] = "green",
+    },
+    icons = {
+        ["c"] = "󰄲 ",
+    },
+})
 
 function Entity:icon()
     local icon = self._file:icon()
