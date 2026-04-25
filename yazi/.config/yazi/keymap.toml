@@ -20,6 +20,7 @@ prepend_keymap = [
     { on = [ "T", "c" ],      run = "plugin simple-tag -- clear", desc = "Clear all tags" },
     { on = [ "T", "u", "s" ], run = "plugin simple-tag -- toggle-ui", desc = "Toggle tag indicator (icon > text > hidden)" },
     { on = [ "T", "f" ],      run = "plugin simple-tag -- filter", desc = "Filter current view by a tag" },
+    { on = [ "T", "n" ],      run = "plugin simple-tag -- filter --mode=not", desc = "Filter only untagged items" },
 
     #  Additional keymaps (requires nsxiv & gThumb)
     { on = "<C-p>", run = '''shell 'rm -rf picks && mkdir picks && nsxiv -t0o . | xargs -0 -I {} cp {} picks/' ''', desc = "Open image gallery with picking functionality" },
