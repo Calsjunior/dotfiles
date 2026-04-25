@@ -31,6 +31,18 @@ This setup is designed for Keyboard-driven development.
 
 ## Installation
 
+> [!NOTE]
+> **About the `install.sh` script**:
+> This environment is constantly evolving. While the installer script is
+> fully functionally for the core setup, if you or my future self wants to
+> use this dotfile, I do not actively update it with every new package or
+> tweak I make.
+>
+> For a complete, up-to-date list of the current system dependencies, check
+> `packages.txt` file in the root directory (`dotfiles`).
+> For specific component configuration details, please check individual
+> `README.md` inside each directory (e.g., `nvim`, `yazi`).
+
 1. Clone the repository:
     ```bash
     git clone https://github.com/Calsjunior/dotfiles.git ~/athena-dotfiles
