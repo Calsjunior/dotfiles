@@ -31,8 +31,8 @@ This setup is designed for Keyboard-driven development.
 - **Window Management**: Hyprland handles all titling. No floating windows
   except for termfilechooser (replaces GTK/QT application default file
   picker with yazi).
-- **Terminal as an IDE**: I use kitty as the core application and handle
-  all multiplexing combined with Hyprland itself.
+- **Terminal as an IDE**: I use kitty as the core application to handle
+  terminal multiplexing combined with Hyprland itself.
 - **Workspace**: I have all my development environment setup in `~/dev`.
   All dotfiles and scripts are managed via GNU Stow through this repo.
 
