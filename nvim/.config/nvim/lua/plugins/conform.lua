@@ -13,7 +13,7 @@ return {
             },
             ruff_format = {
                 command = "ruff",
-                args = { "format", "--line-length", "160", "--stdin-filename", "$FILENAME" },
+                args = { "format", "--line-length", "120", "--stdin-filename", "$FILENAME" },
                 stdin = true,
             },
             ruff_fix = {
