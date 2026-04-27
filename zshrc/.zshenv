@@ -13,14 +13,14 @@ export STARSHIP_CONFIG="$HOME/.config/starship/starship.toml"
 export GTK_THEME=adw-gtk3-dark
 export MANPAGER='nvim +Man!'
 export FZF_DEFAULT_COMMAND="fd --hidden"
-export FZF_CTRL_T_COMMAND="fd --type f"
 export FZF_ALT_C_COMMAND="fd --type d"
+export FZF_CTRL_T_COMMAND="fd --type f"
+export FZF_CTRL_R_OPTS="--preview-window hidden"
 export FZF_DEFAULT_OPTS="--scheme=path --tiebreak=end,length \
 --preview '
 if [[ -d {} ]]; then
-    eza --tree --level=1 --color=always --icons=always
-else
-  bat --color=always {}
+    eza --tree --level=1 --color=always --icons=always {}
+elif [[ -f {} ]]; then
+    bat --color=always {}
 fi'
 "
-
