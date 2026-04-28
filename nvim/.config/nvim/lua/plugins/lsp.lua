@@ -25,6 +25,11 @@ return {
                 emmet_language_server = {
                     filetypes = { "html", "css" },
                 },
+                ts_ls = {
+                    handlers = {
+                        ["textDocument/publishDiagnostics"] = function() end,
+                    },
+                },
             },
         },
     },
