@@ -33,5 +33,10 @@ use = "boydaihungst/simple-tag"
 rev = "e8be031"
 hash = "50ba6725b86ae62c626d27eb5836decb"
 
+[[plugin.deps]]
+use = "h-hg/yamb"
+rev = "5f2e22e"
+hash = "699fe07e0d2d1b4af8dafb84168eeb04"
+
 [flavor]
 deps = []
