@@ -48,7 +48,6 @@ hyprpicker 0.4.6-3
 ifuse 1.2.0-1
 imagemagick 7.1.2.21-1
 img2pdf 0.6.3-1
-imv 5.0.1-1
 inotify-tools 4.25.9.0-1
 intel-media-driver 25.4.6-1
 intel-ucode 20260227-1
