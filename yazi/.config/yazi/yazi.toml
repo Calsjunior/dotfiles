@@ -8,6 +8,16 @@ edit = [
     { run = "${EDITOR:-nvim} %s", desc = "$EDITOR",      for = "unix", block = true },
 ]
 
+image = [
+    { run = 'nsxiv "$@"',  orphan = true, desc = "nsxiv" },
+    { run = 'gthumb "$@"', orphan = true, desc = "gThumb" },
+]
+
+[open]
+prepend_rules = [
+    { mime = "image/*", use = [ "image", "reveal" ] },
+]
+
 [plugin]
 prepend_fetchers = [
     { id = "simple-tag", url = "*",  run = "simple-tag", group = "simple-tag" },
