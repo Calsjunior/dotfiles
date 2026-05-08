@@ -62,6 +62,12 @@ vim.api.nvim_create_autocmd("FileType", {
             image_doc.attach(e.buf)
         end
 
+        vim.schedule(function()
+            vim.keymap.set("i", "<Tab>", function()
+                require("neotab").tabout()
+            end, { buffer = e.buf, desc = "Force Neotab over markdown-plus" })
+        end)
+
         vim.opt.textwidth = 75
         vim.opt_local.spell = true
         vim.opt_local.shiftwidth = 2
