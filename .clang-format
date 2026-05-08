@@ -11,7 +11,7 @@ AccessModifierOffset: -4
 IndentAccessModifiers: false
 
 # Switch Statements
-IndentCaseLabels: false
+IndentCaseLabels: true
 
 # Functions & Templates
 AllowShortFunctionsOnASingleLine: Empty
