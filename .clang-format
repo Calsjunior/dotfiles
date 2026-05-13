@@ -2,6 +2,7 @@
 BasedOnStyle: Microsoft
 
 # Layout & Indentation
+AlignAfterOpenBracket: BlockIndent
 ColumnLimit: 120
 TabWidth: 4
 IndentWidth: 4
