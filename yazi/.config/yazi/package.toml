@@ -1,12 +1,12 @@
 [[plugin.deps]]
 use = "yazi-rs/plugins:full-border"
-rev = "1962818"
-hash = "6fa6a05a81c98dd000fbca3cca6e9682"
+rev = "1db18bb"
+hash = "eff8ff12fa4e5f035a10d8aeeb4c258d"
 
 [[plugin.deps]]
 use = "yazi-rs/plugins:mount"
-rev = "1962818"
-hash = "91937a4a9b779eabc6983e258befdfe9"
+rev = "1db18bb"
+hash = "e3260d0b1feded8c8e3ae3afa1169e30"
 
 [[plugin.deps]]
 use = "lpnh/fr"
@@ -15,12 +15,12 @@ hash = "8b0e87c3176e0d44f79a8656f79f0fa"
 
 [[plugin.deps]]
 use = "simla33/ucp"
-rev = "96f54af"
-hash = "2011ef145f7d4aaa23cbc64c05cd6a7f"
+rev = "b74651d"
+hash = "a008e4f6e4222f282472044bec7df1ef"
 
 [[plugin.deps]]
 use = "yazi-rs/plugins:smart-filter"
-rev = "1962818"
+rev = "1db18bb"
 hash = "c887903a63a2ff520081b6d90a4b3392"
 
 [[plugin.deps]]
