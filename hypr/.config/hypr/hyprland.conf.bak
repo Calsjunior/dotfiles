@@ -74,7 +74,7 @@ bind = ALT CTRL, Tab, bringactivetotop
 
 # Dwindle Layout
 # bind = $mainMod, P, pseudo, 
-bind = $mainMod, G, togglesplit,
+# bind = $mainMod, G, togglesplit,
 
 # Windows Focus
 bind = $mainMod, h, movefocus, l
@@ -262,7 +262,7 @@ animations {
 
 # == Settings ==
 dwindle {
-    pseudotile = true # Master switch for pseudotiling. Enabling is bound to mainMod + P in the keybinds section below
+#    pseudotile = true # Master switch for pseudotiling. Enabling is bound to mainMod + P in the keybinds section below
     preserve_split = true # You probably want this
 }
 
@@ -273,7 +273,7 @@ master {
 misc {
     force_default_wallpaper = 0 # Set to 0 or 1 to disable the anime mascot wallpapers
     disable_hyprland_logo = true # If true disables the random hyprland logo / anime girl background. :(
-    vfr = true
+#    vfr = true
 }
 
 binds {
