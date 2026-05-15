@@ -12,7 +12,12 @@ hl.bind(mainMod .. " + O", hl.dsp.exec_cmd(apps.session))
 -- Caelestia & Scripts
 hl.bind(mainMod .. " + D", hl.dsp.exec_cmd(apps.menu))
 hl.bind(mainMod .. " + SHIFT + Q", hl.dsp.exec_cmd(apps.power_menu))
-hl.bind(mainMod .. " + ALT + Q", hl.dsp.exec_cmd(apps.scripts .. "/kill-process.sh"))
+hl.bind(mainMod .. " + ALT + Q", function()
+    local w = hl.get_active_window()
+    if w ~= nil then
+        os.execute("kill " .. w.pid)
+    end
+end)
 hl.bind(mainMod .. " + N", hl.dsp.exec_cmd(apps.dashboard))
 hl.bind(mainMod .. " + W", hl.dsp.exec_cmd(apps.scripts .. "/wallpaper.sh"))
 hl.bind(mainMod .. " + CTRL + W", hl.dsp.exec_cmd(apps.scripts .. "/scheme.sh"))
