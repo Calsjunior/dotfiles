@@ -1,8 +1,8 @@
 {
+    "workspace": {
+        "library": ["/usr/share/hypr/stubs"]
+    },
     "diagnostics": {
         "globals": ["hl"]
-    },
-    "workspace": {
-        "checkThirdParty": false
     }
 }
