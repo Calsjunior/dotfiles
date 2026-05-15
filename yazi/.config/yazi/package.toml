@@ -1,11 +1,11 @@
 [[plugin.deps]]
 use = "yazi-rs/plugins:full-border"
-rev = "1db18bb"
-hash = "eff8ff12fa4e5f035a10d8aeeb4c258d"
+rev = "5d5c480"
+hash = "7b625412411be411153886894d9acaf"
 
 [[plugin.deps]]
 use = "yazi-rs/plugins:mount"
-rev = "1db18bb"
+rev = "5d5c480"
 hash = "e3260d0b1feded8c8e3ae3afa1169e30"
 
 [[plugin.deps]]
@@ -14,13 +14,8 @@ rev = "aa88cd4"
 hash = "8b0e87c3176e0d44f79a8656f79f0fa"
 
 [[plugin.deps]]
-use = "simla33/ucp"
-rev = "b74651d"
-hash = "a008e4f6e4222f282472044bec7df1ef"
-
-[[plugin.deps]]
 use = "yazi-rs/plugins:smart-filter"
-rev = "1db18bb"
+rev = "5d5c480"
 hash = "c887903a63a2ff520081b6d90a4b3392"
 
 [[plugin.deps]]
@@ -32,6 +27,11 @@ hash = "50ba6725b86ae62c626d27eb5836decb"
 use = "h-hg/yamb"
 rev = "5f2e22e"
 hash = "699fe07e0d2d1b4af8dafb84168eeb04"
+
+[[plugin.deps]]
+use = "XYenon/clipboard"
+rev = "68b506d"
+hash = "f43576db983846d8d5b139ece1eda439"
 
 [flavor]
 deps = []

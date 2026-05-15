@@ -1,25 +1,25 @@
 [mgr]
 prepend_keymap = [
     #  Plugins
-    { on = "<C-n>", run = "plugin drag", desc = "Drag Files" },
-    { on = "M",     run = "plugin mount" },
-    { on = "S",     run = "plugin fr rg", desc = "Search file by content (rg)" },
-    { on = "y",     run = "plugin ucp copy notify", desc = "Copy to system clipboard" },
-    { on = "p",     run = "plugin ucp paste notify", desc = "Paste from system clipboard" },
-    { on = "F",     run = "plugin smart-filter", desc = "Smart filter" },
-    { on = "m",          run = "plugin yamb -- save",          desc = "Add bookmark" },
-    { on = "'",          run = "plugin yamb -- jump_by_key",   desc = "Jump bookmark by key" },
-    { on = [ "b", "d" ], run = "plugin yamb -- delete_by_key", desc = "Delete bookmark by key" },
-    { on = [ "b", "D" ], run = "plugin yamb -- delete_all",    desc = "Delete all bookmarks" },
+    { on = "<C-n>",      run = "plugin drag",                                   desc = "Drag Files" },
+    { on = "M",          run = "plugin mount" },
+    { on = "S",          run = "plugin fr rg",                                  desc = "Search file by content (rg)" },
+    { on = "y",          run = [ "yank", "plugin clipboard -- --action=copy" ], desc = "Copy to system clipboard" },
+    { on = "p",          run = "plugin clipboard -- --action=paste",            desc = "Paste from system clipboard" },
+    { on = "F",          run = "plugin smart-filter",                           desc = "Smart filter" },
+    { on = "m",          run = "plugin yamb -- save",                           desc = "Add bookmark" },
+    { on = "'",          run = "plugin yamb -- jump_by_key",                    desc = "Jump bookmark by key" },
+    { on = [ "b", "d" ], run = "plugin yamb -- delete_by_key",                  desc = "Delete bookmark by key" },
+    { on = [ "b", "D" ], run = "plugin yamb -- delete_all",                     desc = "Delete all bookmarks" },
 
     #  Simple-tag Plugin
-    { on = [ "T", "t", "k" ], run = "plugin simple-tag -- toggle-tag", desc = "Toggle a tag" },
-    { on = [ "T", "a", "k" ], run = "plugin simple-tag -- add-tag", desc = "Add a tag" },
-    { on = [ "T", "d", "k" ], run = "plugin simple-tag -- remove-tag", desc = "Remove a tag" },
-    { on = [ "T", "e" ],      run = "plugin simple-tag -- edit-tag", desc = "Edit tag(s) via input box" },
-    { on = [ "T", "c" ],      run = "plugin simple-tag -- clear", desc = "Clear all tags" },
-    { on = [ "T", "u", "s" ], run = "plugin simple-tag -- toggle-ui", desc = "Toggle tag indicator (icon > text > hidden)" },
-    { on = [ "T", "f" ],      run = "plugin simple-tag -- filter", desc = "Filter current view by a tag" },
+    { on = [ "T", "t", "k" ], run = "plugin simple-tag -- toggle-tag",        desc = "Toggle a tag" },
+    { on = [ "T", "a", "k" ], run = "plugin simple-tag -- add-tag",           desc = "Add a tag" },
+    { on = [ "T", "d", "k" ], run = "plugin simple-tag -- remove-tag",        desc = "Remove a tag" },
+    { on = [ "T", "e" ],      run = "plugin simple-tag -- edit-tag",          desc = "Edit tag(s) via input box" },
+    { on = [ "T", "c" ],      run = "plugin simple-tag -- clear",             desc = "Clear all tags" },
+    { on = [ "T", "u", "s" ], run = "plugin simple-tag -- toggle-ui",         desc = "Toggle tag indicator (icon > text > hidden)" },
+    { on = [ "T", "f" ],      run = "plugin simple-tag -- filter",            desc = "Filter current view by a tag" },
     { on = [ "T", "n" ],      run = "plugin simple-tag -- filter --mode=not", desc = "Filter only untagged items" },
 
     #  Additional keymaps (requires nsxiv & gThumb)
