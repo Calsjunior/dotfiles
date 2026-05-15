@@ -5,7 +5,7 @@ local mainMod = "SUPER"
 -- Applications
 hl.bind(mainMod .. " + Return", hl.dsp.exec_cmd(apps.terminal))
 hl.bind(mainMod .. " + C", hl.dsp.exec_cmd(apps.editor))
-hl.bind(mainMod .. " + B", hl.dsp.exec_cmd(apps.browser))
+hl.bind(mainMod .. " + B", hl.dsp.workspace.toggle_special("web"))
 hl.bind(mainMod .. " + E", hl.dsp.exec_cmd(apps.fileManager))
 hl.bind(mainMod .. " + P", hl.dsp.exec_cmd(apps.pacman))
 hl.bind(mainMod .. " + O", hl.dsp.exec_cmd(apps.session))
