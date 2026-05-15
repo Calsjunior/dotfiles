@@ -1,3 +1,17 @@
+local apps = require("modules.programs")
+
+-- Auto launch Zen into web special workspace if empty
+hl.workspace_rule({
+    workspace = "special:web",
+    on_created_empty = apps.browser,
+})
+
+hl.window_rule({
+    name = "zen-browser-special",
+    match = { class = "^(zen.*)$" },
+    workspace = "special:web silent",
+})
+
 -- Force the terminal file chooser to float and center like a real popup dialog
 hl.window_rule({
     name = "termfilechooser-dialog",
