@@ -1,4 +1,5 @@
 local apps = require("modules.programs")
+local monitor_utils = require("modules.monitor_utils")
 local mainMod = "SUPER"
 
 -- Applications
@@ -36,7 +37,7 @@ hl.bind(mainMod .. " + CTRL + ALT + R", hl.dsp.exec_cmd("caelestia record"))
 hl.bind(mainMod .. " + SHIFT + ALT + R", hl.dsp.exec_cmd("caelestia record -r"))
 hl.bind(mainMod .. " + SHIFT + C", hl.dsp.exec_cmd("hyprpicker -a"))
 hl.bind(mainMod .. " + SHIFT + code:201", hl.dsp.exec_cmd("hyprctl switchxkblayout current next"))
-hl.bind(mainMod .. " + F2", hl.dsp.exec_cmd(apps.scripts .. "/refresh-rate.sh"))
+hl.bind(mainMod .. " + F2", monitor_utils.toggle_refresh_rate)
 hl.bind(mainMod .. " + CTRL + SHIFT + M", hl.dsp.exec_cmd(apps.scripts .. "/gpu-switch.sh"))
 
 -- Windows Management
