@@ -35,7 +35,7 @@ hl.bind(mainMod .. " + ALT + R", hl.dsp.exec_cmd("caelestia record -s"))
 hl.bind(mainMod .. " + CTRL + ALT + R", hl.dsp.exec_cmd("caelestia record"))
 hl.bind(mainMod .. " + SHIFT + ALT + R", hl.dsp.exec_cmd("caelestia record -r"))
 hl.bind(mainMod .. " + SHIFT + C", hl.dsp.exec_cmd("hyprpicker -a"))
-hl.bind(mainMod .. " + SHIFT + code:201", hl.dsp.exec_cmd(apps.scripts .. "/switch-keyboard.sh"))
+hl.bind(mainMod .. " + SHIFT + code:201", hl.dsp.exec_cmd("hyprctl switchxkblayout current next"))
 hl.bind(mainMod .. " + F2", hl.dsp.exec_cmd(apps.scripts .. "/refresh-rate.sh"))
 hl.bind(mainMod .. " + CTRL + SHIFT + M", hl.dsp.exec_cmd(apps.scripts .. "/gpu-switch.sh"))
 
