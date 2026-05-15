@@ -1,84 +1,84 @@
 local apps = require("modules.programs")
 local monitor_utils = require("modules.monitor_utils")
-local mainMod = "SUPER"
+local main_mod = "SUPER"
 
 -- Applications
-hl.bind(mainMod .. " + Return", hl.dsp.exec_cmd(apps.terminal))
-hl.bind(mainMod .. " + C", hl.dsp.exec_cmd(apps.editor))
-hl.bind(mainMod .. " + B", hl.dsp.workspace.toggle_special("web"))
-hl.bind(mainMod .. " + E", hl.dsp.exec_cmd(apps.fileManager))
-hl.bind(mainMod .. " + P", hl.dsp.exec_cmd(apps.pacman))
-hl.bind(mainMod .. " + O", hl.dsp.exec_cmd(apps.session))
+hl.bind(main_mod .. " + Return", hl.dsp.exec_cmd(apps.terminal))
+hl.bind(main_mod .. " + C", hl.dsp.exec_cmd(apps.editor))
+hl.bind(main_mod .. " + B", hl.dsp.workspace.toggle_special("web"))
+hl.bind(main_mod .. " + E", hl.dsp.exec_cmd(apps.fileManager))
+hl.bind(main_mod .. " + P", hl.dsp.exec_cmd(apps.pacman))
+hl.bind(main_mod .. " + O", hl.dsp.exec_cmd(apps.session))
 
 -- Caelestia & Scripts
-hl.bind(mainMod .. " + D", hl.dsp.exec_cmd(apps.menu))
-hl.bind(mainMod .. " + SHIFT + Q", hl.dsp.exec_cmd(apps.power_menu))
-hl.bind(mainMod .. " + ALT + Q", function()
+hl.bind(main_mod .. " + D", hl.dsp.exec_cmd(apps.menu))
+hl.bind(main_mod .. " + SHIFT + Q", hl.dsp.exec_cmd(apps.power_menu))
+hl.bind(main_mod .. " + ALT + Q", function()
     local w = hl.get_active_window()
     if w ~= nil then
         os.execute("kill " .. w.pid)
     end
 end)
-hl.bind(mainMod .. " + N", hl.dsp.exec_cmd(apps.dashboard))
-hl.bind(mainMod .. " + W", hl.dsp.exec_cmd(apps.scripts .. "/wallpaper.sh"))
-hl.bind(mainMod .. " + CTRL + W", hl.dsp.exec_cmd(apps.scripts .. "/scheme.sh"))
-hl.bind(mainMod .. " + CTRL + N", hl.dsp.exec_cmd(apps.notif_clear))
+hl.bind(main_mod .. " + N", hl.dsp.exec_cmd(apps.dashboard))
+hl.bind(main_mod .. " + W", hl.dsp.exec_cmd(apps.scripts .. "/wallpaper.sh"))
+hl.bind(main_mod .. " + CTRL + W", hl.dsp.exec_cmd(apps.scripts .. "/scheme.sh"))
+hl.bind(main_mod .. " + CTRL + N", hl.dsp.exec_cmd(apps.notif_clear))
 
 -- Clipboard & Emoji
-hl.bind(mainMod .. " + CTRL + V", hl.dsp.exec_cmd("pkill fuzzel || caelestia clipboard"))
-hl.bind(mainMod .. " + ALT + V", hl.dsp.exec_cmd("pkill fuzzel || caelestia clipboard -d"))
-hl.bind(mainMod .. " + PERIOD", hl.dsp.exec_cmd("pkill fuzzel || caelestia emoji -p"))
+hl.bind(main_mod .. " + CTRL + V", hl.dsp.exec_cmd("pkill fuzzel || caelestia clipboard"))
+hl.bind(main_mod .. " + ALT + V", hl.dsp.exec_cmd("pkill fuzzel || caelestia clipboard -d"))
+hl.bind(main_mod .. " + PERIOD", hl.dsp.exec_cmd("pkill fuzzel || caelestia emoji -p"))
 
 -- Utilities
-hl.bind(mainMod .. " + PRINT", hl.dsp.exec_cmd("caelestia screenshot"))
-hl.bind(mainMod .. " + SHIFT + PRINT", hl.dsp.global("caelestia:screenshotFreezeClip"))
-hl.bind(mainMod .. " + ALT + R", hl.dsp.exec_cmd("caelestia record -s"))
-hl.bind(mainMod .. " + CTRL + ALT + R", hl.dsp.exec_cmd("caelestia record"))
-hl.bind(mainMod .. " + SHIFT + ALT + R", hl.dsp.exec_cmd("caelestia record -r"))
-hl.bind(mainMod .. " + SHIFT + C", hl.dsp.exec_cmd("hyprpicker -a"))
-hl.bind(mainMod .. " + SHIFT + code:201", hl.dsp.exec_cmd("hyprctl switchxkblayout current next"))
-hl.bind(mainMod .. " + F2", monitor_utils.toggle_refresh_rate)
-hl.bind(mainMod .. " + CTRL + SHIFT + M", hl.dsp.exec_cmd(apps.scripts .. "/gpu-switch.sh"))
+hl.bind(main_mod .. " + PRINT", hl.dsp.exec_cmd("caelestia screenshot"))
+hl.bind(main_mod .. " + SHIFT + PRINT", hl.dsp.global("caelestia:screenshotFreezeClip"))
+hl.bind(main_mod .. " + ALT + R", hl.dsp.exec_cmd("caelestia record -s"))
+hl.bind(main_mod .. " + CTRL + ALT + R", hl.dsp.exec_cmd("caelestia record"))
+hl.bind(main_mod .. " + SHIFT + ALT + R", hl.dsp.exec_cmd("caelestia record -r"))
+hl.bind(main_mod .. " + SHIFT + C", hl.dsp.exec_cmd("hyprpicker -a"))
+hl.bind(main_mod .. " + SHIFT + code:201", hl.dsp.exec_cmd("hyprctl switchxkblayout current next"))
+hl.bind(main_mod .. " + F2", monitor_utils.toggle_refresh_rate)
+hl.bind(main_mod .. " + CTRL + SHIFT + M", hl.dsp.exec_cmd(apps.scripts .. "/gpu-switch.sh"))
 
 -- Windows Management
-hl.bind(mainMod .. " + Q", hl.dsp.window.close())
-hl.bind(mainMod .. " + F", hl.dsp.window.fullscreen())
-hl.bind(mainMod .. " + SHIFT + h", hl.dsp.window.move({ direction = "l" }))
-hl.bind(mainMod .. " + SHIFT + l", hl.dsp.window.move({ direction = "r" }))
-hl.bind(mainMod .. " + SHIFT + k", hl.dsp.window.move({ direction = "u" }))
-hl.bind(mainMod .. " + SHIFT + j", hl.dsp.window.move({ direction = "d" }))
+hl.bind(main_mod .. " + Q", hl.dsp.window.close())
+hl.bind(main_mod .. " + F", hl.dsp.window.fullscreen())
+hl.bind(main_mod .. " + SHIFT + h", hl.dsp.window.move({ direction = "l" }))
+hl.bind(main_mod .. " + SHIFT + l", hl.dsp.window.move({ direction = "r" }))
+hl.bind(main_mod .. " + SHIFT + k", hl.dsp.window.move({ direction = "u" }))
+hl.bind(main_mod .. " + SHIFT + j", hl.dsp.window.move({ direction = "d" }))
 
 -- Layout Management (Floating)
-hl.bind(mainMod .. " + SHIFT + F", function()
+hl.bind(main_mod .. " + SHIFT + F", function()
     hl.dispatch(hl.dsp.window.float({ action = "toggle" }))
     hl.dispatch(hl.dsp.window.resize({ x = 1000, y = 600 }))
     hl.dispatch(hl.dsp.window.center())
 end)
 
 -- Window Focus
-hl.bind(mainMod .. " + h", hl.dsp.focus({ direction = "l" }))
-hl.bind(mainMod .. " + j", hl.dsp.focus({ direction = "d" }))
-hl.bind(mainMod .. " + k", hl.dsp.focus({ direction = "u" }))
-hl.bind(mainMod .. " + l", hl.dsp.focus({ direction = "r" }))
+hl.bind(main_mod .. " + h", hl.dsp.focus({ direction = "l" }))
+hl.bind(main_mod .. " + j", hl.dsp.focus({ direction = "d" }))
+hl.bind(main_mod .. " + k", hl.dsp.focus({ direction = "u" }))
+hl.bind(main_mod .. " + l", hl.dsp.focus({ direction = "r" }))
 
 -- Workspaces
 for i = 1, 10 do
     local key = i % 10
-    hl.bind(mainMod .. " + " .. key, hl.dsp.focus({ workspace = i }))
-    hl.bind(mainMod .. " + SHIFT + " .. key, hl.dsp.window.move({ workspace = i }))
+    hl.bind(main_mod .. " + " .. key, hl.dsp.focus({ workspace = i }))
+    hl.bind(main_mod .. " + SHIFT + " .. key, hl.dsp.window.move({ workspace = i }))
 end
 
 -- Special Workspace
-hl.bind(mainMod .. " + S", hl.dsp.workspace.toggle_special("magic"))
-hl.bind(mainMod .. " + SHIFT + S", hl.dsp.window.move({ workspace = "special:magic" }))
+hl.bind(main_mod .. " + S", hl.dsp.workspace.toggle_special("magic"))
+hl.bind(main_mod .. " + SHIFT + S", hl.dsp.window.move({ workspace = "special:magic" }))
 
 -- Scroll Workspaces
-hl.bind(mainMod .. " + mouse_down", hl.dsp.focus({ workspace = "e+1" }))
-hl.bind(mainMod .. " + mouse_up", hl.dsp.focus({ workspace = "e-1" }))
+hl.bind(main_mod .. " + mouse_down", hl.dsp.focus({ workspace = "e+1" }))
+hl.bind(main_mod .. " + mouse_up", hl.dsp.focus({ workspace = "e-1" }))
 
 -- Mouse Window Drag/Resize
-hl.bind(mainMod .. " + mouse:272", hl.dsp.window.drag(), { mouse = true })
-hl.bind(mainMod .. " + mouse:273", hl.dsp.window.resize(), { mouse = true })
+hl.bind(main_mod .. " + mouse:272", hl.dsp.window.drag(), { mouse = true })
+hl.bind(main_mod .. " + mouse:273", hl.dsp.window.resize(), { mouse = true })
 
 -- Media & Brightness (Repeating / Locked)
 hl.bind(
