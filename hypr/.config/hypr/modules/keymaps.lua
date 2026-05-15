@@ -49,12 +49,11 @@ hl.bind(mainMod .. " + SHIFT + k", hl.dsp.window.move({ direction = "u" }))
 hl.bind(mainMod .. " + SHIFT + j", hl.dsp.window.move({ direction = "d" }))
 
 -- Layout Management (Floating)
-hl.bind(
-    mainMod .. " + SHIFT + F",
-    hl.dsp.exec_cmd(
-        'hyprctl --batch "dispatch togglefloating; dispatch resizeactive exact 1000 600; dispatch centerwindow"'
-    )
-)
+hl.bind(mainMod .. " + SHIFT + F", function()
+    hl.dispatch(hl.dsp.window.float({ action = "toggle" }))
+    hl.dispatch(hl.dsp.window.resize({ x = 1000, y = 600 }))
+    hl.dispatch(hl.dsp.window.center())
+end)
 
 -- Window Focus
 hl.bind(mainMod .. " + h", hl.dsp.focus({ direction = "l" }))
