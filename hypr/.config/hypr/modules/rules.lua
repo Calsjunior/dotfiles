@@ -6,3 +6,10 @@ hl.window_rule({
     size = "900 600",
     center = true,
 })
+
+-- Auto-center floating windows on open
+hl.on("window.open", function(w)
+    if w.floating then
+        hl.dispatch(hl.dsp.window.center())
+    end
+end)
