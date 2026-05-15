@@ -55,7 +55,6 @@ hl.bind(
         'hyprctl --batch "dispatch togglefloating; dispatch resizeactive exact 1000 600; dispatch centerwindow"'
     )
 )
-hl.bind(mainMod .. " + ALT + F", hl.dsp.exec_cmd("hyprctl dispatch workspaceopt allfloat"))
 
 -- Window Focus
 hl.bind(mainMod .. " + h", hl.dsp.focus({ direction = "l" }))
