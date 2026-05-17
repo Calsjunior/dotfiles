@@ -5,7 +5,7 @@ hl.on("hyprland.start", function()
 
     -- Quickshell/Caelestia Shell
     hl.exec_cmd("caelestia shell -d")
-    hl.exec_cmd(scripts .. "/theme-bridge.sh")
+    hl.exec_cmd(apps.scripts .. "/theme-bridge.sh")
 
     -- XDPH
     hl.exec_cmd("dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP")
