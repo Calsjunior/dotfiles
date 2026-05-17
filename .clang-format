@@ -1,11 +1,12 @@
 # Base Style
-BasedOnStyle: Microsoft
+BasedOnStyle: LLVM
 
 # Layout & Indentation
 AlignAfterOpenBracket: BlockIndent
 ColumnLimit: 120
 TabWidth: 4
 IndentWidth: 4
+PointerAlignment: Left
 
 # Classes & Access Modifiers
 AccessModifierOffset: -4
@@ -22,11 +23,4 @@ AlwaysBreakTemplateDeclarations: Yes
 SpaceAfterCStyleCast: true
 
 # Brace Wrapping Rules
-BreakBeforeBraces: Custom
-BraceWrapping:
-  AfterCaseLabel: true
-  AfterControlStatement: true
-  AfterFunction: true
-  AfterStruct: true
-  BeforeElse: true
-  BeforeWhile: true
+BreakBeforeBraces: Allman
