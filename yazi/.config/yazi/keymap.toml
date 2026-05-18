@@ -1,16 +1,16 @@
 [mgr]
 prepend_keymap = [
     #  Plugins
-    { on = "<C-n>",      run = "plugin drag",                                   desc = "Drag Files" },
+    { on = "<C-n>",      run = "plugin drag",                  desc = "Drag Files" },
     { on = "M",          run = "plugin mount" },
-    { on = "S",          run = "plugin fr rg",                                  desc = "Search file by content (rg)" },
-    { on = "y",          run = [ "yank", "plugin clipboard -- --action=copy" ], desc = "Copy to system clipboard" },
-    { on = "p",          run = "plugin clipboard -- --action=paste",            desc = "Paste from system clipboard" },
-    { on = "F",          run = "plugin smart-filter",                           desc = "Smart filter" },
-    { on = "m",          run = "plugin yamb -- save",                           desc = "Add bookmark" },
-    { on = "'",          run = "plugin yamb -- jump_by_key",                    desc = "Jump bookmark by key" },
-    { on = [ "b", "d" ], run = "plugin yamb -- delete_by_key",                  desc = "Delete bookmark by key" },
-    { on = [ "b", "D" ], run = "plugin yamb -- delete_all",                     desc = "Delete all bookmarks" },
+    { on = "S",          run = "plugin fr rg",                 desc = "Search file by content (rg)" },
+    { on = "p",          run = "plugin ucp paste",             desc = "Paste" },
+    { on = "y",          run = "plugin ucp copy",              desc = "Copy" },
+    { on = "F",          run = "plugin smart-filter",          desc = "Smart filter" },
+    { on = "m",          run = "plugin yamb -- save",          desc = "Add bookmark" },
+    { on = "'",          run = "plugin yamb -- jump_by_key",   desc = "Jump bookmark by key" },
+    { on = [ "b", "d" ], run = "plugin yamb -- delete_by_key", desc = "Delete bookmark by key" },
+    { on = [ "b", "D" ], run = "plugin yamb -- delete_all",    desc = "Delete all bookmarks" },
 
     #  Simple-tag Plugin
     { on = [ "T", "t", "k" ], run = "plugin simple-tag -- toggle-tag",        desc = "Toggle a tag" },
