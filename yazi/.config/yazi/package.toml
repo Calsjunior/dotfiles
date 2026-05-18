@@ -29,9 +29,9 @@ rev = "5f2e22e"
 hash = "699fe07e0d2d1b4af8dafb84168eeb04"
 
 [[plugin.deps]]
-use = "XYenon/clipboard"
-rev = "68b506d"
-hash = "f43576db983846d8d5b139ece1eda439"
+use = "simla33/ucp"
+rev = "a4b5ce1"
+hash = "e64d13d729d3a22f8c62893411328c79"
 
 [flavor]
 deps = []
