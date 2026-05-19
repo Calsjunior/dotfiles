@@ -4,14 +4,14 @@
         "enabled": true,
         "indentStyle": "space",
         "indentWidth": 4,
-        "lineWidth": 120
+        "lineWidth": 80
     },
     "html": {
         "formatter": {
             "enabled": true,
             "whitespaceSensitivity": "ignore",
             "attributePosition": "auto",
-            "lineWidth": 90
+            "lineWidth": 80
         }
     },
     "linter": {
