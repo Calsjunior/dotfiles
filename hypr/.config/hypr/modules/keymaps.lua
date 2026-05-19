@@ -30,6 +30,7 @@ hl.bind(main_mod .. " + ALT + V", hl.dsp.exec_cmd("pkill fuzzel || caelestia cli
 hl.bind(main_mod .. " + PERIOD", hl.dsp.exec_cmd("pkill fuzzel || caelestia emoji -p"))
 
 -- Utilities
+hl.bind(main_mod .. " + SHIFT + B", hl.dsp.exec_cmd("caelestia shell drawers toggle bar"))
 hl.bind(main_mod .. " + PRINT", hl.dsp.exec_cmd("caelestia screenshot"))
 hl.bind(main_mod .. " + SHIFT + PRINT", hl.dsp.global("caelestia:screenshotFreezeClip"))
 hl.bind(main_mod .. " + ALT + R", hl.dsp.exec_cmd("caelestia record -s"))
