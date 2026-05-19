@@ -1,5 +1,20 @@
 local apps = require("modules.programs")
 
+-- Remove gaps when there is only 1 tiled window on screen
+hl.workspace_rule({
+    workspace = "w[tv1]",
+    gaps_out = 0,
+    gaps_in = 0,
+})
+
+-- Remove borders and rounding for that single window
+hl.window_rule({
+    name = "smart-gaps-border",
+    match = { workspace = "w[tv1]" },
+    border_size = 0,
+    rounding = 0,
+})
+
 -- Auto launch Zen into web special workspace if empty
 hl.workspace_rule({
     workspace = "special:web",
