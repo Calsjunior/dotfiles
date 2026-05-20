@@ -6,6 +6,16 @@ return {
         label = {
             distance = true,
         },
+        modes = {
+            treesitter = {
+                label = {
+                    rainbow = {
+                        enabled = true,
+                        shade = 7,
+                    },
+                },
+            },
+        },
     },
     keys = {
         {
