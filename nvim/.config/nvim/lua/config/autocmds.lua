@@ -8,29 +8,6 @@ vim.api.nvim_create_autocmd("TermEnter", {
     end,
 })
 
--- Fix terminal escape key override
-vim.api.nvim_create_autocmd("TermOpen", {
-    desc = "Manage Terminal Escape Behavior",
-    callback = function(event)
-        local passthrough_ft = { "lazygit", "yazi", "snacks_terminal" }
-        local is_passthrough = vim.tbl_contains(passthrough_ft, vim.bo[event.buf].filetype)
-
-        -- Also check if the buffer name contains specific strings
-        local bufname = vim.api.nvim_buf_get_name(event.buf)
-        if bufname:match("lazygit") or bufname:match("yazi") then
-            is_passthrough = true
-        end
-
-        if is_passthrough then
-            -- Let <Esc> pass through to the terminal app
-            vim.keymap.set("t", "<Esc>", "<Esc>", { buffer = event.buf, nowait = true })
-        else
-            -- For generic terminals (like :term), let <Esc> enter Normal Mode
-            vim.keymap.set("t", "<Esc>", "<C-\\><C-n>", { buffer = event.buf })
-        end
-    end,
-})
-
 -- Auto activate python env if detected
 local function activate_venv()
     local venv_paths = {
