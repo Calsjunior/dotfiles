@@ -114,7 +114,7 @@
         }
     },
     "bar": {
-        "persistent": true,
+        "persistent": false,
         "showOnHover": true,
         "dragThreshold": 20,
         "scrollActions": {
@@ -251,7 +251,9 @@
         "dragThreshold": 50,
         "vimKeybinds": true,
         "favouriteApps": [],
-        "hiddenApps": ["org.telegram.desktop._c8d05fa535afbe4577e2669e794fd864"],
+        "hiddenApps": [
+            "org.telegram.desktop._c8d05fa535afbe4577e2669e794fd864"
+        ],
         "useFuzzy": {
             "apps": false,
             "actions": false,
