@@ -4,6 +4,24 @@
 source /usr/share/zinit/zinit.zsh
 
 # =============================================================================
+#  PLUGINS (zinit turbo mode - deferred after prompt)
+# =============================================================================
+zinit ice wait"0" lucid atinit"autoload -Uz compinit; compinit -C -d ~/.zcompdump"
+zinit light zdharma-continuum/null
+
+zinit ice wait lucid atload"_zsh_autosuggest_start"
+zinit light zsh-users/zsh-autosuggestions
+
+zinit ice wait lucid
+zinit light zdharma-continuum/fast-syntax-highlighting
+
+zinit ice wait lucid blockf
+zinit light zsh-users/zsh-completions
+
+zinit ice wait lucid
+zinit light romkatv/zsh-defer
+
+# =============================================================================
 #  ZSH HISTORY
 # =============================================================================
 HISTFILE="$HOME/.zsh_history"
@@ -78,24 +96,6 @@ md2pdf() {
 }
 
 # =============================================================================
-#  PLUGINS (zinit turbo mode - deferred after prompt)
-# =============================================================================
-zinit ice wait"0" lucid atinit"autoload -Uz compinit; compinit -C -d ~/.zcompdump"
-zinit light zdharma-continuum/null
-
-zinit ice wait lucid atload"_zsh_autosuggest_start"
-zinit light zsh-users/zsh-autosuggestions
-
-zinit ice wait lucid
-zinit light zdharma-continuum/fast-syntax-highlighting
-
-zinit ice wait lucid blockf
-zinit light zsh-users/zsh-completions
-
-zinit ice wait lucid
-zinit light romkatv/zsh-defer
-
-# =============================================================================
 #  INITIALIZATION
 # =============================================================================
 zinit ice wait"1" lucid atload"
@@ -130,4 +130,3 @@ function transient-prompt() {
     # Use saved transient prompt
     PROMPT="$SAVED_PROMPT" RPROMPT="$SAVED_RPROMPT" zle .reset-prompt
 }
-
