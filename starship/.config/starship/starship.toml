@@ -55,3 +55,14 @@ up_to_date = " "
 
 [fill]
 symbol = ' '
+
+[profiles]
+transient="""
+$character\
+"""
+
+rtransient="""
+$status\
+$cmd_duration\
+$time\
+"""
