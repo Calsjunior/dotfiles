@@ -106,16 +106,4 @@ zinit ice wait"1" lucid atload"
 "
 zinit light zdharma-continuum/null
 
-# Fastfetch
-if [[ $(tty) == *"pts"* ]] && [[ -z "$ZSH_EXECUTION_STRING" ]]; then
-    if [ -f "$HOME/.config/fastfetch/config.jsonc" ]; then
-        fastfetch --config "$HOME/.config/fastfetch/config.jsonc"
-    else
-        fastfetch
-    fi
-else
-    if [ -f /bin/hyprctl ]; then
-        echo "Start Hyprland with command Hyprland"
-    fi
-fi
 eval "$(starship init zsh)"
