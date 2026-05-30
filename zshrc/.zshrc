@@ -14,8 +14,8 @@ zinit light zdharma-continuum/null
 zinit ice wait lucid atload"_zsh_autosuggest_start"
 zinit light zsh-users/zsh-autosuggestions
 
-zinit ice wait lucid
-zinit light zdharma-continuum/fast-syntax-highlighting
+zinit ice as"program" from"gh-r" pick"zsh-patina-*/zsh-patina" atload'eval "$(zsh-patina activate)"'
+zinit light michel-kraemer/zsh-patina
 
 zinit ice wait lucid
 zinit light olets/zsh-transient-prompt
