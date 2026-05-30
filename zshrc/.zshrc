@@ -101,12 +101,7 @@ md2pdf() {
 # =============================================================================
 #  INITIALIZATION
 # =============================================================================
-zinit ice wait"1" lucid atload"
-    zsh-defer eval \"\$(zoxide init --cmd cd zsh)\"
-    zsh-defer eval \"\$(mise activate zsh)\"
-"
-zinit light zdharma-continuum/null
-
+eval "$(zoxide init --cmd cd zsh)"
 eval "$(fzf --zsh)"
 eval "$(starship init zsh)"
 TRANSIENT_PROMPT_TRANSIENT_PROMPT='$(starship module character)'
