@@ -4,8 +4,10 @@
 source /usr/share/zinit/zinit.zsh
 
 # =============================================================================
-#  PLUGINS (zinit turbo mode - deferred after prompt)
+#  PLUGINS
 # =============================================================================
+ZSH_AUTOSUGGEST_MANUAL_REBIND=1
+
 zinit ice wait"0" lucid atinit"autoload -Uz compinit; compinit -C -d ~/.zcompdump"
 zinit light zdharma-continuum/null
 
