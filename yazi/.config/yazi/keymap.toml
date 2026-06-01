@@ -7,10 +7,6 @@ prepend_keymap = [
     { on = "p",          run = "plugin ucp paste",             desc = "Paste" },
     { on = "y",          run = "plugin ucp copy",              desc = "Copy" },
     { on = "F",          run = "plugin smart-filter",          desc = "Smart filter" },
-    { on = "m",          run = "plugin yamb -- save",          desc = "Add bookmark" },
-    { on = "'",          run = "plugin yamb -- jump_by_key",   desc = "Jump bookmark by key" },
-    { on = [ "b", "d" ], run = "plugin yamb -- delete_by_key", desc = "Delete bookmark by key" },
-    { on = [ "b", "D" ], run = "plugin yamb -- delete_all",    desc = "Delete all bookmarks" },
 
     #  Simple-tag Plugin
     { on = [ "T", "t", "k" ], run = "plugin simple-tag -- toggle-tag",        desc = "Toggle a tag" },
@@ -25,4 +21,35 @@ prepend_keymap = [
     #  Additional keymaps (requires nsxiv & gThumb)
     { on = "<C-p>", run = '''shell 'rm -rf picks && mkdir picks && nsxiv -t0o . | xargs -0 -I {} cp {} picks/' ''', desc = "Open image gallery with picking functionality" },
     { on = "e",     run = '''shell "gthumb \"$@\"" --orphan ''', desc = "Edit with gThumb" },
+
+    # Uni
+    { on = [ "g", "u", ],     run = "cd ~/Documents/university", desc = "University"},
+
+    # C Paths
+    { on = [ "g", "c", "l" ], run = "cd ~/dev/c/learning",   desc = "C: Learning" },
+    { on = [ "g", "c", "y" ], run = "cd ~/dev/c/playground", desc = "C: Playground" },
+    { on = [ "g", "c", "p" ], run = "cd ~/dev/c/projects",   desc = "C: Projects" },
+    { on = [ "g", "c", "r" ], run = "cd ~/dev/c/references", desc = "C: References" },
+    { on = [ "g", "c", "s" ], run = "cd ~/dev/c/snippets",   desc = "C: Snippets" },
+
+    # C++ Paths
+    { on = [ "g", "x", "l" ], run = "cd ~/dev/cpp/learning",   desc = "C++: Learning" },
+    { on = [ "g", "x", "y" ], run = "cd ~/dev/cpp/playground", desc = "C++: Playground" },
+    { on = [ "g", "x", "p" ], run = "cd ~/dev/cpp/projects",   desc = "C++: Projects" },
+    { on = [ "g", "x", "r" ], run = "cd ~/dev/cpp/references", desc = "C++: References" },
+    { on = [ "g", "x", "s" ], run = "cd ~/dev/cpp/snippets",   desc = "C++: Snippets" },
+
+    # Typst Paths
+    { on = [ "g", "t", "l" ], run = "cd ~/dev/typst/learning",   desc = "Typst: Learning" },
+    { on = [ "g", "t", "y" ], run = "cd ~/dev/typst/playground", desc = "Typst: Playground" },
+    { on = [ "g", "t", "p" ], run = "cd ~/dev/typst/projects",   desc = "Typst: Projects" },
+    { on = [ "g", "t", "r" ], run = "cd ~/dev/typst/references", desc = "Typst: References" },
+    { on = [ "g", "t", "s" ], run = "cd ~/dev/typst/snippets",   desc = "Typst: Snippets" },
+
+    # Web Paths
+    { on = [ "g", "w", "l" ], run = "cd ~/dev/web/learning",   desc = "Web: Learning" },
+    { on = [ "g", "w", "y" ], run = "cd ~/dev/web/playground", desc = "Web: Playground" },
+    { on = [ "g", "w", "p" ], run = "cd ~/dev/web/projects",   desc = "Web: Projects" },
+    { on = [ "g", "w", "r" ], run = "cd ~/dev/web/references", desc = "Web: References" },
+    { on = [ "g", "w", "s" ], run = "cd ~/dev/web/snippets",   desc = "Web: Snippets" },
 ]

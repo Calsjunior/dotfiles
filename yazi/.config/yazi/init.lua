@@ -1,5 +1,4 @@
 require("full-border"):setup()
-require("yamb"):setup({})
 require("simple-tag"):setup({
     ui_mode = "icon",
     colors = {
