@@ -1,15 +1,15 @@
-{ config, pkgs, ...}:
+{ config, pkgs, ... }:
 
 {
-	home.username = "cal";
-	home.homeDirectory = "/home/cal";
+  home.username = "cal";
+  home.homeDirectory = "/home/cal";
 
-	wm.hyprland.enable = true;
-	cli.neovim.enable = true;
-	cli.yazi.enable = true;
-	cli.git.enable = true;
-	cli.ssh.enable = true;
-	terminal.kitty.enable = true;
+  wm.hyprland.enable = true;
+  cli.neovim.enable = true;
+  cli.yazi.enable = true;
+  cli.git.enable = true;
+  cli.ssh.enable = true;
+  terminal.kitty.enable = true;
 
-	home.stateVersion = "25.11";
+  home.stateVersion = "25.11";
 }

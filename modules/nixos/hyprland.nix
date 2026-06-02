@@ -1,10 +1,15 @@
-{ config, pkgs, lib, ... }:
 {
-	options = {
-		wm.hyprland.enable = lib.mkEnableOption "Enable Hyprland";
-	};
+  config,
+  pkgs,
+  lib,
+  ...
+}:
+{
+  options = {
+    wm.hyprland.enable = lib.mkEnableOption "Enable Hyprland";
+  };
 
-	config = lib.mkIf config.wm.hyprland.enable {
-		programs.hyprland.enable = true;
-	};
+  config = lib.mkIf config.wm.hyprland.enable {
+    programs.hyprland.enable = true;
+  };
 }
