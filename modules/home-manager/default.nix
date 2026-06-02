@@ -1,14 +1,10 @@
+{ lib, ... }:
+let
+  allFiles = lib.filesystem.listFilesRecursive ./.;
+  modules = lib.filter (
+    file: lib.hasSuffix ".nix" (builtins.toString file) && builtins.baseNameOf file != "default.nix"
+  ) allFiles;
+in
 {
-  imports = [
-    ./shell/zsh.nix
-    ./cli/core.nix
-    ./cli/docs.nix
-    ./cli/starship.nix
-    ./hyprland.nix
-    ./kitty.nix
-    ./neovim.nix
-    ./yazi.nix
-    ./git.nix
-    ./ssh.nix
-  ];
+  imports = modules;
 }

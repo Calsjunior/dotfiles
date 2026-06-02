@@ -1,9 +1,10 @@
+{ lib, ... }:
+let
+  allFiles = lib.filesystem.listFilesRecursive ./.;
+  modules = lib.filter (
+    file: lib.hasSuffix ".nix" (builtins.toString file) && builtins.baseNameOf file != "default.nix"
+  ) allFiles;
+in
 {
-  imports = [
-    ./hardware/nvidia.nix
-    ./system/shell.nix
-    ./system/fonts.nix
-    ./wm/hyprland.nix
-    ./wm/ly.nix
-  ];
+  imports = modules;
 }
