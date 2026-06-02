@@ -19,7 +19,6 @@
     ];
 
     # Enable external shell tools
-    programs.starship.enable = true;
     programs.fzf.enable = true;
     programs.zoxide.enable = true;
 
@@ -58,6 +57,10 @@
           };
         }
       ];
+
+      initExtraFirst = ''
+        TRANSIENT_PROMPT_TRANSIENT_PROMPT='$(starship module character)'
+      '';
 
       initContent = ''
         export KEYTIMEOUT=5
@@ -107,8 +110,6 @@
             pandoc "$1" -f markdown -o "''${1%.*}.pdf" --pdf-engine=tectonic -V geometry:margin=1in
             echo "Converted $1 to ''${1%.*}.pdf"
         }
-
-        TRANSIENT_PROMPT_TRANSIENT_PROMPT='$(starship module character)'
       '';
     };
   };

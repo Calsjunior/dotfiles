@@ -5,6 +5,7 @@
 
   wm.hyprland.enable = true;
   cli.shell.zsh.enable = true;
+  cli.starship.enable = true;
   cli.neovim.enable = true;
   cli.yazi.enable = true;
   cli.git.enable = true;
