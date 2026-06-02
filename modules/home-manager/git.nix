@@ -1,0 +1,21 @@
+{ pkgs, config, lib, ... }:
+{
+	options = {
+		cli.git.enable = lib.mkEnableOption "Enable Git and GitHub CLI";
+	};
+
+	config = lib.mkIf config.cli.git.enable {
+		programs.git = {
+			enable = true;
+			userName = "cal";
+			userEmail = "sakphea05@gmail.com";
+			extraConfig = {
+				init.defaultBranch = "main";
+				core.editor = "nvim";
+			};
+		};
+
+		programs.gh.enable = true;
+		home.packages = [ pkgs.lazygit ];
+	};
+}

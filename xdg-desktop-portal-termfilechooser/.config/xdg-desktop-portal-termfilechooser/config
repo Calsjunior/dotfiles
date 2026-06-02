@@ -1,6 +1,0 @@
-[filechooser]
-cmd=yazi-wrapper.sh
-default_dir=~/Downloads
-env=TERMCMD='kitty --class termfilechooser -e'
-open_mode=last
-save_mode=default
