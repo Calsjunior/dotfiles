@@ -10,6 +10,6 @@
   };
 
   config = lib.mkIf config.wm.hyprland.enable {
-    xdg.configFile."hypr".source = ../../config/hypr;
+    xdg.configFile."hypr".source = ../../../config/hypr;
   };
 }

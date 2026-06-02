@@ -37,6 +37,6 @@
       withRuby = false;
     };
 
-    xdg.configFile."nvim".source = ../../config/nvim;
+    xdg.configFile."nvim".source = ../../../config/nvim;
   };
 }
