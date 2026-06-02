@@ -12,7 +12,7 @@
   cli.yazi.enable = true;
   cli.git.enable = true;
   cli.ssh.enable = true;
-  terminal.kitty.enable = true;
+  gui.kitty.enable = true;
 
   home.stateVersion = "26.11";
 }
