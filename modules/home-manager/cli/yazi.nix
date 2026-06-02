@@ -12,7 +12,7 @@
   config = lib.mkIf config.cli.git.enable {
     programs.yazi = {
       enable = true;
-      enableZshIntegration = true;
+      enableZshIntegration = config.cli.shell.zsh.enable;
     };
   };
 }
