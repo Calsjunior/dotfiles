@@ -1,0 +1,54 @@
+return {
+    {
+        "LazyVim/LazyVim",
+        opts = { colorscheme = "habamax" },
+        config = function(_, opts)
+            require("lazyvim").setup(opts)
+            local status, _ = pcall(require, "config.current_theme")
+        end,
+    },
+    { "nvim-lualine/lualine.nvim" },
+    {
+        "kylechui/nvim-surround",
+        event = "BufReadPre",
+        config = function()
+            require("nvim-surround").setup()
+        end,
+    },
+    {
+        "kawre/neotab.nvim",
+        event = "InsertEnter",
+        opts = {
+            tabkey = "<Tab>",
+            reverse_key = "<S-Tab>",
+            act_as_tab = true,
+        },
+    },
+    {
+        "windwp/nvim-autopairs",
+        event = "InsertEnter",
+        config = true,
+        opts = {
+            check_ts = true,
+            ts_config = {
+                lua = { "string" },
+                javascript = { "template_string" },
+            },
+        },
+    },
+    {
+        "norcalli/nvim-colorizer.lua",
+        event = "BufReadPre",
+        config = function()
+            require("colorizer").setup({
+                css = { css = true },
+            })
+        end,
+    },
+    {
+        "lambdalisue/suda.vim",
+        init = function()
+            vim.g.suda_smart_edit = 1
+        end,
+    },
+}
