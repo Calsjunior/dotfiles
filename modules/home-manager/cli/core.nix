@@ -20,8 +20,6 @@
       fzf
       ripgrep
       eza
-      pandoc
-      tectonic
     ];
   };
 }
