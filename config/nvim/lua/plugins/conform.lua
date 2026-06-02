@@ -34,6 +34,7 @@ return {
             json = { "biome-check" },
             jsonc = { "biome-check" },
             sh = { "shfmt" },
+            nix = { "nixfmt" },
         },
     },
 }
