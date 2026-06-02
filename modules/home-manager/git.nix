@@ -12,11 +12,17 @@
   config = lib.mkIf config.cli.git.enable {
     programs.git = {
       enable = true;
-      userName = "cal";
-      userEmail = "sakphea05@gmail.com";
-      extraConfig = {
-        init.defaultBranch = "main";
-        core.editor = "nvim";
+      settings = {
+        user = {
+          name = "cal";
+          email = "sakphea05@gmail.com";
+        };
+        init = {
+          defaultBranch = "main";
+        };
+        core = {
+          editor = "nvim";
+        };
       };
     };
 

@@ -32,6 +32,9 @@
         # Formatters
         nixfmt
       ];
+
+      withPython3 = false;
+      withRuby = false;
     };
 
     xdg.configFile."nvim".source = ../../config/nvim;
