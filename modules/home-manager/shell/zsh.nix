@@ -11,17 +11,6 @@
 
   config = lib.mkIf config.cli.shell.zsh.enable {
 
-    # Tools used in the zsh shell
-    home.packages = with pkgs; [
-      eza
-      pandoc
-      tectonic
-    ];
-
-    # Enable external shell tools
-    programs.fzf.enable = true;
-    programs.zoxide.enable = true;
-
     # Zsh shell config
     programs.zsh = {
       enable = true;
