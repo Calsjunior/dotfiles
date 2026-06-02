@@ -1,10 +1,10 @@
 { config, pkgs, ... }:
-
 {
   home.username = "cal";
   home.homeDirectory = "/home/cal";
 
   wm.hyprland.enable = true;
+  cli.shell.zsh.enable = true;
   cli.neovim.enable = true;
   cli.yazi.enable = true;
   cli.git.enable = true;
