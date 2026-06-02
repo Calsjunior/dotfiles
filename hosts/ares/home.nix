@@ -6,6 +6,7 @@
 
 	wm.hyprland.enable = true;
 	cli.neovim.enable = true;
+	cli.yazi.enable = true;
 	cli.git.enable = true;
 	cli.ssh.enable = true;
 	terminal.kitty.enable = true;

@@ -1,7 +1,8 @@
 {
 	imports = [
+        ./hyprland.nix
 		./neovim.nix
-		./hyprland.nix
+        ./yazi.nix
 		./kitty.nix
 		./git.nix
 		./ssh.nix
