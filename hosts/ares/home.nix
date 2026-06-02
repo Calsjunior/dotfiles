@@ -11,5 +11,5 @@
   cli.ssh.enable = true;
   terminal.kitty.enable = true;
 
-  home.stateVersion = "25.11";
+  home.stateVersion = "26.11";
 }
