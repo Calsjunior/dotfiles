@@ -1,7 +1,12 @@
-{ config, pkgs, ... }:
 {
-  home.username = "cal";
-  home.homeDirectory = "/home/cal";
+  config,
+  pkgs,
+  user,
+  ...
+}:
+{
+  home.username = user;
+  home.homeDirectory = "/home/${user}";
 
   wm.hyprland.enable = true;
   cli.shell.zsh.enable = true;

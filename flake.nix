@@ -15,10 +15,18 @@
       home-manager,
       ...
     }@inputs:
+    let
+      user = "cal";
+    in
     {
       nixosConfigurations = {
         "ares" = nixpkgs.lib.nixosSystem {
-          specialArgs = { inherit inputs; };
+          specialArgs = {
+            inherit
+              inputs
+              user
+              ;
+          };
           modules = [
             ./hosts/ares/configuration.nix
             ./modules/nixos
@@ -28,8 +36,9 @@
               home-manager = {
                 useGlobalPkgs = true;
                 useUserPackages = true;
-                users.cal = import ./hosts/ares/home.nix;
+                users.${user} = import ./hosts/ares/home.nix;
                 sharedModules = [ ./modules/home-manager ];
+                extraSpecialArgs = { inherit inputs user; };
                 backupFileExtension = "backup";
               };
             }

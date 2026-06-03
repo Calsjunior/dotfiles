@@ -2,6 +2,7 @@
   config,
   lib,
   pkgs,
+  user,
   ...
 }:
 
@@ -25,7 +26,7 @@
   networking.networkmanager.enable = true;
   time.timeZone = "Asia/Phnom_Penh";
 
-  users.users.cal = {
+  users.users.${user} = {
     isNormalUser = true;
     extraGroups = [ "wheel" ]; # Enable 'sudo' for the user.
   };
