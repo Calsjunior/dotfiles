@@ -13,6 +13,12 @@
     programs.neovim = {
       enable = true;
       defaultEditor = true;
+
+      # Download treesitter languages
+      plugins = with pkgs.vimPlugins; [
+        nvim-treesitter.withAllGrammars
+      ];
+
       extraPackages = with pkgs; [
         # Treesitter Build tools
         tree-sitter
