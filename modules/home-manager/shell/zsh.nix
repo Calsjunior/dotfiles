@@ -2,6 +2,7 @@
   config,
   lib,
   pkgs,
+  osConfig,
   ...
 }:
 {
@@ -9,6 +10,16 @@
     cli.shell.zsh.enable = lib.mkEnableOption "Enable Zsh Configuration";
   };
   config = lib.mkIf config.cli.shell.zsh.enable {
+
+    # Ensure core CLI tools are available for Zsh aliases
+    cli.core.enable = lib.mkDefault true;
+    assertions = [
+      {
+        assertion = osConfig.sys.shell.zsh.enable;
+        message = "Home Manager Zsh requires the system-level Zsh module (sys.shell.zsh.enable = true).";
+      }
+    ];
+
     programs.zsh = {
       enable = true;
       enableCompletion = true;
