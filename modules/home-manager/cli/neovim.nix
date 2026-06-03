@@ -50,7 +50,7 @@
         ruff
 
         # Nix
-        nil
+        nixd
         nixfmt
       ];
 
