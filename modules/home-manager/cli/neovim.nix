@@ -60,5 +60,11 @@
 
     xdg.configFile."nvim".source =
       config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/config/nvim";
+
+    home.sessionVariables = {
+      EDITOR = "nvim";
+      VISUAL = "nvim";
+      MANPAGER = "nvim +Man!";
+    };
   };
 }

@@ -83,5 +83,9 @@
         "kitty_mod+space" = "swap_with_window";
       };
     };
+
+    home.sessionVariables = {
+      TERMINAL = "kitty";
+    };
   };
 }
