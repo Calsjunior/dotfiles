@@ -42,6 +42,7 @@
   sys.hardware.nvidia.enable = true;
   sys.dm.ly.enable = true;
   sys.fonts.enable = true;
+  sys.core.enable = true;
   sys.shell.zsh.enable = true;
   wm.hyprland.enable = true;
 
