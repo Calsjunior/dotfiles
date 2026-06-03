@@ -16,8 +16,21 @@
       options = [ "--cmd cd" ];
     };
 
+    programs.fzf = {
+      enable = true;
+      enableZshIntegration = true;
+      defaultCommand = "fd --hidden";
+      changeDirWidgetCommand = "fd --type d";
+      fileWidgetCommand = "fd --type f";
+      historyWidgetOptions = [ "--preview-window hidden" ];
+      defaultOptions = [
+        "--scheme=path"
+        "--tiebreak=end,length"
+        "--preview 'if [[ -d {} ]]; then eza --tree --level=1 --color=always --icons=always {}; elif [[ -f {} ]]; then bat --color=always {}; fi'"
+      ];
+    };
+
     home.packages = with pkgs; [
-      fzf
       fd
       ripgrep
       eza
