@@ -13,6 +13,7 @@
     programs.neovim = {
       enable = true;
       defaultEditor = true;
+      sideloadInitLua = true;
 
       # Download treesitter languages
       plugins = with pkgs.vimPlugins; [
@@ -57,6 +58,7 @@
       withRuby = false;
     };
 
-    xdg.configFile."nvim".source = ../../../config/nvim;
+    xdg.configFile."nvim".source =
+      config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/config/nvim";
   };
 }
