@@ -25,11 +25,25 @@
         fzf
         lazygit
 
-        # Language Servers
+        # Language Servers and Formatters
+        # Lua
         lua-language-server
-        nil
+        stylua
 
-        # Formatters
+        # C
+        clang-tools
+
+        # Web
+        vscode-langservers-extracted
+        emmet-language-server
+        typescript-language-server
+        biome
+
+        # Python
+        ruff
+
+        # Nix
+        nil
         nixfmt
       ];
 
