@@ -3,6 +3,7 @@
   lib,
   pkgs,
   user,
+  hostname,
   ...
 }:
 
@@ -22,7 +23,7 @@
     };
   };
 
-  networking.hostName = "ares";
+  networking.hostName = "${hostname}";
   networking.networkmanager.enable = true;
   time.timeZone = "Asia/Phnom_Penh";
 

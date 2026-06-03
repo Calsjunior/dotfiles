@@ -20,30 +20,35 @@
     in
     {
       nixosConfigurations = {
-        "ares" = nixpkgs.lib.nixosSystem {
-          specialArgs = {
-            inherit
-              inputs
-              user
-              ;
-          };
-          modules = [
-            ./hosts/ares/configuration.nix
-            ./modules/nixos
+        "ares" =
+          let
+            hostname = "ares";
+          in
+          nixpkgs.lib.nixosSystem {
+            specialArgs = {
+              inherit
+                inputs
+                user
+                hostname
+                ;
+            };
+            modules = [
+              ./hosts/${hostname}/configuration.nix
+              ./modules/nixos
 
-            home-manager.nixosModules.home-manager
-            {
-              home-manager = {
-                useGlobalPkgs = true;
-                useUserPackages = true;
-                users.${user} = import ./hosts/ares/home.nix;
-                sharedModules = [ ./modules/home-manager ];
-                extraSpecialArgs = { inherit inputs user; };
-                backupFileExtension = "backup";
-              };
-            }
-          ];
-        };
+              home-manager.nixosModules.home-manager
+              {
+                home-manager = {
+                  useGlobalPkgs = true;
+                  useUserPackages = true;
+                  users.${user} = import ./hosts/${hostname}/home.nix;
+                  sharedModules = [ ./modules/home-manager ];
+                  extraSpecialArgs = { inherit inputs user hostname; };
+                  backupFileExtension = "backup";
+                };
+              }
+            ];
+          };
       };
     };
 }
