@@ -18,7 +18,7 @@
 
     programs.fzf = {
       enable = true;
-      enableZshIntegration = true;
+      enableZshIntegration = config.cli.shell.zsh.enable;
       defaultCommand = "fd --hidden";
       changeDirWidgetCommand = "fd --type d";
       fileWidgetCommand = "fd --type f";

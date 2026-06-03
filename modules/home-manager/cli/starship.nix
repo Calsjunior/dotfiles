@@ -7,6 +7,7 @@
   config = lib.mkIf config.cli.starship.enable {
     programs.starship = {
       enable = true;
+      enableTransience = true;
 
       settings = {
         add_newline = true;
