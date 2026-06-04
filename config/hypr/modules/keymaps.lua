@@ -7,7 +7,6 @@ hl.bind(main_mod .. " + Return", hl.dsp.exec_cmd(apps.terminal))
 hl.bind(main_mod .. " + C", hl.dsp.exec_cmd(apps.editor))
 hl.bind(main_mod .. " + B", hl.dsp.workspace.toggle_special("web"))
 hl.bind(main_mod .. " + E", hl.dsp.exec_cmd(apps.fileManager))
-hl.bind(main_mod .. " + P", hl.dsp.exec_cmd(apps.pacman))
 hl.bind(main_mod .. " + O", hl.dsp.exec_cmd(apps.session))
 
 -- Caelestia
