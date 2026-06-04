@@ -15,7 +15,10 @@
   cli.docs.enable = true;
   cli.starship.enable = true;
   cli.neovim.enable = true;
-  cli.yazi.enable = true;
+  cli.yazi = {
+    enable = true;
+    terminalCmd = "${pkgs.kitty}/bin/kitty";
+  };
   cli.git.enable = true;
   cli.ssh.enable = true;
   gui.kitty.enable = true;
