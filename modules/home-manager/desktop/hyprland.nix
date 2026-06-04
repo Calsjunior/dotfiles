@@ -7,10 +7,10 @@
 }:
 {
   options = {
-    wm.hyprland.enable = lib.mkEnableOption "Enable Hyprland Configs";
+    desktop.hyprland.enable = lib.mkEnableOption "Enable Hyprland Configs";
   };
 
-  config = lib.mkIf config.wm.hyprland.enable {
+  config = lib.mkIf config.desktop.hyprland.enable {
     assertions = [
       {
         assertion = osConfig.wm.hyprland.enable;

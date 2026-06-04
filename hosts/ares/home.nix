@@ -8,7 +8,8 @@
   home.username = user;
   home.homeDirectory = "/home/${user}";
 
-  wm.hyprland.enable = true;
+  desktop.hyprland.enable = true;
+  desktop.noctalia.enable = true;
   cli.shell.zsh.enable = true;
   cli.core.enable = true;
   cli.docs.enable = true;
