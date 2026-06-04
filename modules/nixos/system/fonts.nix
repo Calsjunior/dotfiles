@@ -11,10 +11,16 @@
 
   config = lib.mkIf config.sys.fonts.enable {
     fonts.packages = with pkgs; [
+      inter
       nerd-fonts.jetbrains-mono
       noto-fonts
       noto-fonts-color-emoji
     ];
+
+    fonts.fontconfig.defaultFonts = {
+      sansSerif = [ "Inter" ];
+      monospace = [ "JetBrains Mono" ];
+    };
 
     # Font rendering
     fonts.fontconfig = {
