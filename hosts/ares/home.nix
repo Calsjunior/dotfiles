@@ -19,6 +19,7 @@
   cli.git.enable = true;
   cli.ssh.enable = true;
   gui.kitty.enable = true;
+  gui.browser.zen.enable = true;
 
   home.stateVersion = "26.11";
 }
