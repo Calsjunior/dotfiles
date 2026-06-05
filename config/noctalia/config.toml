@@ -3,7 +3,9 @@ capsule = true
 capsule_padding = 10.0
 center = [ "workspaces" ]
 end = [ "tray", "notifications", "clipboard", "volume", "brightness", "battery", "group:g1", "session", "control-center" ]
+margin_edge = 4
 start = [ "launcher", "clock" ]
+widget_spacing = 8
 
     [[bar.default.capsule_group]]
     fill = "surface_variant"
@@ -30,6 +32,12 @@ behavior_order = [ "lock", "screen-off", "lock-and-suspend" ]
     enabled = true
     timeout = 660
 
+[nightlight]
+enabled = true
+force = true
+temperature_day = 5000
+temperature_night = 4900
+
 [shell]
 font_family = "Noto Sans"
 settings_show_advanced = true
@@ -37,10 +45,26 @@ telemetry_enabled = false
 
 [theme]
 builtin = "Gruvbox"
+community_palette = "Ayu"
+custom_palette = "ADW"
+source = "builtin"
+wallpaper_scheme = "Ayu"
 
     [theme.templates]
     builtin_ids = [ "gtk3", "gtk4", "hyprland", "qt" ]
     community_ids = [ "zen-browser", "discord", "telegram", "zathura" ]
+
+[wallpaper]
+directory = "/home/cal/Pictures/Wallpapers"
+
+    [wallpaper.default]
+    path = "/home/cal/Pictures/Wallpapers/everforest/blue-sakura.png"
+
+    [wallpaper.last]
+    path = "/home/cal/Pictures/Wallpapers/gruvbox-material/minimal-japanese.png"
+
+    [wallpaper.monitors.DP-1]
+    path = "/home/cal/Pictures/Wallpapers/gruvbox-material/minimal-japanese.png"
 
 [widget.network]
 show_label = false
