@@ -33,6 +33,21 @@ in
     programs.yazi = {
       enable = true;
       enableZshIntegration = config.cli.shell.zsh.enable;
+
+      initLua = ''
+        require("full-border"):setup()
+      '';
+
+      plugins = {
+        full-border = "${
+          pkgs.fetchFromGitHub {
+            owner = "yazi-rs";
+            repo = "plugins";
+            rev = "main";
+            hash = "sha256-bqGN6JxbU+/o7TlM/Cm9Qj/s1McA4pB5QWArGZPcme4=";
+          }
+        }/full-border.yazi";
+      };
     };
 
     xdg.configFile."xdg-desktop-portal-termfilechooser/config".text = ''
