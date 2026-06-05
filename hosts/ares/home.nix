@@ -22,6 +22,7 @@
   };
   cli.git.enable = true;
   cli.ssh.enable = true;
+  cli.wayland-tools.enable = true;
   gui.kitty.enable = true;
   gui.browser.zen.enable = true;
 
