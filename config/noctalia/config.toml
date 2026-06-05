@@ -1,0 +1,29 @@
+[bar.default]
+capsule = true
+capsule_padding = 10.0
+center = [ "workspaces" ]
+end = [
+    "tray",
+    "notifications",
+    "clipboard",
+    "bluetooth",
+    "volume",
+    "brightness",
+    "battery",
+    "network",
+    "session",
+    "control-center"
+]
+start = [ "launcher", "clock" ]
+
+[shell]
+font_family = "Noto Sans"
+settings_show_advanced = true
+telemetry_enabled = false
+
+[theme]
+builtin = "Gruvbox"
+source = "builtin"
+
+[widget.network]
+show_label = false
