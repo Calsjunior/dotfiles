@@ -37,10 +37,10 @@ telemetry_enabled = false
 
 [theme]
 builtin = "Gruvbox"
-source = "builtin"
 
     [theme.templates]
-    builtin_ids = [ "hyprland" ]
+    builtin_ids = [ "gtk3", "gtk4", "hyprland", "qt" ]
+    community_ids = [ "zen-browser", "discord", "telegram", "zathura" ]
 
 [widget.network]
 show_label = false
