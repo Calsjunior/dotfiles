@@ -15,11 +15,13 @@
   # Use GRUB and OS Prober for Windows Dual Boot
   boot.loader = {
     efi.canTouchEfiVariables = true;
+    efi.efiSysMountPoint = "/boot/efi";
     grub = {
       enable = true;
       efiSupport = true;
       device = "nodev";
       useOSProber = true;
+      configurationLimit = 3;
     };
   };
 
