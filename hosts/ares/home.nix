@@ -10,6 +10,7 @@
 
   desktop.hyprland.enable = true;
   desktop.noctalia.enable = true;
+  desktop.theme.enable = true;
   cli.shell.zsh.enable = true;
   cli.core.enable = true;
   cli.docs.enable = true;

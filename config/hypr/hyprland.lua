@@ -1,5 +1,4 @@
 require("modules.theme")
-require("modules.env")
 require("modules.monitors")
 require("modules.autostart")
 require("modules.settings")
