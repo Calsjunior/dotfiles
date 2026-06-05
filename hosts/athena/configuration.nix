@@ -44,11 +44,15 @@
   system.stateVersion = "25.11";
 
   # Modules
-  sys.hardware.nvidia.enable = true;
-  sys.dm.ly.enable = true;
-  sys.fonts.enable = true;
-  sys.core.enable = true;
-  sys.shell.zsh.enable = true;
+  sys = {
+    hardware.nvidia.enable = true;
+    hardware.power.enable = true;
+    dm.ly.enable = true;
+    fonts.enable = true;
+    core.enable = true;
+    shell.zsh.enable = true;
+  };
+
   wm.hyprland.enable = true;
 
 }
