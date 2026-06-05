@@ -10,9 +10,8 @@
       enableTransience = true;
 
       settings = {
-        add_newline = true;
+        add_newline = false;
 
-        # Use a single-line string with explicit newlines instead of trailing backslashes
         format = "$directory$git_branch$git_status$fill$python$lua$nodejs$golang$haskell$rust$ruby$package$aws$docker_context$jobs$cmd_duration$line_break$character";
 
         character = {
@@ -54,10 +53,7 @@
         };
 
         profiles = {
-          # Remove the trailing backslash here as well
           transient = "$character";
-
-          # And here
           rtransient = "$status$cmd_duration$time";
         };
       };

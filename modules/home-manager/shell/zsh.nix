@@ -102,6 +102,47 @@
           pandoc "$1" -f markdown -o "''${1%.*}.pdf" --pdf-engine=tectonic -V geometry:margin=1in
           echo "Converted $1 to ''${1%.*}.pdf"
         }
+
+      ''
+      + lib.optionalString config.cli.starship.enable ''
+
+        # Starship Transient Prompt Hook
+        autoload -Uz add-zsh-hook
+        autoload -Uz add-zle-hook-widget
+
+        function transient_prompt_precmd() {
+            # Capture the native Starship prompt strings only once
+            if [[ -z "$STARSHIP_NORMAL_PROMPT" ]]; then
+                STARSHIP_NORMAL_PROMPT=$'\n'"$PROMPT"
+                STARSHIP_NORMAL_RPROMPT="$RPROMPT"
+                
+                STARSHIP_TRANSIENT_PROMPT="''${PROMPT// prompt / prompt --profile transient }"
+                
+                local temp_rprompt="''${RPROMPT// prompt / prompt --profile rtransient }"
+                STARSHIP_TRANSIENT_RPROMPT="''${temp_rprompt// --right/}"
+            fi
+            
+            # Always restore the normal prompt before rendering a new line
+            PROMPT="$STARSHIP_NORMAL_PROMPT"
+            RPROMPT="$STARSHIP_NORMAL_RPROMPT"
+        }
+
+        function transient_prompt_finish() {
+            # Swap to the transient prompt right before the command executes
+            PROMPT="$STARSHIP_TRANSIENT_PROMPT"
+            RPROMPT="$STARSHIP_TRANSIENT_RPROMPT"
+            zle .reset-prompt
+        }
+
+        # Register the hooks
+        add-zsh-hook precmd transient_prompt_precmd
+        add-zle-hook-widget zle-line-finish transient_prompt_finish
+
+        # Fix ctrl+c behavior to ensure cancelled lines become transient too
+        TRAPINT() {
+            transient_prompt_finish
+            return $(( 128 + $1 ))
+        }
       '';
     };
   };
