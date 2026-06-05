@@ -12,7 +12,7 @@
       settings = {
         add_newline = false;
 
-        format = "$directory$git_branch$git_status$fill$python$lua$nodejs$golang$haskell$rust$ruby$package$aws$docker_context$jobs$cmd_duration$line_break$character";
+        format = "$directory $git_branch $git_status $fill $python $lua $nodejs $golang $haskell $rust $ruby $package $aws$docker_context $jobs $cmd_duration $line_break $character";
 
         character = {
           success_symbol = "[ ](bold fg:purple)";
