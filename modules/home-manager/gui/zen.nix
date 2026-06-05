@@ -64,6 +64,9 @@
           "extensions.activeThemeID" = "firefox-compact-dark@mozilla.org";
           "media.hardware-video-decoding.force-enabled" = true;
 
+          # Move URL bar to the top toolbar
+          "zen.view.use-single-toolbar" = false;
+
           # Force Dark Theme everywhere
           "ui.systemUsesDarkTheme" = 1;
           "browser.in-content.dark-mode" = true;
