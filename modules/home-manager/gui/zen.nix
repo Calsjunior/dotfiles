@@ -64,6 +64,10 @@
           "extensions.activeThemeID" = "firefox-compact-dark@mozilla.org";
           "media.hardware-video-decoding.force-enabled" = true;
 
+          # Force Dark Theme everywhere
+          "ui.systemUsesDarkTheme" = 1;
+          "browser.in-content.dark-mode" = true;
+
           # Tab Suspension (30 mins)
           "browser.tabs.unloadOnLowMemory" = true;
           "browser.low_commit_space_threshold_percent" = 100;
