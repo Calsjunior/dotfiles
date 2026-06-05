@@ -45,7 +45,14 @@
 
   # Modules
   sys = {
-    hardware.nvidia.enable = true;
+    hardware.nvidia = {
+      enable = true;
+      prime = {
+        enable = true;
+        intelBusId = "PCI:0:2:0";
+        nvidiaBusId = "PCI:1:0:0";
+      };
+    };
     hardware.power.enable = true;
     dm.ly.enable = true;
     fonts.enable = true;

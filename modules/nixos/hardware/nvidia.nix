@@ -4,21 +4,43 @@
   pkgs,
   ...
 }:
+let
+  cfg = config.sys.hardware.nvidia;
+in
 {
-  options = {
-    sys.hardware.nvidia.enable = lib.mkEnableOption "Enable Nvidia Drivers";
+  options.sys.hardware.nvidia = {
+    enable = lib.mkEnableOption "Enable Nvidia Drivers";
+
+    prime = {
+      enable = lib.mkEnableOption "Enable PRIME Hybrid Offload";
+      intelBusId = lib.mkOption {
+        type = lib.types.str;
+        default = "";
+      };
+      nvidiaBusId = lib.mkOption {
+        type = lib.types.str;
+        default = "";
+      };
+    };
   };
 
-  config = lib.mkIf config.sys.hardware.nvidia.enable {
-    hardware.graphics.enable = true;
+  config = lib.mkIf cfg.enable {
     services.xserver.videoDrivers = [ "nvidia" ];
+    hardware.graphics.enable = true;
     hardware.nvidia = {
-      modesetting.enable = true;
-      powerManagement.enable = true;
-      powerManagement.finegrained = false;
       open = false;
       nvidiaSettings = true;
-      package = config.boot.kernelPackages.nvidiaPackages.stable;
+      powerManagement.enable = true;
+      powerManagement.finegrained = cfg.prime.enable;
+
+      prime = lib.mkIf cfg.prime.enable {
+        offload = {
+          enable = true;
+          enableOffloadCmd = true;
+        };
+        intelBusId = cfg.prime.intelBusId;
+        nvidiaBusId = cfg.prime.nvidiaBusId;
+      };
     };
   };
 }
