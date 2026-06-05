@@ -5,26 +5,35 @@
   ...
 }:
 {
-  home.username = user;
-  home.homeDirectory = "/home/${user}";
-
-  desktop.hyprland.enable = true;
-  desktop.noctalia.enable = true;
-  desktop.theme.enable = true;
-  cli.shell.zsh.enable = true;
-  cli.core.enable = true;
-  cli.docs.enable = true;
-  cli.starship.enable = true;
-  cli.neovim.enable = true;
-  cli.yazi = {
-    enable = true;
-    terminalCmd = "${pkgs.kitty}/bin/kitty";
+  home = {
+    username = user;
+    homeDirectory = "/home/${user}";
+    stateVersion = "26.11";
   };
-  cli.git.enable = true;
-  cli.ssh.enable = true;
-  cli.wayland-tools.enable = true;
-  gui.kitty.enable = true;
-  gui.browser.zen.enable = true;
 
-  home.stateVersion = "26.11";
+  desktop = {
+    hyprland.enable = true;
+    noctalia.enable = true;
+    theme.enable = true;
+  };
+
+  cli = {
+    shell.zsh.enable = true;
+    core.enable = true;
+    docs.enable = true;
+    starship.enable = true;
+    neovim.enable = true;
+    git.enable = true;
+    ssh.enable = true;
+    wayland-tools.enable = true;
+    yazi = {
+      enable = true;
+      terminalCmd = "${pkgs.kitty}/bin/kitty";
+    };
+  };
+
+  gui = {
+    kitty.enable = true;
+    browser.zen.enable = true;
+  };
 }
