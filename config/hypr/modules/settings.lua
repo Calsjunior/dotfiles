@@ -1,14 +1,8 @@
-local theme = require("modules.theme")
-
 hl.config({
     general = {
         gaps_in = 4,
         gaps_out = 10,
         border_size = 2,
-        col = {
-            active_border = "rgb(" .. theme.primary_paletteKeyColor .. ")",
-            inactive_border = "rgb(" .. theme.background .. ")",
-        },
         resize_on_border = false,
         allow_tearing = false,
         layout = "dwindle",
