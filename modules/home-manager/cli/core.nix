@@ -43,5 +43,16 @@
       eza
       bat
     ];
+
+    home.sessionVariables = {
+      _ZO_EXCLUDE_DIRS = "$HOME:$HOME/.local/*:$HOME/.cache/*:$HOME/.git/*:$HOME/node_modules/*";
+    };
+
+    home.file.".ignore".text = ''
+      .local
+      .cache
+      .git
+      node_modules
+    '';
   };
 }
