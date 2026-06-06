@@ -41,6 +41,7 @@
       fd
       ripgrep
       eza
+      bat
     ];
   };
 }
