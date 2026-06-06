@@ -1,4 +1,5 @@
 local terminal = "kitty -1"
+local ipc = "noctalia msg"
 
 return {
     terminal = terminal,
@@ -8,4 +9,5 @@ return {
     editor = terminal .. " nvim",
     session = [[kitty -1 -e zsh -c "nvim +\"lua vim.schedule(function() vim.api.nvim_input('s') end)\""]],
     scripts = os.getenv("HOME") .. "/.config/hypr/scripts",
+    ipc = ipc,
 }
