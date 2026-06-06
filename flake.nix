@@ -101,10 +101,16 @@
           };
       };
 
-      templates = {
-        web = {
-          path = ./templates/web;
+      templates =
+        let
+          mkTemplate = name: {
+            path = ./templates/${name};
+            description = "${name} development environment";
+          };
+        in
+        {
+          web = mkTemplate "web";
+          c-cpp = mkTemplate "c-cpp";
         };
-      };
     };
 }
