@@ -63,6 +63,49 @@ in
         end
       '';
 
+      keymap = {
+        mgr = {
+          prepend_keymap = [
+            {
+              on = [
+                "c"
+                "m"
+              ];
+              run = "plugin chmod";
+              desc = "Chmod on selected files";
+            }
+            {
+              on = [
+                "F"
+              ];
+              run = "plugin smart-filter";
+              desc = "Smart Filter";
+            }
+            {
+              on = [
+                "S"
+              ];
+              run = "plugin fr rg";
+              desc = "Search file by content";
+            }
+            {
+              on = [
+                "y"
+              ];
+              run = "plugin ucp copy notify";
+              desc = "Copy";
+            }
+            {
+              on = [
+                "P"
+              ];
+              run = "plugin ucp paste notify";
+              desc = "Paste";
+            }
+          ];
+        };
+      };
+
       plugins = {
         full-border = "${
           pkgs.fetchFromGitHub {
@@ -72,6 +115,38 @@ in
             hash = "sha256-bqGN6JxbU+/o7TlM/Cm9Qj/s1McA4pB5QWArGZPcme4=";
           }
         }/full-border.yazi";
+
+        chmod = "${
+          pkgs.fetchFromGitHub {
+            owner = "yazi-rs";
+            repo = "plugins";
+            rev = "main";
+            hash = "sha256-bqGN6JxbU+/o7TlM/Cm9Qj/s1McA4pB5QWArGZPcme4=";
+          }
+        }/chmod.yazi";
+
+        smart-filter = "${
+          pkgs.fetchFromGitHub {
+            owner = "yazi-rs";
+            repo = "plugins";
+            rev = "main";
+            hash = "sha256-bqGN6JxbU+/o7TlM/Cm9Qj/s1McA4pB5QWArGZPcme4=";
+          }
+        }/smart-filter.yazi";
+
+        fr = pkgs.fetchFromGitHub {
+          owner = "lpnh";
+          repo = "fr.yazi";
+          rev = "main";
+          hash = "sha256-3D1mIQpEDik0ppPQo+/NIhCxEu/XEnJMJ0HiAFxlOE4=";
+        };
+
+        ucp = pkgs.fetchFromGitHub {
+          owner = "simla33";
+          repo = "ucp.yazi";
+          rev = "main";
+          hash = "sha256-jIvooR00smQb8bmS3slj87k4yM9aTeruvhu/1krigZ8=";
+        };
       };
     };
 
