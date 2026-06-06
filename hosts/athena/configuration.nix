@@ -53,7 +53,13 @@
         nvidiaBusId = "PCI:1:0:0";
       };
     };
-    hardware.power.enable = true;
+
+    hardware.power = {
+      enable = true;
+      batteryMaxFreq = 2000000; # 2.0 GHz
+      chargerMaxFreq = 2600000; # 2.6 GHz
+    };
+
     dm.ly.enable = true;
     fonts.enable = true;
     core.enable = true;
