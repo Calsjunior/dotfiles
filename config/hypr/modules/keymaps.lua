@@ -13,12 +13,12 @@ hl.bind(main_mod .. " + O", hl.dsp.exec_cmd(apps.session))
 -- Noctalia v5
 hl.bind(main_mod .. " + D", hl.dsp.exec_cmd(ipc .. " panel-toggle launcher"))
 hl.bind(main_mod .. " + N", hl.dsp.exec_cmd(ipc .. " panel-toggle control-center"))
-hl.bind(main_mod .. " + SHIFT + B", hl.dsp.exec_cmd(ipc .. " settings-toggle"))
+hl.bind(main_mod .. " + CTRL + B", hl.dsp.exec_cmd(ipc .. " settings-toggle"))
 hl.bind(main_mod .. " + SHIFT + Q", hl.dsp.exec_cmd(ipc .. " panel-toggle session"))
-hl.bind(main_mod .. " + CTRL + N", hl.dsp.exec_cmd(ipc .. " notification-clear-active"))
+hl.bind(main_mod .. " + CTRL + N", hl.dsp.exec_cmd(ipc .. " notification-clear-history"))
 
 -- Clipboard
-hl.bind(main_mod .. " + CTRL + V", hl.dsp.exec_cmd(ipc .. " panel-toggle clipboard"))
+hl.bind(main_mod .. " +  V", hl.dsp.exec_cmd(ipc .. " panel-toggle clipboard"))
 
 -- Screenshots
 hl.bind(main_mod .. " + PRINT", hl.dsp.exec_cmd(ipc .. " screenshot-region"))
