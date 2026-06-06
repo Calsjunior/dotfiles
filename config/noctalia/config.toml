@@ -2,9 +2,9 @@
 capsule = true
 capsule_padding = 10.0
 center = [ "workspaces" ]
-end = [ "tray", "notifications", "clipboard", "volume", "brightness", "battery", "group:g1", "session", "control-center" ]
+end = [ "tray", "notifications", "clipboard", "volume", "brightness", "group:g1", "session", "control-center" ]
 margin_edge = 4
-start = [ "launcher", "clock" ]
+start = [ "launcher", "clock", "battery"]
 widget_spacing = 8
 
     [[bar.default.capsule_group]]
