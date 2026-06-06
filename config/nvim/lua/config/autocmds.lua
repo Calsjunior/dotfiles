@@ -8,27 +8,6 @@ vim.api.nvim_create_autocmd("TermEnter", {
     end,
 })
 
--- Auto activate python env if detected
-local function activate_venv()
-    local venv_paths = {
-        vim.fn.getcwd() .. "/venv",
-        vim.fn.getcwd() .. "/.venv",
-        vim.fn.getcwd() .. "/env",
-    }
-
-    for _, path in ipairs(venv_paths) do
-        local python_path = path .. "/bin/python"
-        if vim.fn.executable(python_path) == 1 then
-            vim.env.VIRTUAL_ENV = path
-            vim.env.PATH = path .. "/bin:" .. vim.env.PATH
-            vim.notify("🐍 Activated: " .. vim.fn.fnamemodify(path, ":t"))
-            return true
-        end
-    end
-    return false
-end
-vim.api.nvim_create_autocmd("DirChanged", { callback = activate_venv })
-
 -- Markdown configs
 vim.api.nvim_create_autocmd("FileType", {
     pattern = "markdown",
