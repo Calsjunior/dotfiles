@@ -12,6 +12,7 @@
   config = lib.mkIf config.cli.wayland-tools.enable {
     home.packages = with pkgs; [
       wl-clipboard
+      hyprpicker
     ];
   };
 }
