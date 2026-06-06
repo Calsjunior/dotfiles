@@ -5,6 +5,8 @@ return {
             inlay_hints = { enabled = false },
             folds = { enabled = false },
             servers = {
+                html = {},
+                cssls = {},
                 emmet_language_server = {
                     filetypes = { "html", "css" },
                 },
@@ -15,9 +17,9 @@ return {
                 },
                 nil_ls = {
                     settings = {
-                        ['nil'] = {
+                        ["nil"] = {
                             formatting = {
-                                command = { "nixfmt" }
+                                command = { "nixfmt" },
                             },
                         },
                     },
