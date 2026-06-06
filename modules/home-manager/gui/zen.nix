@@ -56,6 +56,41 @@
       profiles.default = {
         isDefault = true;
 
+        keyboardShortcuts = [
+          {
+            id = "zen-compact-mode-toggle";
+            key = "c";
+            modifiers = {
+              control = false;
+              alt = true;
+            };
+          }
+          {
+            id = "zen-compact-mode-show-sidebar";
+            key = "c";
+            modifiers = {
+              control = true;
+              alt = true;
+            };
+          }
+          {
+            id = "zen-workspace-backward";
+            key = "q";
+            modifiers = {
+              control = true;
+              alt = true;
+            };
+          }
+          {
+            id = "zen-workspace-forward";
+            key = "q";
+            modifiers = {
+              control = true;
+              alt = true;
+            };
+          }
+        ];
+
         settings = {
           # Core Browser & Privacy
           "browser.urlbar.placeholderName" = "DuckDuckGo";
