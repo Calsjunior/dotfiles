@@ -15,15 +15,7 @@ return {
                         ["textDocument/publishDiagnostics"] = function() end,
                     },
                 },
-                nil_ls = {
-                    settings = {
-                        ["nil"] = {
-                            formatting = {
-                                command = { "nixfmt" },
-                            },
-                        },
-                    },
-                },
+                nixd = {},
             },
         },
     },
