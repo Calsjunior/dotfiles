@@ -67,6 +67,9 @@
           # Move URL bar to the top toolbar
           "zen.view.use-single-toolbar" = false;
 
+          # Hide window controls
+          "browser.tabs.inTitlebar" = 0;
+
           # Force Dark Theme everywhere
           "ui.systemUsesDarkTheme" = 1;
           "browser.in-content.dark-mode" = true;
