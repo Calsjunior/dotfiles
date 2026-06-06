@@ -38,8 +38,6 @@
       };
 
       shellAliases = {
-        f = "find . -iname";
-        g = "grep --color=auto -R";
         ls = "eza --icons -H --group-directories-first --git -1";
       };
 
