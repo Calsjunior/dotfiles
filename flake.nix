@@ -83,5 +83,11 @@
             ];
           };
       };
+
+      templates = {
+        web = {
+          path = ./templates/web;
+        };
+      };
     };
 }
