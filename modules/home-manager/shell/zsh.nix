@@ -110,38 +110,36 @@
         autoload -Uz add-zle-hook-widget
 
         function transient_prompt_precmd() {
-            # Capture the native Starship prompt strings only once
-            if [[ -z "$STARSHIP_NORMAL_PROMPT" ]]; then
-                STARSHIP_NORMAL_PROMPT=$'\n'"$PROMPT"
-                STARSHIP_NORMAL_RPROMPT="$RPROMPT"
-                
-                STARSHIP_TRANSIENT_PROMPT="''${PROMPT// prompt / prompt --profile transient }"
-                
-                local temp_rprompt="''${RPROMPT// prompt / prompt --profile rtransient }"
-                STARSHIP_TRANSIENT_RPROMPT="''${temp_rprompt// --right/}"
-            fi
-            
-            # Always restore the normal prompt before rendering a new line
-            PROMPT="$STARSHIP_NORMAL_PROMPT"
-            RPROMPT="$STARSHIP_NORMAL_RPROMPT"
+          if [[ -z "$STARSHIP_NORMAL_PROMPT" ]]; then
+            STARSHIP_NORMAL_PROMPT=$'\n'"$PROMPT"
+            STARSHIP_NORMAL_RPROMPT="$RPROMPT"
+            STARSHIP_TRANSIENT_PROMPT_TEMPLATE="''${PROMPT// prompt / prompt --profile transient }"
+
+            local temp_rprompt="''${RPROMPT// prompt / prompt --profile rtransient }"
+            STARSHIP_TRANSIENT_RPROMPT_TEMPLATE="''${temp_rprompt// --right/}"
+          fi
+
+          SAVED_TRANSIENT_PROMPT="$(eval "printf '%s' \"$STARSHIP_TRANSIENT_PROMPT_TEMPLATE\"")"
+          SAVED_TRANSIENT_RPROMPT="$(eval "printf '%s' \"$STARSHIP_TRANSIENT_RPROMPT_TEMPLATE\"")"
+
+          TRAPINT() {
+            transient_prompt_finish
+            return $(( 128 + $1 ))
+          }
+
+          PROMPT="$STARSHIP_NORMAL_PROMPT"
+          RPROMPT="$STARSHIP_NORMAL_RPROMPT"
         }
 
         function transient_prompt_finish() {
-            # Swap to the transient prompt right before the command executes
-            PROMPT="$STARSHIP_TRANSIENT_PROMPT"
-            RPROMPT="$STARSHIP_TRANSIENT_RPROMPT"
-            zle .reset-prompt
+          # Apply the static, pre-evaluated saved prompts
+          PROMPT="$SAVED_TRANSIENT_PROMPT"
+          RPROMPT="$SAVED_TRANSIENT_RPROMPT"
+          zle && zle .reset-prompt
         }
 
-        # Register the hooks
         add-zsh-hook precmd transient_prompt_precmd
         add-zle-hook-widget zle-line-finish transient_prompt_finish
-
-        # Fix ctrl+c behavior to ensure cancelled lines become transient too
-        TRAPINT() {
-            transient_prompt_finish
-            return $(( 128 + $1 ))
-        }
       '';
     };
   };
