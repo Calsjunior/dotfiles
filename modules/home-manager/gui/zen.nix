@@ -105,6 +105,9 @@
           # Hide window controls
           "browser.tabs.inTitlebar" = 0;
 
+          # Essentials
+          "zen.workspaces.separate-essentials" = false;
+
           # Force Dark Theme everywhere
           "ui.systemUsesDarkTheme" = 1;
           "browser.in-content.dark-mode" = true;
