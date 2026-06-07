@@ -10,7 +10,10 @@
   };
 
   config = lib.mkIf config.sys.shell.zsh.enable {
-    programs.zsh.enable = true;
+    programs.zsh = {
+      enable = true;
+      enableCompletion = false;
+    };
     users.defaultUserShell = pkgs.zsh;
   };
 }
