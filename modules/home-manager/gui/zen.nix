@@ -123,6 +123,7 @@
           "devtools.gridinspector.showGridAreas" = true;
           "devtools.responsive.touchSimulation.enabled" = true;
           "devtools.toolbox.selectedTool" = "webconsole";
+          "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
 
           # Cleaned URL Bar
           "mod.cleanedurlbar.customcolor" = "hsl(0 0 10)";
