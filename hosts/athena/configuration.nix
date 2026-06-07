@@ -64,6 +64,7 @@
     fonts.enable = true;
     core.enable = true;
     shell.zsh.enable = true;
+    portals.xdg-desktop-portal.enable = true;
   };
 
   wm.hyprland.enable = true;

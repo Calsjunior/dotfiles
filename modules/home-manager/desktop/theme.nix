@@ -17,5 +17,9 @@
       gtk.enable = true;
       x11.enable = true;
     };
+
+    home.sessionVariables = {
+      QT_QPA_PLATFORMTHEME = "xdgdesktopportal";
+    };
   };
 }

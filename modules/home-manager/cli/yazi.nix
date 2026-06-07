@@ -4,20 +4,6 @@
   pkgs,
   ...
 }:
-let
-  yazi-wrapper = pkgs.writeShellScriptBin "yazi-wrapper" ''
-    #!/usr/bin/env bash
-
-    out_path="$1"
-    shift
-
-    if [ "$#" -ge 1 ]; then
-      exec yazi --chooser-file="$out_path" "$1"
-    else
-      exec yazi --chooser-file="$out_path"
-    fi
-  '';
-in
 {
   options.cli.yazi = {
     enable = lib.mkEnableOption "Enable Yazi";
@@ -75,30 +61,22 @@ in
               desc = "Chmod on selected files";
             }
             {
-              on = [
-                "F"
-              ];
+              on = [ "F" ];
               run = "plugin smart-filter";
               desc = "Smart Filter";
             }
             {
-              on = [
-                "S"
-              ];
+              on = [ "S" ];
               run = "plugin fr rg";
               desc = "Search file by content";
             }
             {
-              on = [
-                "y"
-              ];
+              on = [ "y" ];
               run = "plugin ucp copy notify";
               desc = "Copy";
             }
             {
-              on = [
-                "P"
-              ];
+              on = [ "P" ];
               run = "plugin ucp paste notify";
               desc = "Paste";
             }
@@ -150,21 +128,35 @@ in
       };
     };
 
-    xdg.configFile."xdg-desktop-portal-termfilechooser/config".text = ''
-      [filechooser]
-      # Route the request through our new wrapper script instead of calling Yazi directly
-      cmd=${config.cli.yazi.terminalCmd} --class termfilechooser -e ${yazi-wrapper}/bin/yazi-wrapper %s
-    '';
-
-    xdg.portal = {
+    xdg = {
       enable = true;
-      extraPortals = [
-        pkgs.xdg-desktop-portal-termfilechooser
-      ];
-      config = {
-        common = {
-          default = [ "gtk" ];
-          "org.freedesktop.impl.portal.FileChooser" = [ "termfilechooser" ];
+      configFile = {
+        "xdg-desktop-portal-termfilechooser/config" = {
+          enable = true;
+          force = true;
+          text = ''
+            [filechooser]
+            cmd=${pkgs.xdg-desktop-portal-termfilechooser}/share/xdg-desktop-portal-termfilechooser/yazi-wrapper.sh
+            default_dir=$HOME/Downloads
+            env=TERMCMD=${config.cli.yazi.terminalCmd} --class termfilechooser -e
+            env=PATH="$PATH:/run/current-system/sw/bin"
+            open_mode=suggested
+            save_mode=last
+          '';
+        };
+      };
+
+      portal = {
+        enable = true;
+        extraPortals = with pkgs; [
+          xdg-desktop-portal-termfilechooser
+          xdg-desktop-portal-gtk
+        ];
+        config = {
+          common = {
+            default = [ "gtk" ];
+            "org.freedesktop.impl.portal.FileChooser" = [ "termfilechooser" ];
+          };
         };
       };
     };
