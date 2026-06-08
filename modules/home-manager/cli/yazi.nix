@@ -16,12 +16,21 @@
   };
 
   config = lib.mkIf config.cli.yazi.enable {
+
+    # Extra tools used in yazi
+    home.packages = with pkgs; [
+      ripgrep # Required by the 'fr' plugin
+      trash-cli # Required by the 'recycle-bin' plugin
+      wl-clipboard # Required by the 'ucp' plugin
+    ];
+
     programs.yazi = {
       enable = true;
       enableZshIntegration = config.cli.shell.zsh.enable;
 
       initLua = ''
         require("full-border"):setup()
+        require("recycle-bin"):setup()
 
         -- Fix directories blue color icon
         function Entity:icon()
@@ -80,6 +89,14 @@
               run = "plugin ucp paste";
               desc = "Paste";
             }
+            {
+              on = [
+                "R"
+                "b"
+              ];
+              run = "plugin recycle-bin";
+              desc = "Open Recycle Bin menu";
+            }
           ];
         };
       };
@@ -124,6 +141,13 @@
           repo = "ucp.yazi";
           rev = "main";
           hash = "sha256-jIvooR00smQb8bmS3slj87k4yM9aTeruvhu/1krigZ8=";
+        };
+
+        recycle-bin = pkgs.fetchFromGitHub {
+          owner = "uhs-robert";
+          repo = "recycle-bin.yazi";
+          rev = "main";
+          hash = "sha256-lpxTGWA15szM5VJ+qvV2+GTg7HXiZaZfyWyjeNMsTSM=";
         };
       };
     };

@@ -11,6 +11,14 @@
 
   config = lib.mkIf config.cli.core.enable {
 
+    home.packages = with pkgs; [
+      fd
+      ripgrep
+      eza
+      bat
+      trash-cli
+    ];
+
     programs.zoxide = {
       enable = true;
       options = [ "--cmd cd" ];
@@ -37,15 +45,19 @@
       silent = true;
     };
 
-    home.packages = with pkgs; [
-      fd
-      ripgrep
-      eza
-      bat
-    ];
+    home = {
+      sessionVariables = {
+        _ZO_EXCLUDE_DIRS = "$HOME:$HOME/.local/*:$HOME/.cache/*:$HOME/.git/*:$HOME/node_modules/*";
+      };
 
-    home.sessionVariables = {
-      _ZO_EXCLUDE_DIRS = "$HOME:$HOME/.local/*:$HOME/.cache/*:$HOME/.git/*:$HOME/node_modules/*";
+      shellAliases = {
+        ls = "eza --icons -H --group-directories-first --git -1";
+        rm = "echo 'Use trash (or \\\\rm to bypass and permanently delete)'";
+        tp = "trash-put";
+        te = "trash-empty";
+        tl = "trash-list";
+        tr = "trash-restore";
+      };
     };
 
     home.file.".ignore".text = ''
