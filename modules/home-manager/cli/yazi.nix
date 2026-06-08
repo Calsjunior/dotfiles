@@ -31,6 +31,15 @@
       initLua = ''
         require("full-border"):setup()
         require("recycle-bin"):setup()
+        require("simple-tag"):setup({
+            ui_mode = "icon",
+            colors = {
+                ["c"] = "green",
+            },
+            icons = {
+                ["c"] = "󰄲 ",
+            },
+        })
 
         -- Fix directories blue color icon
         function Entity:icon()
@@ -57,6 +66,25 @@
             end
         end
       '';
+
+      settings = {
+        plugin = {
+          prepend_fetchers = [
+            {
+              id = "simple-tag";
+              url = "*";
+              run = "simple-tag";
+              group = "simple-tag";
+            }
+            {
+              id = "simple-tag";
+              url = "*/";
+              run = "simple-tag";
+              group = "simple-tag";
+            }
+          ];
+        };
+      };
 
       keymap = {
         mgr = {
@@ -96,6 +124,41 @@
               ];
               run = "plugin recycle-bin";
               desc = "Open Recycle Bin menu";
+            }
+            {
+              on = [
+                "T"
+                "t"
+                "K"
+              ];
+              run = "plugin simple-tag -- toggle-tag";
+              desc = "Toggle a tag";
+            }
+            {
+              on = [
+                "T"
+                "a"
+                "k"
+              ];
+              run = "plugin simple-tag -- add-tag";
+              desc = "Add a tag";
+            }
+            {
+              on = [
+                "T"
+                "d"
+                "k"
+              ];
+              run = "plugin simple-tag -- remove-tag";
+              desc = "Remove a tag";
+            }
+            {
+              on = [
+                "T"
+                "n"
+              ];
+              run = "plugin simple-tag -- filter --mode=not";
+              desc = "Filter only untagged items";
             }
           ];
         };
@@ -148,6 +211,13 @@
           repo = "recycle-bin.yazi";
           rev = "main";
           hash = "sha256-lpxTGWA15szM5VJ+qvV2+GTg7HXiZaZfyWyjeNMsTSM=";
+        };
+
+        simple-tag = pkgs.fetchFromGitHub {
+          owner = "boydaihungst";
+          repo = "simple-tag.yazi";
+          rev = "e8be0311282605c877be33587b3cb0eb4cf852e6";
+          hash = "sha256-qtCoDSt5dWTxJC2xB/iufmOSO13joEIFl4A2D4ohIyE=";
         };
       };
     };
