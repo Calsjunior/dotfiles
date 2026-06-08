@@ -36,7 +36,7 @@
 
         # Window Behavior
         allow_remote_control = "yes";
-        listen_on = "unix:/tmp/mykitty"; # Required for neovim integration later!
+        listen_on = "unix:/tmp/mykitty";
         remember_window_size = "yes";
         initial_window_width = 1000;
         initial_window_height = 650;
@@ -64,10 +64,10 @@
         "alt+w>j" = "neighboring_window down";
 
         # Tab Management
-        "alt+tab>tab" = "new_tab_with_cwd";
-        "alt+tab>]" = "next_tab";
-        "alt+tab>[" = "previous_tab";
-        "alt+tab>d" = "close_tab";
+        "alt+enter" = "new_tab_with_cwd";
+        "alt+shift+l" = "next_tab";
+        "alt+shift+h" = "previous_tab";
+        "alt+b>d" = "close_tab";
 
         # Layouts
         "alt+w>m" = "toggle_layout tall";
