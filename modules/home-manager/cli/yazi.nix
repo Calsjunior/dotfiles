@@ -233,24 +233,10 @@
             cmd=${pkgs.xdg-desktop-portal-termfilechooser}/share/xdg-desktop-portal-termfilechooser/yazi-wrapper.sh
             default_dir=$HOME/Downloads
             env=TERMCMD=${config.cli.yazi.terminalCmd} --class termfilechooser -e
-            env=PATH="$PATH:/run/current-system/sw/bin"
+            env=PATH="$PATH:/run/current-system/${config.home.profileDirectory}/bin"
             open_mode=suggested
             save_mode=last
           '';
-        };
-      };
-
-      portal = {
-        enable = true;
-        extraPortals = with pkgs; [
-          xdg-desktop-portal-termfilechooser
-          xdg-desktop-portal-gtk
-        ];
-        config = {
-          common = {
-            default = [ "gtk" ];
-            "org.freedesktop.impl.portal.FileChooser" = [ "termfilechooser" ];
-          };
         };
       };
     };
