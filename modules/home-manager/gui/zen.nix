@@ -50,6 +50,11 @@
             install_url = "https://addons.mozilla.org/firefox/downloads/latest/return-youtube-dislikes/latest.xpi";
             installation_mode = "force_installed";
           };
+          # React devtools
+          "@react-devtools" = {
+            install_url = "https://addons.mozilla.org/en-US/firefox/addon/react-devtools/";
+            installation_mode = "force_installed";
+          };
         };
       };
 
