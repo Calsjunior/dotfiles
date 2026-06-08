@@ -37,11 +37,6 @@
         ignoreSpace = true;
       };
 
-      shellAliases = {
-        ls = "eza --icons -H --group-directories-first --git -1";
-        c = "wl-copy";
-      };
-
       plugins = [
         {
           name = "fzf-tab";

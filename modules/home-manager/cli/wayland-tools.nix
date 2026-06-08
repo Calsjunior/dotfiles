@@ -14,5 +14,9 @@
       wl-clipboard
       hyprpicker
     ];
+
+    home.shellAliases = {
+      c = "wl-copy";
+    };
   };
 }
