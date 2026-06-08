@@ -12,8 +12,6 @@
 
   config = lib.mkIf config.cli.shell.zsh.enable {
 
-    # Ensure core CLI tools are available for Zsh aliases
-    cli.core.enable = lib.mkDefault true;
     assertions = [
       {
         assertion = osConfig.sys.shell.zsh.enable;
@@ -83,19 +81,14 @@
 
         # fzf-tab configuration
         zstyle ':fzf-tab:*' fzf-bindings 'tab:accept' 'ctrl-y:accept'
-        zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza --tree --level=1 --color=always --icons=always $realpath'
+        zstyle ':fzf-tab:complete:cd:*' fzf-preview '${pkgs.eza}/bin/eza --tree --level=1 --color=always --icons=always $realpath'
         zstyle ':fzf-tab:complete:*' fzf-preview '
           if [[ -d $realpath ]]; then
-            eza --tree --level=1 --color=always --icons=always $realpath
+            ${pkgs.eza}/bin/eza --tree --level=1 --color=always --icons=always $realpath
           elif [[ -f $realpath ]]; then
-            bat --color=always $realpath
+            ${pkgs.bat}/bin/bat --color=always $realpath
           fi'
         zstyle ':fzf-tab:*' switch-group '<' '>'
-
-        md2pdf() {
-          pandoc "$1" -f markdown -o "''${1%.*}.pdf" --pdf-engine=tectonic -V geometry:margin=1in
-          echo "Converted $1 to ''${1%.*}.pdf"
-        }
 
       ''
       + lib.optionalString config.cli.starship.enable ''
