@@ -72,12 +72,12 @@
             }
             {
               on = [ "y" ];
-              run = "plugin ucp copy notify";
+              run = "plugin ucp copy";
               desc = "Copy";
             }
             {
-              on = [ "P" ];
-              run = "plugin ucp paste notify";
+              on = [ "p" ];
+              run = "plugin ucp paste";
               desc = "Paste";
             }
           ];
