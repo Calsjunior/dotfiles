@@ -19,8 +19,8 @@ map({ "n", "v" }, "<leader>d", '"_d', { desc = "Delete without yanking" })
 
 -- Buffer mappings
 map("n", "<leader>o", "<cmd>update<CR><cmd>source %<CR><cmd>nohlsearch<CR>")
-map("n", "<A-L>", "<cmd>bnext<CR>")
-map("n", "<A-H>", "<cmd>bprevious<CR>")
+map("n", "<C-S-l>", "<cmd>bnext<CR>")
+map("n", "<C-S-h>", "<cmd>bprevious<CR>")
 
 -- Move lines up and down
 map("n", "<C-S-j>", ":m .+1<CR>==", { desc = "Move line down", silent = true })
