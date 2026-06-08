@@ -30,6 +30,7 @@
       enable = true;
       terminalCmd = "${pkgs.kitty}/bin/kitty";
     };
+    formatters.enable = true;
   };
 
   gui = {
