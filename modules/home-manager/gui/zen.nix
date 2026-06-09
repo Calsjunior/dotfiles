@@ -94,6 +94,14 @@
               alt = true;
             };
           }
+          {
+            id = "key_inspector";
+            key = "f";
+            modifiers = {
+              control = true;
+              shift = true;
+            };
+          }
         ];
 
         settings = {
