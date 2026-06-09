@@ -25,10 +25,14 @@
         { pkgs }:
         {
           default = pkgs.mkShell {
+            # Use packages or nativeBuildInputs here for tools
             packages = with pkgs; [
               clang-tools
               gnumake
             ];
+
+            # Use buildInputs for libraries/header files
+            # buildInputs = with pkgs; [ <library> ];
           };
         }
       );
