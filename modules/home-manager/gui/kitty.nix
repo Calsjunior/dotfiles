@@ -69,6 +69,10 @@
         "alt+shift+h" = "previous_tab";
         "alt+b>d" = "close_tab";
 
+        "alt+b>r" = "set_tab_title";
+        "alt+b>l" = "move_tab_forward";
+        "alt+b>h" = "move_tab_backward";
+
         # Layouts
         "alt+w>m" = "toggle_layout tall";
         "alt+w>z" = "toggle_layout stack"; # Zoom current window to full screen
