@@ -2,9 +2,14 @@
   config,
   lib,
   pkgs,
+  inputs,
   ...
 }:
 {
+  imports = [
+    inputs.nix-index-database.homeModules.nix-index
+  ];
+
   options = {
     cli.core.enable = lib.mkEnableOption "Enable core CLI utilities";
   };
@@ -17,7 +22,17 @@
       eza
       bat
       trash-cli
+      (pkgs.writeShellApplication {
+        name = "ns";
+        runtimeInputs = with pkgs; [
+          fzf
+          nix-search-tv
+        ];
+        text = builtins.readFile "${pkgs.nix-search-tv.src}/nixpkgs.sh";
+      })
     ];
+
+    programs.nix-index-database.comma.enable = true;
 
     programs.zoxide = {
       enable = true;

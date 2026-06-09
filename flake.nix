@@ -2,13 +2,26 @@
   description = "Based NixOS";
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    noctalia.url = "github:noctalia-dev/noctalia-shell";
-    zen-browser.url = "github:0xc000022070/zen-browser-flake";
+    noctalia = {
+      url = "github:noctalia-dev/noctalia-shell";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    zen-browser = {
+      url = "github:0xc000022070/zen-browser-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    nix-index-database = {
+      url = "github:nix-community/nix-index-database";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -16,6 +29,7 @@
       self,
       nixpkgs,
       home-manager,
+      nix-index-database,
       ...
     }@inputs:
     let
@@ -45,7 +59,10 @@
                   useGlobalPkgs = true;
                   useUserPackages = true;
                   users.${user} = import ./hosts/${hostname}/home.nix;
-                  sharedModules = [ ./modules/home-manager ];
+                  sharedModules = [
+                    ./modules/home-manager
+                    nix-index-database.homeModules.nix-index
+                  ];
                   extraSpecialArgs = { inherit inputs user hostname; };
                   backupFileExtension = "backup";
                 };
