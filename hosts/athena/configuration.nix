@@ -54,6 +54,8 @@
       };
     };
 
+    hardware.intel.enable = true;
+
     hardware.power = {
       enable = true;
       batteryMaxFreq = 2000000; # 2.0 GHz
