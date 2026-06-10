@@ -7,6 +7,8 @@ return {
             servers = {
                 html = {},
                 cssls = {},
+                nixd = {},
+                clangd = {},
                 emmet_language_server = {
                     filetypes = { "html", "css" },
                 },
@@ -15,7 +17,6 @@ return {
                         ["textDocument/publishDiagnostics"] = function() end,
                     },
                 },
-                nixd = {},
             },
         },
     },
