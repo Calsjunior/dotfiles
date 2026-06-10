@@ -42,5 +42,14 @@ in
         nvidiaBusId = cfg.prime.nvidiaBusId;
       };
     };
+
+    services.udev.extraRules = ''
+      # Remove NVIDIA USB xHCI Host Controller, if present
+      ACTION=="add", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x0c0330", ATTR{power/control}="auto", ATTR{remove}="1"
+      # Remove NVIDIA USB Type-C UCSI, if present
+      ACTION=="add", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x0c8000", ATTR{power/control}="auto", ATTR{remove}="1"
+      # Remove NVIDIA Audio, if present
+      ACTION=="add", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x040300", ATTR{power/control}="auto", ATTR{remove}="1"
+    '';
   };
 }
