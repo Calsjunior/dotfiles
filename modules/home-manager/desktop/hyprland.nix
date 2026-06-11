@@ -18,20 +18,6 @@
       }
     ];
 
-    xdg.portal = {
-      enable = true;
-      extraPortals = with pkgs; [
-        xdg-desktop-portal-termfilechooser
-        xdg-desktop-portal-gtk
-      ];
-      config = {
-        common = {
-          default = [ "gtk" ];
-          "org.freedesktop.impl.portal.FileChooser" = [ "termfilechooser" ];
-        };
-      };
-    };
-
     xdg.configFile."hypr".source =
       config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/config/hypr";
   };

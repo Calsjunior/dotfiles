@@ -19,6 +19,20 @@
       source = "${pkgs.xdg-desktop-portal}/libexec/xdg-desktop-portal";
     };
 
+    xdg.portal = {
+      enable = true;
+      extraPortals = with pkgs; [
+        xdg-desktop-portal-termfilechooser
+        xdg-desktop-portal-gtk
+      ];
+      config = {
+        common = {
+          default = [ "gtk" ];
+          "org.freedesktop.impl.portal.FileChooser" = [ "termfilechooser" ];
+        };
+      };
+    };
+
     systemd.user.services.xdg-desktop-portal = {
       serviceConfig = {
         ExecStart = [
