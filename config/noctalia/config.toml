@@ -25,7 +25,17 @@ order = [ "default" ]
     center = [ "workspaces" ]
     contact_shadow = false
     enabled = true
-    end = [ "tray", "notifications", "clipboard", "volume", "brightness", "group:g1", "session", "control-center" ]
+    end = [
+        "tray",
+        "notifications",
+        "recorder_2",
+        "clipboard",
+        "volume",
+        "brightness",
+        "group:g1",
+        "session",
+        "control-center"
+    ]
     font_weight = 500
     layer = "top"
     margin_edge = 4
@@ -525,6 +535,12 @@ type = "volume"
 [widget.ram]
 stat = "ram_used"
 type = "sysmon"
+
+[widget.recorder]
+type = "noctalia/screen_recorder:recorder"
+
+[widget.recorder_2]
+type = "noctalia/screen_recorder:recorder"
 
 [widget.spacer]
 type = "spacer"
