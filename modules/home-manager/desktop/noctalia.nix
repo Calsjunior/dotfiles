@@ -21,8 +21,9 @@
       }
     ];
 
-    home.packages = [
+    home.packages = with pkgs; [
       inputs.noctalia.packages.${pkgs.system}.default
+      gpu-screen-recorder
     ];
 
     xdg.configFile."noctalia".source =

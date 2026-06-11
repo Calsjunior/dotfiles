@@ -131,6 +131,7 @@ show_running = true
 battery_charging = []
 battery_discharging = []
 battery_percentage_changed = []
+battery_plugged = []
 bluetooth_disabled = []
 bluetooth_enabled = []
 colors_changed = []
@@ -188,26 +189,40 @@ sunset = ""
 [lockscreen]
 blur_intensity = 0.5
 blurred_desktop = false
+monitors = []
 tint_intensity = 0.30000001192092896
 wallpaper = ""
 
 [lockscreen_widgets]
-enabled = false
+enabled = true
 schema_version = 1
-widget_order = [ "lockscreen-login-box@eDP-1" ]
+widget_order = [ "lockscreen-login-box@Unknown-1", "lockscreen-login-box@eDP-1" ]
 
     [lockscreen_widgets.grid]
     cell_size = 16
     major_interval = 4
     visible = true
 
+    [lockscreen_widgets.widget."lockscreen-login-box@Unknown-1"]
+    box_height = 0.0
+    box_width = 0.0
+    cx = 960.0
+    cy = 957.0
+    enabled = true
+    output = "Unknown-1"
+    rotation = 0.0
+    type = "login_box"
+
+        [lockscreen_widgets.widget."lockscreen-login-box@Unknown-1".settings]
+
     [lockscreen_widgets.widget."lockscreen-login-box@eDP-1"]
+    box_height = 0.0
+    box_width = 0.0
     cx = 960.0
     cy = 957.0
     enabled = true
     output = "eDP-1"
     rotation = 0.0
-    scale = 1.0
     type = "login_box"
 
         [lockscreen_widgets.widget."lockscreen-login-box@eDP-1".settings]
@@ -236,8 +251,6 @@ show_app_name = true
 
 [osd]
 background_opacity = 0.97000002861022949
-keyboard_layout = true
-lock_keys = true
 monitors = []
 offset_x = 20
 offset_y = 8
@@ -245,12 +258,41 @@ orientation = "horizontal"
 position = "top_center"
 scale = 1.0
 
+    [osd.kinds]
+    bluetooth = true
+    brightness = true
+    caffeine = true
+    dnd = true
+    keyboard_layout = true
+    lock_keys = true
+    power_profile = true
+    volume = true
+    volume_input = true
+    volume_output = true
+    wifi = true
+
+[plugins]
+enabled = [ "noctalia/screen_recorder" ]
+
+    [[plugins.source]]
+    auto_update = false
+    kind = "git"
+    location = "https://github.com/noctalia-dev/official-plugins"
+    name = "official"
+
+    [[plugins.source]]
+    auto_update = false
+    kind = "git"
+    location = "https://github.com/noctalia-dev/community-plugins"
+    name = "community"
+
 [shell]
 app_icon_colorize = false
+avatar_path = ""
 clipboard_auto_paste = "off"
 clipboard_confirm_clear_history = true
 clipboard_enabled = true
-clipboard_history_max_entries = 50
+clipboard_history_max_entries = 200
 clipboard_image_action_command = ""
 corner_radius_scale = 1.0
 date_format = "%A, %x"
