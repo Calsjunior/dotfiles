@@ -7,7 +7,6 @@ return {
             local status, _ = pcall(require, "config.current_theme")
         end,
     },
-    { "nvim-lualine/lualine.nvim" },
     {
         "kylechui/nvim-surround",
         event = "BufReadPre",
@@ -22,18 +21,6 @@ return {
             tabkey = "<Tab>",
             reverse_key = "<S-Tab>",
             act_as_tab = true,
-        },
-    },
-    {
-        "windwp/nvim-autopairs",
-        event = "InsertEnter",
-        config = true,
-        opts = {
-            check_ts = true,
-            ts_config = {
-                lua = { "string" },
-                javascript = { "template_string" },
-            },
         },
     },
     {
