@@ -2,6 +2,7 @@
   pkgs,
   config,
   lib,
+  inputs,
   ...
 }:
 {
@@ -12,6 +13,7 @@
   config = lib.mkIf config.cli.neovim.enable {
     programs.neovim = {
       enable = true;
+      package = inputs.neovim-nightly-overlay.packages.${pkgs.system}.default;
       defaultEditor = true;
       sideloadInitLua = true;
 
