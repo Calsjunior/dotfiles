@@ -8,30 +8,6 @@ vim.api.nvim_create_autocmd("TermEnter", {
 	end,
 })
 
--- Markdown configs
-vim.api.nvim_create_autocmd("FileType", {
-	pattern = "markdown",
-	callback = function(e)
-		-- Enable snacks image
-		local ok, image_doc = pcall(require, "snacks.image.doc")
-		if ok then
-			image_doc.attach(e.buf)
-		end
-
-		vim.schedule(function()
-			vim.keymap.set("i", "<Tab>", function()
-				require("neotab").tabout()
-			end, { buffer = e.buf, desc = "Force Neotab over markdown-plus" })
-		end)
-
-		vim.opt.textwidth = 75
-		vim.opt_local.spell = true
-		vim.opt_local.shiftwidth = 2
-		vim.opt_local.tabstop = 2
-		vim.opt_local.softtabstop = 2
-	end,
-})
-
 -- Disable wrapping
 vim.api.nvim_create_augroup("lazyvim_wrap_spell", { clear = true })
 
