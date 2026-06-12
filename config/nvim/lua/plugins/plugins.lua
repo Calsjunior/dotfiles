@@ -1,35 +1,35 @@
 return {
-    {
-        "LazyVim/LazyVim",
-        opts = { colorscheme = "habamax" },
-        config = function(_, opts)
-            require("lazyvim").setup(opts)
-            local status, _ = pcall(require, "config.current_theme")
-        end,
-    },
-    {
-        "kawre/neotab.nvim",
-        event = "InsertEnter",
-        opts = {
-            tabkey = "<Tab>",
-            reverse_key = "<S-Tab>",
-            act_as_tab = true,
-        },
-    },
-    {
-        "norcalli/nvim-colorizer.lua",
-        event = "BufReadPre",
-        config = function()
-            require("colorizer").setup({
-                css = { css = true },
-            })
-        end,
-    },
-    {
-        "lambdalisue/suda.vim",
-        init = function()
-            vim.g.suda_smart_edit = 1
-        end,
-        cmd = { "SudaRead", "SudaWrite" },
-    },
+	{
+		"LazyVim/LazyVim",
+		opts = { colorscheme = "habamax" },
+		config = function(_, opts)
+			require("lazyvim").setup(opts)
+			local status, _ = pcall(require, "config.current_theme")
+		end,
+	},
+	{
+		"kawre/neotab.nvim",
+		event = "InsertEnter",
+		opts = {
+			tabkey = "<Tab>",
+			reverse_key = "<S-Tab>",
+			act_as_tab = true,
+		},
+	},
+	{
+		"norcalli/nvim-colorizer.lua",
+		event = "BufReadPre",
+		config = function()
+			require("colorizer").setup({
+				css = { css = true },
+			})
+		end,
+	},
+	{
+		"lambdalisue/suda.vim",
+		init = function()
+			vim.g.suda_smart_edit = 1
+		end,
+		cmd = { "SudaRead", "SudaWrite" },
+	},
 }
