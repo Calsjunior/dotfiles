@@ -1,5 +1,6 @@
 return {
     "sheng-tse/jupynvim",
+    ft = { "python" },
     build = function()
         local core = vim.fn.stdpath("data") .. "/lazy/jupynvim/core"
         vim.fn.system({
