@@ -1,40 +1,19 @@
 return {
-    "stevearc/conform.nvim",
-    opts = {
-        formatters = {
-            clang_format = {
-                prepend_args = { "--style=file" },
-            },
-            stylua = {
-                prepend_args = { "--indent-type", "Spaces", "--indent-width", "4" },
-            },
-            shfmt = {
-                prepend_args = { "-i", "4", "-ci" },
-            },
-            ruff_format = {
-                command = "ruff",
-                args = { "format", "--line-length", "80", "--stdin-filename", "$FILENAME" },
-                stdin = true,
-            },
-            ruff_fix = {
-                command = "ruff",
-                args = { "check", "--fix", "--stdin-filename", "$FILENAME" },
-                stdin = true,
-            },
-        },
-        formatters_by_ft = {
-            c = { "clang-format" },
-            cpp = { "clang-format" },
-            python = { "ruff_format" },
-            lua = { "stylua" },
-            html = { "biome-check" },
-            css = { "biome-check" },
-            javascript = { "biome-check" },
-            typescript = { "biome-check" },
-            json = { "biome-check" },
-            jsonc = { "biome-check" },
-            sh = { "shfmt" },
-            nix = { "nixfmt" },
-        },
-    },
+	"stevearc/conform.nvim",
+	opts = {
+		formatters_by_ft = {
+			c = { "clang-format" },
+			cpp = { "clang-format" },
+			python = { "ruff_format" },
+			lua = { "stylua" },
+			html = { "biome-check" },
+			css = { "biome-check" },
+			javascript = { "biome-check" },
+			typescript = { "biome-check" },
+			json = { "biome-check" },
+			jsonc = { "biome-check" },
+			sh = { "shfmt" },
+			nix = { "nixfmt" },
+		},
+	},
 }
