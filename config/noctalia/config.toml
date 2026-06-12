@@ -38,22 +38,22 @@ order = [ "default" ]
     ]
     font_weight = 500
     layer = "top"
-    margin_edge = 4
-    margin_ends = 180
-    padding = 14
+    margin_edge = 0
+    margin_ends = 0
+    padding = 18
     panel_overlap = 1
     position = "top"
     radius = 16
     radius_bottom_left = 16
     radius_bottom_right = 16
-    radius_top_left = 16
-    radius_top_right = 16
+    radius_top_left = 0
+    radius_top_right = 0
     reserve_space = true
     scale = 1.0
     shadow = true
     start = [ "launcher", "clock", "battery" ]
     thickness = 34
-    widget_spacing = 8
+    widget_spacing = 10
 
         [[bar.default.capsule_group]]
         fill = "surface_variant"
