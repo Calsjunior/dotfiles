@@ -1,10 +1,5 @@
 return {
     {
-        "numToStr/Comment.nvim",
-        event = "VeryLazy",
-        opts = {},
-    },
-    {
         "danymat/neogen",
         opts = {
             enabled = true,
