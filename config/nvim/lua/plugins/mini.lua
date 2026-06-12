@@ -7,14 +7,13 @@ return {
     },
     {
         "nvim-mini/mini.align",
+        keys = {
+            { "ga", mode = { "n", "v" } },
+            { "gA", mode = { "n", "v" } },
+        },
         opts = function()
             local align = require("mini.align")
-
             return {
-                mappings = {
-                    start = "ga",
-                    start_with_preview = "gA",
-                },
                 modifiers = {
                     ["d"] = function(steps, _)
                         table.insert(steps.pre_justify, align.gen_step.filter("n <= 4"))
