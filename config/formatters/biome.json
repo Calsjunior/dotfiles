@@ -1,33 +1,32 @@
 {
-    "$schema": "https://biomejs.dev/schemas/2.4.15/schema.json",
+  "$schema": "https://biomejs.dev/schemas/2.4.15/schema.json",
+  "formatter": {
+    "enabled": true,
+    "indentStyle": "space",
+    "indentWidth": 2,
+    "lineWidth": 80,
+    "formatWithErrors": true
+  },
+  "html": {
     "formatter": {
-        "enabled": true,
-        "indentStyle": "space",
-        "indentWidth": 4,
-        "lineWidth": 80,
-        "formatWithErrors": true
-    },
-    "html": {
-        "formatter": {
-            "enabled": true,
-            "whitespaceSensitivity": "ignore",
-            "attributePosition": "auto",
-            "lineWidth": 80
-        }
-    },
-    "linter": {
-        "enabled": true,
-        "rules": {
-            "recommended": true
-        }
-    },
-    "assist": {
-        "enabled": true,
-        "actions": {
-            "source": {
-                "useSortedProperties": "on",
-                "useSortedAttributes": "on"
-            }
-        }
+      "enabled": true,
+      "whitespaceSensitivity": "ignore",
+      "attributePosition": "auto"
     }
+  },
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "recommended": true
+    }
+  },
+  "assist": {
+    "enabled": true,
+    "actions": {
+      "source": {
+        "useSortedProperties": "on",
+        "useSortedAttributes": "on"
+      }
+    }
+  }
 }
