@@ -30,9 +30,6 @@ hl.bind(main_mod .. " + PRINT", hl.dsp.exec_cmd(ipc .. " screenshot-fullscreen")
 -- hl.bind(main_mod .. " + SHIFT + ALT + R", hl.dsp.exec_cmd("caelestia record -r"))
 
 -- Utility Scripts
-hl.bind(main_mod .. " + W", hl.dsp.exec_cmd(apps.scripts .. "/wallpaper.sh"))
-hl.bind(main_mod .. " + CTRL + W", hl.dsp.exec_cmd(apps.scripts .. "/scheme.sh"))
-hl.bind(main_mod .. " + CTRL + SHIFT + M", hl.dsp.exec_cmd(apps.scripts .. "/gpu-switch.sh"))
 hl.bind(main_mod .. " + SHIFT + C", hl.dsp.exec_cmd("hyprpicker -a"))
 hl.bind(main_mod .. " + SHIFT + code:201", hl.dsp.exec_cmd("hyprctl switchxkblayout current next"))
 hl.bind(main_mod .. " + F2", monitor_utils.toggle_refresh_rate)
