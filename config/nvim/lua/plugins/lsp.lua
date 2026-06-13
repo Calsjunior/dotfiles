@@ -9,6 +9,7 @@ return {
 				cssls = {},
 				nixd = {},
 				clangd = {},
+				biome = {},
 				emmet_language_server = {
 					filetypes = { "html", "css" },
 				},
