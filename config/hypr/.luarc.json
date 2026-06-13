@@ -1,0 +1,9 @@
+{
+  "diagnostics": { "globals": ["hl"] },
+  "workspace": {
+    "library": [
+      "/nix/store/sx92rzash4zqm90qgibj3cm5bqwg1mnj-hyprland-0.55.3/share/hypr/stubs"
+    ]
+  }
+}
+
