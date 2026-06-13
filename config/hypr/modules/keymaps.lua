@@ -21,8 +21,8 @@ hl.bind(main_mod .. " + CTRL + N", hl.dsp.exec_cmd(ipc .. " notification-clear-h
 hl.bind(main_mod .. " +  V", hl.dsp.exec_cmd(ipc .. " panel-toggle clipboard"))
 
 -- Screenshots
-hl.bind(main_mod .. " + PRINT", hl.dsp.exec_cmd(ipc .. " screenshot-region"))
-hl.bind(main_mod .. " + SHIFT + PRINT", hl.dsp.exec_cmd(ipc .. " screenshot-fullscreen"))
+hl.bind(main_mod .. " + SHIFT + PRINT", hl.dsp.exec_cmd(ipc .. " screenshot-region"))
+hl.bind(main_mod .. " + PRINT", hl.dsp.exec_cmd(ipc .. " screenshot-fullscreen"))
 
 -- Record
 -- hl.bind(main_mod .. " + ALT + R", hl.dsp.exec_cmd("caelestia record -s"))
@@ -40,10 +40,10 @@ hl.bind(main_mod .. " + F2", monitor_utils.toggle_refresh_rate)
 -- Window Management
 hl.bind(main_mod .. " + Q", hl.dsp.window.close())
 hl.bind(main_mod .. " + ALT + Q", function()
-    local w = hl.get_active_window()
-    if w ~= nil then
-        os.execute("kill " .. w.pid)
-    end
+	local w = hl.get_active_window()
+	if w ~= nil then
+		os.execute("kill " .. w.pid)
+	end
 end)
 hl.bind(main_mod .. " + F", hl.dsp.window.fullscreen())
 hl.bind(main_mod .. " + SHIFT + h", hl.dsp.window.move({ direction = "l" }))
@@ -53,9 +53,9 @@ hl.bind(main_mod .. " + SHIFT + j", hl.dsp.window.move({ direction = "d" }))
 
 -- Floating
 hl.bind(main_mod .. " + SHIFT + F", function()
-    hl.dispatch(hl.dsp.window.float({ action = "toggle" }))
-    hl.dispatch(hl.dsp.window.resize({ x = 1000, y = 600 }))
-    hl.dispatch(hl.dsp.window.center())
+	hl.dispatch(hl.dsp.window.float({ action = "toggle" }))
+	hl.dispatch(hl.dsp.window.resize({ x = 1000, y = 600 }))
+	hl.dispatch(hl.dsp.window.center())
 end)
 
 -- Window Focus
@@ -66,9 +66,9 @@ hl.bind(main_mod .. " + l", hl.dsp.focus({ direction = "r" }))
 
 -- Workspaces
 for i = 1, 10 do
-    local key = i % 10
-    hl.bind(main_mod .. " + " .. key, hl.dsp.focus({ workspace = i }))
-    hl.bind(main_mod .. " + SHIFT + " .. key, hl.dsp.window.move({ workspace = i }))
+	local key = i % 10
+	hl.bind(main_mod .. " + " .. key, hl.dsp.focus({ workspace = i }))
+	hl.bind(main_mod .. " + SHIFT + " .. key, hl.dsp.window.move({ workspace = i }))
 end
 
 -- Special Workspace
@@ -88,9 +88,9 @@ hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd(ipc .. " volume-up"), { locked =
 hl.bind("XF86AudioLowerVolume", hl.dsp.exec_cmd(ipc .. " volume-down"), { locked = true, repeating = true })
 hl.bind("XF86AudioMute", hl.dsp.exec_cmd(ipc .. " volume-mute"), { locked = true, repeating = true })
 hl.bind(
-    "XF86AudioMicMute",
-    hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"),
-    { locked = true, repeating = true }
+	"XF86AudioMicMute",
+	hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"),
+	{ locked = true, repeating = true }
 )
 hl.bind("XF86MonBrightnessUp", hl.dsp.exec_cmd(ipc .. " brightness-up"), { locked = true })
 hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd(ipc .. " brightness-down"), { locked = true })
