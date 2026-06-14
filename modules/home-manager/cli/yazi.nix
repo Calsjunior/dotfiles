@@ -22,6 +22,7 @@
       ripgrep # Required by the 'fr' plugin
       trash-cli # Required by the 'recycle-bin' plugin
       wl-clipboard # Required by the 'ucp' plugin
+      xdg-desktop-portal-termfilechooser
     ];
 
     programs.yazi = {

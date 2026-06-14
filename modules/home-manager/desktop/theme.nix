@@ -20,6 +20,7 @@
 
     home.sessionVariables = {
       QT_QPA_PLATFORMTHEME = "xdgdesktopportal";
+      GTK_USE_PORTAL = "1";
     };
   };
 }
