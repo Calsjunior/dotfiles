@@ -1,5 +1,6 @@
 local apps = require("modules.programs")
 local monitor_utils = require("scripts.monitor_utils")
+local recorder = require("scripts.recorder")
 local main_mod = "SUPER"
 local ipc = apps.ipc
 
@@ -25,9 +26,11 @@ hl.bind(main_mod .. " + SHIFT + PRINT", hl.dsp.exec_cmd(ipc .. " screenshot-regi
 hl.bind(main_mod .. " + PRINT", hl.dsp.exec_cmd(ipc .. " screenshot-fullscreen"))
 
 -- Record
--- hl.bind(main_mod .. " + ALT + R", hl.dsp.exec_cmd("caelestia record -s"))
--- hl.bind(main_mod .. " + CTRL + ALT + R", hl.dsp.exec_cmd("caelestia record"))
--- hl.bind(main_mod .. " + SHIFT + ALT + R", hl.dsp.exec_cmd("caelestia record -r"))
+hl.bind(main_mod .. " + R", hl.dsp.exec_cmd(recorder.mon_mic))
+hl.bind(main_mod .. " + ALT + R", hl.dsp.exec_cmd(recorder.mon))
+hl.bind(main_mod .. " + SHIFT + R", hl.dsp.exec_cmd(recorder.region_mic))
+hl.bind(main_mod .. " + SHIFT + ALT + R", hl.dsp.exec_cmd(recorder.region))
+hl.bind(main_mod .. " + CTRL + R", hl.dsp.exec_cmd(recorder.stop))
 
 -- Utility Scripts
 hl.bind(main_mod .. " + SHIFT + C", hl.dsp.exec_cmd("hyprpicker -a"))
