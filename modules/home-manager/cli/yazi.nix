@@ -17,12 +17,17 @@
 
   config = lib.mkIf config.cli.yazi.enable {
 
+    desktop.termfilechooser = {
+      enable = true;
+      wrapperCmd = "${pkgs.xdg-desktop-portal-termfilechooser}/share/xdg-desktop-portal-termfilechooser/yazi-wrapper.sh";
+      terminalCmd = config.cli.yazi.terminalCmd;
+    };
+
     # Extra tools used in yazi
     home.packages = with pkgs; [
       ripgrep # Required by the 'fr' plugin
       trash-cli # Required by the 'recycle-bin' plugin
       wl-clipboard # Required by the 'ucp' plugin
-      xdg-desktop-portal-termfilechooser
     ];
 
     programs.yazi = {
@@ -219,25 +224,6 @@
           repo = "simple-tag.yazi";
           rev = "e8be0311282605c877be33587b3cb0eb4cf852e6";
           hash = "sha256-qtCoDSt5dWTxJC2xB/iufmOSO13joEIFl4A2D4ohIyE=";
-        };
-      };
-    };
-
-    xdg = {
-      enable = true;
-      configFile = {
-        "xdg-desktop-portal-termfilechooser/config" = {
-          enable = true;
-          force = true;
-          text = ''
-            [filechooser]
-            cmd=${pkgs.xdg-desktop-portal-termfilechooser}/share/xdg-desktop-portal-termfilechooser/yazi-wrapper.sh
-            default_dir=$HOME/Downloads
-            env=TERMCMD=${config.cli.yazi.terminalCmd} --class termfilechooser -e
-            env=PATH="$PATH:/run/current-system/${config.home.profileDirectory}/bin"
-            open_mode=suggested
-            save_mode=last
-          '';
         };
       };
     };
