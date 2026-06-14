@@ -599,5 +599,12 @@ stat = "cpu_temp"
 type = "sysmon"
 
 [widget.workspaces]
-display = "none"
+display = "id"
+empty_color = "on_primary"
+focused_color = "primary"
+hide_when_empty = false
+labels_only_when_occupied = true
+max_label_chars = 7
+minimal = false
+occupied_color = "secondary"
 type = "workspaces"
