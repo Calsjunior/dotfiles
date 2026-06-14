@@ -1,20 +1,35 @@
 {
   config,
   lib,
+  osConfig,
   ...
 }:
 {
-  options = {
-    gui.kitty.enable = lib.mkEnableOption "Enable Kitty Terminal";
+  options.gui.kitty = {
+    enable = lib.mkEnableOption "Enable Kitty Terminal";
+
+    fontName = lib.mkOption {
+      type = lib.types.str;
+      default = osConfig.sys.fonts.defaultMonospace;
+      description = "The font family for Kitty. Defaults to the system monospace font.";
+    };
+
+    fontSize = lib.mkOption {
+      type = lib.types.int;
+      default = 14;
+      description = "The font size for Kitty.";
+    };
   };
 
   config = lib.mkIf config.gui.kitty.enable {
     programs.kitty = {
       enable = true;
+
       font = {
-        name = "JetBrainsMono Nerd Font";
-        size = 14;
+        name = config.gui.kitty.fontName;
+        size = config.gui.kitty.fontSize;
       };
+
       themeFile = "GruvboxMaterialDarkMedium";
 
       settings = {
