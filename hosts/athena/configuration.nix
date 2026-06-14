@@ -63,9 +63,13 @@
     };
 
     dm.ly.enable = true;
-    fonts.enable = true;
     core.enable = true;
     shell.zsh.enable = true;
+
+    fonts = {
+      enable = true;
+      defaultMonospace = "Lilex Nerd Font";
+    };
 
     portals.xdg-desktop-portal = {
       enable = true;

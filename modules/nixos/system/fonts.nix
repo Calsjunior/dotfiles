@@ -24,9 +24,13 @@
   config = lib.mkIf config.sys.fonts.enable {
     fonts.packages = with pkgs; [
       inter
-      nerd-fonts.jetbrains-mono
+
       noto-fonts
       noto-fonts-color-emoji
+
+      nerd-fonts.jetbrains-mono
+      nerd-fonts.lilex
+      maple-mono.NF
     ];
 
     fonts.fontconfig.defaultFonts = {
