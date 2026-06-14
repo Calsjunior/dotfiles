@@ -38,5 +38,6 @@
     browser.zen.enable = true;
     comms.enable = true;
     documents.enable = true;
+    mpv.enable = true;
   };
 }
