@@ -1,5 +1,5 @@
 local apps = require("modules.programs")
-local monitor_utils = require("modules.monitor_utils")
+local monitor_utils = require("scripts.monitor_utils")
 local main_mod = "SUPER"
 local ipc = apps.ipc
 
