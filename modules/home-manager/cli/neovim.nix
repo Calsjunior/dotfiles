@@ -45,7 +45,7 @@
         # Web
         vscode-langservers-extracted
         emmet-language-server
-        typescript-language-server
+        vtsls
         biome
 
         # Python

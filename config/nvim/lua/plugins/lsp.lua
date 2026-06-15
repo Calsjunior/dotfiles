@@ -11,7 +11,7 @@ return {
         clangd = {},
         biome = {},
         emmet_language_server = { filetypes = { "html", "css" } },
-        ts_ls = {
+        vtsls = {
           handlers = { ["textDocument/publishDiagnostics"] = function() end },
         },
       },
