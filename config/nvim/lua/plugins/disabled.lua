@@ -9,4 +9,5 @@ return {
 	{ "mason-org/mason.nvim", enabled = false },
 	{ "jay-babu/mason-nvim-dap.nvim", enabled = false },
 	{ "mfussenegger/nvim-dap", enabled = false },
+	{ "catppuccin/nvim", enabled = false },
 }
