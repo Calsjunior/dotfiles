@@ -25,7 +25,7 @@ return {
   mon_mic = record("screen", gsr_audio_mix),
   mon = record("screen", gsr_audio_sys),
   region_mic = string.format(
-    'sh -c \'mkdir -p %s && REGION=$(%s) && [ -n "$REGION" ] && FILE=%s && %s -w region -region "$REGION" %s -o "$FILE" && %s "Recording Saved" "$FILE"\'',
+    'sh -c \'mkdir -p %s && REGION=$(%s) && [ -n "$REGION" ] && FILE=%s && %s -w "$REGION" %s -o "$FILE" && %s "Recording Saved" "$FILE"\'',
     save_dir,
     ghost_slurp,
     out_file,
@@ -33,8 +33,9 @@ return {
     gsr_audio_mix,
     ghost_notify
   ),
+
   region = string.format(
-    'sh -c \'mkdir -p %s && REGION=$(%s) && [ -n "$REGION" ] && FILE=%s && %s -w region -region "$REGION" %s -o "$FILE" && %s "Recording Saved" "$FILE"\'',
+    'sh -c \'mkdir -p %s && REGION=$(%s) && [ -n "$REGION" ] && FILE=%s && %s -w "$REGION" %s -o "$FILE" && %s "Recording Saved" "$FILE"\'',
     save_dir,
     ghost_slurp,
     out_file,
@@ -42,5 +43,6 @@ return {
     gsr_audio_sys,
     ghost_notify
   ),
+
   stop = "pkill -SIGINT -f gpu-screen-recorder",
 }
