@@ -10,37 +10,37 @@ local ghost_slurp = "nix run nixpkgs#slurp -- -f '%wx%h+%x+%y'"
 local ghost_notify = "nix run nixpkgs#libnotify --"
 
 local function record(source, audio)
-	return string.format(
-		'sh -c \'mkdir -p %s && FILE=%s && %s -w %s %s -o "$FILE" && %s "Recording Saved" "$FILE"\'',
-		save_dir,
-		out_file,
-		gsr_base,
-		source,
-		audio,
-		ghost_notify
-	)
+  return string.format(
+    'sh -c \'mkdir -p %s && FILE=%s && %s -w %s %s -o "$FILE" && %s "Recording Saved" "$FILE"\'',
+    save_dir,
+    out_file,
+    gsr_base,
+    source,
+    audio,
+    ghost_notify
+  )
 end
 
 return {
-	mon_mic = record("screen", gsr_audio_mix),
-	mon = record("screen", gsr_audio_sys),
-	region_mic = string.format(
-		'sh -c \'mkdir -p %s && REGION=$(%s) && [ -n "$REGION" ] && FILE=%s && %s -w region -region "$REGION" %s -o "$FILE" && %s "Recording Saved" "$FILE"\'',
-		save_dir,
-		ghost_slurp,
-		out_file,
-		gsr_base,
-		gsr_audio_mix,
-		ghost_notify
-	),
-	region = string.format(
-		'sh -c \'mkdir -p %s && REGION=$(%s) && [ -n "$REGION" ] && FILE=%s && %s -w region -region "$REGION" %s -o "$FILE" && %s "Recording Saved" "$FILE"\'',
-		save_dir,
-		ghost_slurp,
-		out_file,
-		gsr_base,
-		gsr_audio_sys,
-		ghost_notify
-	),
-	stop = "pkill -SIGINT -f gpu-screen-recorder",
+  mon_mic = record("screen", gsr_audio_mix),
+  mon = record("screen", gsr_audio_sys),
+  region_mic = string.format(
+    'sh -c \'mkdir -p %s && REGION=$(%s) && [ -n "$REGION" ] && FILE=%s && %s -w region -region "$REGION" %s -o "$FILE" && %s "Recording Saved" "$FILE"\'',
+    save_dir,
+    ghost_slurp,
+    out_file,
+    gsr_base,
+    gsr_audio_mix,
+    ghost_notify
+  ),
+  region = string.format(
+    'sh -c \'mkdir -p %s && REGION=$(%s) && [ -n "$REGION" ] && FILE=%s && %s -w region -region "$REGION" %s -o "$FILE" && %s "Recording Saved" "$FILE"\'',
+    save_dir,
+    ghost_slurp,
+    out_file,
+    gsr_base,
+    gsr_audio_sys,
+    ghost_notify
+  ),
+  stop = "pkill -SIGINT -f gpu-screen-recorder",
 }

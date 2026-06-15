@@ -45,7 +45,7 @@ vim.g.root_spec = { ".git", "cwd" } -- Prioritize .git folders over whatever the
 
 -- Cursor settings
 vim.opt.guicursor =
-	"n-v-c:block-Cursor/lCursor-blinkwait1000-blinkon100-blinkoff100,i-ci:ver25-Cursor/lCursor,r-cr:hor20-Cursor/lCursor"
+  "n-v-c:block-Cursor/lCursor-blinkwait1000-blinkon100-blinkoff100,i-ci:ver25-Cursor/lCursor,r-cr:hor20-Cursor/lCursor"
 
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1

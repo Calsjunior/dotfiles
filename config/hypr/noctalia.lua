@@ -6,28 +6,28 @@ local secondary = "rgb(fabd2f)"
 local error = "rgb(fb4934)"
 
 hl.config({
-	general = {
-		col = {
-			active_border = primary,
-			inactive_border = surface,
-		},
-	},
+  general = {
+    col = {
+      active_border = primary,
+      inactive_border = surface,
+    },
+  },
 
-	group = {
-		col = {
-			border_active = secondary,
-			border_inactive = surface,
-			border_locked_active = error,
-			border_locked_inactive = surface,
-		},
+  group = {
+    col = {
+      border_active = secondary,
+      border_inactive = surface,
+      border_locked_active = error,
+      border_locked_inactive = surface,
+    },
 
-		groupbar = {
-			col = {
-				active = secondary,
-				inactive = surface,
-				locked_active = error,
-				locked_inactive = surface,
-			},
-		},
-	},
+    groupbar = {
+      col = {
+        active = secondary,
+        inactive = surface,
+        locked_active = error,
+        locked_inactive = surface,
+      },
+    },
+  },
 })
