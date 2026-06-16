@@ -44,7 +44,7 @@ order = [ "default" ]
     shadow = true
     start = [ "workspaces", "Clock_Date" ]
     thickness = 38
-    widget_spacing = 10
+    widget_spacing = 8
 
         [[bar.default.capsule_group]]
         fill = "surface_variant"
@@ -66,6 +66,7 @@ warning_threshold = 20
 [brightness]
 enable_ddcutil = false
 ignore_mmids = []
+minimum_brightness = 0.0
 
 [calendar]
 enabled = false
@@ -195,6 +196,7 @@ sunrise = ""
 sunset = ""
 
 [lockscreen]
+allow_empty_password = false
 blur_intensity = 0.5
 blurred_desktop = false
 enabled = true
@@ -297,6 +299,7 @@ scale = 1.0
     dnd = true
     keyboard_layout = true
     lock_keys = true
+    media = true
     power_profile = true
     volume = true
     volume_input = true
@@ -344,7 +347,7 @@ setup_wizard_enabled = true
 shared_gl_context = true
 show_location = true
 telemetry_enabled = false
-time_format = "{:%H:%M}"
+time_format = "{:%I:%M %p}"
 ui_scale = 1.0
 
     [shell.animation]
@@ -471,7 +474,7 @@ community_palette = "Ayu"
 custom_palette = "ADW"
 mode = "dark"
 source = "builtin"
-wallpaper_scheme = "Ayu"
+wallpaper_scheme = "vibrant"
 
     [theme.templates]
     builtin_ids = [ "gtk3", "gtk4", "hyprland", "qt" ]
