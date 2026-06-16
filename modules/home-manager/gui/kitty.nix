@@ -68,7 +68,7 @@
       keybindings = {
         # Window Management
         "alt+w>c" = "new_window_with_cwd";
-        "alt+w>q" = "close_window";
+        "alt+w>d" = "close_window";
 
         "alt+w>v" = "launch --location=vsplit --cwd=current";
         "alt+w>s" = "launch --location=hsplit --cwd=current";
