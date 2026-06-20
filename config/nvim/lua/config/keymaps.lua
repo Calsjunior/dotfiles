@@ -178,5 +178,5 @@ end, { desc = "Kitty Split Vertical" })
 
 map("n", "<leader>ts", function()
   kitty_split("hsplit")
-  vim.fn.system("kitty @ resize-window --axis vertical --increment -15")
+  vim.fn.system("kitty @ resize-window --axis vertical --increment -5")
 end, { desc = "Kitty Split Horizontal" })

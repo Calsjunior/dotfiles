@@ -47,7 +47,7 @@
         tab_title_template = " {index}: {title[title.rfind('/')+1:]} ";
         touch_scroll_multiplier = 8;
         window_padding_width = "0 5";
-        enabled_layouts = "tall,splits,stack";
+        enabled_layouts = "splits,tall,stack";
 
         # Window Behavior
         allow_remote_control = "yes";
@@ -73,11 +73,6 @@
         "alt+w>v" = "launch --location=vsplit --cwd=current";
         "alt+w>s" = "launch --location=hsplit --cwd=current";
 
-        "alt+w>h" = "neighboring_window left";
-        "alt+w>l" = "neighboring_window right";
-        "alt+w>k" = "neighboring_window up";
-        "alt+w>j" = "neighboring_window down";
-
         # Tab Management
         "alt+enter" = "new_tab_with_cwd";
         "alt+shift+l" = "next_tab";
@@ -92,11 +87,9 @@
         "alt+w>m" = "toggle_layout tall";
         "alt+w>z" = "toggle_layout stack"; # Zoom current window to full screen
 
-        # Scrolling
+        # Scrolling & Pager
         "alt+u" = "scroll_page_up";
         "alt+d" = "scroll_page_down";
-        "alt+k" = "scroll_line_up";
-        "alt+j" = "scroll_line_down";
 
         "alt+1" = "goto_tab 1";
         "alt+2" = "goto_tab 2";
@@ -112,6 +105,34 @@
         "ctrl+shift+c" = "copy_to_clipboard";
         "ctrl+shift+v" = "paste_from_clipboard";
       };
+
+      # Smart-Splits Integration
+      extraConfig = ''
+        # Clear Screen
+        map ctrl+shift+l send_text all \x0c
+
+        # Movement
+        map ctrl+j neighboring_window down
+        map ctrl+k neighboring_window up
+        map ctrl+h neighboring_window left
+        map ctrl+l neighboring_window right
+
+        map --when-focus-on var:IS_NVIM ctrl+j
+        map --when-focus-on var:IS_NVIM ctrl+k
+        map --when-focus-on var:IS_NVIM ctrl+h
+        map --when-focus-on var:IS_NVIM ctrl+l
+
+        # Resizing
+        map alt+j kitten ~/.local/share/nvim/lazy/smart-splits.nvim/kitty/relative_resize.py down  3
+        map alt+k kitten ~/.local/share/nvim/lazy/smart-splits.nvim/kitty/relative_resize.py up    3
+        map alt+h kitten ~/.local/share/nvim/lazy/smart-splits.nvim/kitty/relative_resize.py left  3
+        map alt+l kitten ~/.local/share/nvim/lazy/smart-splits.nvim/kitty/relative_resize.py right 3
+
+        map --when-focus-on var:IS_NVIM alt+j
+        map --when-focus-on var:IS_NVIM alt+k
+        map --when-focus-on var:IS_NVIM alt+h
+        map --when-focus-on var:IS_NVIM alt+l
+      '';
     };
 
     home.sessionVariables = {
