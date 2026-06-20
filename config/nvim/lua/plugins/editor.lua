@@ -125,8 +125,13 @@ return {
     lazy = true,
     cmd = { "KittyScrollbackGenerateKittens", "KittyScrollbackCheckHealth" },
     event = { "User KittyScrollbackLaunch" },
-    config = function()
-      require("kitty-scrollback").setup()
-    end,
+    opts = {
+      {
+        paste_window = {
+          yank_register_enabled = false,
+          hide_footer = true,
+        },
+      },
+    },
   },
 }
