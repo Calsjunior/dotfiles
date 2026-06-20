@@ -54,9 +54,10 @@ return {
   -- Window Management
   {
     "mrjones2014/smart-splits.nvim",
+    lazy = false,
     opts = {
-      ignored_filetypes = { "nofile", "quickfix", "prompt" },
-      ignored_buftypes = { "NvimTree" },
+      ignored_buftypes = { "nofile", "quickfix", "prompt" },
+      ignored_filetypes = { "NvimTree" },
     },
     keys = {
       {
