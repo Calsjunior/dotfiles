@@ -161,8 +161,5 @@
 
     xdg.configFile."kitty/relative_resize.py".source =
       config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.local/share/nvim/lazy/smart-splits.nvim/kitty/relative_resize.py";
-
-    xdg.configFile."kitty/split_window.py".source =
-      config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.local/share/nvim/lazy/smart-splits.nvim/kitty/split_window.py";
   };
 }
