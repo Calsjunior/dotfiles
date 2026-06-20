@@ -68,7 +68,15 @@ return {
         end,
         min_keyword_length = 1,
         providers = {
-          ripgrep = { module = "blink-ripgrep", name = "Ripgrep" },
+          lsp = { name = "LSP", score_offset = 3 },
+          ripgrep = {
+            module = "blink-ripgrep",
+            name = "Ripgrep",
+            score_offset = -3,
+            opts = {
+              prefix_min_len = 2,
+            },
+          },
         },
       },
       keymap = {
