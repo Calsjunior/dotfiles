@@ -71,7 +71,7 @@
         "alt+w>d" = "close_window";
 
         "alt+w>v" = "launch --location=vsplit --cwd=current";
-        "alt+w>s" = "launch --location=hsplit --cwd=current";
+        "alt+w>s" = "combine : launch --location=hsplit --cwd=current : resize_window shorter 5";
 
         # Tab Management
         "alt+enter" = "new_tab_with_cwd";
