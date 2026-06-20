@@ -51,7 +51,7 @@
 
         # Window Behavior
         allow_remote_control = "yes";
-        listen_on = "unix:/tmp/mykitty";
+        listen_on = "unix:@mykitty";
         remember_window_size = "yes";
         initial_window_width = 1000;
         initial_window_height = 650;
@@ -106,7 +106,7 @@
         "ctrl+shift+v" = "paste_from_clipboard";
       };
 
-      # Smart-Splits Integration
+      # Smart-Splits & Scrollback Integration
       extraConfig =
         ""
         + (
@@ -132,10 +132,10 @@
               map --when-focus-on var:IS_NVIM ctrl+l
 
               # Resizing
-              map alt+j kitten ~/.local/share/nvim/lazy/smart-splits.nvim/kitty/relative_resize.py down  3
-              map alt+k kitten ~/.local/share/nvim/lazy/smart-splits.nvim/kitty/relative_resize.py up    3
-              map alt+h kitten ~/.local/share/nvim/lazy/smart-splits.nvim/kitty/relative_resize.py left  3
-              map alt+l kitten ~/.local/share/nvim/lazy/smart-splits.nvim/kitty/relative_resize.py right 3
+              map alt+j kitten relative_resize.py down  3
+              map alt+k kitten relative_resize.py up    3
+              map alt+h kitten relative_resize.py left  3
+              map alt+l kitten relative_resize.py right 3
 
               map --when-focus-on var:IS_NVIM alt+j
               map --when-focus-on var:IS_NVIM alt+k
@@ -155,5 +155,14 @@
     home.sessionVariables = {
       TERMINAL = "kitty";
     };
+
+    xdg.configFile."kitty/neighboring_window.py".source =
+      config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.local/share/nvim/lazy/smart-splits.nvim/kitty/neighboring_window.py";
+
+    xdg.configFile."kitty/relative_resize.py".source =
+      config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.local/share/nvim/lazy/smart-splits.nvim/kitty/relative_resize.py";
+
+    xdg.configFile."kitty/split_window.py".source =
+      config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.local/share/nvim/lazy/smart-splits.nvim/kitty/split_window.py";
   };
 }

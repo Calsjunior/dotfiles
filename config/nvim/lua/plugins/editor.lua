@@ -58,6 +58,7 @@ return {
     opts = {
       ignored_buftypes = { "nofile", "quickfix", "prompt" },
       ignored_filetypes = { "NvimTree" },
+      multiplexer_integration = "kitty",
     },
     keys = {
       {
