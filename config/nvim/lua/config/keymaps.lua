@@ -177,3 +177,23 @@ end, { desc = "Terminal (Current File)" })
 map({ "n", "t" }, "<C-->", function()
   Snacks.terminal.toggle(nil, { cwd = vim.fn.getcwd() })
 end, { desc = "Terminal (cwd)" })
+
+-- Helper function for Kitty IPC
+local function kitty_split(location)
+  local dir = vim.fn.expand("%:p:h")
+  if dir == "" then
+    dir = vim.fn.getcwd()
+  end
+  local cmd = string.format("kitty @ launch --location=%s --cwd=%s", location, vim.fn.shellescape(dir))
+  vim.fn.system(cmd)
+end
+
+-- Terminal Splits
+map("n", "<leader>tv", function()
+  kitty_split("vsplit")
+end, { desc = "Kitty Split Vertical" })
+
+map("n", "<leader>ts", function()
+  kitty_split("hsplit")
+  vim.fn.system("kitty @ resize-window --axis vertical --increment -15")
+end, { desc = "Kitty Split Horizontal" })
