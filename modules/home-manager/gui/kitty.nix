@@ -110,29 +110,44 @@
       extraConfig = ''
         # Clear Screen
         map ctrl+shift+l send_text all \x0c
+      ''
+      + (
+        if config.cli.neovim.enable then
+          ''
+            # Scrollback Pager
+            action_alias kitty_scrollback_nvim kitten ~/.local/share/nvim/lazy/kitty-scrollback.nvim/python/kitty_scrollback_nvim.py
+            map alt+[ kitty_scrollback_nvim
 
-        # Movement
-        map ctrl+j neighboring_window down
-        map ctrl+k neighboring_window up
-        map ctrl+h neighboring_window left
-        map ctrl+l neighboring_window right
+            # Movement
+            map ctrl+j neighboring_window down
+            map ctrl+k neighboring_window up
+            map ctrl+h neighboring_window left
+            map ctrl+l neighboring_window right
 
-        map --when-focus-on var:IS_NVIM ctrl+j
-        map --when-focus-on var:IS_NVIM ctrl+k
-        map --when-focus-on var:IS_NVIM ctrl+h
-        map --when-focus-on var:IS_NVIM ctrl+l
+            map --when-focus-on var:IS_NVIM ctrl+j
+            map --when-focus-on var:IS_NVIM ctrl+k
+            map --when-focus-on var:IS_NVIM ctrl+h
+            map --when-focus-on var:IS_NVIM ctrl+l
 
-        # Resizing
-        map alt+j kitten ~/.local/share/nvim/lazy/smart-splits.nvim/kitty/relative_resize.py down  3
-        map alt+k kitten ~/.local/share/nvim/lazy/smart-splits.nvim/kitty/relative_resize.py up    3
-        map alt+h kitten ~/.local/share/nvim/lazy/smart-splits.nvim/kitty/relative_resize.py left  3
-        map alt+l kitten ~/.local/share/nvim/lazy/smart-splits.nvim/kitty/relative_resize.py right 3
+            # Resizing
+            map alt+j kitten ~/.local/share/nvim/lazy/smart-splits.nvim/kitty/relative_resize.py down  3
+            map alt+k kitten ~/.local/share/nvim/lazy/smart-splits.nvim/kitty/relative_resize.py up    3
+            map alt+h kitten ~/.local/share/nvim/lazy/smart-splits.nvim/kitty/relative_resize.py left  3
+            map alt+l kitten ~/.local/share/nvim/lazy/smart-splits.nvim/kitty/relative_resize.py right 3
 
-        map --when-focus-on var:IS_NVIM alt+j
-        map --when-focus-on var:IS_NVIM alt+k
-        map --when-focus-on var:IS_NVIM alt+h
-        map --when-focus-on var:IS_NVIM alt+l
-      '';
+            map --when-focus-on var:IS_NVIM alt+j
+            map --when-focus-on var:IS_NVIM alt+k
+            map --when-focus-on var:IS_NVIM alt+h
+            map --when-focus-on var:IS_NVIM alt+l
+          ''
+        else
+          ''
+            map alt+j scroll_line_down
+            map alt+k scroll_line_up
+
+            map alt+[ show_scrollback
+          ''
+      );
     };
 
     home.sessionVariables = {
