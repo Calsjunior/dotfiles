@@ -161,23 +161,6 @@ map("n", "<leader>sH", function()
   Snacks.picker.grep({ cwd = vim.fn.expand("~") })
 end, { desc = "Grep (Home)" })
 
--- Terminal
-map({ "n", "t" }, "<C-/>", function()
-  if vim.bo.buftype == "terminal" then
-    vim.api.nvim_win_hide(0)
-    return
-  end
-  local cwd = vim.fn.expand("%:p:h")
-  if cwd == "" or cwd:match("^%a+://") then
-    cwd = vim.fn.getcwd()
-  end
-  Snacks.terminal.toggle(nil, { id = "file_term", cwd = cwd })
-end, { desc = "Terminal (Current File)" })
-
-map({ "n", "t" }, "<C-->", function()
-  Snacks.terminal.toggle(nil, { cwd = vim.fn.getcwd() })
-end, { desc = "Terminal (cwd)" })
-
 -- Helper function for Kitty IPC
 local function kitty_split(location)
   local dir = vim.fn.expand("%:p:h")
