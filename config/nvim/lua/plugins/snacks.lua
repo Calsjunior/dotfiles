@@ -139,7 +139,7 @@ return {
       },
     },
     dashboard = {
-      enabled = true,
+      enabled = vim.env.KITTY_SCROLLBACK_NVIM ~= "true",
       preset = {
         header = [[
 ███▄▄▄▄      ▄████████  ▄██████▄   ▄█    █▄   ▄█    ▄▄▄▄███▄▄▄▄   
