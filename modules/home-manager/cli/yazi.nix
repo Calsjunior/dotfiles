@@ -23,16 +23,29 @@
       terminalCmd = config.cli.yazi.terminalCmd;
     };
 
-    # Extra tools used in yazi
-    home.packages = with pkgs; [
-      ripgrep # Required by the 'fr' plugin
-      trash-cli # Required by the 'recycle-bin' plugin
-      wl-clipboard # Required by the 'ucp' plugin
-    ];
-
     programs.yazi = {
       enable = true;
       enableZshIntegration = config.cli.shell.zsh.enable;
+
+      # Extra tools used in this config
+      package = pkgs.symlinkJoin {
+        name = "yazi-wrapped";
+        paths = [ pkgs.yazi ];
+        buildInputs = [ pkgs.makeWrapper ];
+        postBuild = ''
+          wrapProgram $out/bin/yazi \
+            --prefix PATH : ${
+              pkgs.lib.makeBinPath (
+                with pkgs;
+                [
+                  ripgrep # Required by the 'fr' plugin
+                  trash-cli # Required by the 'recycle-bin' plugin
+                  wl-clipboard # Required by the 'ucp' plugin
+                ]
+              )
+            }
+        '';
+      };
 
       initLua = ''
         require("full-border"):setup()
