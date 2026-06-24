@@ -9,7 +9,16 @@ return {
         cssls = {},
         nixd = {},
         clangd = {},
-        biome = {},
+        biome = {
+          cmd = { "biome", "lsp-proxy" },
+          root_dir = function(bufnr, on_dir)
+            local found = vim.fs.find({ "biome.json", "biome.jsonc" }, {
+              path = vim.api.nvim_buf_get_name(bufnr),
+              upward = true,
+            })[1]
+            on_dir(found and vim.fs.dirname(found) or vim.fn.expand("~"))
+          end,
+        },
         emmet_language_server = { filetypes = { "html", "css" } },
         vtsls = {
           handlers = { ["textDocument/publishDiagnostics"] = function() end },
