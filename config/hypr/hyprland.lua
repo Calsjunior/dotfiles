@@ -6,4 +6,4 @@ require("modules.rules")
 require("modules.keymaps")
 
 -- For Noctalia Color templates
-require("noctalia")
+require("noctalia").apply_theme()
