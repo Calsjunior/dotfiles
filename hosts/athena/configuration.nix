@@ -33,7 +33,10 @@
 
   users.users.${user} = {
     isNormalUser = true;
-    extraGroups = [ "wheel" ]; # Enable 'sudo' for the user.
+    extraGroups = [
+      "wheel"
+      "networkmanager"
+    ];
   };
 
   nix.settings.experimental-features = [
