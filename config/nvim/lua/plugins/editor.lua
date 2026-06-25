@@ -1,4 +1,10 @@
 return {
+  -- Diff view
+  {
+    "sindrets/diffview.nvim",
+    opts = {},
+  },
+
   -- Sudo operations
   {
     "lambdalisue/suda.vim",
