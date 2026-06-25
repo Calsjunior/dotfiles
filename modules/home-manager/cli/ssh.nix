@@ -5,10 +5,16 @@
   };
 
   config = lib.mkIf config.cli.ssh.enable {
+    services.ssh-agent.enable = true;
+
     programs.ssh = {
       enable = true;
       enableDefaultConfig = false;
       settings = {
+        "*" = {
+          AddKeysToAgent = "yes";
+        };
+
         "github.com" = {
           hostname = "github.com";
           user = "git";
