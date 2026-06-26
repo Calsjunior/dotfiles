@@ -30,10 +30,13 @@
       enable = true;
       terminalCmd = "${pkgs.kitty}/bin/kitty";
     };
+    formatters.enable = true;
   };
 
   gui = {
     kitty.enable = true;
     browser.zen.enable = true;
+    comms.enable = true;
+    mpv.enable = true;
   };
 }

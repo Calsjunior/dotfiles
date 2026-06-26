@@ -25,14 +25,26 @@
     };
   };
 
-  networking.hostName = "${hostname}";
-  networking.networkmanager.enable = true;
-  hardware.bluetooth.enable = true;
+  networking = {
+    hostName = "${hostname}";
+    networkmanager.enable = true;
+  };
+
+  hardware = {
+    bluetooth = {
+      enable = true;
+      powerOnBoot = false;
+    };
+  };
+
   time.timeZone = "Asia/Phnom_Penh";
 
   users.users.${user} = {
     isNormalUser = true;
-    extraGroups = [ "wheel" ]; # Enable 'sudo' for the user.
+    extraGroups = [
+      "wheel"
+      "networkmanager"
+    ];
   };
 
   nix.settings.experimental-features = [
@@ -43,11 +55,30 @@
   system.stateVersion = "25.11";
 
   # Modules
-  sys.hardware.nvidia.enable = true;
-  sys.dm.ly.enable = true;
-  sys.fonts.enable = true;
-  sys.core.enable = true;
-  sys.shell.zsh.enable = true;
+  sys = {
+    hardware.nvidia = {
+      enable = true;
+      prime = {
+        enable = false;
+      };
+    };
+
+    hardware.intel.enable = true;
+
+    dm.ly.enable = true;
+    core.enable = true;
+    shell.zsh.enable = true;
+
+    fonts = {
+      enable = true;
+      defaultMonospace = "Lilex Nerd Font";
+    };
+
+    portals.xdg-desktop-portal = {
+      enable = true;
+      termfilechooser.enable = true;
+    };
+  };
   wm.hyprland.enable = true;
 
 }
