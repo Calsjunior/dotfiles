@@ -1,8 +1,8 @@
 # Modular NixOS Configuration
 
 > [!NOTE]
-> If you are here for the eye-candy arch configuration, then
-> checkout the other branch.
+> If you are here for the eye-candy Arch configuration, then
+> checkout the [`arch` branch](https://github.com/Calsjunior/dotfiles/tree/arch).
 
 A NixOS configuration where everything is modular, independent, reproducible,
 and hassle-free; so you can use this entire environment, across any machine,
