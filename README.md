@@ -115,3 +115,111 @@ specific tools or workflow might not be the right fit for you.
    git add .
    sudo nixos-rebuild switch --flake .#your-hostname
    ```
+
+## Structure
+
+```
+.
+├── config
+│   ├── formatters
+│   │   ├── .clang-format
+│   │   └── biome.json
+│   ├── hypr
+│   │   ├── modules
+│   │   ├── scripts
+│   │   ├── .luarc.json
+│   │   ├── hyprland.lua
+│   │   └── noctalia.lua
+│   ├── noctalia
+│   │   └── config.toml
+│   └── nvim
+│       ├── after
+│       ├── lua
+│       ├── .neoconf.json
+│       ├── init.lua
+│       ├── lazy-lock.json
+│       └── lazyvim.json
+├── hosts
+│   ├── ares
+│   │   ├── configuration.nix
+│   │   ├── hardware-configuration.nix
+│   │   └── home.nix
+│   └── athena
+│       ├── configuration.nix
+│       ├── hardware-configuration.nix
+│       └── home.nix
+├── modules
+│   ├── home-manager
+│   │   ├── cli
+│   │   ├── desktop
+│   │   ├── gui
+│   │   ├── shell
+│   │   └── default.nix
+│   └── nixos
+│       ├── hardware
+│       ├── system
+│       ├── wm
+│       └── default.nix
+├── templates
+│   ├── c-cpp
+│   │   ├── .envrc
+│   │   └── flake.nix
+│   └── web
+│       ├── .envrc
+│       └── flake.nix
+```
+
+### Adding your own tools
+
+Sooner or later, you'd want to add your own customization, add your own tools,
+programs, or games(?).
+
+If the tools you want to add require `sudo` access, for instance, then put
+their files in `./modules/nixos/`. Otherwise, user-level tools should go in
+`./modules/home-manager/`
+
+Let's take a look at the `./modules/home-manager/cli/wayland-tools.nix` as an
+example of how to wrap your new programs using the options pattern.
+
+```nix
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}:
+{
+  options = {
+    cli.wayland-tools.enable = lib.mkEnableOption "Enable Wayland clipboard and CLI tools";
+  };
+
+  config = lib.mkIf config.cli.wayland-tools.enable {
+    home.packages = with pkgs; [
+      wl-clipboard
+      hyprpicker
+    ];
+
+    home.shellAliases = {
+      c = "wl-copy";
+    };
+  };
+}
+```
+
+Now in your `./hosts/your-hostname/home.nix`, you enable this bundle of tools by
+simply doing:
+
+```nix
+cli.wayland-tools.enable = true;
+```
+
+Then run:
+
+```
+sudo nixos-rebuild switch --flake .#your-hostname
+```
+
+> [!TIP]
+> If you enabled the `nh` (nix-helper) tool during your initial setup (`./modules/nixos/system/core.nix`), you can
+> use this much cleaner command for all subsequent rebuilds:
+> `nh os switch ~/dotfiles -H .#your-hostname`
