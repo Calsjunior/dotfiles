@@ -25,19 +25,21 @@ own machine and using it as a base template. Everyone is different, and my
 specific tools or workflow might not be the right fit for you.
 
 1. Clone the repository:
-  ```
-  git clone https://github.com/Calsjunior/dotfiles.git
-  ```
+
+   ```
+   git clone https://github.com/Calsjunior/dotfiles.git
+   ```
 
 2. Create your host configuration:
+
    Since everything is opt-in, you build your own configuration by creating your
    host files. The easiest way to start is by copying one of the existing hosts.
+
    ```
    cp -r hosts/ares hosts/your-hostname
    ```
 
-   > [!IMPORTANT]
-   > Be sure to replace the hardware-configuration.nix with your own file.
+   Be sure to replace the `hardware-configuration.nix` with your own file.
 
    Next, open hosts/your-hostname/configuration.nix (for system-level modules) and
    hosts/your-hostname/home.nix (for user-level modules), and toggle what your
@@ -72,8 +74,10 @@ specific tools or workflow might not be the right fit for you.
    ```
 
 3. Register your new host:
+
    Open flake.nix and add your new host configuration under the nixosConfigurations
    output block, pointing it to your newly created directory.
+
    ```nix
    "your-hostname" =
    let
