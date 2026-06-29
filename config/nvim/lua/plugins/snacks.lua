@@ -1,3 +1,94 @@
+local BLOCKED_PATH = vim.fn.stdpath("state") .. "/hidden_projects.json"
+local memory_blocked = nil
+local last_mtime = 0
+
+---@return table<string, boolean>
+local function load_blocked()
+  local stat = vim.uv.fs_stat(BLOCKED_PATH)
+  if not stat then
+    memory_blocked = {}
+    last_mtime = 0
+    return memory_blocked
+  end
+
+  if memory_blocked and stat.mtime.sec == last_mtime then
+    return memory_blocked
+  end
+
+  local content = table.concat(vim.fn.readfile(BLOCKED_PATH), "")
+  local ok, tbl = pcall(vim.json.decode, content)
+  memory_blocked = ok and type(tbl) == "table" and tbl or {}
+  last_mtime = stat.mtime.sec
+  return memory_blocked
+end
+
+---@param blocked table<string, boolean>
+local function save_blocked(blocked)
+  memory_blocked = blocked
+  vim.fn.writefile({ vim.json.encode(blocked) }, BLOCKED_PATH)
+  local stat = vim.uv.fs_stat(BLOCKED_PATH)
+  if stat then
+    last_mtime = stat.mtime.sec
+  end
+end
+
+---@param path string
+---@return string
+local function normalize_dir(path)
+  local dir = vim.fn.fnamemodify(path, ":p")
+  return dir:sub(-1) ~= "/" and dir .. "/" or dir
+end
+
+local function init_project_history()
+  local ok, recent = pcall(require, "snacks.picker.source.recent")
+  if ok then
+    local real = recent.projects
+    recent.projects = function(opts, ctx)
+      local blocked = load_blocked()
+      local inner = real(opts, ctx)
+      return function(cb)
+        inner(function(item)
+          if not blocked[normalize_dir(item.file)] then
+            cb(item)
+          end
+        end)
+      end
+    end
+  end
+
+  vim.api.nvim_create_autocmd("BufReadPost", {
+    callback = function(args)
+      if vim.bo[args.buf].buftype ~= "" then
+        return
+      end
+
+      local file = vim.api.nvim_buf_get_name(args.buf)
+      if file == "" then
+        return
+      end
+
+      local blocked = load_blocked()
+      if vim.tbl_isempty(blocked) then
+        return
+      end
+
+      local normalized = vim.fn.fnamemodify(file, ":p")
+      local changed = false
+
+      for dir in pairs(blocked) do
+        if normalized:sub(1, #dir) == dir then
+          blocked[dir] = nil
+          changed = true
+        end
+      end
+
+      if changed then
+        save_blocked(blocked)
+      end
+    end,
+  })
+end
+
 return {
   "folke/snacks.nvim",
   keys = {
@@ -15,6 +106,7 @@ return {
     { "<leader>sg", false },
     { "<leader>sG", false },
   },
+  init = init_project_history,
   opts = {
     scroll = {
       animate = {
@@ -35,16 +127,7 @@ return {
       sources = {
         files = {
           cmd = "fd",
-          args = {
-            "--color=never",
-            "--type",
-            "f",
-            "--hidden",
-            "--follow",
-            "--exclude",
-            ".git",
-            "--no-ignore",
-          },
+          args = { "--color=never", "--type", "f", "--hidden", "--follow", "--exclude", ".git", "--no-ignore" },
         },
         grep = {
           cmd = "rg",
@@ -71,17 +154,6 @@ return {
         },
       },
       actions = {
-        --- Deletes selected projects from the Snacks project picker and Neovim's history.
-        ---
-        --- To permanently remove a project we must edit the shada file.
-        --- First, strip the project's entries from the in-memory
-        --- shada buffer via regex, and filter `vim.v.oldfiles` so the picker
-        --- reflects the deletion immediately without waiting for any disk I/O.
-        --- Second, write the modified shada buffer to disk and reload it.
-        --- Writing shada takes time, but since the picker has already
-        --- reopened, this runs silently in the background.
-        ---@param picker snacks.Picker The active Snacks picker instance.
-        ---@param _      any           Unused fallback parameter.
         delete_projects = function(picker, _)
           Snacks.picker.actions.close(picker)
           local items = picker:selected({ fallback = true })
@@ -89,52 +161,14 @@ return {
             return
           end
 
-          vim.schedule(function()
-            local shada_path = vim.fn.stdpath("state") .. "/shada/main.shada"
-            local buf = vim.fn.bufadd(shada_path)
-            vim.fn.bufload(buf)
+          local blocked = load_blocked()
+          for _, item in ipairs(items) do
+            blocked[normalize_dir(item.file)] = true
+          end
+          save_blocked(blocked)
 
-            -- Strip project entries from the shada buffer in memory safely via Regex
-            vim.api.nvim_buf_call(buf, function()
-              for _, item in ipairs(items) do
-                local regex = "^\\S\\(\\n\\s\\|[^\\n]\\)\\{-}"
-                  .. vim.fn.escape(item.file, "/\\")
-                  .. "\\_.\\{-}\\n*\\ze\\(^\\S\\|\\%$\\)"
-                pcall(vim.cmd, "silent! %s/" .. regex .. "//g")
-              end
-            end)
-
-            -- Update in-memory oldfiles so the picker updates instantly
-            local deleted_dirs = {}
-            for _, item in ipairs(items) do
-              local dir = vim.fn.fnamemodify(item.file, ":p")
-              if dir:sub(-1) ~= "/" then
-                dir = dir .. "/"
-              end
-              deleted_dirs[dir] = true
-            end
-
-            vim.v.oldfiles = vim.tbl_filter(function(f)
-              local normalized = vim.fn.fnamemodify(f, ":p")
-              for dir in pairs(deleted_dirs) do
-                if normalized:sub(1, #dir) == dir then
-                  return false
-                end
-              end
-              return true
-            end, vim.v.oldfiles)
-
-            Snacks.notify.info("Deleted " .. #items .. " project(s).")
-            Snacks.picker.projects()
-
-            vim.defer_fn(function()
-              vim.api.nvim_buf_call(buf, function()
-                vim.cmd("silent! write!")
-              end)
-              vim.api.nvim_buf_delete(buf, { force = true })
-              vim.cmd("silent! rshada!")
-            end, 100)
-          end)
+          Snacks.notify.info("Deleted " .. #items .. " project(s).")
+          Snacks.picker.projects()
         end,
       },
     },
@@ -153,39 +187,21 @@ return {
                 ]],
         keys = {
           {
-            icon = " ",
+            icon = " ",
             key = "c",
             desc = "Config",
             action = ":lua Snacks.dashboard.pick('files', {cwd = vim.fn.stdpath('config')})",
           },
-          {
-            icon = " ",
-            key = "r",
-            desc = "Recent Files",
-            action = ":lua Snacks.dashboard.pick('oldfiles')",
-          },
-          {
-            icon = " ",
-            key = "p",
-            desc = "Projects",
-            action = ":lua Snacks.picker.projects()",
-          },
-          {
-            icon = " ",
-            key = "s",
-            desc = "Recent Sessions",
-            action = "<leader>qS",
-          },
+          { icon = " ", key = "r", desc = "Recent Files", action = ":lua Snacks.dashboard.pick('oldfiles')" },
+          { icon = " ", key = "p", desc = "Projects", action = ":lua Snacks.picker.projects()" },
+          { icon = " ", key = "s", desc = "Recent Sessions", action = "<leader>qS" },
         },
         { section = "startup" },
       },
     },
     image = {
       enabled = true,
-      doc = {
-        enabled = false,
-        inline = true,
-      },
+      doc = { enabled = false, inline = true },
     },
   },
 }
