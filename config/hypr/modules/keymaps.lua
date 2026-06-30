@@ -79,6 +79,29 @@ hl.bind(main_mod .. " + SHIFT + S", hl.dsp.window.move({ workspace = "special:ma
 hl.bind(main_mod .. " + mouse_down", hl.dsp.focus({ workspace = "e+1" }))
 hl.bind(main_mod .. " + mouse_up", hl.dsp.focus({ workspace = "e-1" }))
 
+-- Scrolling Layout: Tape Movement
+-- Scroll the tape left/right without changing active window focus
+hl.bind(main_mod .. " + BracketRight", hl.dsp.layout("move +col"))
+hl.bind(main_mod .. " + BracketLeft", hl.dsp.layout("move -col"))
+
+-- Scrolling Layout: Column Manipulation
+-- Swap the active column's position on the tape
+hl.bind(main_mod .. " + SHIFT + BracketRight", hl.dsp.layout("swapcol r"))
+hl.bind(main_mod .. " + SHIFT + BracketLeft", hl.dsp.layout("swapcol l"))
+
+-- Snap the column width to the next/prev preset (from explicit_column_widths)
+hl.bind(main_mod .. " + EQUAL", hl.dsp.layout("colresize +conf"))
+hl.bind(main_mod .. " + MINUS", hl.dsp.layout("colresize -conf"))
+
+-- Scrolling Layout: Stacking & Promoting
+-- 'consume' stacks the active window into the adjacent column
+-- 'expel' breaks a stacked window out into its own new column
+hl.bind(main_mod .. " + Comma", hl.dsp.layout("consume_or_expel prev"))
+hl.bind(main_mod .. " + Period", hl.dsp.layout("consume_or_expel next"))
+
+-- Instantly pull the active window out of a stack and promote it to its own column
+hl.bind(main_mod .. " + P", hl.dsp.layout("promote"))
+
 -- Mouse
 hl.bind(main_mod .. " + mouse:272", hl.dsp.window.drag(), { mouse = true })
 hl.bind(main_mod .. " + mouse:273", hl.dsp.window.resize(), { mouse = true })

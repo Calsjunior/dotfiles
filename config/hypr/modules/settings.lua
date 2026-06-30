@@ -5,7 +5,7 @@ hl.config({
     border_size = 2,
     resize_on_border = false,
     allow_tearing = false,
-    layout = "dwindle",
+    layout = "scrolling",
   },
 
   decoration = {
@@ -15,6 +15,16 @@ hl.config({
 
   dwindle = {
     preserve_split = true,
+  },
+
+  scrolling = {
+    fullscreen_on_one_column = true,
+    column_width = 0.5,
+    focus_fit_method = 1,
+    follow_focus = true,
+    wrap_focus = true,
+    wrap_swapcol = true,
+    explicit_column_widths = "0.333, 0.5, 0.667, 1.0",
   },
 
   master = {
