@@ -127,7 +127,15 @@ return {
       sources = {
         files = {
           cmd = "fd",
-          args = { "--color=never", "--type", "f", "--hidden", "--follow", "--exclude", ".git", "--no-ignore" },
+          args = {
+            "--color=never",
+            "--type",
+            "f",
+            "--hidden",
+            "--follow",
+            "--exclude",
+            ".git",
+          },
         },
         grep = {
           cmd = "rg",
