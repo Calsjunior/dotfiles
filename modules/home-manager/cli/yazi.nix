@@ -122,6 +122,11 @@
         mgr = {
           prepend_keymap = [
             {
+              on = [ "f" ];
+              run = "plugin jump-to-char";
+              desc = "Jump to character";
+            }
+            {
               on = [
                 "c"
                 "m"
@@ -232,6 +237,15 @@
             hash = "sha256-bqGN6JxbU+/o7TlM/Cm9Qj/s1McA4pB5QWArGZPcme4=";
           }
         }/git.yazi";
+
+        jump-to-char = "${
+          pkgs.fetchFromGitHub {
+            owner = "yazi-rs";
+            repo = "plugins";
+            rev = "main";
+            hash = "sha256-bqGN6JxbU+/o7TlM/Cm9Qj/s1McA4pB5QWArGZPcme4=";
+          }
+        }/jump-to-char.yazi";
 
         fr = pkgs.fetchFromGitHub {
           owner = "lpnh";
