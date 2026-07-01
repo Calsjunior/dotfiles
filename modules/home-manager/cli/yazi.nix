@@ -50,6 +50,9 @@
       initLua = ''
         require("full-border"):setup()
         require("recycle-bin"):setup()
+        require("git"):setup({
+          order = 1500,
+        })
         require("simple-tag"):setup({
             ui_mode = "icon",
             colors = {
@@ -100,6 +103,16 @@
               url = "*/";
               run = "simple-tag";
               group = "simple-tag";
+            }
+            {
+              url = "*";
+              run = "git";
+              group = "git";
+            }
+            {
+              url = "*/";
+              run = "git";
+              group = "git";
             }
           ];
         };
@@ -210,6 +223,15 @@
             hash = "sha256-bqGN6JxbU+/o7TlM/Cm9Qj/s1McA4pB5QWArGZPcme4=";
           }
         }/smart-filter.yazi";
+
+        git = "${
+          pkgs.fetchFromGitHub {
+            owner = "yazi-rs";
+            repo = "plugins";
+            rev = "main";
+            hash = "sha256-bqGN6JxbU+/o7TlM/Cm9Qj/s1McA4pB5QWArGZPcme4=";
+          }
+        }/git.yazi";
 
         fr = pkgs.fetchFromGitHub {
           owner = "lpnh";
