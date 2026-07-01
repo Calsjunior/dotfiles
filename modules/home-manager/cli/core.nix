@@ -71,7 +71,7 @@
 
       shellAliases = {
         ls = "eza --icons -H --group-directories-first --git -1";
-        rm = "echo 'Use trash (or \\\\rm to bypass and permanently delete)'";
+        rm = "echo 'Use trash (or \\\\rm to bypass and permanently delete)'; false";
         tp = "trash-put";
         te = "trash-empty";
         tl = "trash-list";
