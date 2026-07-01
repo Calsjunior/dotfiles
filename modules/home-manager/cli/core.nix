@@ -28,7 +28,11 @@
           fzf
           nix-search-tv
         ];
-        text = builtins.readFile "${pkgs.nix-search-tv.src}/nixpkgs.sh";
+        text = ''
+          ${builtins.replaceStrings [ "ctrl-n" "ctrl-p" ] [ "alt-n" "alt-p" ] (
+            builtins.readFile "${pkgs.nix-search-tv.src}/nixpkgs.sh"
+          )}
+        '';
       })
     ];
 
