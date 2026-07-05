@@ -83,6 +83,8 @@
       .local
       .cache
       .git
+      .npm
+      .config
       node_modules
     '';
   };
