@@ -24,6 +24,9 @@
           editor = "nvim";
         };
       };
+      ignores = [
+        ".direnv"
+      ];
     };
 
     programs.gh.enable = true;
