@@ -31,6 +31,7 @@
       terminalCmd = "${pkgs.kitty}/bin/kitty";
     };
     formatters.enable = true;
+    scripts.enable = true;
   };
 
   gui = {
