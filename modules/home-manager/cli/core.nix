@@ -35,9 +35,9 @@
       enable = true;
       enableZshIntegration = config.cli.shell.zsh.enable;
       defaultCommand = "fd --hidden";
-      changeDirWidgetCommand = "fd --type d";
-      fileWidgetCommand = "fd --type f";
-      historyWidgetOptions = [ "--preview-window hidden" ];
+      changeDirWidget.command = "fd --type d";
+      fileWidget.command = "fd --type f";
+      historyWidget.options = [ "--preview-window hidden" ];
       defaultOptions = [
         "--scheme=path"
         "--tiebreak=end,length"
