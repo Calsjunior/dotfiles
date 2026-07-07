@@ -33,6 +33,19 @@
           git commit -m "chore(flake): initialize $TEMPLATE nix environment"
         '';
       })
+
+      (pkgs.writeShellApplication {
+        name = "ns";
+        runtimeInputs = with pkgs; [
+          fzf
+          nix-search-tv
+        ];
+        text = ''
+          ${builtins.replaceStrings [ "ctrl-n" "ctrl-p" ] [ "alt-n" "alt-p" ] (
+            builtins.readFile "${pkgs.nix-search-tv.src}/nixpkgs.sh"
+          )}
+        '';
+      })
     ];
   };
 }
