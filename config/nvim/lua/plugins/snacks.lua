@@ -89,6 +89,34 @@ local function init_project_history()
   })
 end
 
+local function patch_gh_squash()
+  vim.schedule(function()
+    local ok, gh_actions = pcall(require, "snacks.gh.actions")
+    if ok and gh_actions.cli_actions and gh_actions.cli_actions.gh_squash then
+      gh_actions.cli_actions.gh_squash.on_submit = function(body, ctx)
+        body = body:gsub("%*%*", "")
+
+        for i, arg in ipairs(ctx.args) do
+          if arg == "--subject" then
+            local pr_suffix = " (#" .. ctx.item.number .. ")"
+            if not ctx.args[i + 1]:match("%(#%d+%)$") then
+              ctx.args[i + 1] = ctx.args[i + 1] .. pr_suffix
+            end
+            break
+          end
+        end
+
+        return body
+      end
+    end
+  end)
+end
+
+local function snacks_init()
+  init_project_history()
+  patch_gh_squash()
+end
+
 return {
   "folke/snacks.nvim",
   keys = {
@@ -106,7 +134,7 @@ return {
     { "<leader>sg", false },
     { "<leader>sG", false },
   },
-  init = init_project_history,
+  init = snacks_init,
   opts = {
     scroll = {
       animate = {
