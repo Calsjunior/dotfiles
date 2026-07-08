@@ -39,6 +39,25 @@ local function normalize_dir(path)
   return dir:sub(-1) ~= "/" and dir .. "/" or dir
 end
 
+--- Initializes snacks project filter.
+---
+--- Problem: There is no way to remove projects from the project list in snacks
+--- picker. The solution from the linked issue uses regex to manually delete
+--- the shada file which is slow, and could accidently remove all the projects
+--- from the list.
+---
+--- Solution: This function implements a safer approach by using a separate
+--- JSON file (hidden_projects.json) to act as a hidden list.
+---
+--- Filtering: It wraps the default project picker function. When the picker
+--- loads, it checks the JSON file and removes any matching directories from
+--- the final display list.
+--- Auto-restoring: It listens for file open events (BufReadPost). If you
+--- manually open a file inside a directory that is currently hidden, it
+--- automatically removes that directory from the JSON file so it appears in
+--- the picker again.
+---
+--- https://github.com/folke/snacks.nvim/issues/871#issuecomment-2953231119
 local function init_project_history()
   local ok, recent = pcall(require, "snacks.picker.source.recent")
   if ok then
@@ -89,6 +108,16 @@ local function init_project_history()
   })
 end
 
+--- Patches snacks.gh squash merge action to mimic the GitHub Web UI.
+---
+--- Problem: The gh CLI defaults to using single commit messages as the
+--- squash title (omitting the PR number) and forcefully wraps squashed commit lists
+--- in markdown asterisks (**).
+---
+--- Solution: Hooks into the on_submit event of the gh_squash
+--- action after the buffer is parsed but before the CLI command executes.
+--- Strips bold formatting (**) from the body.
+--- Appends (#PR_NUMBER) to the parsed --subject CLI argument.
 local function patch_gh_squash()
   vim.schedule(function()
     local ok, gh_actions = pcall(require, "snacks.gh.actions")
