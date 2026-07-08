@@ -7,6 +7,7 @@ return {
       servers = {
         html = {},
         cssls = {},
+        css_variables = {},
         nixd = {},
         clangd = {},
         biome = {

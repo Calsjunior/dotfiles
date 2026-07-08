@@ -44,6 +44,7 @@
 
         # Web
         vscode-langservers-extracted
+        css-variables-language-server
         emmet-language-server
         vtsls
         biome
