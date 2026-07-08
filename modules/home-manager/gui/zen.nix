@@ -250,7 +250,6 @@
           "ea1a5ace-f698-4b45-ab88-6e8bd3a563f0" # Bookmark Toolbar Tweaks
           "a5f6a231-e3c8-4ce8-8a8e-3e93efd6adec" # Cleaned URL bars
           "32aca67a-ffdd-49e7-95c7-1821793610ca" # Custom Statusbar
-          "6c122084-c4ec-4c9e-8cc5-3d87c3a089cb" # NavBar Margin
           "ad97bb70-0066-4e42-9b5f-173a5e42c6fc" # SuperPins
           "81fcd6b3-f014-4796-988f-6c3cb3874db8" # Zen Context Menu
         ];
