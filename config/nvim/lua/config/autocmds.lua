@@ -53,3 +53,18 @@ vim.api.nvim_create_autocmd("User", {
     vim.fn.writefile(filtered, session_file)
   end,
 })
+
+-- Automatically set the Current Working Directory to the project root
+vim.api.nvim_create_autocmd("BufEnter", {
+  group = vim.api.nvim_create_augroup("AutoRoot", { clear = true }),
+  callback = function(args)
+    if vim.bo[args.buf].buftype ~= "" then
+      return
+    end
+
+    local root = vim.fs.root(args.buf, { ".git", "package.json", "flake.nix" })
+    if root and root ~= vim.fn.getcwd() then
+      vim.api.nvim_set_current_dir(root)
+    end
+  end,
+})
