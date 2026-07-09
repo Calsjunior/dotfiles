@@ -5,20 +5,6 @@ return {
     opts = { autoload_direnv = true },
   },
 
-  -- Typst
-  {
-    "chomosuke/typst-preview.nvim",
-    version = "1.*",
-    ft = "typst",
-    opts = {
-      dependencies_bin = {
-        tinymist = "tinymist",
-        websocat = "websocat",
-      },
-      extra_args = { "--verbose" },
-    },
-  },
-
   -- Jupyter
   {
     "sheng-tse/jupynvim",
