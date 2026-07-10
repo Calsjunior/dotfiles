@@ -5,11 +5,6 @@ return {
     priority = 1000,
   },
   {
-    "Aasim-A/scrollEOF.nvim",
-    event = { "CursorMoved", "WinScrolled" },
-    opts = {},
-  },
-  {
     "norcalli/nvim-colorizer.lua",
     event = "BufReadPre",
     opts = {

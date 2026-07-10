@@ -9,7 +9,7 @@ vim.opt.relativenumber = true
 vim.opt.cursorline = true
 vim.opt.wrap = false
 vim.opt.scrolloff = 99
--- vim.opt.scrolloffpad = 1
+vim.opt.scrolloffpad = 1
 vim.opt.sidescrolloff = 8
 
 -- Indentation
