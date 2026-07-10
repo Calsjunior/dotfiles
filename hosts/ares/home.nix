@@ -9,6 +9,9 @@
     username = user;
     homeDirectory = "/home/${user}";
     stateVersion = "26.11";
+    sessionVariables = {
+      PRIMARY_MONITOR = "DP-1";
+    };
   };
 
   desktop = {

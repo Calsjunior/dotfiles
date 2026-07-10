@@ -45,10 +45,11 @@ hl.on("window.open", function(w)
 end)
 
 -- Persistence workspace
+local primary_monitor = os.getenv("PRIMARY_MONITOR") or monitors.internal.output
 for i = 1, 5 do
   hl.workspace_rule({
     workspace = tostring(i),
-    monitor = monitors.internal.output,
+    monitor = primary_monitor,
     persistent = true,
   })
 end
