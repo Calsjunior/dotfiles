@@ -1,5 +1,22 @@
 {
-  "$schema": "https://biomejs.dev/schemas/2.4.15/schema.json",
+  "$schema": "https://biomejs.dev/schemas/2.5.0/schema.json",
+  "vcs": {
+    "enabled": false,
+    "clientKind": "git",
+    "useIgnoreFile": false
+  },
+  "files": {
+    "ignoreUnknown": true,
+    "includes": [
+      "**",
+      "!!**/node_modules",
+      "!!**/.next",
+      "!!**/dist",
+      "!!**/out",
+      "!!**/.turbo",
+      "!!**/.git"
+    ]
+  },
   "formatter": {
     "enabled": true,
     "indentStyle": "space",
@@ -7,23 +24,31 @@
     "lineWidth": 80,
     "formatWithErrors": true
   },
-  "html": {
-    "formatter": {
-      "enabled": true,
-      "whitespaceSensitivity": "ignore",
-      "attributePosition": "auto"
-    }
-  },
   "linter": {
     "enabled": true,
     "rules": {
-      "recommended": true
+      "preset": "recommended"
+    }
+  },
+  "javascript": {
+    "formatter": {
+      "quoteStyle": "double"
+    }
+  },
+  "html": {
+    "experimentalFullSupportEnabled": true,
+    "formatter": {
+      "enabled": true,
+      "indentScriptAndStyle": true,
+      "whitespaceSensitivity": "ignore",
+      "attributePosition": "auto"
     }
   },
   "assist": {
     "enabled": true,
     "actions": {
       "source": {
+        "organizeImports": "on",
         "useSortedProperties": "on",
         "useSortedAttributes": "on"
       }
