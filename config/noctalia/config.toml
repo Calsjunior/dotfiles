@@ -24,29 +24,41 @@ order = [ "default" ]
     capsule_padding = 10.0
     capsule_thickness = 0.69999998807907104
     center = [ "audio_visualizer" ]
+    concave_edge_corners = true
     contact_shadow = false
     enabled = true
     end = [ "tray", "notifications", "recorder_3", "group:g2", "group:g1", "session" ]
     font_weight = 500
+    hover_highlight = true
     layer = "top"
     margin_edge = 0
     margin_ends = 0
+    margin_opposite_edge = 0
     padding = 18
     panel_overlap = 1
     position = "top"
     radius = 16
-    radius_bottom_left = -16
-    radius_bottom_right = -16
+    radius_bottom_left = 16
+    radius_bottom_right = 16
     radius_top_left = 0
     radius_top_right = 0
     reserve_space = true
     scale = 1.0
     shadow = true
+    show_on_workspace_switch = true
     start = [ "workspaces", "Clock_Date" ]
     thickness = 38
     widget_spacing = 8
 
+        [bar.default.dead_zone]
+        command = ""
+        middle_command = ""
+        right_command = ""
+        scroll_down_command = ""
+        scroll_up_command = ""
+
         [[bar.default.capsule_group]]
+        enabled = true
         fill = "surface_variant"
         id = "g1"
         members = [ "battery", "network", "bluetooth" ]
@@ -54,6 +66,7 @@ order = [ "default" ]
         padding = 10.0
 
         [[bar.default.capsule_group]]
+        enabled = true
         fill = "surface_variant"
         id = "g2"
         members = [ "volume", "brightness" ]
@@ -67,14 +80,20 @@ warning_threshold = 20
 enable_ddcutil = false
 ignore_mmids = []
 minimum_brightness = 0.0
+sync_all_monitors = false
 
 [calendar]
 enabled = false
 refresh_minutes = 15
 
 [control_center]
-sidebar = "compact"
+hidden_tabs = []
+sidebar = "full"
 sidebar_section = "compact"
+width = 700
+
+    [control_center.calendar]
+    show_events_card = true
 
     [[control_center.shortcuts]]
     type = "wifi"
@@ -101,7 +120,7 @@ schema_version = 1
     [desktop_widgets.grid]
     cell_size = 16
     major_interval = 4
-    visible = true
+    visible = false
 
 [dock]
 active_monitor_only = false
@@ -109,12 +128,15 @@ active_opacity = 1.0
 active_scale = 1.0
 auto_hide = false
 background_opacity = 0.87999999523162842
+concave_edge_corners = true
 cross_axis_padding = 8
 enabled = false
 icon_size = 48
 inactive_opacity = 0.85000002384185791
 inactive_scale = 0.85000002384185791
 item_spacing = 6
+launcher_custom_image = ""
+launcher_custom_image_colorize = false
 launcher_icon = "grid-dots"
 launcher_position = "none"
 magnification = true
@@ -165,27 +187,29 @@ pre_action_fade_seconds = 2.0
     command = ""
     enabled = true
     resume_command = ""
-    timeout = 600
+    timeout = 600.0
 
     [idle.behavior.lock-and-suspend]
     action = "lock_and_suspend"
     command = ""
     enabled = true
     resume_command = ""
-    timeout = 900
+    timeout = 900.0
 
     [idle.behavior.screen-off]
     action = "screen_off"
     command = ""
     enabled = true
     resume_command = ""
-    timeout = 660
+    timeout = 660.0
 
 [keybinds]
 cancel = [ "Escape" ]
 down = [ "Ctrl+j", "Ctrl+n" ]
 left = [ "Left", "Ctrl+h" ]
 right = [ "Right", "Ctrl+l" ]
+tab_next = [ "Tab" ]
+tab_previous = [ "Shift+ISO_Left_Tab" ]
 up = [ "Ctrl+k", "Ctrl+p" ]
 validate = [ "Return", "KP_Enter" ]
 
@@ -290,6 +314,7 @@ offset_x = 20
 offset_y = 8
 orientation = "horizontal"
 position = "top_center"
+position_vertical = "top_center"
 scale = 1.0
 
     [osd.kinds]
@@ -300,14 +325,16 @@ scale = 1.0
     keyboard_layout = true
     lock_keys = true
     media = true
+    nightlight = true
     power_profile = true
+    privacy = true
     volume = true
     volume_input = true
     volume_output = true
     wifi = true
 
 [plugins]
-enabled = [ "noctalia/screen_recorder", "noctalia/bongocat" ]
+enabled = [ "noctalia/screen_recorder", "noctalia/kaomoji", "noctalia/notes" ]
 
     [[plugins.source]]
     auto_update = false
@@ -318,14 +345,14 @@ enabled = [ "noctalia/screen_recorder", "noctalia/bongocat" ]
 
     [[plugins.source]]
     auto_update = false
-    enabled = true
+    enabled = false
     kind = "git"
     location = "https://github.com/noctalia-dev/community-plugins"
     name = "community"
 
 [shell]
 app_icon_colorize = false
-avatar_path = ""
+avatar_path = "/home/cal/Pictures/alucard-in-castlevania-nocturne-season-2-962017589.jpg"
 clipboard_auto_paste = "off"
 clipboard_confirm_clear_history = true
 clipboard_enabled = true
@@ -334,8 +361,10 @@ clipboard_image_action_command = ""
 corner_radius_scale = 1.0
 date_format = "%A, %x"
 disable_mipmaps = false
+external_ip_enabled = false
 font_family = "Lilex Nerd Font Mono"
 launch_apps_as_systemd_services = false
+launch_apps_custom_command = ""
 middle_click_opens_widget_settings = true
 niri_overview_type_to_launch_enabled = false
 offline_mode = false
@@ -354,34 +383,56 @@ ui_scale = 1.0
     enabled = true
     speed = 1.0
 
+    [shell.greeter_sync]
+    auto_sync = false
+
+    [shell.launcher]
+    app_grid = false
+    categories = true
+    compact = false
+    session_search = false
+    show_icons = true
+    sort_by_usage = true
+
+        [shell.launcher.dmenu]
+
     [shell.mpris]
     blacklist = []
 
     [shell.panel]
     borders = true
     clipboard_placement = "attached"
+    clipboard_position = "center"
     control_center_placement = "attached"
-    launcher_categories = true
-    launcher_compact = true
+    control_center_position = "auto"
+    floating_offset = 8
     launcher_placement = "attached"
-    launcher_session_search = false
-    launcher_show_icons = true
-    launcher_sort_by_usage = true
+    launcher_position = "center"
     open_near_click_clipboard = false
     open_near_click_control_center = false
     open_near_click_launcher = false
     open_near_click_session = false
     open_near_click_wallpaper = false
+    polkit_placement = "floating"
+    polkit_position = "center"
     session_placement = "attached"
+    session_position = "auto"
     shadow = true
     transparency_mode = "solid"
     wallpaper_placement = "attached"
+    wallpaper_position = "auto"
+
+    [shell.privacy]
+    cam_filter_regex = ""
+    mic_filter_regex = ""
+    screen_filter_regex = ""
 
     [shell.screen_corners]
     enabled = false
     size = 32
 
     [shell.screenshot]
+    confirm_region = false
     copy_to_clipboard = true
     directory = "~/Pictures/screenshots"
     filename_pattern = ""
@@ -390,9 +441,12 @@ ui_scale = 1.0
     pipe_to_command = false
     save_to_file = true
 
+    [shell.session.power]
+
     [[shell.session.actions]]
     action = "lock"
     command = ""
+    countdown_seconds = 0.0
     enabled = true
     glyph = ""
     label = ""
@@ -402,6 +456,7 @@ ui_scale = 1.0
     [[shell.session.actions]]
     action = "logout"
     command = ""
+    countdown_seconds = 0.0
     enabled = true
     glyph = ""
     label = ""
@@ -411,6 +466,7 @@ ui_scale = 1.0
     [[shell.session.actions]]
     action = "suspend"
     command = ""
+    countdown_seconds = 0.0
     enabled = true
     glyph = ""
     label = ""
@@ -420,6 +476,7 @@ ui_scale = 1.0
     [[shell.session.actions]]
     action = "reboot"
     command = ""
+    countdown_seconds = 0.0
     enabled = true
     glyph = ""
     label = ""
@@ -429,6 +486,7 @@ ui_scale = 1.0
     [[shell.session.actions]]
     action = "shutdown"
     command = ""
+    countdown_seconds = 0.0
     enabled = true
     glyph = ""
     label = ""
@@ -470,7 +528,7 @@ swap_pct_critical_threshold = 90.0
 
 [theme]
 builtin = "Gruvbox"
-community_palette = "Ayu"
+community_palette = "ADW"
 custom_palette = "ADW"
 mode = "dark"
 source = "builtin"
@@ -529,6 +587,14 @@ type = "noctalia/bongocat:cat"
 [widget.cat_2]
 tappy_mode = true
 type = "noctalia/bongocat:cat"
+
+[widget.cat_3]
+input_devices = "/dev/input/event0"
+type = "noctalia/bongocat:cat"
+
+[widget.control-center]
+glyph = "navigation-filled"
+type = "control-center"
 
 [widget.cpu]
 stat = "cpu_usage"
@@ -590,6 +656,10 @@ type = "noctalia/screen_recorder:recorder"
 
 [widget.recorder_3]
 type = "noctalia/screen_recorder:recorder"
+
+[widget.session]
+glyph = "snowflake"
+type = "session"
 
 [widget.spacer]
 type = "spacer"
