@@ -41,7 +41,7 @@ local function record(is_region, req_mic)
   local setup_cmd = string.format('mkdir -p "%s" && ', save_dir) .. slurp_cmd
 
   return string.format(
-    'sh -c \'%s%sFILE="%s" && %s -t %d "%s" "$(basename "$FILE")" && sleep %.1f && %s ; %s "%s" "$FILE"\'',
+    'sh -c \'%s%sFILE="%s" && %s -t %d "%s" "$(basename "$FILE")" && sleep %.1f && %s ; %s "%s" "$FILE" && echo -n "file://$FILE" | wl-copy -t text/uri-list\'',
     trap_and_dummy,
     setup_cmd,
     out_file,
