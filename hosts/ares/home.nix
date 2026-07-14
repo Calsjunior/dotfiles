@@ -23,7 +23,6 @@
   cli = {
     shell.zsh.enable = true;
     core.enable = true;
-    docs.enable = true;
     starship.enable = true;
     neovim.enable = true;
     git.enable = true;

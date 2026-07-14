@@ -34,7 +34,7 @@
         '';
       })
 
-      (pkgs.writeShellApplication {
+      (writeShellApplication {
         name = "ns";
         runtimeInputs = with pkgs; [
           fzf
@@ -44,6 +44,24 @@
           ${builtins.replaceStrings [ "ctrl-n" "ctrl-p" ] [ "alt-n" "alt-p" ] (
             builtins.readFile "${pkgs.nix-search-tv.src}/nixpkgs.sh"
           )}
+        '';
+      })
+
+      (writeShellApplication {
+        name = "md2pdf";
+        runtimeInputs = with pkgs; [
+          pandoc
+          typst
+        ];
+        text = ''
+          if [ -z "''${1:-}" ]; then
+            echo "Usage: md2pdf <file.md>"
+            exit 1
+          fi
+
+          pandoc "$1" -f markdown -o "''${1%.*}.pdf" --pdf-engine=typst -V mainfont="New Computer Modern"
+
+          echo "Converted $1 to ''${1%.*}.pdf"
         '';
       })
     ];
