@@ -53,7 +53,13 @@
               else
                 "fd --hidden"
             }" \
-            --set _ZO_EXCLUDE_DIRS "${config.home.sessionVariables._ZO_EXCLUDE_DIRS or ""}"
+            --set _ZO_EXCLUDE_DIRS "${config.home.sessionVariables._ZO_EXCLUDE_DIRS or ""}" \
+            --set RIPGREP_CONFIG_PATH "${pkgs.writeText "yazi-rg.conf" ''
+              --glob=!package-lock.json
+              --glob=!package.json
+              --glob=!pnpm-lock.yaml
+              --glob=!yarn.lock
+            ''}"
         '';
       };
 
