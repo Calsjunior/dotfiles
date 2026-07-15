@@ -41,9 +41,19 @@
                   ripgrep # Required by the 'fr' plugin
                   trash-cli # Required by the 'recycle-bin' plugin
                   wl-clipboard # Required by the 'ucp' plugin
+                  fzf # Required for portal file picker context
+                  fd # Required for portal file picker context
+                  zoxide # Required for portal file picker context
                 ]
               )
-            }
+            } \
+            --set FZF_DEFAULT_COMMAND "${
+              if config.programs.fzf.defaultCommand != null then
+                config.programs.fzf.defaultCommand
+              else
+                "fd --hidden"
+            }" \
+            --set _ZO_EXCLUDE_DIRS "${config.home.sessionVariables._ZO_EXCLUDE_DIRS or ""}"
         '';
       };
 
