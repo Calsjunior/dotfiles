@@ -161,6 +161,36 @@ map("n", "<leader>sH", function()
   Snacks.picker.grep({ cwd = vim.fn.expand("~") })
 end, { desc = "Grep (Home)" })
 
+map("n", "<leader>cx", function()
+  local local_config = vim.fn.getcwd() .. "/.nvim.lua"
+
+  if vim.fn.filereadable(local_config) == 0 then
+    vim.notify("No .nvim.lua found in project root", vim.log.levels.WARN)
+    return
+  end
+
+  local content = vim.secure.read(local_config)
+  if not content then
+    vim.notify("Execution blocked: .nvim.lua is not trusted.", vim.log.levels.WARN)
+    return
+  end
+
+  local chunk, err = load(content, "@" .. local_config)
+  if not chunk then
+    vim.notify("Syntax error in " .. local_config .. ": " .. err, vim.log.levels.ERROR)
+    return
+  end
+
+  chunk()
+  vim.notify("Sourced: " .. local_config, vim.log.levels.INFO)
+
+  vim.schedule(function()
+    if vim.bo.filetype ~= "" then
+      vim.cmd("doautocmd FileType " .. vim.bo.filetype)
+    end
+  end)
+end, { desc = "Source project .nvim.lua" })
+
 -- Helper function for Kitty IPC
 local function kitty_split(location)
   local dir = vim.fn.expand("%:p:h")
