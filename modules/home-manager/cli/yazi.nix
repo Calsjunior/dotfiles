@@ -106,6 +106,9 @@
       '';
 
       settings = {
+        mgr = {
+          sort_by = "natural";
+        };
         plugin = {
           prepend_fetchers = [
             {
