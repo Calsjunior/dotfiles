@@ -13,11 +13,8 @@ return {
         biome = {
           cmd = { "biome", "lsp-proxy" },
           root_dir = function(bufnr, on_dir)
-            local found = vim.fs.find({ "biome.json", "biome.jsonc" }, {
-              path = vim.api.nvim_buf_get_name(bufnr),
-              upward = true,
-            })[1]
-            on_dir(found and vim.fs.dirname(found) or vim.fn.expand("~"))
+            local fname = vim.api.nvim_buf_get_name(bufnr)
+            on_dir(vim.fs.root(fname, { ".git", "package.json" }) or vim.fs.dirname(fname))
           end,
         },
         emmet_language_server = { filetypes = { "html", "css" } },
