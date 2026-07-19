@@ -24,6 +24,10 @@
         selection-clipboard = "clipboard";
         recolor = true;
       };
+
+      extraConfig = ''
+        include noctaliarc
+      '';
     };
 
     xdg.mimeApps = {
