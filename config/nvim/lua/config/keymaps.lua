@@ -192,21 +192,25 @@ map("n", "<leader>cx", function()
 end, { desc = "Source project .nvim.lua" })
 
 -- Helper function for Kitty IPC
-local function kitty_split(location)
+local function kitty_launch(args, post_cmd)
   local dir = vim.fn.expand("%:p:h")
   if dir == "" then
     dir = vim.fn.getcwd()
   end
-  local cmd = string.format("kitty @ launch --location=%s --cwd=%s", location, vim.fn.shellescape(dir))
+
+  local cmd = string.format("kitty @ launch %s --cwd=%s", args, vim.fn.shellescape(dir))
   vim.fn.system(cmd)
+
+  if post_cmd then
+    vim.fn.system(post_cmd)
+  end
 end
 
 -- Terminal Splits
 map("n", "<leader>tv", function()
-  kitty_split("vsplit")
+  kitty_launch("--location=vsplit")
 end, { desc = "Kitty Split Vertical" })
 
 map("n", "<leader>ts", function()
-  kitty_split("hsplit")
-  vim.fn.system("kitty @ resize-window --axis vertical --increment -5")
+  kitty_launch("--location=hsplit", "kitty @ resize-window --axis vertical --increment -5")
 end, { desc = "Kitty Split Horizontal" })
