@@ -206,7 +206,7 @@ local function kitty_launch(args, post_cmd)
   end
 end
 
--- Terminal Splits
+-- Terminal Splits & Tabs
 map("n", "<leader>tv", function()
   kitty_launch("--location=vsplit")
 end, { desc = "Kitty Split Vertical" })
@@ -214,3 +214,7 @@ end, { desc = "Kitty Split Vertical" })
 map("n", "<leader>ts", function()
   kitty_launch("--location=hsplit", "kitty @ resize-window --axis vertical --increment -5")
 end, { desc = "Kitty Split Horizontal" })
+
+map("n", "<leader>tt", function()
+  kitty_launch("--type=tab")
+end, { desc = "Kitty New Tab" })
