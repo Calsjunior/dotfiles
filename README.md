@@ -75,42 +75,15 @@ specific tools or workflow might not be the right fit for you.
 
 3. Register your new host:
 
-   Open flake.nix and add your new host configuration under the nixosConfigurations
-   output block, pointing it to your newly created directory.
+   Open `flake.nix` and add your new host configuration under the
+   nixosConfigurations output block:
 
    ```nix
-   "your-hostname" =
-   let
-     hostname = "your-hostname";
-   in
-   nixpkgs.lib.nixosSystem {
-     specialArgs = {
-       inherit
-         inputs
-         user
-         hostname
-         ;
-     };
-     modules = [
-       ./hosts/${hostname}/configuration.nix
-       ./modules/nixos
-
-       home-manager.nixosModules.home-manager
-       {
-         home-manager = {
-           useGlobalPkgs = true;
-           useUserPackages = true;
-           users.${user} = import ./hosts/${hostname}/home.nix;
-           sharedModules = [ ./modules/home-manager ];
-           extraSpecialArgs = { inherit inputs user hostname; };
-           backupFileExtension = "backup";
-         };
-       }
-     ];
-   };
+   "your-hostname" = mkHost "your-hostname" [ ];
    ```
 
 4. Apply the configuration:
+
    ```
    git add .
    sudo nixos-rebuild switch --flake .#your-hostname
