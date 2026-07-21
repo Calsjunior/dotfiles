@@ -78,6 +78,8 @@
       enable = true;
       termfilechooser.enable = true;
     };
+
+    secrets.enable = true;
   };
 
   wm.hyprland.enable = true;
