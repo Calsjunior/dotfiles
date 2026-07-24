@@ -18,6 +18,7 @@
     efi.efiSysMountPoint = "/boot/efi";
     grub = {
       enable = true;
+      default = "saved";
       efiSupport = true;
       device = "nodev";
       useOSProber = true;
