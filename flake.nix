@@ -10,12 +10,10 @@
 
     neovim-nightly-overlay = {
       url = "github:nix-community/neovim-nightly-overlay";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     noctalia = {
-      url = "github:noctalia-dev/noctalia-shell";
-      inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:noctalia-dev/noctalia/cachix";
     };
 
     zen-browser = {
