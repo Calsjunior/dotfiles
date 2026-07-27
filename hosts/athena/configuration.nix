@@ -1,18 +1,13 @@
 {
   config,
-  lib,
-  pkgs,
-  user,
-  hostname,
   ...
 }:
-
 {
   imports = [
     ./hardware-configuration.nix
+    ../shared/configuration.nix
   ];
 
-  # Use GRUB and OS Prober for Windows Dual Boot
   boot.loader = {
     efi.canTouchEfiVariables = true;
     efi.efiSysMountPoint = "/boot";
@@ -25,63 +20,21 @@
     };
   };
 
-  networking.hostName = "${hostname}";
-  networking.networkmanager.enable = true;
-  hardware.bluetooth.enable = true;
-  hardware.bluetooth.powerOnBoot = false;
-  time.timeZone = "Asia/Phnom_Penh";
-
-  users.users.${user} = {
-    isNormalUser = true;
-    extraGroups = [
-      "wheel"
-      "networkmanager"
-    ];
-  };
-
-  nix.settings.experimental-features = [
-    "nix-command"
-    "flakes"
-  ];
-  nixpkgs.config.allowUnfree = true;
-  system.stateVersion = "25.11";
-
-  # Modules
   sys = {
-    hardware.nvidia = {
-      enable = true;
-      prime = {
+    hardware = {
+      nvidia = {
         enable = true;
-        intelBusId = "PCI:0:2:0";
-        nvidiaBusId = "PCI:1:0:0";
+        prime = {
+          enable = true;
+          intelBusId = "PCI:0:2:0";
+          nvidiaBusId = "PCI:1:0:0";
+        };
+      };
+      power = {
+        enable = true;
+        batteryMaxFreq = 2000000;
+        chargerMaxFreq = 2600000;
       };
     };
-
-    hardware.intel.enable = true;
-
-    hardware.power = {
-      enable = true;
-      batteryMaxFreq = 2000000; # 2.0 GHz
-      chargerMaxFreq = 2600000; # 2.6 GHz
-    };
-
-    dm.ly.enable = true;
-    core.enable = true;
-    shell.zsh.enable = true;
-
-    fonts = {
-      enable = true;
-      defaultMonospace = "Lilex Nerd Font";
-    };
-
-    portals.xdg-desktop-portal = {
-      enable = true;
-      termfilechooser.enable = true;
-    };
-
-    secrets.enable = true;
   };
-
-  wm.hyprland.enable = true;
-
 }
