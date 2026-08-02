@@ -58,6 +58,8 @@ order = [ "default" ]
         [bar.default.dead_zone]
 
         [[bar.default.capsule_group]]
+        accordion = false
+        accordion_direction = "end"
         enabled = true
         fill = "surface_variant"
         id = "g1"
@@ -66,6 +68,8 @@ order = [ "default" ]
         padding = 10.0
 
         [[bar.default.capsule_group]]
+        accordion = false
+        accordion_direction = "end"
         enabled = true
         fill = "surface_variant"
         id = "g2"
@@ -233,9 +237,12 @@ pre_action_fade_seconds = 2.0
 
 [keybinds]
 cancel = [ "Escape" ]
+copy = [ "Ctrl+c" ]
+delete = [ "Delete" ]
 down = [ "Ctrl+j", "Ctrl+n" ]
 left = [ "Left", "Ctrl+h" ]
 right = [ "Right", "Ctrl+l" ]
+save = [ "Ctrl+s" ]
 tab_next = [ "Tab" ]
 tab_previous = [ "Shift+ISO_Left_Tab" ]
 up = [ "Ctrl+k", "Ctrl+p" ]
@@ -454,6 +461,7 @@ time_format = "{:%I:%M %p}"
     clipboard_position = "center"
     control_center_placement = "attached"
     control_center_position = "auto"
+    floating_layer = "overlay"
     floating_offset = 8
     launcher_placement = "attached"
     launcher_position = "center"
@@ -489,6 +497,7 @@ time_format = "{:%I:%M %p}"
     freeze_screen = true
     pipe_command = ""
     pipe_to_command = false
+    remember_last_region = false
     save_to_file = true
     show_cursor = false
 
@@ -739,10 +748,10 @@ stat = "cpu_temp"
 type = "sysmon"
 
 [widget.workspaces]
-display = "id"
 empty_color = "on_primary"
 focused_color = "primary"
 hide_when_empty = false
+label_source = "id"
 labels_only_when_occupied = true
 max_label_chars = 7
 minimal = false
