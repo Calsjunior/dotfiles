@@ -12,11 +12,11 @@
       (writeShellApplication {
         name = "mkdev";
         text = ''
-          TEMPLATE="''${1:-web}"
-          TEMPLATE_DIR="$HOME/dotfiles/templates/$TEMPLATE"
+          template="''${1:-web}"
+          template_dir="$HOME/dotfiles/templates/$template"
 
-          if [ ! -d "$TEMPLATE_DIR" ]; then
-            echo "Error: Template '$TEMPLATE' does not exist in $HOME/dotfiles/templates/" >&2
+          if [ ! -d "$template_dir" ]; then
+            echo "Error: Template '$template' does not exist in $HOME/dotfiles/templates/" >&2
             exit 1
           fi
 
@@ -24,13 +24,13 @@
             git init
           fi
 
-          nix flake init --template "$HOME/dotfiles#$TEMPLATE"
+          nix flake init --template "$HOME/dotfiles#$template"
           git add flake.nix .envrc
           nix flake lock
           git add flake.lock
           direnv allow
 
-          git commit -m "chore(flake): initialize $TEMPLATE nix environment"
+          git commit -m "chore(flake): initialize $template nix environment"
         '';
       })
 
