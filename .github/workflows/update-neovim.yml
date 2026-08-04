@@ -1,0 +1,73 @@
+name: Update Neovim Plugins
+on:
+  workflow_dispatch:
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@main
+
+      - name: Update lazy-lock.json
+        run: |
+          XDG_CONFIG_HOME="$GITHUB_WORKSPACE/config" \
+          XDG_DATA_HOME="$HOME/.local/share" \
+          nix run .#neovim -- --headless -c "lua require('lazy').update({wait = true})" -c "qa"
+
+      - name: Generate Markdown Changelog
+        run: |
+          python3 -c '
+          import json, subprocess
+
+          try:
+              old_json = subprocess.check_output(["git", "show", "HEAD:config/nvim/lazy-lock.json"]).decode("utf-8")
+              old_data = json.loads(old_json)
+          except Exception:
+              old_data = {}
+
+          with open("config/nvim/lazy-lock.json") as f:
+              new_data = json.load(f)
+
+          updates = []
+
+          for plugin, info in new_data.items():
+              new_commit = info.get("commit")
+              old_commit = old_data.get(plugin, {}).get("commit")
+
+              if old_commit and old_commit != new_commit:
+                  updates.append(f"| **{plugin}** | `{old_commit[:7]}` -> `{new_commit[:7]}` |")
+              elif not old_commit:
+                  updates.append(f"| **{plugin}** | *new* -> `{new_commit[:7]}` |")
+
+          for plugin, info in old_data.items():
+              if plugin not in new_data:
+                  old_commit = info.get("commit")
+                  updates.append(f"| **{plugin}** | `{old_commit[:7]}` -> *removed* |")
+
+          with open("pr_body.md", "w") as f:
+              f.write("Automated plugin updates via Lazy.nvim.\n\n")
+              if updates:
+                  f.write("### Plugin Updates\n\n")
+                  f.write("| Plugin | Commit Bump |\n")
+                  f.write("| :--- | :--- |\n")
+                  f.write("\n".join(updates))
+                  f.write("\n")
+              else:
+                  f.write("No plugin updates were found in this run.\n")
+          '
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v6
+        with:
+          commit-message: "chore(deps): update neovim plugins"
+          title: "chore(deps): update neovim plugins"
+          body-path: "pr_body.md"
+          branch: "chore/update-lazy-lock"
+          labels: dependencies
