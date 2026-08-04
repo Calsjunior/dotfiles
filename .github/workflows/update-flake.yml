@@ -1,0 +1,47 @@
+name: Update Flake Lock
+run-name: "chore(deps): update flake.lock"
+on:
+  workflow_dispatch:
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@main
+
+      - name: Update flake.lock and Create PR
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          old_head=$(git rev-parse HEAD)
+          nix flake update --commit-lock-file
+          new_head=$(git rev-parse HEAD)
+
+          if [ "$old_head" = "$new_head" ]; then
+            echo "Flake inputs are already up to date."
+            exit 0
+          fi
+
+          git log -1 --format=%b > pr_body.md
+          git commit --amend -m "chore(deps): update flake.lock" -m "$(cat pr_body.md)"
+
+          git checkout -b chore/update-flake-lock
+          git push -f origin chore/update-flake-lock
+
+          gh pr create \
+            --title "chore(deps): update flake.lock" \
+            --body-file pr_body.md \
+            --label "dependencies" || \
+          gh pr edit chore/update-flake-lock \
+            --title "chore(deps): update flake.lock" \
+            --body-file pr_body.md
