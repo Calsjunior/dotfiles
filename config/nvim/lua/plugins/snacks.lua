@@ -266,7 +266,7 @@ return {
     },
     image = {
       enabled = true,
-      doc = { enabled = false, inline = true },
+      doc = { enabled = false, float = true, inline = false, max_width = 60, max_height = 25 },
     },
   },
 }
