@@ -42,6 +42,7 @@
         "--scheme=path"
         "--tiebreak=end,length"
         "--preview 'if [[ -d {} ]]; then eza --tree --level=1 --color=always --icons=always {}; elif [[ -f {} ]]; then bat --color=always {}; fi'"
+        "--bind=ctrl-y:accept"
       ];
     };
 
