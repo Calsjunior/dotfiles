@@ -46,29 +46,33 @@ jobs:
           with open("config/nvim/lazy-lock.json") as f:
               new_data = json.load(f)
 
-          updates = []
-          for plugin, info in new_data.items():
-              new_commit = info.get("commit")
+          rows = []
+          for plugin in sorted(set(old_data) | set(new_data)):
               old_commit = old_data.get(plugin, {}).get("commit")
+              new_commit = new_data.get(plugin, {}).get("commit")
 
-              if old_commit and old_commit != new_commit:
-                  updates.append(f"| **{plugin}** | `{old_commit[:7]}` -> `{new_commit[:7]}` |")
-              elif not old_commit:
-                  updates.append(f"| **{plugin}** | *new* -> `{new_commit[:7]}` |")
-
-          for plugin, info in old_data.items():
               if plugin not in new_data:
-                  old_commit = info.get("commit")
-                  updates.append(f"| **{plugin}** | `{old_commit[:7]}` -> *removed* |")
+                  rows.append((plugin, f"`{old_commit[:7]}`", "*removed*"))
+              elif plugin not in old_data:
+                  rows.append((plugin, "*new*", f"`{new_commit[:7]}`"))
+              elif old_commit != new_commit:
+                  rows.append((plugin, f"`{old_commit[:7]}`", f"`{new_commit[:7]}`"))
 
           with open("pr_body.md", "w") as f:
               f.write("Automated plugin updates via Lazy.nvim.\n\n")
-              if updates:
+              if rows:
+                  w_plugin = max(len("Plugin"), *(len(p) for p, _, _ in rows))
+                  w_from = max(len("From"), *(len(a) for _, a, _ in rows))
+                  w_to = max(len("To"), *(len(b) for _, _, b in rows))
+
+                  def row(a, b, c):
+                      return f"| {a:<{w_plugin}} | {b:<{w_from}} | {c:<{w_to}} |\n"
+
                   f.write("### Plugin Updates\n\n")
-                  f.write("| Plugin | Commit Bump |\n")
-                  f.write("| :--- | :--- |\n")
-                  f.write("\n".join(updates))
-                  f.write("\n")
+                  f.write(row("Plugin", "From", "To"))
+                  f.write(row("-" * w_plugin, "-" * w_from, "-" * w_to))
+                  for plugin, a, b in rows:
+                      f.write(row(plugin, a, b))
           '
 
           git add config/nvim/lazy-lock.json
