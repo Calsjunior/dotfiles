@@ -11,6 +11,5 @@
 
   config = lib.mkIf config.wm.hyprland.enable {
     programs.hyprland.enable = true;
-    programs.gpu-screen-recorder.enable = true;
   };
 }

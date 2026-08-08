@@ -48,6 +48,7 @@
     core.enable = true;
     shell.zsh.enable = true;
     secrets.enable = true;
+    media.enable = true;
     fonts = {
       enable = true;
       defaultMonospace = "Lilex Nerd Font";
