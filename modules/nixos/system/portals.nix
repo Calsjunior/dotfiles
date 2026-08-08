@@ -28,5 +28,11 @@
         };
       };
     };
+
+    # FIXME: Temporary workaround for nixpkgs portal changes (related to PR https://github.com/NixOS/nixpkgs/pull/548762).
+    # Remove when PR lands.
+    systemd.user.targets.nixos-fake-graphical-session = {
+      wantedBy = [ "default.target" ];
+    };
   };
 }
