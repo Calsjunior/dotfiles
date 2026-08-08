@@ -9,6 +9,8 @@ jobs:
     permissions:
       contents: write
       pull-requests: write
+    env:
+      COMMIT_MSG: "chore(deps): update neovim plugins"
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -112,15 +114,15 @@ jobs:
           '
 
           git add config/nvim/lazy-lock.json
-          git commit -m "chore(deps): update neovim plugins" -m "$(cat commit_body.md)"
+          git commit -m "$COMMIT_MSG" -m "$(cat commit_body.md)"
 
           git checkout -b chore/update-lazy-lock
           git push -f origin chore/update-lazy-lock
 
           gh pr create \
-            --title "chore(deps): update neovim plugins" \
+            --title "$COMMIT_MSG" \
             --body-file pr_body.md \
             --label "dependencies" || \
           gh pr edit chore/update-lazy-lock \
-            --title "chore(deps): update neovim plugins" \
+            --title "$COMMIT_MSG" \
             --body-file pr_body.md

@@ -9,6 +9,8 @@ jobs:
     permissions:
       contents: write
       pull-requests: write
+    env:
+      COMMIT_MSG: "chore(deps): update flake.lock"
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -33,15 +35,15 @@ jobs:
           fi
 
           git log -1 --format=%b > pr_body.md
-          git commit --amend -m "chore(deps): update flake.lock" -m "$(cat pr_body.md)"
+          git commit --amend -m "$COMMIT_MSG" -m "$(cat pr_body.md)"
 
           git checkout -b chore/update-flake-lock
           git push -f origin chore/update-flake-lock
 
           gh pr create \
-            --title "chore(deps): update flake.lock" \
+            --title "$COMMIT_MSG" \
             --body-file pr_body.md \
             --label "dependencies" || \
           gh pr edit chore/update-flake-lock \
-            --title "chore(deps): update flake.lock" \
+            --title "$COMMIT_MSG" \
             --body-file pr_body.md
