@@ -35,7 +35,7 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
           python3 -c '
-          import json, subprocess
+          import json, subprocess, os
 
           try:
               old_json = subprocess.check_output(["git", "show", "HEAD:config/nvim/lazy-lock.json"]).decode("utf-8")
@@ -46,37 +46,73 @@ jobs:
           with open("config/nvim/lazy-lock.json") as f:
               new_data = json.load(f)
 
-          rows = []
+          def get_repo_url(plugin_name):
+              path = os.path.expanduser(f"~/.local/share/nvim/lazy/{plugin_name}")
+              if not os.path.isdir(path): return ""
+              try:
+                  url = subprocess.check_output(["git", "-C", path, "config", "--get", "remote.origin.url"], stderr=subprocess.DEVNULL).decode("utf-8").strip()
+                  if url.endswith(".git"): url = url[:-4]
+                  if url.startswith("git@github.com:"): url = "https://github.com/" + url.split(":", 1)[1]
+                  return url
+              except Exception:
+                  return ""
+
+          plain_rows = []
+          rich_rows = []
           for plugin in sorted(set(old_data) | set(new_data)):
               old_commit = old_data.get(plugin, {}).get("commit")
               new_commit = new_data.get(plugin, {}).get("commit")
 
+              url = get_repo_url(plugin)
+
+              def make_link(commit, fallback_text):
+                  if not commit: return fallback_text
+                  short = f"`{commit[:7]}`"
+                  return f"[{short}]({url}/commit/{commit})" if url else short
+
               if plugin not in new_data:
-                  rows.append((plugin, f"`{old_commit[:7]}`", "*removed*"))
+                  plain_rows.append((plugin, f"`{old_commit[:7]}`", "*removed*"))
+                  rich_rows.append((plugin, make_link(old_commit, ""), "*removed*"))
               elif plugin not in old_data:
-                  rows.append((plugin, "*new*", f"`{new_commit[:7]}`"))
+                  plain_rows.append((plugin, "*new*", f"`{new_commit[:7]}`"))
+                  rich_rows.append((plugin, "*new*", make_link(new_commit, "")))
               elif old_commit != new_commit:
-                  rows.append((plugin, f"`{old_commit[:7]}`", f"`{new_commit[:7]}`"))
+                  plain_rows.append((plugin, f"`{old_commit[:7]}`", f"`{new_commit[:7]}`"))
 
-          with open("pr_body.md", "w") as f:
-              f.write("Automated plugin updates via Lazy.nvim.\n\n")
-              if rows:
-                  w_plugin = max(len("Plugin"), *(len(p) for p, _, _ in rows))
-                  w_from = max(len("From"), *(len(a) for _, a, _ in rows))
-                  w_to = max(len("To"), *(len(b) for _, _, b in rows))
+                  rich_from = make_link(old_commit, "")
+                  rich_to = make_link(new_commit, "")
+                  rich_plugin = f"[{plugin}]({url}/compare/{old_commit}...{new_commit})" if url else plugin
+                  rich_rows.append((rich_plugin, rich_from, rich_to))
 
-                  def row(a, b, c):
-                      return f"| {a:<{w_plugin}} | {b:<{w_from}} | {c:<{w_to}} |\n"
+          def write_plain_table(filename, rows):
+              with open(filename, "w") as f:
+                  f.write("Automated plugin updates via Lazy.nvim.\n\n")
+                  if rows:
+                      w_plugin = max(len("Plugin"), *(len(p) for p, _, _ in rows))
+                      w_from = max(len("From"), *(len(a) for _, a, _ in rows))
+                      w_to = max(len("To"), *(len(b) for _, _, b in rows))
+                      def row(a, b, c):
+                          return f"| {a:<{w_plugin}} | {b:<{w_from}} | {c:<{w_to}} |\n"
+                      f.write(row("Plugin", "From", "To"))
+                      f.write(row("-" * w_plugin, "-" * w_from, "-" * w_to))
+                      for p, a, b in rows:
+                          f.write(row(p, a, b))
 
-                  f.write("### Plugin Updates\n\n")
-                  f.write(row("Plugin", "From", "To"))
-                  f.write(row("-" * w_plugin, "-" * w_from, "-" * w_to))
-                  for plugin, a, b in rows:
-                      f.write(row(plugin, a, b))
+          def write_rendered_table(filename, rows):
+              with open(filename, "w") as f:
+                  f.write("Automated plugin updates via Lazy.nvim.\n\n### Plugin Updates\n\n")
+                  if rows:
+                      f.write("| Plugin | From | To |\n")
+                      f.write("| :--- | :--- | :--- |\n")
+                      for p, a, b in rows:
+                          f.write(f"| {p} | {a} | {b} |\n")
+
+          write_plain_table("commit_body.md", plain_rows)
+          write_rendered_table("pr_body.md", rich_rows)
           '
 
           git add config/nvim/lazy-lock.json
-          git commit -m "chore(deps): update neovim plugins" -m "$(cat pr_body.md)"
+          git commit -m "chore(deps): update neovim plugins" -m "$(cat commit_body.md)"
 
           git checkout -b chore/update-lazy-lock
           git push -f origin chore/update-lazy-lock
