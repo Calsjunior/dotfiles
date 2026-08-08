@@ -35,7 +35,20 @@
 
           target_url="$1"
           output_template="../library/{artist}/{album}/{track-number} - {title}.{output-ext}"
-          spotdl_args=("--output" "$output_template" "--threads" "8")
+          spotdl_args=(
+            "--output" "$output_template"
+            "--threads" "8"
+            "--preload"
+            "--detect-formats" "mp3" "m4a" "opus"
+            "--format" "opus"
+            "--bitrate" "disable"
+            "--audio" "youtube-music" "youtube"
+            "--sponsor-block"
+            "--lyrics" "synced" "musixmatch" "genius"
+            "--create-skip-file"
+            "--respect-skip-file"
+            "--use-cache-file"
+          )
 
           case "$target_url" in
             *spotify.com/album/*)
