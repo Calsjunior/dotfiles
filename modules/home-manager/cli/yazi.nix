@@ -225,7 +225,7 @@
           pkgs.fetchFromGitHub {
             owner = "yazi-rs";
             repo = "plugins";
-            rev = "main";
+            rev = "0be29a913ad61c6d119abfaaf253e96e6af5db67";
             hash = "sha256-bqGN6JxbU+/o7TlM/Cm9Qj/s1McA4pB5QWArGZPcme4=";
           }
         }/full-border.yazi";
@@ -234,7 +234,7 @@
           pkgs.fetchFromGitHub {
             owner = "yazi-rs";
             repo = "plugins";
-            rev = "main";
+            rev = "65559fd3edc33cb0fd24ec92874c763fa5f68e3e";
             hash = "sha256-bqGN6JxbU+/o7TlM/Cm9Qj/s1McA4pB5QWArGZPcme4=";
           }
         }/chmod.yazi";
@@ -243,7 +243,7 @@
           pkgs.fetchFromGitHub {
             owner = "yazi-rs";
             repo = "plugins";
-            rev = "main";
+            rev = "5d461d85908338371b9433ab6c29707bee3a813b";
             hash = "sha256-bqGN6JxbU+/o7TlM/Cm9Qj/s1McA4pB5QWArGZPcme4=";
           }
         }/smart-filter.yazi";
@@ -252,7 +252,7 @@
           pkgs.fetchFromGitHub {
             owner = "yazi-rs";
             repo = "plugins";
-            rev = "main";
+            rev = "0be29a913ad61c6d119abfaaf253e96e6af5db67";
             hash = "sha256-bqGN6JxbU+/o7TlM/Cm9Qj/s1McA4pB5QWArGZPcme4=";
           }
         }/git.yazi";
@@ -261,7 +261,7 @@
           pkgs.fetchFromGitHub {
             owner = "yazi-rs";
             repo = "plugins";
-            rev = "main";
+            rev = "6047ce43f3b8a5aa39963dfd182bcee6f210bd2d";
             hash = "sha256-bqGN6JxbU+/o7TlM/Cm9Qj/s1McA4pB5QWArGZPcme4=";
           }
         }/jump-to-char.yazi";
@@ -269,21 +269,21 @@
         fr = pkgs.fetchFromGitHub {
           owner = "lpnh";
           repo = "fr.yazi";
-          rev = "main";
+          rev = "aa88cd4d4345c07345275291c1a236343f834c86";
           hash = "sha256-3D1mIQpEDik0ppPQo+/NIhCxEu/XEnJMJ0HiAFxlOE4=";
         };
 
         ucp = pkgs.fetchFromGitHub {
           owner = "simla33";
           repo = "ucp.yazi";
-          rev = "main";
+          rev = "79043fbbfd39b7b9ae0142d11b315272dd90d33b";
           hash = "sha256-jIvooR00smQb8bmS3slj87k4yM9aTeruvhu/1krigZ8=";
         };
 
         recycle-bin = pkgs.fetchFromGitHub {
           owner = "uhs-robert";
           repo = "recycle-bin.yazi";
-          rev = "main";
+          rev = "82da16ad6471616e383f41532b703d41210167eb";
           hash = "sha256-lpxTGWA15szM5VJ+qvV2+GTg7HXiZaZfyWyjeNMsTSM=";
         };
 
