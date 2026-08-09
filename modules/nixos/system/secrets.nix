@@ -18,6 +18,10 @@
           owner = "${user}";
           mode = "0600";
         };
+        "noctalia_storage_key" = {
+          owner = "${user}";
+          mode = "0400";
+        };
       };
     };
   };

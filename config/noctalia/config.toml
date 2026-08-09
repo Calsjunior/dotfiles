@@ -611,8 +611,8 @@ time_format = "{:%I:%M %p}"
     direction = "down"
 
 [storage]
-key_file = ""
-key_source = "secret-service"
+key_source = "file"
+key_file = "/run/secrets/noctalia_storage_key"
 
 [system.monitor]
 cpu_poll_seconds = 2.0
