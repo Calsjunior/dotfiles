@@ -31,7 +31,7 @@ order = [ "default" ]
     concave_edge_corners = true
     contact_shadow = false
     enabled = true
-    end = [ "tray", "notifications", "recorder_3", "group:g2", "group:g1", "session" ]
+    end = [ "tray", "group:g4", "group:g2", "group:g1", "session" ]
     font_weight = 500
     hover_highlight = true
     layer = "top"
@@ -51,7 +51,7 @@ order = [ "default" ]
     shadow = true
     show_on_workspace_switch = true
     smart_auto_hide = false
-    start = [ "workspaces", "Clock_Date" ]
+    start = [ "group:g3", "Clock_Date" ]
     thickness = 38
     widget_spacing = 8
 
@@ -76,6 +76,27 @@ order = [ "default" ]
         members = [ "volume", "brightness" ]
         opacity = 1.0
         padding = 10.0
+
+        [[bar.default.capsule_group]]
+        accordion = false
+        accordion_direction = "end"
+        enabled = true
+        fill = "surface_variant"
+        id = "g3"
+        members = [ "workspaces", "special_workspaces_2" ]
+        opacity = 1.0
+        padding = 10.0
+
+        [[bar.default.capsule_group]]
+        accordion = true
+        accordion_direction = "end"
+        enabled = true
+        fill = "surface_variant"
+        id = "g4"
+        members = [ "notifications", "recorder_3", "widget" ]
+        opacity = 1.0
+        padding = 10.0
+        widget_spacing = 12
 
 [battery]
 warning_threshold = 20
@@ -261,6 +282,7 @@ blur_intensity = 0.5
 blurred_desktop = false
 enabled = true
 fingerprint = true
+lock_before_suspend = true
 monitors = []
 tint_intensity = 0.30000001192092896
 wallpaper = ""
@@ -271,13 +293,13 @@ schema_version = 1
 widget_order = [ "lockscreen-login-box@Unknown-1", "lockscreen-login-box@eDP-1", "lockscreen-widget-0000000000000001" ]
 
     [lockscreen_widgets.grid]
-    cell_size = 16
+    cell_size = 8
     major_interval = 4
     visible = true
 
     [lockscreen_widgets.widget."lockscreen-login-box@Unknown-1"]
-    box_height = 0.0
-    box_width = 0.0
+    box_height = 196.0
+    box_width = 810.0
     cx = 960.0
     cy = 957.0
     enabled = true
@@ -286,25 +308,41 @@ widget_order = [ "lockscreen-login-box@Unknown-1", "lockscreen-login-box@eDP-1",
     type = "login_box"
 
         [lockscreen_widgets.widget."lockscreen-login-box@Unknown-1".settings]
+        center_password_text = false
+        layout = "regular"
+        show_caps_lock = true
+        show_keyboard_layout = true
         show_login_button = true
+        show_media = true
+        show_session_buttons = true
+        show_unlock_hint = true
+        show_weather = true
 
     [lockscreen_widgets.widget."lockscreen-login-box@eDP-1"]
-    box_height = 0.0
-    box_width = 0.0
+    box_height = 70.0
+    box_width = 400.0
     cx = 960.0
-    cy = 957.0
+    cy = 953.0
     enabled = true
     output = "eDP-1"
     rotation = 0.0
     type = "login_box"
 
         [lockscreen_widgets.widget."lockscreen-login-box@eDP-1".settings]
+        center_password_text = true
+        layout = "compact"
+        show_caps_lock = true
+        show_keyboard_layout = true
         show_login_button = true
+        show_media = false
+        show_session_buttons = false
+        show_unlock_hint = false
+        show_weather = false
 
     [lockscreen_widgets.widget.lockscreen-widget-0000000000000001]
     box_height = 0.0
     box_width = 0.0
-    cx = 974.0
+    cx = 968.0
     cy = 204.0
     enabled = true
     output = "eDP-1"
@@ -337,6 +375,7 @@ collapse_on_dismiss = true
 enable_daemon = true
 history_retention_hours = 0
 layer = "top"
+max_visible = 0
 monitors = []
 offset_x = 20
 offset_y = 8
@@ -385,8 +424,14 @@ directory = "~/Videos/recordings"
 video_source = "focused"
 
 [plugins]
-auto_update = true
-enabled = [ "noctalia/screen_recorder", "noctalia/notes", "noctalia/kaomoji" ]
+auto_update = false
+enabled = [
+    "noctalia/screen_recorder",
+    "noctalia/notes",
+    "noctalia/kaomoji",
+    "profidev/hypr-screen-mirror",
+    "jamesfeeder/special-workspaces"
+]
 
     [[plugins.source]]
     enabled = true
@@ -427,6 +472,7 @@ popup_borders = true
 popup_shadows = true
 screen_time_enabled = false
 settings_show_advanced = true
+settings_window_translucent = false
 setup_wizard_enabled = true
 shared_gl_context = true
 show_location = true
@@ -439,6 +485,8 @@ time_format = "{:%I:%M %p}"
 
     [shell.greeter_sync]
     auto_sync = false
+
+    [shell.keyboard_layout]
 
     [shell.launcher]
     app_grid = false
@@ -743,9 +791,20 @@ type = "spacer"
 [widget.spacer_2]
 type = "spacer"
 
+[widget.special-workspaces]
+color = "primary"
+type = "jamesfeeder/special-workspaces:special-workspaces"
+
+[widget.special_workspaces_2]
+hide_inactive = true
+type = "jamesfeeder/special-workspaces:special-workspaces"
+
 [widget.temp]
 stat = "cpu_temp"
 type = "sysmon"
+
+[widget.widget]
+type = "profidev/hypr-screen-mirror:widget"
 
 [widget.workspaces]
 empty_color = "on_primary"
