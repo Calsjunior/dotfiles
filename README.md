@@ -75,11 +75,25 @@ specific tools or workflow might not be the right fit for you.
 
 3. Register your new host:
 
-   Open `flake.nix` and add your new host configuration under the
-   nixosConfigurations output block:
+   Open `flake.nix` and add your new host configuration to the `hosts` block
+   under nixosConfigurations. You must specify the target username and any extra
+   modules you might need.
 
    ```nix
-   "your-hostname" = mkHost "your-hostname" [ ];
+   hosts = {
+     your-hostname = { user = "your-username"; extraModules = [ ]; };
+   };
+   ```
+
+   Regarding the `extraModules` list, it allows you to add host-specific NixOS
+   modules directly from your `flake.nix`.
+
+   Most of the time, you will leave this empty (`[ ]`) because your
+   `configuration.nix` handles standard options. However, if one specific
+   machine needs a unique configuration, then you can do:
+
+   ```nix
+   extraModules = [ ./hosts/your-hostname/feature.nix ];
    ```
 
 4. Apply the configuration:
