@@ -210,3 +210,29 @@ sudo nixos-rebuild switch --flake .#your-hostname
 > If you enabled the `nh` (nix-helper) tool during your initial setup (`./modules/nixos/system/core.nix`), you can
 > use this much cleaner command for all subsequent rebuilds:
 > `nh os switch ~/dotfiles -H .#your-hostname`
+
+### Wrapping Packages
+
+Sometimes, you may find yourself wanting a package (A) to be included in another
+package (B). However, you do not want package (A) to be accessible to you, the
+user, as you want to inject it into package (B) directly. This pattern is
+particularly useful when a program have optional dependencies that you want to
+use, but you do not necessarily need to have direct access to those
+dependencies.
+
+```nix
+{ pkgs, config, lib, ... }:
+{
+  home.packages = [
+    (pkgs.symlinkJoin {
+      name = "my-wrapped-app";
+      paths = [ pkgs.my-base-app ];
+      nativeBuildInputs = [ pkgs.makeWrapper ];
+      postBuild = ''
+        wrapProgram $out/bin/my-app-binary \
+          --prefix PATH : ${lib.makeBinPath [ pkgs.app-to-bundle ]}
+      '';
+    })
+  ];
+}
+```
