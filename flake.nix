@@ -42,19 +42,21 @@
       ...
     }@inputs:
     let
-      user = "cal";
-      dotfilesPath = "/home/${user}/dotfiles";
       mkHost =
-        hostname: extraModules:
-        nixpkgs.lib.nixosSystem {
-          specialArgs = {
+        hostname: username: extraModules:
+        let
+          dotfilesPath = "/home/${username}/dotfiles";
+          globalArgs = {
             inherit
               inputs
-              user
               hostname
               dotfilesPath
               ;
+            user = username;
           };
+        in
+        nixpkgs.lib.nixosSystem {
+          specialArgs = globalArgs;
           modules = [
             ./hosts/${hostname}/configuration.nix
             ./modules/nixos
@@ -64,19 +66,11 @@
               home-manager = {
                 useGlobalPkgs = true;
                 useUserPackages = true;
-                users.${user} = import ./hosts/${hostname}/home.nix;
-                extraSpecialArgs = {
-                  inherit
-                    inputs
-                    user
-                    hostname
-                    dotfilesPath
-                    ;
-                };
+                users.${username} = import ./hosts/${hostname}/home.nix;
+                extraSpecialArgs = globalArgs;
                 backupFileExtension = "backup";
                 sharedModules = [
                   ./modules/home-manager
-                  nix-index-database.homeModules.nix-index
                 ];
               };
             }
@@ -85,10 +79,22 @@
         };
     in
     {
-      nixosConfigurations = {
-        "ares" = mkHost "ares" [ ];
-        "athena" = mkHost "athena" [ ];
-      };
+      nixosConfigurations =
+        let
+          hosts = {
+            ares = {
+              user = "cal";
+              extraModules = [ ];
+            };
+            athena = {
+              user = "cal";
+              extraModules = [ ];
+            };
+          };
+        in
+        nixpkgs.lib.mapAttrs (
+          hostname: settings: mkHost hostname settings.user settings.extraModules
+        ) hosts;
 
       templates =
         let
