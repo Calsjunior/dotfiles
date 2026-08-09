@@ -2,6 +2,7 @@
   pkgs,
   config,
   lib,
+  dotfilesPath,
   ...
 }:
 {
@@ -13,10 +14,10 @@
         name = "mkdev";
         text = ''
           template="''${1:-web}"
-          template_dir="$HOME/dotfiles/templates/$template"
+          template_dir="${dotfilesPath}/templates/$template"
 
           if [ ! -d "$template_dir" ]; then
-            echo "Error: Template '$template' does not exist in $HOME/dotfiles/templates/" >&2
+            echo "Error: Template '$template' does not exist in ${dotfilesPath}/templates/" >&2
             exit 1
           fi
 
@@ -24,7 +25,7 @@
             git init
           fi
 
-          nix flake init --template "$HOME/dotfiles#$template"
+          nix flake init --template "${dotfilesPath}#$template"
           git add flake.nix .envrc
           nix flake lock
           git add flake.lock

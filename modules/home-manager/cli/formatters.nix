@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  dotfilesPath,
   ...
 }:
 {
@@ -11,10 +12,10 @@
   config = lib.mkIf config.cli.formatters.enable {
     home.file = {
       ".clang-format".source =
-        config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/config/formatters/.clang-format";
+        config.lib.file.mkOutOfStoreSymlink "${dotfilesPath}/config/formatters/.clang-format";
 
       ".config/biome/biome.json".source =
-        config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/config/formatters/biome.json";
+        config.lib.file.mkOutOfStoreSymlink "${dotfilesPath}/config/formatters/biome.json";
     };
   };
 }

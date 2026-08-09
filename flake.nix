@@ -43,10 +43,18 @@
     }@inputs:
     let
       user = "cal";
+      dotfilesPath = "/home/${user}/dotfiles";
       mkHost =
         hostname: extraModules:
         nixpkgs.lib.nixosSystem {
-          specialArgs = { inherit inputs user hostname; };
+          specialArgs = {
+            inherit
+              inputs
+              user
+              hostname
+              dotfilesPath
+              ;
+          };
           modules = [
             ./hosts/${hostname}/configuration.nix
             ./modules/nixos
@@ -57,7 +65,14 @@
                 useGlobalPkgs = true;
                 useUserPackages = true;
                 users.${user} = import ./hosts/${hostname}/home.nix;
-                extraSpecialArgs = { inherit inputs user hostname; };
+                extraSpecialArgs = {
+                  inherit
+                    inputs
+                    user
+                    hostname
+                    dotfilesPath
+                    ;
+                };
                 backupFileExtension = "backup";
                 sharedModules = [
                   ./modules/home-manager

@@ -3,6 +3,7 @@
   lib,
   pkgs,
   inputs,
+  dotfilesPath,
   ...
 }:
 {
@@ -41,6 +42,6 @@
     ];
 
     xdg.configFile."noctalia".source =
-      config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/config/noctalia";
+      config.lib.file.mkOutOfStoreSymlink "${dotfilesPath}/config/noctalia";
   };
 }

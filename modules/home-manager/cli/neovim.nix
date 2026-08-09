@@ -3,6 +3,7 @@
   config,
   lib,
   inputs,
+  dotfilesPath,
   ...
 }:
 {
@@ -61,8 +62,7 @@
       withRuby = false;
     };
 
-    xdg.configFile."nvim".source =
-      config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/config/nvim";
+    xdg.configFile."nvim".source = config.lib.file.mkOutOfStoreSymlink "${dotfilesPath}/config/nvim";
 
     home.sessionVariables = {
       EDITOR = "nvim";
