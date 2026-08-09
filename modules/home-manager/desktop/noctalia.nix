@@ -21,8 +21,23 @@
       }
     ];
 
-    home.packages = with pkgs; [
-      inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default
+    home.packages = [
+      (pkgs.symlinkJoin {
+        name = "noctalia-wrapped";
+        paths = [ inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default ];
+        nativeBuildInputs = [ pkgs.makeWrapper ];
+        postBuild = ''
+          wrapProgram $out/bin/noctalia \
+            --prefix PATH : ${
+              lib.makeBinPath (
+                with pkgs;
+                [
+                  socat # Required by special workspaces, hypr-screen-mirror plugins
+                ]
+              )
+            }
+        '';
+      })
     ];
 
     xdg.configFile."noctalia".source =
