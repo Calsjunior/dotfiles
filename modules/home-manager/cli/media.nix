@@ -34,7 +34,13 @@
           fi
 
           target_url="$1"
-          output_template="../library/{artist}/{album}/{track-number} - {title}.{output-ext}"
+
+          music_dir="$HOME/Music"
+          playlists_dir="$music_dir/playlists"
+          library_dir="$music_dir/library"
+
+          output_template="$library_dir/{artist}/{album}/{track-number} - {title}.{output-ext}"
+
           spotdl_args=(
             "--output" "$output_template"
             "--threads" "8"
@@ -65,10 +71,10 @@
             spotdl_args+=("''${@:2}")
           fi
 
-          mkdir -p "$HOME/Music/playlists"
-          mkdir -p "$HOME/Music/library"
+          mkdir -p "$playlists_dir"
+          mkdir -p "$library_dir"
 
-          cd "$HOME/Music/playlists"
+          cd "$playlists_dir"
 
           exec spotdl "$target_url" "''${spotdl_args[@]}"
         '';
