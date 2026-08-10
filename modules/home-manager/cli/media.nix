@@ -47,7 +47,6 @@
             "--lyrics" "synced" "musixmatch" "genius"
             "--create-skip-file"
             "--respect-skip-file"
-            "--use-cache-file"
           )
 
           case "$target_url" in
