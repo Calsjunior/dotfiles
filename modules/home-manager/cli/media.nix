@@ -45,8 +45,6 @@
             "--audio" "youtube-music" "youtube"
             "--sponsor-block"
             "--lyrics" "synced" "musixmatch" "genius"
-            "--create-skip-file"
-            "--respect-skip-file"
           )
 
           case "$target_url" in
