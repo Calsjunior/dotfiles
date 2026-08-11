@@ -33,7 +33,7 @@
               lib.makeBinPath (
                 with pkgs;
                 [
-                  socat # Required by special workspaces, hypr-screen-mirror plugins
+                  socat # Required by hypr-screen-mirror plugins
                 ]
               )
             }

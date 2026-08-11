@@ -83,7 +83,7 @@ order = [ "default" ]
         enabled = true
         fill = "surface_variant"
         id = "g3"
-        members = [ "workspaces", "special_workspaces_2" ]
+        members = [ "workspaces" ]
         opacity = 1.0
         padding = 10.0
 
@@ -113,6 +113,7 @@ refresh_minutes = 15
 
 [control_center]
 hidden_tabs = []
+show_session_button = true
 show_shortcut_labels = true
 sidebar = "full"
 sidebar_section = "compact"
@@ -425,13 +426,7 @@ video_source = "focused"
 
 [plugins]
 auto_update = false
-enabled = [
-    "noctalia/screen_recorder",
-    "noctalia/notes",
-    "noctalia/kaomoji",
-    "profidev/hypr-screen-mirror",
-    "jamesfeeder/special-workspaces"
-]
+enabled = [ "noctalia/screen_recorder", "noctalia/notes", "profidev/hypr-screen-mirror" ]
 
     [[plugins.source]]
     enabled = true
@@ -611,10 +606,12 @@ time_format = "{:%I:%M %p}"
     direction = "down"
 
 [storage]
-key_source = "file"
 key_file = "/run/secrets/noctalia_storage_key"
+key_source = "file"
 
 [system.monitor]
+cpu_freq_activity_threshold = 2.5
+cpu_freq_critical_threshold = 4.5
 cpu_poll_seconds = 2.0
 cpu_temp_activity_threshold = 60.0
 cpu_temp_critical_threshold = 85.0
