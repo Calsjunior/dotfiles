@@ -122,6 +122,8 @@ local function patch_gh_squash()
   vim.schedule(function()
     local ok, gh_actions = pcall(require, "snacks.gh.actions")
     if ok and gh_actions.cli_actions and gh_actions.cli_actions.gh_squash then
+      -- Clear default template so it doesn't pre-fill with the PR description
+      gh_actions.cli_actions.gh_squash.template = ""
       gh_actions.cli_actions.gh_squash.on_submit = function(body, ctx)
         body = body:gsub("%*%*", "")
 
