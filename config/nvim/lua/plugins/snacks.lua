@@ -117,7 +117,7 @@ end
 --- Solution: Hooks into the on_submit event of the gh_squash
 --- action after the buffer is parsed but before the CLI command executes.
 --- Strips bold formatting (**) from the body.
---- Appends (#PR_NUMBER) to the parsed --subject CLI argument.
+--- Appends #PR_NUMBER to the parsed --subject CLI argument.
 local function patch_gh_squash()
   vim.schedule(function()
     local ok, gh_actions = pcall(require, "snacks.gh.actions")
@@ -129,8 +129,8 @@ local function patch_gh_squash()
 
         for i, arg in ipairs(ctx.args) do
           if arg == "--subject" then
-            local pr_suffix = " (#" .. ctx.item.number .. ")"
-            if not ctx.args[i + 1]:match("%(#%d+%)$") then
+            local pr_suffix = " #" .. ctx.item.number
+            if not ctx.args[i + 1]:match(" #%d+$") then
               ctx.args[i + 1] = ctx.args[i + 1] .. pr_suffix
             end
             break
