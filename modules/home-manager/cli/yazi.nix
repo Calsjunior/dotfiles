@@ -26,42 +26,10 @@
     programs.yazi = {
       enable = true;
       enableZshIntegration = config.cli.shell.zsh.enable;
-
-      # Extra tools used in this config
-      package = pkgs.symlinkJoin {
-        name = "yazi-wrapped";
-        paths = [ pkgs.yazi ];
-        buildInputs = [ pkgs.makeWrapper ];
-        postBuild = ''
-          wrapProgram $out/bin/yazi \
-            --prefix PATH : ${
-              pkgs.lib.makeBinPath (
-                with pkgs;
-                [
-                  ripgrep # Required by the 'fr' plugin
-                  trash-cli # Required by the 'recycle-bin' plugin
-                  wl-clipboard # Required by the 'ucp' plugin
-                  fzf # Required for portal file picker context
-                  fd # Required for portal file picker context
-                  zoxide # Required for portal file picker context
-                ]
-              )
-            } \
-            --set FZF_DEFAULT_COMMAND "${
-              if config.programs.fzf.defaultCommand != null then
-                config.programs.fzf.defaultCommand
-              else
-                "fd --hidden"
-            }" \
-            --set _ZO_EXCLUDE_DIRS "${config.home.sessionVariables._ZO_EXCLUDE_DIRS or ""}" \
-            --set RIPGREP_CONFIG_PATH "${pkgs.writeText "yazi-rg.conf" ''
-              --glob=!package-lock.json
-              --glob=!package.json
-              --glob=!pnpm-lock.yaml
-              --glob=!yarn.lock
-            ''}"
-        '';
-      };
+      extraPackages = with pkgs; [
+        trash-cli # Required by the 'recycle-bin' plugin
+        wl-clipboard # Required by the 'clipboard' plugin
+      ];
 
       initLua = ''
         -- Fix directories blue color icon
