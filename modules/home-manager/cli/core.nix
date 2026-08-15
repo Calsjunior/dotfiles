@@ -87,6 +87,8 @@
       .npm
       .config
       node_modules
+      package-lock.json
+      flake.lock
     '';
   };
 }
