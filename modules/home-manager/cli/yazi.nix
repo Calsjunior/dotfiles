@@ -64,21 +64,6 @@
       };
 
       initLua = ''
-        require("full-border"):setup()
-        require("recycle-bin"):setup()
-        require("git"):setup({
-          order = 1500,
-        })
-        require("simple-tag"):setup({
-            ui_mode = "icon",
-            colors = {
-                ["c"] = "green",
-            },
-            icons = {
-                ["c"] = "󰄲 ",
-            },
-        })
-
         -- Fix directories blue color icon
         function Entity:icon()
           local icon = self._file:icon()
@@ -141,11 +126,6 @@
         mgr = {
           prepend_keymap = [
             {
-              on = [ "f" ];
-              run = "plugin jump-to-char";
-              desc = "Jump to character";
-            }
-            {
               on = [
                 "c"
                 "m"
@@ -165,13 +145,24 @@
             }
             {
               on = [ "y" ];
-              run = "plugin ucp copy";
-              desc = "Copy";
+              run = [
+                "yank"
+                "plugin clipboard -- --action=copy"
+              ];
+              desc = "Yank selected files (copy)";
+            }
+            {
+              on = [ "x" ];
+              run = [
+                "yank --cut"
+                "plugin clipboard -- --action=copy"
+              ];
+              desc = "Yank selected files (cut)";
             }
             {
               on = [ "p" ];
-              run = "plugin ucp paste";
-              desc = "Paste";
+              run = [ "plugin clipboard -- --action=paste" ];
+              desc = "Paste yanked system clipboard files";
             }
             {
               on = [
@@ -220,78 +211,59 @@
         };
       };
 
-      plugins = {
-        full-border = "${
-          pkgs.fetchFromGitHub {
-            owner = "yazi-rs";
-            repo = "plugins";
-            rev = "0be29a913ad61c6d119abfaaf253e96e6af5db67";
-            hash = "sha256-bqGN6JxbU+/o7TlM/Cm9Qj/s1McA4pB5QWArGZPcme4=";
-          }
-        }/full-border.yazi";
-
-        chmod = "${
-          pkgs.fetchFromGitHub {
-            owner = "yazi-rs";
-            repo = "plugins";
-            rev = "65559fd3edc33cb0fd24ec92874c763fa5f68e3e";
-            hash = "sha256-bqGN6JxbU+/o7TlM/Cm9Qj/s1McA4pB5QWArGZPcme4=";
-          }
-        }/chmod.yazi";
-
-        smart-filter = "${
-          pkgs.fetchFromGitHub {
-            owner = "yazi-rs";
-            repo = "plugins";
-            rev = "5d461d85908338371b9433ab6c29707bee3a813b";
-            hash = "sha256-bqGN6JxbU+/o7TlM/Cm9Qj/s1McA4pB5QWArGZPcme4=";
-          }
-        }/smart-filter.yazi";
-
-        git = "${
-          pkgs.fetchFromGitHub {
-            owner = "yazi-rs";
-            repo = "plugins";
-            rev = "0be29a913ad61c6d119abfaaf253e96e6af5db67";
-            hash = "sha256-bqGN6JxbU+/o7TlM/Cm9Qj/s1McA4pB5QWArGZPcme4=";
-          }
-        }/git.yazi";
-
-        jump-to-char = "${
-          pkgs.fetchFromGitHub {
-            owner = "yazi-rs";
-            repo = "plugins";
-            rev = "6047ce43f3b8a5aa39963dfd182bcee6f210bd2d";
-            hash = "sha256-bqGN6JxbU+/o7TlM/Cm9Qj/s1McA4pB5QWArGZPcme4=";
-          }
-        }/jump-to-char.yazi";
-
-        fr = pkgs.fetchFromGitHub {
-          owner = "lpnh";
-          repo = "fr.yazi";
-          rev = "aa88cd4d4345c07345275291c1a236343f834c86";
-          hash = "sha256-3D1mIQpEDik0ppPQo+/NIhCxEu/XEnJMJ0HiAFxlOE4=";
+      plugins = with pkgs.yaziPlugins; {
+        chmod.package = chmod;
+        smart-filter.package = smart-filter;
+        clipboard.package = clipboard;
+        full-border = {
+          package = full-border;
+          setup = true;
         };
 
-        ucp = pkgs.fetchFromGitHub {
-          owner = "simla33";
-          repo = "ucp.yazi";
-          rev = "79043fbbfd39b7b9ae0142d11b315272dd90d33b";
-          hash = "sha256-jIvooR00smQb8bmS3slj87k4yM9aTeruvhu/1krigZ8=";
+        git = {
+          package = git;
+          setup = true;
+          settings = {
+            order = 1500;
+          };
         };
 
-        recycle-bin = pkgs.fetchFromGitHub {
-          owner = "uhs-robert";
-          repo = "recycle-bin.yazi";
-          rev = "82da16ad6471616e383f41532b703d41210167eb";
-          hash = "sha256-lpxTGWA15szM5VJ+qvV2+GTg7HXiZaZfyWyjeNMsTSM=";
+        fr = {
+          package = pkgs.fetchFromGitHub {
+            owner = "lpnh";
+            repo = "fr.yazi";
+            rev = "aa88cd4d4345c07345275291c1a236343f834c86";
+            hash = "sha256-3D1mIQpEDik0ppPQo+/NIhCxEu/XEnJMJ0HiAFxlOE4=";
+          };
         };
 
-        simple-tag = pkgs.fetchFromGitHub {
-          owner = "boydaihungst";
-          repo = "simple-tag.yazi";
-          rev = "e8be0311282605c877be33587b3cb0eb4cf852e6";
-          hash = "sha256-qtCoDSt5dWTxJC2xB/iufmOSO13joEIFl4A2D4ohIyE=";
+        recycle-bin = {
+          package = pkgs.fetchFromGitHub {
+            owner = "uhs-robert";
+            repo = "recycle-bin.yazi";
+            rev = "82da16ad6471616e383f41532b703d41210167eb";
+            hash = "sha256-lpxTGWA15szM5VJ+qvV2+GTg7HXiZaZfyWyjeNMsTSM=";
+          };
+          setup = true;
+        };
+
+        simple-tag = {
+          package = pkgs.fetchFromGitHub {
+            owner = "boydaihungst";
+            repo = "simple-tag.yazi";
+            rev = "e8be0311282605c877be33587b3cb0eb4cf852e6";
+            hash = "sha256-qtCoDSt5dWTxJC2xB/iufmOSO13joEIFl4A2D4ohIyE=";
+          };
+          setup = true;
+          settings = {
+            ui_mode = "icon";
+            colors = {
+              c = "green";
+            };
+            icons = {
+              c = "󰄲 ";
+            };
+          };
         };
       };
     };
