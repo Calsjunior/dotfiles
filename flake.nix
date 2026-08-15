@@ -12,10 +12,6 @@
       url = "github:nix-community/neovim-nightly-overlay";
     };
 
-    noctalia = {
-      url = "github:noctalia-dev/noctalia/cachix";
-    };
-
     zen-browser = {
       url = "github:0xc000022070/zen-browser-flake";
       inputs.nixpkgs.follows = "nixpkgs";

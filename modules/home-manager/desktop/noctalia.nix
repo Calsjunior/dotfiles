@@ -2,7 +2,6 @@
   config,
   lib,
   pkgs,
-  inputs,
   dotfilesPath,
   ...
 }:
@@ -25,7 +24,7 @@
     home.packages = [
       (pkgs.symlinkJoin {
         name = "noctalia-wrapped";
-        paths = [ inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default ];
+        paths = [ pkgs.noctalia ];
         nativeBuildInputs = [ pkgs.makeWrapper ];
         postBuild = ''
           wrapProgram $out/bin/noctalia \
