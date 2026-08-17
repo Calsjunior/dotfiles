@@ -29,6 +29,34 @@ return {
         log_level = "info",
         image_renderer = "kitty",
         core_path = vim.fn.stdpath("data") .. "/lazy/jupynvim/core/target/release/jupynvim-core",
+
+        -- Override the default <leader>n mappings to <leader>j
+        keymaps = {
+          run_advance = "<leader>jr",
+          run_all = "<leader>jR",
+          run_all_above = "<leader>jA",
+          run_all_below = "<leader>jB",
+
+          add_above = "<leader>ja",
+          add_below = "<leader>jb",
+          delete = "<leader>jd",
+          move_up = "<leader>jk",
+          move_down = "<leader>jj",
+          to_markdown = "<leader>jm",
+          to_code = "<leader>jy",
+          clear_output = "<leader>jc",
+          clear_all_output = "<leader>jC",
+
+          save_image = "<leader>jI",
+          delete_image = "<leader>jD",
+
+          pick_kernel = "<leader>jK",
+          start_kernel = "<leader>js",
+          stop_kernel = "<leader>jS",
+          interrupt_kernel = "<leader>ji",
+          restart_kernel = "<leader>jx",
+          force_render = "<leader>jL",
+        },
       })
     end,
   },
