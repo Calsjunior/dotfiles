@@ -8,10 +8,15 @@ return {
   -- Jupyter
   {
     "sheng-tse/jupynvim",
-    ft = { "python" },
+    event = "BufReadCmd *.ipynb",
     build = function()
       local core = vim.fn.stdpath("data") .. "/lazy/jupynvim/core"
       vim.fn.system({
+        "nix",
+        "shell",
+        "nixpkgs#cargo",
+        "nixpkgs#rustc",
+        "-c",
         "cargo",
         "build",
         "--release",
@@ -23,6 +28,7 @@ return {
       require("jupynvim").setup({
         log_level = "info",
         image_renderer = "kitty",
+        core_path = vim.fn.stdpath("data") .. "/lazy/jupynvim/core/target/release/jupynvim-core",
       })
     end,
   },
