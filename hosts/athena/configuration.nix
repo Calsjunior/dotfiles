@@ -4,6 +4,9 @@
     ../shared/configuration.nix
   ];
 
+  # Temporarily prevent the "-6" error spam on wake from hibernation caused by
+  # the DDR5 temperature sensors.
+  boot.blacklistedKernelModules = [ "spd5118" ];
   boot.loader = {
     efi.canTouchEfiVariables = true;
     efi.efiSysMountPoint = "/boot";
