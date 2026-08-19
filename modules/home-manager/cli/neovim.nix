@@ -56,6 +56,9 @@
         # Nix
         nixd
         nixfmt
+
+        # Typst
+        tinymist
       ];
 
       withPython3 = false;
