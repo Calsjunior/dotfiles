@@ -10,6 +10,7 @@ return {
         css_variables = {},
         nixd = {},
         clangd = {},
+        tinymist = {},
         biome = {
           cmd = { "biome", "lsp-proxy" },
           root_dir = function(bufnr, on_dir)
