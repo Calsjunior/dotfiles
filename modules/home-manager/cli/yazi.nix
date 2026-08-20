@@ -102,13 +102,13 @@
               on = [ "y" ];
               run = [
                 "yank"
-                "plugin system-clipboard -- --action=copy"
+                "plugin ucp copy notify"
               ];
               desc = "Yank selected files (copy)";
             }
             {
               on = [ "p" ];
-              run = [ "plugin system-clipboard -- --action=paste" ];
+              run = [ "plugin ucp paste notify" ];
               desc = "Paste yanked system clipboard files";
             }
           ];
@@ -118,7 +118,6 @@
       plugins = with pkgs.yaziPlugins; {
         chmod.package = chmod;
         smart-filter.package = smart-filter;
-        system-clipboard.package = clipboard;
         full-border = {
           package = full-border;
           setup = true;
@@ -129,6 +128,15 @@
           setup = true;
           settings = {
             order = 1500;
+          };
+        };
+
+        ucp = {
+          package = pkgs.fetchFromGitHub {
+            owner = "simla33";
+            repo = "ucp.yazi";
+            rev = "79043fbbfd39b7b9ae0142d11b315272dd90d33b";
+            hash = "sha256-oL3fss8/U6IH2y5B/YdK17h4LvN4XsPypmC+yzJBMnE=";
           };
         };
 
