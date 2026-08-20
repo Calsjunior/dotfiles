@@ -27,7 +27,6 @@
       enable = true;
       enableZshIntegration = config.cli.shell.zsh.enable;
       extraPackages = with pkgs; [
-        trash-cli # Required by the 'recycle-bin' plugin
         wl-clipboard # Required by the 'clipboard' plugin
       ];
 
@@ -64,18 +63,6 @@
         };
         plugin = {
           prepend_fetchers = [
-            {
-              id = "simple-tag";
-              url = "*";
-              run = "simple-tag";
-              group = "simple-tag";
-            }
-            {
-              id = "simple-tag";
-              url = "*/";
-              run = "simple-tag";
-              group = "simple-tag";
-            }
             {
               url = "*";
               run = "git";
@@ -115,57 +102,14 @@
               on = [ "y" ];
               run = [
                 "yank"
-                "plugin clipboard -- --action=copy"
+                "plugin system-clipboard -- --action=copy"
               ];
               desc = "Yank selected files (copy)";
             }
             {
               on = [ "p" ];
-              run = [ "plugin clipboard -- --action=paste" ];
+              run = [ "plugin system-clipboard -- --action=paste" ];
               desc = "Paste yanked system clipboard files";
-            }
-            {
-              on = [
-                "R"
-                "b"
-              ];
-              run = "plugin recycle-bin";
-              desc = "Open Recycle Bin menu";
-            }
-            {
-              on = [
-                "T"
-                "t"
-                "K"
-              ];
-              run = "plugin simple-tag -- toggle-tag";
-              desc = "Toggle a tag";
-            }
-            {
-              on = [
-                "T"
-                "a"
-                "k"
-              ];
-              run = "plugin simple-tag -- add-tag";
-              desc = "Add a tag";
-            }
-            {
-              on = [
-                "T"
-                "d"
-                "k"
-              ];
-              run = "plugin simple-tag -- remove-tag";
-              desc = "Remove a tag";
-            }
-            {
-              on = [
-                "T"
-                "n"
-              ];
-              run = "plugin simple-tag -- filter --mode=not";
-              desc = "Filter only untagged items";
             }
           ];
         };
@@ -174,7 +118,7 @@
       plugins = with pkgs.yaziPlugins; {
         chmod.package = chmod;
         smart-filter.package = smart-filter;
-        clipboard.package = clipboard;
+        system-clipboard.package = clipboard;
         full-border = {
           package = full-border;
           setup = true;
@@ -194,35 +138,6 @@
             repo = "fr.yazi";
             rev = "aa88cd4d4345c07345275291c1a236343f834c86";
             hash = "sha256-3D1mIQpEDik0ppPQo+/NIhCxEu/XEnJMJ0HiAFxlOE4=";
-          };
-        };
-
-        recycle-bin = {
-          package = pkgs.fetchFromGitHub {
-            owner = "uhs-robert";
-            repo = "recycle-bin.yazi";
-            rev = "82da16ad6471616e383f41532b703d41210167eb";
-            hash = "sha256-lpxTGWA15szM5VJ+qvV2+GTg7HXiZaZfyWyjeNMsTSM=";
-          };
-          setup = true;
-        };
-
-        simple-tag = {
-          package = pkgs.fetchFromGitHub {
-            owner = "boydaihungst";
-            repo = "simple-tag.yazi";
-            rev = "e8be0311282605c877be33587b3cb0eb4cf852e6";
-            hash = "sha256-qtCoDSt5dWTxJC2xB/iufmOSO13joEIFl4A2D4ohIyE=";
-          };
-          setup = true;
-          settings = {
-            ui_mode = "icon";
-            colors = {
-              c = "green";
-            };
-            icons = {
-              c = "󰄲 ";
-            };
           };
         };
       };
