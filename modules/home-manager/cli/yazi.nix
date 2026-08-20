@@ -33,7 +33,7 @@
       initLua = ''
         -- Fix directories blue color icon
         function Entity:icon()
-          local icon = self._file:icon()
+          local icon = th.icon:match(self._file)
             if not icon then
                 return ui.Span("")
             end
