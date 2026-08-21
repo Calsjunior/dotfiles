@@ -14,6 +14,16 @@
   pkgs,
   ...
 }:
+let
+  portalWrapper = pkgs.writeShellScript "termfilechooser-wrapper" ''
+    export PATH="${config.home.profileDirectory}/bin:/run/current-system/sw/bin:$PATH"
+    if [ -f "${config.home.profileDirectory}/etc/profile.d/hm-session-vars.sh" ]; then
+      source "${config.home.profileDirectory}/etc/profile.d/hm-session-vars.sh"
+    fi
+
+    exec ${config.desktop.termfilechooser.wrapperCmd} "$@"
+  '';
+in
 {
   options.desktop.termfilechooser = {
     enable = lib.mkEnableOption "Terminal File Chooser Portal";
@@ -37,10 +47,9 @@
       force = true;
       text = ''
         [filechooser]
-        cmd=${config.desktop.termfilechooser.wrapperCmd}
-        default_dir=$HOME/Downloads
+        cmd=${portalWrapper}
+        default_dir=${config.home.homeDirectory}/Downloads
         env=TERMCMD=${config.desktop.termfilechooser.terminalCmd} --class termfilechooser -e
-        env=PATH="$PATH:/run/current-system/${config.home.profileDirectory}/bin"
         open_mode=suggested
         save_mode=last
       '';
