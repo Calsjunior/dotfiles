@@ -27,7 +27,7 @@ return {
     config = function()
       require("jupynvim").setup({
         log_level = "info",
-        image_renderer = "kitty",
+        image_renderer = "placeholder",
         core_path = vim.fn.stdpath("data") .. "/lazy/jupynvim/core/target/release/jupynvim-core",
 
         -- Override the default <leader>n mappings to <leader>j
