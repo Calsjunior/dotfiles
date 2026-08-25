@@ -44,6 +44,7 @@
 
       initContent = ''
         export KEYTIMEOUT=5
+        export ZSH_AUTOSUGGEST_MANUAL_REBIND=1
 
         # Line editing binds
         bindkey '^A' beginning-of-line
@@ -67,11 +68,13 @@
           fi
         }
         zle -N zle-keymap-select
-        zle-line-init() {
+
+        autoload -Uz add-zle-hook-widget
+        function custom_cursor_line_init() {
           zle -K viins
           echo -ne "\e[5 q"
         }
-        zle -N zle-line-init
+        add-zle-hook-widget line-init custom_cursor_line_init
 
         # Completion styling
         zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
