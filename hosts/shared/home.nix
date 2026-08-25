@@ -19,7 +19,7 @@
   cli = {
     shell.zsh.enable = true;
     core.enable = true;
-    starship.enable = true;
+    oh-my-posh.enable = true;
     neovim.enable = true;
     git.enable = true;
     ssh.enable = true;
