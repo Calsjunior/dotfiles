@@ -15,7 +15,26 @@ return {
       vim.g.loaded_netrwPlugin = 1
     end,
     event = "VeryLazy",
-    opts = { open_for_directories = true },
+    opts = {
+      open_for_directories = true,
+      open_file_function = function(chosen_file)
+        local ext = chosen_file:match("^.+%.(.+)$")
+        local external_exts = {
+          png = true,
+          jpg = true,
+          jpeg = true,
+          gif = true,
+          webp = true,
+          svg = true,
+          pdf = true,
+        }
+        if ext and external_exts[ext:lower()] then
+          vim.fn.jobstart({ "xdg-open", chosen_file }, { detach = true })
+        else
+          vim.cmd.edit(vim.fn.fnameescape(chosen_file))
+        end
+      end,
+    },
   },
 
   -- Movement
