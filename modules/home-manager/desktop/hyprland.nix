@@ -19,6 +19,11 @@
       }
     ];
 
+    desktop = {
+      hasCompositor = true;
+      noctalia.extraPaths = [ pkgs.socat ];
+    };
+
     home.packages = with pkgs; [
       hyprpicker
     ];
