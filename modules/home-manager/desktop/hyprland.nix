@@ -3,6 +3,7 @@
   lib,
   osConfig,
   dotfilesPath,
+  pkgs,
   ...
 }:
 {
@@ -16,6 +17,10 @@
         assertion = osConfig.wm.hyprland.enable;
         message = "Home Manager Hyprland requires system-level Hyprland (wm.hyprland.enable = true).";
       }
+    ];
+
+    home.packages = with pkgs; [
+      hyprpicker
     ];
 
     xdg.configFile."hypr".source = config.lib.file.mkOutOfStoreSymlink "${dotfilesPath}/config/hypr";

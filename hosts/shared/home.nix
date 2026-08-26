@@ -14,6 +14,7 @@
     hyprland.enable = true;
     noctalia.enable = true;
     theme.enable = true;
+    wayland.enable = true;
   };
 
   cli = {
@@ -23,7 +24,6 @@
     neovim.enable = true;
     git.enable = true;
     ssh.enable = true;
-    wayland-tools.enable = true;
     scripts.enable = true;
     formatters.enable = true;
     yazi = {

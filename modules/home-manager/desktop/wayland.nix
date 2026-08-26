@@ -6,13 +6,12 @@
 }:
 {
   options = {
-    cli.wayland-tools.enable = lib.mkEnableOption "Enable Wayland clipboard and CLI tools";
+    desktop.wayland.enable = lib.mkEnableOption "Enable Wayland clipboard and CLI tools";
   };
 
-  config = lib.mkIf config.cli.wayland-tools.enable {
+  config = lib.mkIf config.desktop.wayland.enable {
     home.packages = with pkgs; [
       wl-clipboard
-      hyprpicker
     ];
 
     home.shellAliases = {
