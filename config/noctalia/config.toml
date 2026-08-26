@@ -240,6 +240,7 @@ pre_action_fade_seconds = 2.0
     action = "lock"
     command = ""
     enabled = true
+    locked_timeout = 0.0
     resume_command = ""
     timeout = 600.0
 
@@ -247,6 +248,7 @@ pre_action_fade_seconds = 2.0
     action = "lock_and_suspend"
     command = ""
     enabled = true
+    locked_timeout = 0.0
     resume_command = ""
     timeout = 900.0
 
@@ -254,6 +256,7 @@ pre_action_fade_seconds = 2.0
     action = "screen_off"
     command = ""
     enabled = true
+    locked_timeout = 0.0
     resume_command = ""
     timeout = 660.0
 
@@ -291,7 +294,13 @@ wallpaper = ""
 [lockscreen_widgets]
 enabled = true
 schema_version = 1
-widget_order = [ "lockscreen-login-box@Unknown-1", "lockscreen-login-box@eDP-1", "lockscreen-widget-0000000000000001" ]
+widget_order = [
+    "lockscreen-login-box@WAYLAND-1",
+    "lockscreen-login-box@winit",
+    "lockscreen-login-box@Unknown-1",
+    "lockscreen-login-box@eDP-1",
+    "lockscreen-widget-0000000000000001"
+]
 
     [lockscreen_widgets.grid]
     cell_size = 8
@@ -305,11 +314,41 @@ widget_order = [ "lockscreen-login-box@Unknown-1", "lockscreen-login-box@eDP-1",
     cy = 957.0
     enabled = true
     output = "Unknown-1"
+    placement_height = 0.0
+    placement_width = 0.0
     rotation = 0.0
     type = "login_box"
 
         [lockscreen_widgets.widget."lockscreen-login-box@Unknown-1".settings]
         center_password_text = false
+        layout = "regular"
+        show_caps_lock = true
+        show_keyboard_layout = true
+        show_login_button = true
+        show_media = true
+        show_session_buttons = true
+        show_unlock_hint = true
+        show_weather = true
+
+    [lockscreen_widgets.widget."lockscreen-login-box@WAYLAND-1"]
+    box_height = 196.0
+    box_width = 810.0
+    cx = 476.0
+    cy = 331.0
+    enabled = true
+    output = "WAYLAND-1"
+    placement_height = 513.0
+    placement_width = 952.0
+    rotation = 0.0
+    type = "login_box"
+
+        [lockscreen_widgets.widget."lockscreen-login-box@WAYLAND-1".settings]
+        background_color = "surface_variant"
+        background_opacity = 0.88
+        background_radius = 12.0
+        center_password_text = false
+        input_opacity = 1.0
+        input_radius = 6.0
         layout = "regular"
         show_caps_lock = true
         show_keyboard_layout = true
@@ -326,6 +365,8 @@ widget_order = [ "lockscreen-login-box@Unknown-1", "lockscreen-login-box@eDP-1",
     cy = 953.0
     enabled = true
     output = "eDP-1"
+    placement_height = 1080.0
+    placement_width = 1920.0
     rotation = 0.0
     type = "login_box"
 
@@ -340,6 +381,34 @@ widget_order = [ "lockscreen-login-box@Unknown-1", "lockscreen-login-box@eDP-1",
         show_unlock_hint = false
         show_weather = false
 
+    [lockscreen_widgets.widget."lockscreen-login-box@winit"]
+    box_height = 196.0
+    box_width = 810.0
+    cx = 952.75103759765625
+    cy = 844.3541259765625
+    enabled = true
+    output = "winit"
+    placement_height = 1026.0
+    placement_width = 1904.0
+    rotation = 0.0
+    type = "login_box"
+
+        [lockscreen_widgets.widget."lockscreen-login-box@winit".settings]
+        background_color = "surface_variant"
+        background_opacity = 0.88
+        background_radius = 12.0
+        center_password_text = false
+        input_opacity = 1.0
+        input_radius = 6.0
+        layout = "regular"
+        show_caps_lock = true
+        show_keyboard_layout = true
+        show_login_button = true
+        show_media = true
+        show_session_buttons = true
+        show_unlock_hint = true
+        show_weather = true
+
     [lockscreen_widgets.widget.lockscreen-widget-0000000000000001]
     box_height = 0.0
     box_width = 0.0
@@ -347,6 +416,8 @@ widget_order = [ "lockscreen-login-box@Unknown-1", "lockscreen-login-box@eDP-1",
     cy = 204.0
     enabled = true
     output = "eDP-1"
+    placement_height = 1080.0
+    placement_width = 1920.0
     rotation = 0.0
     type = "clock"
 
@@ -425,7 +496,7 @@ directory = "~/Videos/recordings"
 video_source = "focused"
 
 [plugins]
-auto_update = false
+auto_update = "none"
 enabled = [ "noctalia/screen_recorder", "noctalia/notes", "profidev/hypr-screen-mirror" ]
 
     [[plugins.source]]
@@ -489,7 +560,10 @@ time_format = "{:%I:%M %p}"
     categories = true
     compact = false
     fetch_exchange_rates = true
+    pinned = []
     provider_prefix = "/"
+    show_app_actions = false
+    show_app_origin_indicator = true
     show_icons = true
     sort_by_usage = true
 
