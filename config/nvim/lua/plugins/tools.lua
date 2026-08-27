@@ -32,7 +32,7 @@ return {
 
         -- Override the default <leader>n mappings to <leader>j
         keymaps = {
-          run_advance = "<leader>jr",
+          run_stay = "<leader>jr",
           run_all = "<leader>jR",
           run_above = "<leader>jA",
           run_below = "<leader>jB",
@@ -57,7 +57,7 @@ return {
           restart_kernel = "<leader>jx",
           refresh = "<leader>jL",
 
-          run_stay = false,
+          run_advance = false,
           run_advance_alt = false,
           next_cell = false,
           prev_cell = false,
