@@ -102,6 +102,7 @@
         {
           web = mkTemplate "web";
           c-cpp = mkTemplate "c-cpp";
+          typst = mkTemplate "typst";
         };
     };
 }
