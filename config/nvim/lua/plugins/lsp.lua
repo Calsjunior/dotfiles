@@ -11,6 +11,23 @@ return {
         nixd = {},
         clangd = {},
         tinymist = {},
+        harper_ls = {
+          filetypes = { "markdown", "typst", "text", "gitcommit" },
+          settings = {
+            ["harper-ls"] = {
+              linters = {
+                SpellCheck = true,
+                SpelledNumbers = false,
+                AnA = true,
+                SentenceCapitalization = true,
+                UnclosedQuotes = true,
+                WrongApostrophe = true,
+                LongSentences = true,
+                RepeatedWords = true,
+              },
+            },
+          },
+        },
         biome = {
           cmd = { "biome", "lsp-proxy" },
           root_dir = function(bufnr, on_dir)

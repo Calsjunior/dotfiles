@@ -59,6 +59,9 @@
 
         # Typst
         tinymist
+
+        # Grammar lsp
+        harper
       ];
 
       withPython3 = false;
