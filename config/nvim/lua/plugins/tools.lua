@@ -29,6 +29,8 @@ return {
         log_level = "info",
         image_renderer = "placeholder",
         core_path = vim.fn.stdpath("data") .. "/lazy/jupynvim/core/target/release/jupynvim-core",
+        smooth_scroll = true,
+        auto_venv = false,
 
         -- Override the default <leader>n mappings to <leader>j
         keymaps = {
@@ -44,6 +46,7 @@ return {
           move_down = "<leader>jj",
           to_markdown = "<leader>jm",
           to_code = "<leader>jy",
+          expand_output = "<leader>jo",
           clear_output = "<leader>jc",
           clear_all = "<leader>jC",
 
