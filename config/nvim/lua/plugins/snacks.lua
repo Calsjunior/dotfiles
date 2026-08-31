@@ -209,6 +209,7 @@ return {
           },
         },
         projects = {
+          patterns = { ".git", ".envrc" },
           dev = { "~/dev", "~/Documents" },
           max_depth = 3,
           win = {

@@ -62,7 +62,7 @@ vim.api.nvim_create_autocmd("BufEnter", {
       return
     end
 
-    local root = vim.fs.root(args.buf, { ".git", "package.json", "flake.nix" })
+    local root = vim.fs.root(args.buf, { ".envrc", ".git", "package.json", "flake.nix" })
     if root and root ~= vim.fn.getcwd() then
       vim.api.nvim_set_current_dir(root)
     end
