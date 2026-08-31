@@ -102,6 +102,7 @@ vim.keymap.set("n", "<leader>is", function()
     javascript = "web/snippets/js",
     c = "c/snippets",
     cpp = "cpp/snippets",
+    typst = "typst/snippets",
   }
   local folder = ft_map[vim.bo.filetype]
   if not folder then
