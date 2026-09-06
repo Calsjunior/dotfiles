@@ -93,7 +93,7 @@ order = [ "default" ]
         enabled = true
         fill = "surface_variant"
         id = "g4"
-        members = [ "notifications", "recorder_3", "widget" ]
+        members = [ "notifications", "recorder_3", "widget_2", "widget" ]
         opacity = 1.0
         padding = 10.0
         widget_spacing = 12
@@ -141,16 +141,19 @@ width = 700
     type = "notification"
 
     [[control_center.shortcuts]]
-    type = "power_profile"
+    type = "system"
 
 [desktop_widgets]
 enabled = false
 schema_version = 1
+widget_order = []
 
     [desktop_widgets.grid]
     cell_size = 16
     major_interval = 4
     visible = false
+
+    [desktop_widgets.widget]
 
 [dock]
 active_monitor_only = false
@@ -497,16 +500,14 @@ video_source = "focused"
 
 [plugins]
 auto_update = "none"
-enabled = [ "noctalia/screen_recorder", "noctalia/notes", "profidev/hypr-screen-mirror" ]
+enabled = [ "noctalia/screen_recorder", "noctalia/notes", "profidev/hypr-screen-mirror", "thepunkoff/pomodoro" ]
 
     [[plugins.source]]
-    enabled = true
     kind = "git"
     location = "https://github.com/noctalia-dev/official-plugins"
     name = "official"
 
     [[plugins.source]]
-    enabled = true
     kind = "git"
     location = "https://github.com/noctalia-dev/community-plugins"
     name = "community"
@@ -580,6 +581,7 @@ time_format = "{:%I:%M %p}"
     control_center_position = "auto"
     floating_layer = "overlay"
     floating_offset = 8
+    launcher_compact = true
     launcher_placement = "attached"
     launcher_position = "center"
     list_item_background = false
@@ -727,7 +729,7 @@ custom_palette = "ADW"
 mode = "dark"
 pure_black_dark = false
 source = "builtin"
-wallpaper_scheme = "vibrant"
+wallpaper_scheme = "m3-monochrome"
 
     [theme.templates]
     builtin_ids = [ "gtk3", "gtk4", "hyprland", "qt" ]
@@ -753,6 +755,15 @@ transition_on_startup = false
     interval_seconds = 1800
     order = "random"
     recursive = true
+
+    [wallpaper.default]
+    path = "/home/cal/Pictures/wallpapers/gruvbox-material/swag-girl.png"
+
+    [wallpaper.last]
+    path = "/home/cal/Pictures/wallpapers/gruvbox-material/swag-girl.png"
+
+    [wallpaper.monitors.eDP-1]
+    path = "/home/cal/Pictures/wallpapers/gruvbox-material/swag-girl.png"
 
 [weather]
 effects = true
@@ -876,6 +887,9 @@ type = "sysmon"
 
 [widget.widget]
 type = "profidev/hypr-screen-mirror:widget"
+
+[widget.widget_2]
+type = "thepunkoff/pomodoro:widget"
 
 [widget.workspaces]
 empty_color = "on_primary"
