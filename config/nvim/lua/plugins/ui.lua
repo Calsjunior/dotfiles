@@ -5,13 +5,6 @@ return {
     priority = 1000,
   },
   {
-    "norcalli/nvim-colorizer.lua",
-    event = "BufReadPre",
-    opts = {
-      css = { css = true },
-    },
-  },
-  {
     "nvim-lualine/lualine.nvim",
     opts = {
       options = {
