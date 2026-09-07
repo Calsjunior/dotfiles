@@ -1,63 +1,84 @@
 return {
   {
     "neovim/nvim-lspconfig",
-    opts = {
-      inlay_hints = { enabled = false },
-      folds = { enabled = false },
-      servers = {
-        html = {},
-        cssls = {},
-        css_variables = {},
-        nixd = {},
-        clangd = {},
-        tinymist = {},
-        harper_ls = {
-          filetypes = { "markdown", "typst", "text", "gitcommit" },
-          settings = {
-            ["harper-ls"] = {
-              linters = {
-                SpellCheck = true,
-                SpelledNumbers = false,
-                AnA = true,
-                SentenceCapitalization = true,
-                UnclosedQuotes = true,
-                WrongApostrophe = true,
-                LongSentences = true,
-                RepeatedWords = true,
-              },
+    config = function()
+      vim.lsp.config("lua_ls", {
+        on_init = function(client)
+          local path = client.workspace_folders[1].name
+          if vim.uv.fs_stat(path .. "/.luarc.json") or vim.uv.fs_stat(path .. "/.luarc.jsonc") then
+            return
+          end
+
+          client.config.settings.Lua = vim.tbl_deep_extend("force", client.config.settings.Lua, {
+            runtime = { version = "LuaJIT" },
+            workspace = {
+              checkThirdParty = false,
+              library = { vim.env.VIMRUNTIME },
             },
-          },
+          })
+        end,
+        settings = { Lua = {} },
+      })
+
+      vim.lsp.config("biome", {
+        cmd = { "biome", "lsp-proxy" },
+        root_markers = { ".git", "package.json" },
+      })
+
+      vim.lsp.config("emmet_language_server", {
+        filetypes = { "html", "css" },
+      })
+
+      vim.lsp.config("vtsls", {
+        handlers = {
+          ["textDocument/publishDiagnostics"] = function() end,
         },
-        biome = {
-          cmd = { "biome", "lsp-proxy" },
-          root_dir = function(bufnr, on_dir)
-            local fname = vim.api.nvim_buf_get_name(bufnr)
-            on_dir(vim.fs.root(fname, { ".git", "package.json" }) or vim.fs.dirname(fname))
-          end,
-        },
-        emmet_language_server = { filetypes = { "html", "css" } },
-        vtsls = {
-          handlers = { ["textDocument/publishDiagnostics"] = function() end },
-        },
-      },
-    },
+      })
+
+      vim.lsp.config("harper_ls", {
+        filetypes = { "markdown", "typst", "text", "gitcommit" },
+      })
+
+      -- stylua: ignore
+      local servers = {
+        "html",     "cssls", "css_variables",
+        "vtsls",    "biome", "emmet_language_server",
+        "lua_ls",   "nixd",  "clangd",
+        "tinymist", "harper_ls",
+      }
+
+      for _, lsp in ipairs(servers) do
+        vim.lsp.enable(lsp)
+      end
+    end,
   },
   {
     "stevearc/conform.nvim",
+    event = { "BufWritePre" },
+    default_format_opts = {
+      lsp_format = "fallback",
+    },
+    cmd = { "ConformInfo" },
     opts = {
       formatters_by_ft = {
-        c = { "clang-format" },
-        cpp = { "clang-format" },
-        lua = { "stylua" },
-        html = { "biome-check" },
-        css = { "biome-check" },
-        javascript = { "biome-check" },
+        -- stylua: ignore start
+        c               = { "clang-format" },
+        cpp             = { "clang-format" },
+        lua             = { "stylua" },
+        html            = { "biome-check" },
+        css             = { "biome-check" },
+        javascript      = { "biome-check" },
         javascriptreact = { "biome-check" },
-        typescript = { "biome-check" },
+        typescript      = { "biome-check" },
         typescriptreact = { "biome-check" },
-        json = { "biome-check" },
-        jsonc = { "biome-check" },
-        nix = { "nixfmt" },
+        json            = { "biome-check" },
+        jsonc           = { "biome-check" },
+        nix             = { "nixfmt" },
+      },
+      -- stylua: ignore end
+      format_on_save = {
+        timeout_ms = 1000,
+        lsp_fallback = true,
       },
     },
   },

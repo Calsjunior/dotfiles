@@ -1,221 +1,188 @@
+local Fn = require("config.functions")
+local Snacks = require("snacks")
+local MiniBufremove = require("mini.bufremove")
+local MiniPick = require("mini.pick")
 local map = vim.keymap.set
 
--- ==========
--- General
--- ==========
+-- stylua: ignore start
+local nmap = function(lhs, rhs, desc, opts) map("n", lhs, rhs, vim.tbl_extend("force", { desc = desc }, opts or {})) end
+local xmap = function(lhs, rhs, desc, opts) map("x", lhs, rhs, vim.tbl_extend("force", { desc = desc }, opts or {})) end
+local nmap_leader = function(sfx, rhs, desc, opts) map("n", "<leader>" .. sfx, rhs, vim.tbl_extend("force", { desc = desc }, opts or {})) end
+local xmap_leader = function(sfx, rhs, desc, opts) map("x", "<leader>" .. sfx, rhs, vim.tbl_extend("force", { desc = desc }, opts or {})) end
 
--- Editing
-map("n", "<leader>cs", "<cmd>w<CR>", { desc = "Save file" })
-map("n", "<leader>cn", "<cmd>noautocmd write<CR>", { desc = "Save without formatting" })
-map("n", "Y", "y$", { desc = "Yank to end of line" })
-map("x", "<leader>p", '"_dP', { desc = "Paste without yanking" })
-map({ "n", "v" }, "<leader>d", '"_d', { desc = "Delete without yanking" })
+-- Basic mappings =============================================================
+map({ "n", "i" }, "<Esc>", "<Cmd>noh<CR><Esc>", { desc = "Escape and clear hlsearch" })
+nmap("Y", "y$", "Yank to end of line")
 
--- Center screen when jumping
--- map("n", "n", "nzzzv", { desc = "Next search result (centered)" })
--- map("n", "N", "Nzzzv", { desc = "Previous search result (centered)" })
--- map("n", "<C-d>", "<C-d>zz", { desc = "Half page down (centered)" })
--- map("n", "<C-u>", "<C-u>zz", { desc = "Half page up (centered)" })
+nmap("H", "_", "Start of line (non-blank)")
+nmap("L", "$", "End of line (non-blank)")
 
--- Buffer mappings
-map("n", "<leader>o", "<cmd>update<CR><cmd>source %<CR><cmd>nohlsearch<CR>")
-map("n", "<C-S-l>", "<cmd>bnext<CR>")
-map("n", "<C-S-h>", "<cmd>bprevious<CR>")
+nmap("<C-S-l>", "<cmd>bnext<CR>", "Buffer Next")
+nmap("<C-S-h>", "<cmd>bprevious<CR>", "Buffer Previous")
 
--- Move lines up and down
-map("n", "<C-S-j>", ":m .+1<CR>==", { desc = "Move line down", silent = true })
-map("v", "<C-S-k>", ":m '<-2<CR>gv=gv", { desc = "Move selection up", silent = true })
-map("n", "<C-S-k>", ":m .-2<CR>==", { desc = "Move line up", silent = true })
-map("v", "<C-S-j>", ":m '>+1<CR>gv=gv", { desc = "Move selection down", silent = true })
+-- Linewise pasting (pastes on a new line regardless of how you yanked it)
+nmap("[p", function() vim.cmd("put!" .. vim.v.register) end, "Paste Above")
+nmap("]p", function() vim.cmd("put" .. vim.v.register)  end, "Paste Below")
 
--- Better indenting in visual mode
-map("v", "<", "<gv", { desc = "Indent left and reselect" })
-map("v", ">", ">gv", { desc = "Indent right and reselect" })
+-- Diagnostic Navigation
+nmap("[d", function() vim.diagnostic.jump({ count = -1 }) end, "Previous Diagnostic")
+nmap("]d", function() vim.diagnostic.jump({ count = 1 })  end, "Next Diagnostic")
+nmap("[e", function() vim.diagnostic.jump({ count = -1, severity = vim.diagnostic.severity.ERROR }) end, "Previous Error")
+nmap("]e", function() vim.diagnostic.jump({ count = 1, severity = vim.diagnostic.severity.ERROR })  end, "Next Error")
 
--- Movement
-map("n", "H", "_", { desc = "Start of line (non-blank)" })
-map("n", "L", "$", { desc = "End of line (non-blank)" })
+--- Spliting ------------------------------------------------------------------
+nmap("<C-h>", function() require("smart-splits").move_cursor_left()  end, "Move to left split")
+nmap("<C-j>", function() require("smart-splits").move_cursor_down()  end, "Move to below split")
+nmap("<C-k>", function() require("smart-splits").move_cursor_up()    end, "Move to above split")
+nmap("<C-l>", function() require("smart-splits").move_cursor_right() end, "Move to right split")
 
--- Compiling/Running current file
-vim.keymap.set("n", "<leader>r", function()
-  vim.cmd("silent! w")
+nmap("<A-C-h>", function() require("smart-splits").resize_left()     end, "Resize split left")
+nmap("<A-C-j>", function() require("smart-splits").resize_down()     end, "Resize split down")
+nmap("<A-C-k>", function() require("smart-splits").resize_up()       end, "Resize split up")
+nmap("<A-C-l>", function() require("smart-splits").resize_right()    end, "Resize split right")
 
-  local ft = vim.bo.filetype
-  local file = vim.fn.shellescape(vim.fn.expand("%:p"))
-  local file_no_ext = vim.fn.shellescape(vim.fn.expand("%:p:r"))
-  local dir = vim.fn.shellescape(vim.fn.expand("%:p:h"))
-  local raw_dir = vim.fn.expand("%:p:h")
+-- Incremental Selection (Treesitter + LSP) ===================================
+xmap("[n", function() vim.treesitter.select("prev", vim.v.count1)        end, "Select previous node")
+xmap("]n", function() vim.treesitter.select("next", vim.v.count1)        end, "Select next node")
+xmap("[N", function() vim.treesitter.select("extend_prev", vim.v.count1) end, "Select previous sibling node")
+xmap("]N", function() vim.treesitter.select("extend_next", vim.v.count1) end, "Select next sibling node")
+map({ "n", "x", "o" }, "=", Fn.ts_or_lsp("parent", 1), { desc = "Grow selection (parent node)" })
+map({ "n", "x", "o" }, "-", Fn.ts_or_lsp("child", -1), { desc = "Shrink selection (child node)" })
 
-  local function compile_and_run(compiler, ext)
-    if vim.fn.filereadable(raw_dir .. "/Makefile") == 1 then
-      return "cd " .. dir .. " && make"
-    end
-    local choice = vim.fn.confirm("Compile Mode:", "&1. Just this file\n&2. All *." .. ext .. " files", 1)
-    if choice == 1 then
-      return "cd " .. dir .. " && " .. compiler .. " " .. file .. " -o " .. file_no_ext .. " && " .. file_no_ext
-    elseif choice == 2 then
-      return "cd " .. dir .. " && " .. compiler .. " *." .. ext .. " -o " .. file_no_ext .. " && " .. file_no_ext
-    end
-    return nil
-  end
+-- Leader group clues =========================================================
+local M = {}
+M.leader_group_clues = {
+  { mode = "n", keys = "<leader>b",  desc = "+buffer" },
+  { mode = "n", keys = "<leader>c",  desc = "+config" },
+  { mode = "n", keys = "<leader>e",  desc = "+explore" },
+  { mode = "n", keys = "<leader>f",  desc = "+find" },
+  { mode = "n", keys = "<leader>g",  desc = "+git" },
+  { mode = "n", keys = "<leader>gh", desc = "+hunk/diff" },
+  { mode = "n", keys = "<leader>i",  desc = "+insert" },
+  { mode = "n", keys = "<leader>l",  desc = "+language" },
+  { mode = "n", keys = "<leader>n",  desc = "+neovim/system" },
+  { mode = "n", keys = "<leader>q",  desc = "+quit/session" },
+  { mode = "n", keys = "<leader>r",  desc = "+run" },
+  { mode = "n", keys = "<leader>s",  desc = "+search" },
+  { mode = "n", keys = "<leader>t",  desc = "+terminal" },
+  { mode = "n", keys = "<leader>w",  desc = "+window" },
+}
 
-  local runners = {
-    javascript = "node " .. file,
-    python = "python3 " .. file,
-    sh = "bash " .. file,
-    c = function()
-      return compile_and_run("gcc", "c")
-    end,
-    cpp = function()
-      return compile_and_run("g++", "cpp")
-    end,
-  }
+-- b is for 'Buffer' ----------------------------------------------------------
+nmap_leader("ba", "<Cmd>b#<CR>", "Alternate")
+nmap_leader("bd", function() MiniBufremove.delete(0, false)  end, "Delete")
+nmap_leader("bD", function() MiniBufremove.delete(0, true)   end, "Delete!")
+nmap_leader("bw", function() MiniBufremove.wipeout(0, false) end, "Wipeout")
+nmap_leader("bW", function() MiniBufremove.wipeout(0, true)  end, "Wipeout!")
+nmap_leader("bs", function() vim.api.nvim_win_set_buf(0, vim.api.nvim_create_buf(true, true)) end, "Scratch")
+nmap_leader("bo", Fn.close_other_buffers, "Close Others")
+nmap_leader("bl", Fn.close_buffers_left,  "Close Left")
+nmap_leader("br", Fn.close_buffers_right, "Close Right")
 
-  local runner = runners[ft]
-  if not runner then
-    vim.notify("No run command configured for filetype: " .. ft, vim.log.levels.WARN)
-    return
-  end
+-- c is for 'Config' ----------------------------------------------------------
+nmap_leader("cs", "<cmd>w<CR>",               "Save file")
+nmap_leader("cn", "<cmd>noautocmd write<CR>", "Save without formatting")
+nmap_leader("cx", Fn.source_project_config,   "Source project .nvim.lua")
 
-  local cmd
-  if type(runner) == "function" then
-    cmd = runner()
-  else
-    cmd = runner
-  end
-  if not cmd then
-    return
-  end
+-- e is for 'Explore' ---------------------------------------------------------
+nmap_leader("e.", "<cmd>Yazi<CR>",     "Open yazi (current file dir)")
+nmap_leader("ee", "<cmd>Yazi cwd<CR>", "Open yazi (cwd)")
+nmap_leader("eq", function() vim.cmd(vim.fn.getqflist({ winid = true }).winid ~= 0 and 'cclose' or 'copen') end, "Quickfix")
+nmap_leader("eQ", function() vim.cmd(vim.fn.getloclist(0, { winid = true }).winid ~= 0 and 'lclose' or 'lopen') end, "Locations")
 
-  vim.cmd("botright 15new")
-  vim.fn.jobstart(cmd, { term = true })
-  vim.cmd("startinsert")
-end, { desc = "Run/Compile Current File" })
+-- f is for 'Find' ------------------------------------------------------------
+nmap_leader("f.", function() MiniPick.builtin.files(nil, { source = { cwd = vim.fn.expand("%:p:h") } }) end, "Find files (current file dir)")
+nmap_leader("ff", "<Cmd>Pick files<CR>",                     "Find files (cwd)")
+nmap_leader("fh", "<Cmd>Pick help<CR>",                      "Help Pages")
+nmap_leader("fr", "<Cmd>Pick oldfiles<CR>",                  "Find Recent")
+nmap_leader("fb", "<Cmd>Pick buffers<CR>",                   "Buffers")
+nmap_leader("fl", '<Cmd>Pick buf_lines scope="all"<CR>',     "Lines (all buffers)")
+nmap_leader("fL", '<Cmd>Pick buf_lines scope="current"<CR>', "Lines (current buffer)")
+nmap_leader("fR", "<Cmd>Pick resume<CR>",                    "Resume last picker")
 
--- Inserting snippets
-vim.keymap.set("n", "<leader>is", function()
-  -- NOTE: Change these path to your specific folders
-  local base_dir = "~/dev"
-  local ft_map = {
-    html = "web/snippets/html",
-    css = "web/snippets/css",
-    javascript = "web/snippets/js",
-    c = "c/snippets",
-    cpp = "cpp/snippets",
-    typst = "typst/snippets",
-  }
-  local folder = ft_map[vim.bo.filetype]
-  if not folder then
-    vim.notify("No snippet folder for: " .. vim.bo.filetype, vim.log.levels.WARN)
-    return
-  end
-  local snippet_dir = vim.fn.expand(base_dir .. "/" .. folder)
-  if vim.fn.isdirectory(snippet_dir) == 0 then
-    vim.notify("Snippet directory not found: " .. snippet_dir, vim.log.levels.ERROR)
-    return
-  end
-  Snacks.picker.files({
-    cwd = snippet_dir,
-    title = "Insert Snippet [" .. vim.bo.filetype .. "]",
-    confirm = function(picker, item)
-      picker:close()
-      if item then
-        -- Insert content at cursor without blank lines above or below
-        local full_path = snippet_dir .. "/" .. item.file
-        local lines = vim.fn.readfile(full_path)
-        local row = vim.api.nvim_win_get_cursor(0)[1]
-        local is_empty = vim.api.nvim_get_current_line():match("^%s*$") ~= nil
-        vim.api.nvim_buf_set_lines(0, row - 1, is_empty and row or (row - 1), false, lines)
-      end
-    end,
-  })
-end, { desc = "Insert Snippet" })
+-- g is for 'Git' -------------------------------------------------------------
+nmap_leader("ghs", "ghgh",     "Stage Hunk",   { remap = true })
+nmap_leader("ghr", "gHgh",     "Reset Hunk",   { remap = true })
+nmap_leader("ghR", "ggVGgH``", "Reset Buffer", { remap = true })
+nmap_leader("gl",  "<Cmd>Pick git_commits<CR>",          "Commits (all)")
+nmap_leader("gf",  '<Cmd>Pick git_commits path="%"<CR>', "Commits (buffer)")
+nmap_leader("gd",  "<Cmd>Pick git_hunks<CR>",            "Modified hunks (workspace)")
+nmap_leader("gD",  '<Cmd>Pick git_hunks path="%"<CR>',   "Modified hunks (buffer)")
+nmap_leader("ghb", function() require("mini.git").show_at_cursor()      end, "Blame Line")
+nmap_leader("ghp", function() require("mini.diff").toggle_overlay()     end, "Preview Hunks (Overlay)")
+nmap_leader("gg",  function() Snacks.lazygit()                          end, "Lazygit")
+nmap_leader("gb",  function() Snacks.gitbrowse()                        end, "Git Browse")
+xmap_leader("gb",  function() Snacks.gitbrowse()                        end, "Git Browse (selection)")
+nmap_leader("gi",  function() Snacks.picker.gh_issue()                  end, "GitHub Issues (open)")
+nmap_leader("gI",  function() Snacks.picker.gh_issue({ state = "all" }) end, "GitHub Issues (all)")
+nmap_leader("gp",  function() Snacks.picker.gh_pr()                     end, "GitHub Pull Requests (open)")
+nmap_leader("gP",  function() Snacks.picker.gh_pr({ state = "all" })    end, "GitHub Pull Requests (all)")
 
--- Plugins
--- Yazi
-map("n", "<leader>e", "<cmd>Yazi<CR>", { desc = "Open Yazi (Current File)" })
-map("n", "<leader>E", "<cmd>Yazi cwd<CR>", { desc = "Open Yazi (cwd)" })
+-- i is for 'Insert' ----------------------------------------------------------
+nmap_leader("is", Fn.insert_snippet, "Insert Snippet")
 
--- Find Files
-map("n", "<leader>ff", function()
-  Snacks.picker.files({ cwd = vim.fn.expand("%:p:h") })
-end, { desc = "Find Files (Current File)" })
+-- l is for 'Language' --------------------------------------------------------
+nmap_leader("la", vim.lsp.buf.code_action,                    "Code action")
+nmap_leader("lr", vim.lsp.buf.rename,                         "Rename")
+nmap_leader("lh", vim.lsp.buf.hover,                          "Hover documentation")
+nmap_leader("ld", vim.diagnostic.open_float,                  "Line diagnostics float")
+nmap_leader("lD", '<Cmd>Pick diagnostic scope="current"<CR>', "Buffer diagnostics (Picker)")
+nmap_leader("lw", '<Cmd>Pick diagnostic scope="all"<CR>',     "Workspace diagnostics (Picker)")
+nmap_leader("lf", function() require("conform").format() end, "Format")
+xmap_leader("lf", function() require("conform").format() end, "Format selection")
 
-map("n", "<leader>fF", function()
-  Snacks.picker.files({ cwd = vim.fn.getcwd() })
-end, { desc = "Find Files (cwd)" })
+nmap_leader("ls", '<Cmd>Pick lsp scope="definition"<CR>',            "Source definition")
+nmap_leader("lR", '<Cmd>Pick lsp scope="references"<CR>',            "References")
+nmap_leader("li", '<Cmd>Pick lsp scope="implementation"<CR>',        "Implementation")
+nmap_leader("lt", '<Cmd>Pick lsp scope="type_definition"<CR>',       "Type definition")
+nmap_leader("lo", '<Cmd>Pick lsp scope="document_symbol"<CR>',       "Document Symbols (Outline)")
+nmap_leader("lO", '<Cmd>Pick lsp scope="workspace_symbol_live"<CR>', "Workspace Symbols")
 
-map("n", "<leader>fh", function()
-  Snacks.picker.files({ cwd = vim.fn.expand("~") })
-end, { desc = "Find Files (Home)" })
+-- n is for 'Neovim' ----------------------------------------------------------
+nmap_leader("nl", "<cmd>Lazy<CR>", "Open Lazy UI")
+nmap_leader("nc", "<cmd>checkhealth lsp<CR>", "Checkhealth LSP")
+nmap_leader("nr", "<cmd>restart<CR>", "Restart Neovim")
 
--- Grep
-map("n", "<leader>sg", function()
-  Snacks.picker.grep({ cwd = vim.fn.expand("%:p:h") })
-end, { desc = "Grep (Current File)" })
+-- r is for 'Run' -------------------------------------------------------------
+nmap_leader("r", Fn.run_current_file, "Run/Compile Current File")
 
-map("n", "<leader>sG", function()
-  Snacks.picker.grep({ cwd = vim.fn.getcwd() })
-end, { desc = "Grep (cwd)" })
-
-map("n", "<leader>sH", function()
-  Snacks.picker.grep({ cwd = vim.fn.expand("~") })
-end, { desc = "Grep (Home)" })
-
-map("n", "<leader>cx", function()
-  local local_config = vim.fn.getcwd() .. "/.nvim.lua"
-
-  if vim.fn.filereadable(local_config) == 0 then
-    vim.notify("No .nvim.lua found in project root", vim.log.levels.WARN)
-    return
-  end
-
-  local content = vim.secure.read(local_config)
-  if not content then
-    vim.notify("Execution blocked: .nvim.lua is not trusted.", vim.log.levels.WARN)
-    return
-  end
-
-  local chunk, err = load(content, "@" .. local_config)
-  if not chunk then
-    vim.notify("Syntax error in " .. local_config .. ": " .. err, vim.log.levels.ERROR)
-    return
-  end
-
-  chunk()
-  vim.notify("Sourced: " .. local_config, vim.log.levels.INFO)
-
-  vim.schedule(function()
-    if vim.bo.filetype ~= "" then
-      vim.cmd("doautocmd FileType " .. vim.bo.filetype)
-    end
+-- q is for 'Quit / Session' --------------------------------------------------
+nmap_leader("qq", "<cmd>qa<CR>", "Quit All")
+nmap_leader("qs", function()
+  vim.ui.input({ prompt = "Session: ", default = vim.fs.basename(vim.uv.cwd()) }, function(n)
+    if n and n ~= "" then require("mini.sessions").write(n, { force = true }) end
   end)
-end, { desc = "Source project .nvim.lua" })
+end, "Save Session")
+nmap_leader("ql", function() require("mini.sessions").select()         end, "Load Session")
+nmap_leader("qd", function() require("mini.sessions").select("delete") end, "Delete Session")
 
--- Helper function for Kitty IPC
-local function kitty_launch(args, post_cmd)
-  local dir = vim.fn.expand("%:p:h")
-  if dir == "" then
-    dir = vim.fn.getcwd()
-  end
+-- s is for 'Search' ----------------------------------------------------------
+nmap_leader("s.", function() MiniPick.builtin.grep_live(nil, { source = { cwd = vim.fn.expand("%:p:h") } }) end, "Grep (current file dir)")
+nmap_leader("sg", "<Cmd>Pick grep_live<CR>", "Grep (cwd)")
+nmap_leader("s:", '<Cmd>Pick history scope=":"<CR>', "Command History")
+nmap_leader("sn", function() require("mini.notify").show_history() end, "Notifications")
+nmap_leader("sw", '<Cmd>Pick grep pattern="<cword>"<CR>', "Grep word")
+nmap_leader("st", '<Cmd>Pick grep pattern="TODO|FIXME|HACK|NOTE"<CR>', "TODOs (Project)")
+nmap_leader("sr", function() -- Simulate grugfar behavior using mini.pick + quickfix
+  vim.ui.input({ prompt = "Replace: " }, function(search)
+    if not search or search == "" then return end
+    vim.ui.input({ prompt = "With: " }, function(replace)
+      if not replace then return end
+      vim.cmd(string.format("cdo s/%s/%s/ge | update", search, replace))
+    end)
+  end)
+end, "Replace in Quickfix lines")
 
-  local cmd = string.format("kitty @ launch %s --cwd=%s", args, vim.fn.shellescape(dir))
-  vim.fn.system(cmd)
+-- t is for 'Terminal' (Kitty splits/tabs) ------------------------------------
+nmap_leader("tv", function() Fn.kitty_launch("--location=vsplit") end, "Kitty Split Vertical")
+nmap_leader("ts", function() Fn.kitty_launch("--location=hsplit", "kitty @ resize-window --axis vertical --increment -5") end, "Kitty Split Horizontal")
+nmap_leader("tt", function() Fn.kitty_launch("--type=tab") end, "Kitty New Tab")
 
-  if post_cmd then
-    vim.fn.system(post_cmd)
-  end
-end
+-- w is for 'Window' ----------------------------------------------------------
+nmap_leader("wv", "<cmd>vsplit<CR>", "Split window vertically")
+nmap_leader("ws", "<cmd>split<CR>",  "Split window Horizontally")
+nmap_leader("wd", "<cmd>close<CR>",  "Delete current window")
 
--- Terminal Splits & Tabs
-map("n", "<leader>tv", function()
-  kitty_launch("--location=vsplit")
-end, { desc = "Kitty Split Vertical" })
+return M
 
-map("n", "<leader>ts", function()
-  kitty_launch("--location=hsplit", "kitty @ resize-window --axis vertical --increment -5")
-end, { desc = "Kitty Split Horizontal" })
-
-map("n", "<leader>tt", function()
-  kitty_launch("--type=tab")
-end, { desc = "Kitty New Tab" })
+-- stylua: ignore end
