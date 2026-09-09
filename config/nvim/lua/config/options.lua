@@ -82,13 +82,15 @@ autocmd("BufEnter", { group = "format_options", command = "set formatoptions-=cr
 
 -- Close filetypes with 'q'
 autocmd("FileType", {
-  group = "close_with_q", pattern = { "checkhealth", "help", "lspinfo", "qf" },
-  callback = function(event)
-    vim.bo[event.buf].buflisted = false
+  group = "close_with_q", pattern = { "checkhealth", "help", "lspinfo", "qf", "git", "mininotify-history" },
+  callback = function(e)
+    vim.bo[e.buf].buflisted = false
     vim.schedule(function()
-      vim.keymap.set("n", "q", function() vim.cmd("close") pcall(vim.api.nvim_buf_delete, event.buf, { force = true })
-      end, {
-        buffer = event.buf, silent = true, desc = "Quit buffer" })
+      vim.keymap.set("n", "q", function()
+        if e.match == "mininotify-history" then return require("mini.bufremove").wipeout(e.buf, true) end
+        vim.cmd("close")
+        pcall(vim.api.nvim_buf_delete, e.buf, { force = true })
+      end, { buffer = e.buf, silent = true, desc = "Quit buffer" })
     end)
   end,
 })
