@@ -35,16 +35,7 @@ return {
     require("mini.bufremove").setup()
     require("mini.sessions").setup({ autoread = false, autowrite = true })
     require("mini.git").setup()
-    require("mini.diff").setup({
-      view = {
-        style = "sign",
-        signs = {
-          add = "▍",
-          change = "▍",
-          delete = "▍",
-        },
-      },
-    })
+    require("mini.diff").setup({ view = { style = "sign" } })
     local MiniMisc = require("mini.misc")
     MiniMisc.setup()
     MiniMisc.setup_restore_cursor()
