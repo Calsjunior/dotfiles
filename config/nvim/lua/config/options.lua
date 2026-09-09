@@ -39,16 +39,16 @@ vim.o.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
 vim.o.guicursor = "n-v-c:block-Cursor/lCursor-blinkwait1000-blinkon100-blinkoff100,i-ci:ver25-Cursor/lCursor,r-cr:hor20-Cursor/lCursor"
 
 -- Editing ====================================================================
-vim.o.autoindent  = true               -- Copy indent from current line when starting a new one
-vim.o.expandtab   = true               -- Use spaces instead of tabs
-vim.o.tabstop     = 2                  -- Number of spaces tabs count for
-vim.o.shiftwidth  = 2                  -- Size of an indent
+vim.o.autoindent  = true                     -- Copy indent from current line when starting a new one
+vim.o.expandtab   = true                     -- Use spaces instead of tabs
+vim.o.tabstop     = 2                        -- Number of spaces tabs count for
+vim.o.shiftwidth  = 2                        -- Size of an indent
 vim.o.softtabstop = 2
-vim.o.smartindent = true               -- Insert indents automatically
-vim.o.backspace   = "indent,eol,start" -- Allow backspacing over everything
-vim.o.virtualedit = "block"            -- Allow going past the end of line in visual block mode
-vim.o.completeopt = "menuone,noinsert" -- Auto select first match in completion menu
-vim.o.wildmode    = "noinsert:full"    -- Auto select first match in commandline menu
+vim.o.smartindent = true                     -- Insert indents automatically
+vim.o.backspace   = "indent,eol,start"       -- Allow backspacing over everything
+vim.o.virtualedit = "block"                  -- Allow going past the end of line in visual block mode
+vim.o.completeopt = "fuzzy,menuone,noinsert" -- Auto select first match in completion menu
+vim.o.wildmode    = "noinsert:full"          -- Auto select first match in commandline menu
 
 -- Pattern for a start of 'numbered' list (used in `gw`). This reads as
 -- "Start of list item is: at least one special character (digit, -, +, *)
