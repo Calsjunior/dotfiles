@@ -112,6 +112,10 @@
           "extensions.activeThemeID" = "firefox-compact-dark@mozilla.org";
           "media.hardware-video-decoding.force-enabled" = true;
 
+          # Enable cross device syncing
+          "services.sync.engine.workspaces" = true;
+          "services.sync.engine.tabs" = true;
+
           # Move URL bar to the top toolbar
           "zen.view.use-single-toolbar" = false;
 
