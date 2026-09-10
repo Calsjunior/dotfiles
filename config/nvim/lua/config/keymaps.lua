@@ -65,6 +65,7 @@ M.leader_group_clues = {
   { mode = "n", keys = "<leader>r",  desc = "+run" },
   { mode = "n", keys = "<leader>s",  desc = "+search" },
   { mode = "n", keys = "<leader>t",  desc = "+terminal" },
+  { mode = "n", keys = "<leader>v", desc = "+visits/bookmarks" },
   { mode = "n", keys = "<leader>w",  desc = "+window" },
 }
 
@@ -99,6 +100,8 @@ nmap_leader("fb", "<Cmd>Pick buffers<CR>",                   "Buffers")
 nmap_leader("fl", '<Cmd>Pick buf_lines scope="all"<CR>',     "Lines (all buffers)")
 nmap_leader("fL", '<Cmd>Pick buf_lines scope="current"<CR>', "Lines (current buffer)")
 nmap_leader("fR", "<Cmd>Pick resume<CR>",                    "Resume last picker")
+nmap_leader("fv", '<Cmd>Pick visit_paths cwd=""<CR>',        "Visit paths (all)")
+nmap_leader("fV", '<Cmd>Pick visit_paths<CR>',               "Visit paths (cwd)")
 
 -- g is for 'Git' -------------------------------------------------------------
 nmap_leader("ghs", "ghgh",     "Stage Hunk",   { remap = true })
@@ -177,6 +180,22 @@ end, "Replace in Quickfix lines")
 nmap_leader("tv", function() Fn.kitty_launch("--location=vsplit") end, "Kitty Split Vertical")
 nmap_leader("ts", function() Fn.kitty_launch("--location=hsplit", "kitty @ resize-window --axis vertical --increment -5") end, "Kitty Split Horizontal")
 nmap_leader("tt", function() Fn.kitty_launch("--type=tab") end, "Kitty New Tab")
+
+-- v is for 'Visits' ----------------------------------------------------------
+local make_pick_core = function(cwd, desc)
+  return function()
+    local sort_latest = require("mini.visits").gen_sort.default({ recency_weight = 1 })
+    local local_opts = { cwd = cwd, filter = "core", sort = sort_latest }
+    require("mini.extra").pickers.visit_paths(local_opts, { source = { name = desc } })
+  end
+end
+
+nmap_leader("vc", make_pick_core("", "Core visits (all)"),                    "Core visits (all)")
+nmap_leader("vC", make_pick_core(nil, "Core visits (cwd)"),                   "Core visits (cwd)")
+nmap_leader("vv", function() require("mini.visits").add_label("core")    end, "Add 'core' label")
+nmap_leader("vV", function() require("mini.visits").remove_label("core") end, "Remove 'core' label")
+nmap_leader("vl", function() require("mini.visits").add_label()          end, "Add label")
+nmap_leader("vL", function() require("mini.visits").remove_label()       end, "Remove label")
 
 -- w is for 'Window' ----------------------------------------------------------
 nmap_leader("wv", "<cmd>vsplit<CR>", "Split window vertically")

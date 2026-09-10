@@ -31,6 +31,7 @@ return {
 
     -- General workflow ====================================================================
     require("mini.pick").setup({ mappings = { choose_marked = "<C-q>" } })
+    require("mini.visits").setup()
     require("mini.extra").setup()
     require("mini.bufremove").setup()
     require("mini.sessions").setup({ autoread = false, autowrite = true })
