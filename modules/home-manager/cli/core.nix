@@ -18,7 +18,6 @@
 
     home.packages = with pkgs; [
       fd
-      ripgrep
       eza
       bat
       trash-cli
@@ -43,6 +42,15 @@
         "--tiebreak=end,length"
         "--preview 'if [[ -d {} ]]; then eza --tree --level=1 --color=always --icons=always {}; elif [[ -f {} ]]; then bat --color=always {}; fi'"
         "--bind=ctrl-y:accept"
+      ];
+    };
+
+    programs.ripgrep = {
+      enable = true;
+      arguments = [
+        "--hidden"
+        "--glob=!.git/*"
+        "--smart-case"
       ];
     };
 
