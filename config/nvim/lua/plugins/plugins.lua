@@ -42,7 +42,7 @@ return {
   },
 
   -- For nix-flakes with direnv ===============================================
-  { "actionshrimp/direnv.nvim", opts = {} },
+  { "NotAShelf/direnv.nvim", opts = { autoload_direnv = true } },
 
   -- Command line appearance ==================================================
   {
