@@ -10,25 +10,28 @@ vim.o.hidden    = true          -- Keep unsaved buffers in the background
 vim.o.clipboard = "unnamedplus" -- Sync with system clipboard
 
 -- UI =========================================================================
-vim.o.number         = true          -- Show absolute line numbers
-vim.o.relativenumber = true          -- Show relative line numbers
-vim.o.cursorline     = true          -- Highlight current line
-vim.o.wrap           = false         -- Disable line wrapping
-vim.o.scrolloff      = 99            -- Keep cursor vertically centered
-vim.o.scrolloffpad   = 1             -- Padding for scrolloff EOF
-vim.o.sidescrolloff  = 8             -- Keep cursor 8 columns away from horizontal edges
-vim.o.signcolumn     = "yes"         -- Always show signcolumn to prevent flicker
-vim.o.ruler          = false         -- Don't show cursor coordinates
-vim.o.showmode       = false         -- Hide "-- INSERT --" since statusline handles it
-vim.o.laststatus     = 3             -- Enable only one status line for entire neovim session
-vim.o.pumheight      = 10            -- Max items in popup menu
-vim.o.winborder      = "rounded"     -- Rounded borders for floating windows
-vim.o.fillchars      = { eob = " " } -- Hide `~` on empty lines
-vim.o.splitbelow     = true          -- Horizontal splits will open below
-vim.o.splitright     = true          -- Vertical splits will open to the right
-vim.o.splitkeep      = "screen"      -- Keep text on the same screen line when splitting
-vim.o.breakindent    = true          -- Indent wrapped lines to match line start
-vim.o.linebreak      = true          -- Wrap long lines at a word boundary, not in the middle of a word
+vim.o.number          = true          -- Show absolute line numbers
+vim.o.relativenumber  = true          -- Show relative line numbers
+vim.o.cursorline      = true          -- Highlight current line
+vim.o.wrap            = false         -- Disable line wrapping
+vim.o.scrolloff       = 99            -- Keep cursor vertically centered
+vim.o.scrolloffpad    = 1             -- Padding for scrolloff EOF
+vim.o.sidescrolloff   = 8             -- Keep cursor 8 columns away from horizontal edges
+vim.o.signcolumn      = "yes"         -- Always show signcolumn to prevent flicker
+vim.o.ruler           = false         -- Don't show cursor coordinates
+vim.o.showmode        = false         -- Hide "             -- INSERT --" since statusline handles it
+vim.o.laststatus      = 3             -- Enable only one status line for entire neovim session
+vim.o.pumheight       = 10            -- Max items in popup menu
+vim.o.winborder       = "rounded"     -- Rounded borders for floating windows
+vim.o.fillchars       = { eob = " " } -- Hide `~` on empty lines
+vim.o.splitbelow      = true          -- Horizontal splits will open below
+vim.o.splitright      = true          -- Vertical splits will open to the right
+vim.o.splitkeep       = "screen"      -- Keep text on the same screen line when splitting
+vim.o.breakindent     = true          -- Indent wrapped lines to match line start
+vim.o.linebreak       = true          -- Wrap long lines at a word boundary, not in the middle of a word
+vim.o.pummaxwidth     = 100           -- Limit maximum width of popup menu
+vim.o.completetimeout = 100
+vim.o.pumborder       = 'rounded'     -- Use border in built-in completion menu
 require('vim._core.ui2').enable({ enable = true })
 
 -- Show trailing spaces and tabs
@@ -78,7 +81,7 @@ autocmd("FileType", { pattern = "*", callback = function(args) pcall(vim.treesit
 autocmd("TextYankPost", { group = "highlight_yank", callback = function() vim.hl.hl_op() end })
 
 -- Don't auto comment new line
-autocmd("BufEnter", { group = "format_options", command = "set formatoptions-=cro" })
+autocmd("Filetype", { group = "format_options", command = "set formatoptions-=cro" })
 
 -- Close filetypes with 'q'
 autocmd("FileType", {
@@ -88,7 +91,7 @@ autocmd("FileType", {
     vim.schedule(function()
       vim.keymap.set("n", "q", function()
         if e.match == "mininotify-history" then return require("mini.bufremove").wipeout(e.buf, true) end
-        vim.cmd("close")
+        pcall(vim.cmd, "close")
         pcall(vim.api.nvim_buf_delete, e.buf, { force = true })
       end, { buffer = e.buf, silent = true, desc = "Quit buffer" })
     end)
