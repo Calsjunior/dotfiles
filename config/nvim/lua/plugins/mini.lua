@@ -96,34 +96,6 @@ return {
     require("mini.notify").setup()
     require("mini.statusline").setup()
     require("mini.tabline").setup({ tabpage_section = "none" })
-
-    -- stylua: ignore
-    local function apply_custom_highlights()
-      local function hl(name)
-        return vim.api.nvim_get_hl(0, { name = name, link = false }) or {}
-      end
-
-      local bg_main = vim.g.terminal_color_0 or hl("Normal").bg
-      local hidden_fg = hl("InclineNormalNC").fg or hl("Comment").fg
-      local toolbar_bg = hl("ToolbarLine").bg or hl("StatusLineNC").bg
-      vim.api.nvim_set_hl(0, "CurrentWord",                { underline = true })
-      vim.api.nvim_set_hl(0, "NormalFloat",                { bg = bg_main })
-      vim.api.nvim_set_hl(0, "FloatBorder",                { fg = hl("StatusLineNC").fg, bg = bg_main })
-      vim.api.nvim_set_hl(0, "MiniTablineCurrent",         { fg = hl("StatusLine").fg,   bg = hl("NormalNC").bg, bold = true, italic = true })
-      vim.api.nvim_set_hl(0, "MiniTablineVisible",         { fg = hl("StatusLineNC").fg, bg = hl("TabLineFill").bg, bold = true })
-      vim.api.nvim_set_hl(0, "MiniTablineModifiedCurrent", { fg = hl("String").fg,       bg = hl("StatusLine").bg, bold = true })
-      vim.api.nvim_set_hl(0, "MiniTablineModifiedHidden",  { fg = hl("WarningMsg").fg,   bg = hl("StatusLineNC").bg })
-      vim.api.nvim_set_hl(0, "MiniTablineHidden",          { fg = hidden_fg,             bg = toolbar_bg })
-      vim.api.nvim_set_hl(0, "MiniTablineFill",            { bg = toolbar_bg })
-    end
-
-    apply_custom_highlights()
-    vim.api.nvim_create_autocmd("ColorScheme", {
-      group = vim.api.nvim_create_augroup("MiniTablineHighlights", { clear = true }),
-      pattern = "*",
-      callback = apply_custom_highlights,
-    })
-
     local hipatterns = require("mini.hipatterns")
     hipatterns.setup({
       highlighters = {

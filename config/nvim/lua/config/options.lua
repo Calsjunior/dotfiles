@@ -68,7 +68,7 @@ if vim.fn.has("nvim-0.13") == 1 then
   vim.o.updatetime = 200        -- Faster completion and CursorHold events
 end
 
--- Integrations ===============================================================
+-- Autocommands ===============================================================
 local autocmd = require("config.functions").autocmd
 
 -- Enable treesitters installed with home manager
@@ -100,13 +100,51 @@ autocmd("FileType", {
 
 -- Open binary files in external program
 autocmd("BufReadCmd", {
-  group = vim.api.nvim_create_augroup("open_external_files", { clear = true }),
+  group = "open_external_files",
   pattern = { "*.png", "*.jpg", "*.jpeg", "*.gif", "*.webp", "*.svg", "*.pdf" },
   callback = function(e)
     vim.ui.open(e.match)
     vim.schedule(function()
       require("mini.bufremove").wipeout(e.buf, true)
     end)
+  end,
+})
+
+autocmd("ColorScheme", {
+  group = "global_ui_overrides",
+  pattern = "*",
+  callback = function()
+    local hi = function(name, data) vim.api.nvim_set_hl(0, name, data) end
+    local get = function(name) return vim.api.nvim_get_hl(0, { name = name }) or {} end
+
+    local bg_main       = get("Normal").bg
+    local fg_main       = get("Normal").fg
+    local bg_cursorline = get("CursorLine").bg
+    local bg_visual     = get("Visual").bg
+    local fg_string     = get("String").fg
+    local fg_comment    = get("Comment").fg
+    local bg_toolbar    = get("StatusLineNC").bg
+
+    hi("Pmenu",         { bg = bg_main,       fg = fg_main })
+    hi("PmenuSel",      { bg = bg_cursorline, bold = true })
+    hi("PmenuBorder",   { fg = get("StatusLineNC").fg })
+    hi("PmenuSbar",     { bg = bg_main })
+    hi("PmenuThumb",    { bg = bg_visual })
+    hi("PmenuExtra",    { bg = bg_main,       fg = fg_comment })
+    hi("PmenuExtraSel", { bg = bg_cursorline, fg = fg_comment, bold = true })
+    hi("PmenuKind",     { bg = bg_main,       fg = fg_comment })
+    hi("PmenuKindSel",  { bg = bg_cursorline, fg = fg_comment, bold = true })
+
+    hi("MiniTablineCurrent",         { fg = get("StatusLine").fg,   bg = get("NormalNC").bg, bold = true, italic = true })
+    hi("MiniTablineVisible",         { fg = get("StatusLineNC").fg, bg = get("TabLineFill").bg, bold = true })
+    hi("MiniTablineModifiedCurrent", { fg = fg_string,              bg = get("StatusLine").bg, bold = true })
+    hi("MiniTablineModifiedHidden",  { fg = get("WarningMsg").fg,   bg = bg_toolbar })
+    hi("MiniTablineHidden",          { fg = fg_comment,             bg = bg_toolbar })
+    hi("MiniTablineFill",            { bg = bg_toolbar })
+
+    hi("NormalFloat", { bg = bg_main })
+    hi("FloatBorder", { fg = get("StatusLineNC").fg, bg = bg_main })
+    hi("CurrentWord", { underline = true })
   end,
 })
 
