@@ -1,13 +1,14 @@
 {
   "conform.nvim": { "branch": "master", "commit": "016802de402556da54c36bd7359b441266b01cdd" },
-  "direnv.nvim": { "branch": "main", "commit": "0d2edd378dbdf2c653869772d761ad914219ba9d" },
+  "direnv.nvim": { "branch": "main", "commit": "9258f9f10c4c729d8296fce0e3ecb12543daad06" },
+  "gruvbox-material": { "branch": "master", "commit": "11d779b26a9ab2b3db8c22c6ac9fb6e8ed4fea79" },
   "kitty-scrollback.nvim": { "branch": "main", "commit": "5a163bfeb789c1a2bfa143b0e78b02caa233bc43" },
   "lazy.nvim": { "branch": "main", "commit": "306a05526ada86a7b30af95c5cc81ffba93fef97" },
-  "mini.nvim": { "branch": "main", "commit": "25f25d3e6661d942323e56711096de1850d814ec" },
-  "nvim-lspconfig": { "branch": "master", "commit": "19576de1c1b6d1b5e231ea6ef9cba9a811c322bb" },
+  "mini.nvim": { "branch": "main", "commit": "6664ea9af6c43dc31934e27476bbe61c556c8dc1" },
+  "nvim-lspconfig": { "branch": "master", "commit": "ac9d2f7c4757db6320cab6697fe73e5e8adb2457" },
   "plenary.nvim": { "branch": "master", "commit": "74b06c6c75e4eeb3108ec01852001636d85a932b" },
   "smart-splits.nvim": { "branch": "master", "commit": "ec76708f1617ef9e2ac353357fe52d2c997a0f06" },
   "snacks.nvim": { "branch": "main", "commit": "882c996cf28183f4d63640de0b4c02ec886d01f2" },
   "tiny-cmdline.nvim": { "branch": "main", "commit": "e247d9ee4c980734f8f8bf616d31e0ab7c27485d" },
-  "yazi.nvim": { "branch": "main", "commit": "751f6aa78705dc593b0ee1d441af4ee683e853cc" }
+  "yazi.nvim": { "branch": "main", "commit": "c99f88a672b915c508748a723c17c4d5c3cc6f8b" }
 }
