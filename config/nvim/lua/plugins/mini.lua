@@ -21,9 +21,13 @@ return {
     })
     require("mini.keymap").setup()
     local map_multistep = require("mini.keymap").map_multistep
+    local pmenu_cancel = { -- Handle accept with ctrl-y only
+      condition = function() return vim.fn.pumvisible() == 1 end,
+      action = function() return '<C-e>' .. _G.MiniPairs.cr() end,
+    }
     map_multistep("i", "<C-y>",   { "pmenu_accept" })
     map_multistep("c", "<C-y>",   { "pmenu_accept" })
-    map_multistep("i", "<CR>",    { "minipairs_cr" })
+    map_multistep("i", "<CR>",    {  pmenu_cancel ,"minipairs_cr" })
     map_multistep("i", "<BS>",    { "minipairs_bs", "hungry_bs" })
     map_multistep("i", "<Tab>",   { "minisnippets_expand", "minisnippets_next", "jump_after_close", })
     map_multistep("i", "<S-Tab>", { "minisnippets_prev", "jump_before_open", })
