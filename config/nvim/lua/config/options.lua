@@ -98,4 +98,16 @@ autocmd("FileType", {
   end,
 })
 
+-- Open binary files in external program
+autocmd("BufReadCmd", {
+  group = vim.api.nvim_create_augroup("open_external_files", { clear = true }),
+  pattern = { "*.png", "*.jpg", "*.jpeg", "*.gif", "*.webp", "*.svg", "*.pdf" },
+  callback = function(e)
+    vim.ui.open(e.match)
+    vim.schedule(function()
+      require("mini.bufremove").wipeout(e.buf, true)
+    end)
+  end,
+})
+
 -- stylua: ignore end

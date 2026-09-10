@@ -20,26 +20,7 @@ return {
   },
 
   -- Explorer =================================================================
-  {
-    "mikavilpas/yazi.nvim",
-    event = "VeryLazy",
-    opts = {
-      open_for_directories = true,
-      open_file_function = function(chosen_file)
-        local ext = chosen_file:match("^.+%.(.+)$")
-        -- stylua: ignore
-        local external_exts = {
-          png  = true, jpg = true, jpeg = true, gif = true,
-          webp = true, svg = true, pdf  = true,
-        }
-        if ext and external_exts[ext:lower()] then
-          vim.fn.jobstart({ "xdg-open", chosen_file }, { detach = true })
-        else
-          vim.cmd.edit(vim.fn.fnameescape(chosen_file))
-        end
-      end,
-    },
-  },
+  { "mikavilpas/yazi.nvim", event = "VeryLazy", opts = { open_for_directories = true } },
 
   -- For nix-flakes with direnv ===============================================
   { "NotAShelf/direnv.nvim", opts = { autoload_direnv = true } },
