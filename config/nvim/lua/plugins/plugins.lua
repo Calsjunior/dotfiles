@@ -1,22 +1,35 @@
 return {
+  -- stylua: ignore start
   -- Terminal Workflow ========================================================
   {
     "mrjones2014/smart-splits.nvim",
     lazy = false,
-    -- stylua: ignore start
     opts = {
       ignored_filetypes       = { "NvimTree" },
       multiplexer_integration = "kitty",
     },
-    -- stylua: ignore end
   },
   {
     "mikesmithgh/kitty-scrollback.nvim",
-    enabled = true,
-    lazy = true,
+    enabled = true, lazy = true,
     cmd = { "KittyScrollbackGenerateKittens", "KittyScrollbackCheckHealth" },
     event = { "User KittyScrollbackLaunch" },
     opts = { paste_window = { yank_register_enabled = false, hide_footer = true } },
+  },
+
+  -- Snacks for git enhancement ===============================================
+  {
+    "folke/snacks.nvim",
+    lazy = false,
+    opts = {
+      picker    = { enabled = true },
+      scroll    = { enabled = true },
+      lazygit   = { enabled = true },
+      gitbrowse = { enabled = true },
+      gh        = { enabled = true },
+      indent    = { enabled = true, scope = { enabled = false } },
+      image     = { enabled = true, doc   = { enabled = false, float = true, inline = false, max_width = 60, max_height = 25 } },
+    },
   },
 
   -- Explorer =================================================================
@@ -51,4 +64,5 @@ return {
       vim.cmd("colorscheme gruvbox-material")
     end,
   },
+  -- stylua: ignore end
 }
