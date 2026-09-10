@@ -91,7 +91,7 @@ autocmd("FileType", {
     vim.schedule(function()
       vim.keymap.set("n", "q", function()
         if e.match == "mininotify-history" then return require("mini.bufremove").wipeout(e.buf, true) end
-        pcall(vim.cmd, "close")
+        pcall(function() vim.cmd("close") end)
         pcall(vim.api.nvim_buf_delete, e.buf, { force = true })
       end, { buffer = e.buf, silent = true, desc = "Quit buffer" })
     end)
@@ -108,6 +108,18 @@ autocmd("BufReadCmd", {
       require("mini.bufremove").wipeout(e.buf, true)
     end)
   end,
+})
+
+-- Diagnostics ================================================================
+local severity = vim.diagnostic.severity
+vim.diagnostic.config({
+  signs = { priority = 9999, severity = { min = severity.WARN, max = severity.ERROR } },
+  underline = { severity = { min = severity.HINT, max = severity.ERROR } },
+  virtual_lines = false,
+  virtual_text = {
+    current_line = true, severity = { min = severity.ERROR, max = severity.ERROR },
+  },
+  update_in_insert = false,
 })
 
 -- stylua: ignore end
