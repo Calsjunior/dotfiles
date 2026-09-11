@@ -23,7 +23,6 @@ return {
     lazy = false,
     opts = {
       picker    = { enabled = true },
-      lazygit   = { enabled = true },
       gh        = { enabled = true },
       indent    = { enabled = true, scope = { enabled = false } },
       image     = { enabled = true, doc   = { enabled = false, float = true, inline = false, max_width = 60, max_height = 25 } },

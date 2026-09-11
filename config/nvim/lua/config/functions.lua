@@ -222,4 +222,61 @@ function M.gitbrowse(is_visual)
   end
 end
 
+function M.lazygit()
+  local function hex(hl_name, attr)
+    local hl = vim.api.nvim_get_hl(0, { name = hl_name, link = false })
+    return hl[attr] and string.format("#%06x", hl[attr]) or "default"
+  end
+  -- stylua: ignore
+  local theme_yaml = string.format([[
+os:
+  editPreset: 'nvim-remote'
+gui:
+  nerdFontsVersion: "3"
+  theme:
+    activeBorderColor   : ['%s', 'bold']
+    inactiveBorderColor : ['%s']
+    selectedLineBgColor : ['%s']
+    unstagedChangesColor: ['%s']
+]],
+    hex("MatchParen",      "fg"),
+    hex("FloatBorder",     "fg"),
+    hex("Visual",          "bg"),
+    hex("DiagnosticError", "fg")
+  )
+
+  local temp_config = vim.fn.stdpath("cache") .. "/lazygit-nvim.yml"
+  vim.fn.writefile(vim.split(theme_yaml, "\n"), temp_config)
+  local base_config = vim.env.LG_CONFIG_FILE
+    or ((vim.env.XDG_CONFIG_HOME or vim.env.HOME .. "/.config") .. "/lazygit/config.yml")
+
+  local width = math.floor(vim.o.columns * 0.9)
+  local height = math.floor(vim.o.lines * 0.9)
+  local buf = vim.api.nvim_create_buf(false, true)
+
+  -- stylua: ignore
+  local win = vim.api.nvim_open_win(buf, true, {
+    relative = "editor", width = width, height = height,
+    col = math.floor((vim.o.columns - width) / 2),
+    row = math.floor((vim.o.lines - height) / 2),
+    style = "minimal", border = "rounded",
+    title = " Lazygit ", title_pos = "center",
+  })
+
+  vim.fn.jobstart({ "lazygit" }, {
+    term = true,
+    env = { LG_CONFIG_FILE = base_config .. "," .. temp_config },
+    on_exit = function()
+      if vim.api.nvim_win_is_valid(win) then
+        vim.api.nvim_win_close(win, true)
+      end
+      if vim.api.nvim_buf_is_valid(buf) then
+        vim.api.nvim_buf_delete(buf, { force = true })
+      end
+    end,
+  })
+
+  vim.cmd("startinsert")
+end
+
 return M

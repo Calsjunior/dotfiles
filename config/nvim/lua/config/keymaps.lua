@@ -113,7 +113,7 @@ nmap_leader("gd",  "<Cmd>Pick git_hunks<CR>",            "Modified hunks (worksp
 nmap_leader("gD",  '<Cmd>Pick git_hunks path="%"<CR>',   "Modified hunks (buffer)")
 nmap_leader("ghb", function() require("mini.git").show_at_cursor()      end, "Blame Line")
 nmap_leader("ghp", function() require("mini.diff").toggle_overlay()     end, "Preview Hunks (Overlay)")
-nmap_leader("gg",  function() Snacks.lazygit()                          end, "Lazygit")
+nmap_leader("gg",  Fn.lazygit,                                               "Lazygit")
 nmap_leader("gb",  Fn.gitbrowse,                                             "Browse")
 xmap_leader("gb",  function() Fn.gitbrowse(true) end,                        "Browse (selection)")
 nmap_leader("gi",  function() Snacks.picker.gh_issue()                  end, "Issues (open)")
