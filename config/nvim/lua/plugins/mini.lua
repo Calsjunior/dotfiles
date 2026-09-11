@@ -97,9 +97,35 @@ return {
     require("mini.cursorword").setup()
     require("mini.starter").setup()
     require("mini.notify").setup()
-    require("mini.animate").setup({ cursor = { enable = false } })
     require("mini.statusline").setup()
     require("mini.tabline").setup({ tabpage_section = "none" })
+    local animate = require("mini.animate")
+    local last_scroll_time = 0
+    local is_repeat = false
+    -- stylua: ignore
+    animate.setup({
+      cursor = { enable = false },
+      resize = { enable = false },
+      open   = { enable = false },
+      close  = { enable = false },
+      scroll = {
+        timing = function(step, n)
+          if step == 1 then
+            local now = vim.uv.hrtime() / 1e6
+            is_repeat = (now - last_scroll_time) <= 100
+            last_scroll_time = now
+          end
+
+          local duration = is_repeat and 50 or 200
+          return animate.gen_timing.linear({ duration = duration, unit = "total" })(step, n)
+        end,
+
+        subscroll = animate.gen_subscroll.equal({
+          predicate = function(total_scroll) return total_scroll > 1 end,
+          max_output_steps = 20,
+        }),
+      },
+    })
     require("mini.indentscope").setup({
       symbol = "│",
       draw = { delay = 0, animation = require("mini.indentscope").gen_animation.none() },
