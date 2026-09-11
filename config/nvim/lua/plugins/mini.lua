@@ -14,7 +14,6 @@ return {
     require("mini.jump").setup()
     require("mini.jump2d").setup({ view = { dim = true } })
     require("mini.completion").setup()
-    vim.cmd([[autocmd FileType snacks_picker_input lua vim.b.minicompletion_disable = true]])
     require("mini.ai").setup({
       custom_textobjects = {
         e = { { "%u[%l%d]+%f[^%l%d]", "%f[%S][%l%d]+%f[^%l%d]", "%f[%P][%l%d]+%f[^%l%d]", "^[%l%d]+%f[^%l%d]" }, "^().*()$" } },
