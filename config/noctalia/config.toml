@@ -32,6 +32,7 @@ order = [ "default" ]
     contact_shadow = false
     enabled = true
     end = [ "tray", "group:g4", "group:g2", "group:g1", "session" ]
+    font_scale = 1.0
     font_weight = 500
     hover_highlight = true
     layer = "top"
@@ -109,6 +110,8 @@ sync_all_monitors = false
 
 [calendar]
 enabled = false
+event_date_format = "%A %e %B"
+event_time_format = "%H:%M"
 refresh_minutes = 15
 
 [control_center]
@@ -120,8 +123,6 @@ sidebar_section = "compact"
 width = 700
 
     [control_center.calendar]
-    event_date_format = "%A %e %B"
-    event_time_format = "%H:%M"
     show_events_card = true
     show_week_numbers = false
 
@@ -146,14 +147,11 @@ width = 700
 [desktop_widgets]
 enabled = false
 schema_version = 1
-widget_order = []
 
     [desktop_widgets.grid]
     cell_size = 16
     major_interval = 4
     visible = false
-
-    [desktop_widgets.widget]
 
 [dock]
 active_monitor_only = false
@@ -503,11 +501,13 @@ auto_update = "none"
 enabled = [ "noctalia/screen_recorder", "noctalia/notes", "profidev/hypr-screen-mirror", "thepunkoff/pomodoro" ]
 
     [[plugins.source]]
+    enabled = true
     kind = "git"
     location = "https://github.com/noctalia-dev/official-plugins"
     name = "official"
 
     [[plugins.source]]
+    enabled = true
     kind = "git"
     location = "https://github.com/noctalia-dev/community-plugins"
     name = "community"
@@ -581,7 +581,6 @@ time_format = "{:%I:%M %p}"
     control_center_position = "auto"
     floating_layer = "overlay"
     floating_offset = 8
-    launcher_compact = true
     launcher_placement = "attached"
     launcher_position = "center"
     list_item_background = false
@@ -681,6 +680,9 @@ time_format = "{:%I:%M %p}"
     alpha = 0.55000001192092896
     direction = "down"
 
+    [shell.window_switcher]
+    mru = false
+
 [storage]
 key_file = "/run/secrets/noctalia_storage_key"
 key_source = "file"
@@ -728,6 +730,7 @@ community_palette = "ADW"
 custom_palette = "ADW"
 mode = "dark"
 pure_black_dark = false
+shell_mode = "follow"
 source = "builtin"
 wallpaper_scheme = "m3-monochrome"
 
@@ -755,15 +758,6 @@ transition_on_startup = false
     interval_seconds = 1800
     order = "random"
     recursive = true
-
-    [wallpaper.default]
-    path = "/home/cal/Pictures/wallpapers/gruvbox-material/swag-girl.png"
-
-    [wallpaper.last]
-    path = "/home/cal/Pictures/wallpapers/gruvbox-material/swag-girl.png"
-
-    [wallpaper.monitors.eDP-1]
-    path = "/home/cal/Pictures/wallpapers/gruvbox-material/swag-girl.png"
 
 [weather]
 effects = true
