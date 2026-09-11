@@ -103,7 +103,7 @@ nmap_leader("fV", '<Cmd>Pick visit_paths<CR>',               "Visit paths (cwd)"
 -- g is for 'Git' -------------------------------------------------------------
 nmap_leader("ghs", "ghgh",     "Stage Hunk",   { remap = true })
 nmap_leader("ghr", "gHgh",     "Reset Hunk",   { remap = true })
-nmap_leader("ghR", "ggVGgH``", "Reset Buffer", { remap = true })
+nmap_leader("ghR", function() local view = vim.fn.winsaveview() vim.cmd("keepjumps normal ggVGgH") vim.fn.winrestview(view) end, "Reset Buffer")
 nmap_leader("gc",  "<Cmd>Pick git_commits<CR>",          "Commits (all)")
 nmap_leader("gC",  '<Cmd>Pick git_commits path="%"<CR>', "Commits (buffer)")
 nmap_leader("gd",  "<Cmd>Pick git_hunks<CR>",            "Modified hunks (workspace)")
