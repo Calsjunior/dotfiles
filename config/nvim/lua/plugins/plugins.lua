@@ -22,8 +22,6 @@ return {
     "folke/snacks.nvim",
     lazy = false,
     opts = {
-      picker    = { enabled = true },
-      gh        = { enabled = true },
       indent    = { enabled = true, scope = { enabled = false } },
     },
   },

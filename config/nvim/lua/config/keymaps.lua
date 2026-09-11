@@ -1,5 +1,4 @@
 local Fn = require("config.functions")
-local Snacks = require("snacks")
 local MiniBufremove = require("mini.bufremove")
 local MiniPick = require("mini.pick")
 local map = vim.keymap.set
@@ -115,11 +114,11 @@ nmap_leader("ghb", function() require("mini.git").show_at_cursor()      end, "Bl
 nmap_leader("ghp", function() require("mini.diff").toggle_overlay()     end, "Preview Hunks (Overlay)")
 nmap_leader("gg",  Fn.lazygit,                                               "Lazygit")
 nmap_leader("gb",  Fn.gitbrowse,                                             "Browse")
-xmap_leader("gb",  function() Fn.gitbrowse(true) end,                        "Browse (selection)")
-nmap_leader("gi",  function() Snacks.picker.gh_issue()                  end, "Issues (open)")
-nmap_leader("gI",  function() Snacks.picker.gh_issue({ state = "all" }) end, "Issues (all)")
-nmap_leader("gp",  function() Snacks.picker.gh_pr()                     end, "Pull Requests (open)")
-nmap_leader("gP",  function() Snacks.picker.gh_pr({ state = "all" })    end, "Pull Requests (all)")
+xmap_leader("gb",  function() Fn.gitbrowse(true)                        end,                        "Browse (selection)")
+nmap_leader("gi",  function() Fn.gh_picker("issue")                     end, "Issues (open)")
+nmap_leader("gI",  function() Fn.gh_picker("issue", "all")              end, "Issues (all)")
+nmap_leader("gp",  function() Fn.gh_picker("pr")                        end, "PRs (open)")
+nmap_leader("gP",  function() Fn.gh_picker("pr", "all")                 end, "PRs (all)")
 
 -- i is for 'Insert' ----------------------------------------------------------
 nmap_leader("is", Fn.insert_snippet, "Insert Snippet")

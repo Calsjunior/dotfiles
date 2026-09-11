@@ -279,4 +279,23 @@ gui:
   vim.cmd("startinsert")
 end
 
+function M.gh_picker(type, state)
+  local cmd = { "gh", type, "list", "--limit", "50" }
+  if state then
+    vim.list_extend(cmd, { "--state", state })
+  end
+
+  require("mini.pick").builtin.cli({ command = cmd }, {
+    source = {
+      name = "GitHub " .. type:upper() .. (state and " (" .. state .. ")" or ""),
+      choose = function(item)
+        local id = item:match("^#?(%d+)")
+        if id then
+          vim.fn.jobstart({ "gh", type, "view", "--web", id })
+        end
+      end,
+    },
+  })
+end
+
 return M
