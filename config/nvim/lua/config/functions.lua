@@ -117,38 +117,30 @@ end
 -- Snippet insertion ==========================================================
 function M.insert_snippet()
   local base_dir = "~/dev"
-  local ft_map = {
-    html = "web/snippets/html",
-    css = "web/snippets/css",
-    javascript = "web/snippets/js",
-    c = "c/snippets",
-    cpp = "cpp/snippets",
-    typst = "typst/snippets",
+  -- stylua: ignore start
+  local map = {
+    html = "web/snippets/html", css = "web/snippets/css", javascript = "web/snippets/js",
+    c    = "c/snippets",        cpp = "cpp/snippets",     typst      = "typst/snippets"
   }
-  local folder = ft_map[vim.bo.filetype]
-  if not folder then
-    vim.notify("No snippet folder for: " .. vim.bo.filetype, vim.log.levels.WARN)
-    return
-  end
-  local snippet_dir = vim.fn.expand(base_dir .. "/" .. folder)
-  if vim.fn.isdirectory(snippet_dir) == 0 then
-    vim.notify("Snippet directory not found: " .. snippet_dir, vim.log.levels.ERROR)
-    return
-  end
-  Snacks.picker.files({
-    cwd = snippet_dir,
-    title = "Insert Snippet [" .. vim.bo.filetype .. "]",
-    confirm = function(picker, item)
-      picker:close()
-      if item then
-        local full_path = snippet_dir .. "/" .. item.file
-        local lines = vim.fn.readfile(full_path)
-        local row = vim.api.nvim_win_get_cursor(0)[1]
-        local is_empty = vim.api.nvim_get_current_line():match("^%s*$") ~= nil
-        vim.api.nvim_buf_set_lines(0, row - 1, is_empty and row or (row - 1), false, lines)
+
+  if not map[vim.bo.filetype] then return vim.notify("No snippets for: " .. vim.bo.filetype, 3) end
+  local dir = vim.fn.expand(base_dir .. "/" .. map[vim.bo.filetype])
+  if vim.fn.isdirectory(dir) == 0 then return vim.notify("Dir not found: " .. dir, 4) end
+
+  local buf, win = vim.api.nvim_get_current_buf(), vim.api.nvim_get_current_win()
+  require("mini.pick").builtin.files(nil, {
+    source = {
+      cwd = dir, name = "Snippets",
+      choose = function(item)
+        if not item then return end
+        local row = vim.api.nvim_win_get_cursor(win)[1]
+        local empty = vim.api.nvim_buf_get_lines(buf, row - 1, row, false)[1]:match("^%s*$")
+        vim.api.nvim_buf_set_lines(buf, row - 1, empty and row or (row - 1), false, vim.fn.readfile(dir .. "/" .. item))
       end
-    end,
+    }
   })
+
+  -- stylua: ignore end
 end
 
 -- Project-local config execution =============================================
