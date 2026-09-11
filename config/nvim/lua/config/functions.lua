@@ -1,5 +1,6 @@
 local M = {}
 
+-- For easy autocmds creation =================================================
 local augroups = {}
 function M.autocmd(event, opts)
   local final_opts = vim.tbl_extend("force", {}, opts)
@@ -188,6 +189,44 @@ function M.kitty_launch(args, post_cmd)
   vim.fn.system(string.format("kitty @ launch %s --cwd=%s", args, vim.fn.shellescape(dir)))
   if post_cmd then
     vim.fn.system(post_cmd)
+  end
+end
+
+-- Git ========================================================================
+function M.gitbrowse(is_visual)
+  local function git(args)
+    local res = vim.system(vim.list_extend({ "git" }, args), { text = true }):wait()
+    return res.code == 0 and vim.trim(res.stdout) or nil
+  end
+
+  local remote = git({ "config", "--get", "remote.origin.url" })
+  if not remote then
+    return vim.notify("No git remote", 3)
+  end
+
+  local ref = git({ "rev-parse", "--verify", "@{u}" }) and git({ "rev-parse", "--abbrev-ref", "HEAD" })
+    or git({ "rev-parse", "HEAD" })
+
+  local repo = remote:gsub("^git@", ""):gsub("^https?://", ""):gsub("%.git$", ""):gsub(":", "/")
+  local file = git({ "ls-files", "--full-name", vim.api.nvim_buf_get_name(0) })
+  local url = "https://" .. repo
+
+  if file and file ~= "" then
+    local l1, l2 = vim.fn.line("."), is_visual and vim.fn.line("v") or vim.fn.line(".")
+    local start_l, end_l = math.min(l1, l2), math.max(l1, l2)
+    local is_gl = repo:match("gitlab")
+
+    local blob = is_gl and "/-/blob/" or "/blob/"
+    local lines = (start_l == end_l) and ("#L" .. start_l)
+      or string.format(is_gl and "#L%d-%d" or "#L%d-L%d", start_l, end_l)
+
+    url = url .. blob .. ref .. "/" .. file .. lines
+  end
+
+  vim.ui.open(url)
+  vim.notify("Opened: " .. url)
+  if is_visual then
+    vim.api.nvim_input("<Esc>")
   end
 end
 
