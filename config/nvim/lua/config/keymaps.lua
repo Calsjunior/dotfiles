@@ -1,6 +1,4 @@
 local Fn = require("config.functions")
-local MiniBufremove = require("mini.bufremove")
-local MiniPick = require("mini.pick")
 local map = vim.keymap.set
 
 -- stylua: ignore start
@@ -70,10 +68,10 @@ M.leader_group_clues = {
 
 -- b is for 'Buffer' ----------------------------------------------------------
 nmap_leader("ba", "<Cmd>b#<CR>", "Alternate")
-nmap_leader("bd", function() MiniBufremove.delete(0, false)  end, "Delete")
-nmap_leader("bD", function() MiniBufremove.delete(0, true)   end, "Delete!")
-nmap_leader("bw", function() MiniBufremove.wipeout(0, false) end, "Wipeout")
-nmap_leader("bW", function() MiniBufremove.wipeout(0, true)  end, "Wipeout!")
+nmap_leader("bd", function() require("mini.bufremove").delete(0, false)  end, "Delete")
+nmap_leader("bD", function() require("mini.bufremove").delete(0, true)   end, "Delete!")
+nmap_leader("bw", function() require("mini.bufremove").wipeout(0, false) end, "Wipeout")
+nmap_leader("bW", function() require("mini.bufremove").wipeout(0, true)  end, "Wipeout!")
 nmap_leader("bs", function() vim.api.nvim_win_set_buf(0, vim.api.nvim_create_buf(true, true)) end, "Scratch")
 nmap_leader("bo", Fn.close_other_buffers, "Close Others")
 nmap_leader("bl", Fn.close_buffers_left,  "Close Left")
@@ -91,7 +89,7 @@ nmap_leader("eq", function() vim.cmd(vim.fn.getqflist({ winid = true }).winid ~=
 nmap_leader("eQ", function() vim.cmd(vim.fn.getloclist(0, { winid = true }).winid ~= 0 and 'lclose' or 'lopen') end, "Locations")
 
 -- f is for 'Find' ------------------------------------------------------------
-nmap_leader("f.", function() MiniPick.builtin.files(nil, { source = { cwd = vim.fn.expand("%:p:h") } }) end, "Find files (current file dir)")
+nmap_leader("f.", function() require("mini.pick").builtin.files(nil, { source = { cwd = vim.fn.expand("%:p:h") } }) end, "Find files (current file dir)")
 nmap_leader("ff", "<Cmd>Pick files<CR>",                     "Find files (cwd)")
 nmap_leader("fh", "<Cmd>Pick help<CR>",                      "Help Pages")
 nmap_leader("fr", "<Cmd>Pick oldfiles<CR>",                  "Find Recent")
@@ -114,7 +112,7 @@ nmap_leader("ghb", function() require("mini.git").show_at_cursor()      end, "Bl
 nmap_leader("ghp", function() require("mini.diff").toggle_overlay()     end, "Preview Hunks (Overlay)")
 nmap_leader("gg",  Fn.lazygit,                                               "Lazygit")
 nmap_leader("gb",  Fn.gitbrowse,                                             "Browse")
-xmap_leader("gb",  function() Fn.gitbrowse(true)                        end,                        "Browse (selection)")
+xmap_leader("gb",  function() Fn.gitbrowse(true)                        end, "Browse (selection)")
 nmap_leader("gi",  function() Fn.gh_picker("issue")                     end, "Issues (open)")
 nmap_leader("gI",  function() Fn.gh_picker("issue", "all")              end, "Issues (all)")
 nmap_leader("gp",  function() Fn.gh_picker("pr")                        end, "PRs (open)")
@@ -159,7 +157,7 @@ nmap_leader("ql", function() require("mini.sessions").select()         end, "Loa
 nmap_leader("qd", function() require("mini.sessions").select("delete") end, "Delete Session")
 
 -- s is for 'Search' ----------------------------------------------------------
-nmap_leader("s.", function() MiniPick.builtin.grep_live(nil, { source = { cwd = vim.fn.expand("%:p:h") } }) end, "Grep (current file dir)")
+nmap_leader("s.", function() require("mini.pick").builtin.grep_live(nil, { source = { cwd = vim.fn.expand("%:p:h") } }) end, "Grep (current file dir)")
 nmap_leader("sg", "<Cmd>Pick grep_live<CR>", "Grep (cwd)")
 nmap_leader("s:", '<Cmd>Pick history scope=":"<CR>', "Command History")
 nmap_leader("sn", function() require("mini.notify").show_history() end, "Notifications")
