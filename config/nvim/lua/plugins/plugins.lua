@@ -23,7 +23,6 @@ return {
     lazy = false,
     opts = {
       picker    = { enabled = true },
-      scroll    = { enabled = true },
       lazygit   = { enabled = true },
       gh        = { enabled = true },
       indent    = { enabled = true, scope = { enabled = false } },

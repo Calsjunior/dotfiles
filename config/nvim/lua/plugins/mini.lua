@@ -98,8 +98,14 @@ return {
     require("mini.cursorword").setup()
     require("mini.starter").setup()
     require("mini.notify").setup()
+    require("mini.animate").setup({ cursor = { enable = false } })
     require("mini.statusline").setup()
     require("mini.tabline").setup({ tabpage_section = "none" })
+    require("mini.indentscope").setup({
+      symbol = "│",
+      draw = { delay = 0, animation = require("mini.indentscope").gen_animation.none() },
+      options = { try_as_border = true },
+    })
     local hipatterns = require("mini.hipatterns")
     hipatterns.setup({
       highlighters = {
