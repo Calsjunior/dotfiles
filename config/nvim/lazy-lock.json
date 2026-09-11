@@ -8,7 +8,6 @@
   "nvim-lspconfig": { "branch": "master", "commit": "ac9d2f7c4757db6320cab6697fe73e5e8adb2457" },
   "plenary.nvim": { "branch": "master", "commit": "74b06c6c75e4eeb3108ec01852001636d85a932b" },
   "smart-splits.nvim": { "branch": "master", "commit": "ec76708f1617ef9e2ac353357fe52d2c997a0f06" },
-  "snacks.nvim": { "branch": "main", "commit": "882c996cf28183f4d63640de0b4c02ec886d01f2" },
   "tiny-cmdline.nvim": { "branch": "main", "commit": "e247d9ee4c980734f8f8bf616d31e0ab7c27485d" },
   "yazi.nvim": { "branch": "main", "commit": "c99f88a672b915c508748a723c17c4d5c3cc6f8b" }
 }
