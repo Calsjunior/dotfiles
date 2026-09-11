@@ -29,10 +29,8 @@
         gcc
         gnumake
 
-        # Tools required by LazyVim
+        # Tools required in configuration
         ripgrep
-        fd
-        fzf
         lazygit
 
         # Language Servers and Formatters
@@ -71,7 +69,6 @@
     xdg.configFile."nvim".source = config.lib.file.mkOutOfStoreSymlink "${dotfilesPath}/config/nvim";
 
     home.sessionVariables = {
-      EDITOR = "nvim";
       VISUAL = "nvim";
       MANPAGER = "nvim +Man!";
     };
