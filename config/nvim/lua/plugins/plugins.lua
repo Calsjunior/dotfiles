@@ -17,15 +17,6 @@ return {
     opts = { paste_window = { yank_register_enabled = false, hide_footer = true } },
   },
 
-  -- Snacks for git enhancement ===============================================
-  {
-    "folke/snacks.nvim",
-    lazy = false,
-    opts = {
-      indent    = { enabled = true, scope = { enabled = false } },
-    },
-  },
-
   -- Explorer =================================================================
   { "mikavilpas/yazi.nvim", event = "VeryLazy", opts = { open_for_directories = true } },
 
