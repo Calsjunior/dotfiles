@@ -1,0 +1,54 @@
+{
+  "Starter Template": {
+    "prefix": "set",
+    "body": [
+      "#set page(paper: \"a4\")",
+      "#set par(justify: true)",
+      "#set text(font: \"Libertinus Serif\", size: 11pt)",
+      "#set heading(numbering: \"1.\")"
+    ]
+  },
+  "Render Screenshots": {
+    "prefix": "render",
+    "body": [
+      "#let render-screenshots(prefix: \"\", titles: (:)) = {",
+      "  let file-list = prefix + \".txt\"",
+      "  let content = read(file-list)",
+      "",
+      "  if content.trim() == \"\" { return }",
+      "",
+      "  let files = content.trim().split(\"\\n\").filter(f => f.trim() != \"\")",
+      "",
+      "  for (num, title) in titles.pairs() {",
+      "    align(center)[",
+      "      #let capitalized-prefix = upper(prefix.slice(0, 1)) + prefix.slice(1)",
+      "      #heading(level: 1)[#capitalized-prefix #num: #title]",
+      "    ]",
+      "",
+      "    let target-id = prefix + \"-\" + num + \"-\"",
+      "    let target-images = files.filter(f => f.contains(target-id))",
+      "",
+      "    for file in target-images {",
+      "      block(width: 100%, stroke: 0.5pt + luma(200), inset: 5pt)[",
+      "        #image(file)",
+      "      ]",
+      "      v(1em)",
+      "    }",
+      "  }",
+      "}",
+      "",
+      "// #render-screenshots(",
+      "//   prefix: \"${1:task}\",",
+      "//   titles: (",
+      "//     \"${2:01}\": \"${3:Task 1 Name}\",",
+      "//     \"${4:02}\": \"${5:Task 2 Name}\",",
+      "//   ),",
+      "// )$0"
+    ],
+    "description": "Macro to load and format screenshot images from text list"
+  },
+  "fraction": {
+    "prefix": "frac",
+    "body": ["$ ${1:numerator} / ${2:denominator} $ $0"]
+  }
+}
