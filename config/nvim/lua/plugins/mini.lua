@@ -26,7 +26,6 @@ local function load_later()
   require("mini.align").setup()
   require("mini.surround").setup()
   require("mini.bracketed").setup()
-  require("mini.snippets").setup()
   require("mini.cmdline").setup()
   require("mini.jump").setup()
   require("mini.jump2d").setup({ view = { dim = true } })
@@ -35,6 +34,11 @@ local function load_later()
     custom_textobjects = {
       e = { { "%u[%l%d]+%f[^%l%d]", "%f[%S][%l%d]+%f[^%l%d]", "%f[%P][%l%d]+%f[^%l%d]", "^[%l%d]+%f[^%l%d]" }, "^().*()$" } },
   })
+
+  local snippets = require("mini.snippets")
+  snippets.setup({ snippets = { snippets.gen_loader.from_lang() } })
+  snippets.start_lsp_server({ match = false })
+
   require("mini.keymap").setup()
   local map_multistep = require("mini.keymap").map_multistep
   local pmenu_cancel = { -- Handle accept with ctrl-y only
