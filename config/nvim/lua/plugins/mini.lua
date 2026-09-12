@@ -49,7 +49,7 @@ local function load_later()
   map_multistep("c", "<C-y>",   { "pmenu_accept" })
   map_multistep("i", "<CR>",    {  pmenu_cancel ,"minipairs_cr" })
   map_multistep("i", "<BS>",    { "minipairs_bs", "hungry_bs" })
-  map_multistep("i", "<Tab>",   { "minisnippets_expand", "minisnippets_next", "jump_after_close", })
+  map_multistep("i", "<Tab>",   { "minisnippets_next", "jump_after_close", })
   map_multistep("i", "<S-Tab>", { "minisnippets_prev", "jump_before_open", })
   -- stylua: ignore end
 
