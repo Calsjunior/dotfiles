@@ -103,11 +103,8 @@ local function load_later()
   -- Appearance ================================================================
   require("mini.cursorword").setup()
   local animate = require("mini.animate")
-
   local last_scroll_time = 0
   local is_repeat = false
-  local timing_normal = animate.gen_timing.linear({ duration = 200, unit = "total" })
-  local timing_repeat = animate.gen_timing.linear({ duration = 50, unit = "total" })
 
   -- stylua: ignore
   animate.setup({
@@ -116,19 +113,16 @@ local function load_later()
     open   = { enable = false },
     close  = { enable = false },
     scroll = {
-      timing = function(step, n)
+      timing = function(step)
         if step == 1 then
           local now = vim.uv.hrtime() / 1e6
           is_repeat = (now - last_scroll_time) <= 100
           last_scroll_time = now
         end
-        return (is_repeat and timing_repeat or timing_normal)(step, n)
+        return is_repeat and 5 or 10
       end,
 
-      subscroll = animate.gen_subscroll.equal({
-        predicate = function(total_scroll) return total_scroll > 1 end,
-        max_output_steps = 20,
-      }),
+      subscroll = animate.gen_subscroll.equal({ max_output_steps = 20 }),
     },
   })
 
