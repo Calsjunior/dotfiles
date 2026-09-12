@@ -55,7 +55,6 @@ M.leader_group_clues = {
   { mode = "n", keys = "<leader>f",  desc = "+find" },
   { mode = "n", keys = "<leader>g",  desc = "+git" },
   { mode = "n", keys = "<leader>gh", desc = "+hunk/diff" },
-  { mode = "n", keys = "<leader>i",  desc = "+insert" },
   { mode = "n", keys = "<leader>l",  desc = "+language" },
   { mode = "n", keys = "<leader>n",  desc = "+neovim/system" },
   { mode = "n", keys = "<leader>q",  desc = "+quit/session" },
@@ -117,9 +116,6 @@ nmap_leader("gi",  function() Fn.gh_picker("issue")                     end, "Is
 nmap_leader("gI",  function() Fn.gh_picker("issue", "all")              end, "Issues (all)")
 nmap_leader("gp",  function() Fn.gh_picker("pr")                        end, "PRs (open)")
 nmap_leader("gP",  function() Fn.gh_picker("pr", "all")                 end, "PRs (all)")
-
--- i is for 'Insert' ----------------------------------------------------------
-nmap_leader("is", Fn.insert_snippet, "Insert Snippet")
 
 -- l is for 'Language' --------------------------------------------------------
 nmap_leader("la", vim.lsp.buf.code_action,                    "Code action")

@@ -114,35 +114,6 @@ function M.run_current_file()
   vim.cmd("startinsert")
 end
 
--- Snippet insertion ==========================================================
-function M.insert_snippet()
-  local base_dir = "~/dev"
-  -- stylua: ignore start
-  local map = {
-    html = "web/snippets/html", css = "web/snippets/css", javascript = "web/snippets/js",
-    c    = "c/snippets",        cpp = "cpp/snippets",     typst      = "typst/snippets"
-  }
-
-  if not map[vim.bo.filetype] then return vim.notify("No snippets for: " .. vim.bo.filetype, 3) end
-  local dir = vim.fn.expand(base_dir .. "/" .. map[vim.bo.filetype])
-  if vim.fn.isdirectory(dir) == 0 then return vim.notify("Dir not found: " .. dir, 4) end
-
-  local buf, win = vim.api.nvim_get_current_buf(), vim.api.nvim_get_current_win()
-  require("mini.pick").builtin.files(nil, {
-    source = {
-      cwd = dir, name = "Snippets",
-      choose = function(item)
-        if not item then return end
-        local row = vim.api.nvim_win_get_cursor(win)[1]
-        local empty = vim.api.nvim_buf_get_lines(buf, row - 1, row, false)[1]:match("^%s*$")
-        vim.api.nvim_buf_set_lines(buf, row - 1, empty and row or (row - 1), false, vim.fn.readfile(dir .. "/" .. item))
-      end
-    }
-  })
-
-  -- stylua: ignore end
-end
-
 -- Project-local config execution =============================================
 function M.source_project_config()
   local local_config = vim.fn.getcwd() .. "/.nvim.lua"
