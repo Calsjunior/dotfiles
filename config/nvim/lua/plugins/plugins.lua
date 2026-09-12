@@ -23,6 +23,9 @@ return {
   -- For nix-flakes with direnv ===============================================
   { "NotAShelf/direnv.nvim", opts = { autoload_direnv = true } },
 
+  -- Snippet Collection =======================================================
+  { "rafamadriz/friendly-snippets", event = "VeryLazy" },
+
   -- Command line appearance ==================================================
   {
     "rachartier/tiny-cmdline.nvim",
