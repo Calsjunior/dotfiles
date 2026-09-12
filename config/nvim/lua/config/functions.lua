@@ -263,6 +263,24 @@ gui:
     title = " Lazygit ", title_pos = "center",
   })
 
+  vim.api.nvim_create_autocmd("VimResized", {
+    buffer = buf,
+    callback = function()
+      if not vim.api.nvim_win_is_valid(win) then
+        return
+      end
+      local new_width = math.floor(vim.o.columns * 0.9)
+      local new_height = math.floor(vim.o.lines * 0.9)
+      vim.api.nvim_win_set_config(win, {
+        relative = "editor",
+        width = new_width,
+        height = new_height,
+        row = math.floor((vim.o.lines - new_height) / 2),
+        col = math.floor((vim.o.columns - new_width) / 2),
+      })
+    end,
+  })
+
   vim.fn.jobstart({ "lazygit" }, {
     term = true,
     env = { LG_CONFIG_FILE = base_config .. "," .. temp_config },
