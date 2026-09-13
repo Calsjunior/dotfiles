@@ -16,6 +16,9 @@ local function load_now()
   require("mini.notify").setup()
   require("mini.statusline").setup()
   require("mini.tabline").setup({ tabpage_section = "none" })
+
+  -- Text editing ==============================================================
+  require("mini.completion").setup()
 end
 
 local function load_later()
@@ -29,7 +32,6 @@ local function load_later()
   require("mini.cmdline").setup()
   require("mini.jump").setup()
   require("mini.jump2d").setup({ view = { dim = true } })
-  require("mini.completion").setup()
   require("mini.ai").setup({
     custom_textobjects = {
       e = { { "%u[%l%d]+%f[^%l%d]", "%f[%S][%l%d]+%f[^%l%d]", "%f[%P][%l%d]+%f[^%l%d]", "^[%l%d]+%f[^%l%d]" }, "^().*()$" } },
