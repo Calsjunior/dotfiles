@@ -13,7 +13,15 @@ local function load_now()
   require("mini.icons").setup()
   require("mini.icons").mock_nvim_web_devicons()
   require("mini.starter").setup()
-  require("mini.notify").setup()
+
+  local predicate = function(notif)
+    if not (notif.data.source == "lsp_progress" and notif.data.client_name == "lua_ls") then return true end
+    -- Filter out some LSP progress notifications from 'lua_ls'
+    return notif.msg:find("Diagnosing") == nil and notif.msg:find("semantic tokens") == nil
+  end
+  local custom_sort = function(notif_arr) return require("mini.notify").default_sort(vim.tbl_filter(predicate, notif_arr)) end
+  require("mini.notify").setup({ content = { sort = custom_sort } })
+
   require("mini.statusline").setup()
   require("mini.tabline").setup({ tabpage_section = "none" })
 
@@ -31,7 +39,10 @@ local function load_later()
   require("mini.bracketed").setup()
   require("mini.cmdline").setup()
   require("mini.jump").setup()
-  require("mini.jump2d").setup({ view = { dim = true } })
+
+  local jump2d = require("mini.jump2d")
+  jump2d.setup({ spotter = jump2d.gen_spotter.pattern("[^%s%p]+"), view = { dim = true } })
+
   require("mini.ai").setup({
     custom_textobjects = {
       e = { { "%u[%l%d]+%f[^%l%d]", "%f[%S][%l%d]+%f[^%l%d]", "%f[%P][%l%d]+%f[^%l%d]", "^[%l%d]+%f[^%l%d]" }, "^().*()$" } },
@@ -40,6 +51,10 @@ local function load_later()
   local snippets = require("mini.snippets")
   snippets.setup({ snippets = { snippets.gen_loader.from_lang() } })
   snippets.start_lsp_server({ match = false })
+
+  require("mini.operators").setup()
+  vim.keymap.set("n", "(", "<Cmd>normal gxiagxila<CR>", { desc = "Move arg left" })
+  vim.keymap.set("n", ")", "<Cmd>normal gxiagxina<CR>", { desc = "Move arg right" })
 
   require("mini.keymap").setup()
   local map_multistep = require("mini.keymap").map_multistep
