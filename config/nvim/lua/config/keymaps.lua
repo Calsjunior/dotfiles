@@ -143,7 +143,7 @@ nmap_leader("nr", "<cmd>restart<CR>", "Restart Neovim")
 nmap_leader("r", Fn.run_current_file, "Run/Compile Current File")
 
 -- q is for 'Quit / Session' --------------------------------------------------
-nmap_leader("qq", "<cmd>qa<CR>", "Quit All")
+nmap_leader("qq", "<cmd>confirm qa<CR>", "Quit All")
 nmap_leader("qs", function()
   vim.ui.input({ prompt = "Session: ", default = vim.fs.basename(vim.uv.cwd()) }, function(n)
     if n and n ~= "" then require("mini.sessions").write(n, { force = true }) end
