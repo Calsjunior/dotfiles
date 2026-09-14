@@ -8,6 +8,86 @@
       "#set heading(numbering: \"1.\")"
     ]
   },
+  "Code Figure": {
+    "prefix": "codefig",
+    "body": [
+      "#figure(",
+      "  ```${1:python}",
+      "  ${2:# Your code here}",
+      "  ```,",
+      "  caption: [${3:Caption text}]",
+      ") <lst_${4:label}>$0"
+    ],
+    "description": "Code block wrapped in a figure with caption and label"
+  },
+  "Include Subfile": {
+    "prefix": "inc",
+    "body": ["#include \"${1:lectures/01-intro}.typ\"$0"],
+    "description": "Include a modular file"
+  },
+  "Equation with Label": {
+    "prefix": "eql",
+    "body": ["$ ${1:E = mc^2} $ <eq_${2:label}>$0"],
+    "description": "Centered display equation with a label for cross-referencing"
+  },
+  "Piecewise Function (Cases)": {
+    "prefix": "cases",
+    "body": [
+      "$ ${1:f(x)} = cases(",
+      "  ${2:1} \"if\" ${3:x > 0},",
+      "  ${4:0} \"otherwise\"",
+      ") $ $0"
+    ],
+    "description": "Piecewise mathematical function"
+  },
+  "Matrix": {
+    "prefix": "mat",
+    "body": ["$ mat(", "  ${1:1}, ${2:0} ;", "  ${3:0}, ${4:1}", ") $ $0"],
+    "description": "2D Math Matrix"
+  },
+  "Two Column Grid": {
+    "prefix": "grid2",
+    "body": [
+      "#grid(",
+      "  columns: (1fr, 1fr),",
+      "  gutter: 1em,",
+      "  [",
+      "    ${1:Left side content}",
+      "  ],",
+      "  [",
+      "    ${2:Right side content}",
+      "  ]",
+      ")$0"
+    ],
+    "description": "Side-by-side content (great for comparing code or placing text next to an image)"
+  },
+  "Basic Table": {
+    "prefix": "tbl",
+    "body": [
+      "#table(",
+      "  columns: ${1:2},",
+      "  stroke: 0.5pt,",
+      "  table.header([*${2:Col 1}*], [*${3:Col 2}*]),",
+      "  [${4:Data 1}], [${5:Data 2}],",
+      "  [${6:Data 3}], [${7:Data 4}]",
+      ")$0"
+    ],
+    "description": "Standard table with bold headers"
+  },
+  "Inline Code": {
+    "prefix": "ic",
+    "body": ["`${1:code}`$0"],
+    "description": "Inline raw code formatting"
+  },
+  "Reference": {
+    "prefix": "ref",
+    "body": ["@${1:label}$0"],
+    "description": "Cross-reference a label"
+  },
+  "fraction": {
+    "prefix": "frac",
+    "body": ["$ ${1:numerator} / ${2:denominator} $ $0"]
+  },
   "Render Screenshots": {
     "prefix": "render",
     "body": [
@@ -47,8 +127,54 @@
     ],
     "description": "Macro to load and format screenshot images from text list"
   },
-  "fraction": {
-    "prefix": "frac",
-    "body": ["$ ${1:numerator} / ${2:denominator} $ $0"]
+  "Mousse Theorem": {
+    "prefix": "thm",
+    "body": ["#theorem[", "  ${1:Statement}", "]$0"],
+    "description": "Unnamed theorem block"
+  },
+  "Mousse Named Theorem": {
+    "prefix": "thmn",
+    "body": ["#theorem(name: \"${1:Name}\")[", "  ${2:Statement}", "]$0"],
+    "description": "Named theorem block"
+  },
+  "Mousse Definition": {
+    "prefix": "def",
+    "body": ["#definition[", "  ${1:Definition}", "]$0"],
+    "description": "Definition block"
+  },
+  "Mousse Proof": {
+    "prefix": "prf",
+    "body": ["#proof[", "  ${1:Proof body} $qed", "]$0"],
+    "description": "Proof block with QED symbol"
+  },
+  "Mousse Example": {
+    "prefix": "ex",
+    "body": ["#example[", "  ${1:Example content}", "]$0"],
+    "description": "Example block"
+  },
+  "Mousse Solution": {
+    "prefix": "sol",
+    "body": ["#solution[", "  ${1:Solution steps} $qed", "]$0"],
+    "description": "Solution block with QED symbol"
+  },
+  "Mousse Proposition": {
+    "prefix": "prop",
+    "body": ["#proposition[", "  ${1:Statement}", "]$0"],
+    "description": "Proposition block"
+  },
+  "Mousse Lemma": {
+    "prefix": "lem",
+    "body": ["#lemma[", "  ${1:Statement}", "]$0"],
+    "description": "Lemma block"
+  },
+  "Mousse Corollary": {
+    "prefix": "cor",
+    "body": ["#corollary[", "  ${1:Statement}", "]$0"],
+    "description": "Corollary block"
+  },
+  "Mousse Remark": {
+    "prefix": "rem",
+    "body": ["#remark[", "  ${1:Side note or caveat}", "]$0"],
+    "description": "Remark block"
   }
 }
