@@ -15,7 +15,7 @@ vim.o.relativenumber  = true          -- Show relative line numbers
 vim.o.cursorline      = true          -- Highlight current line
 vim.o.wrap            = false         -- Disable line wrapping
 vim.o.scrolloff       = 99            -- Keep cursor vertically centered
-vim.o.scrolloffpad    = 1             -- Padding for scrolloff EOF
+vim.opt.scrolloffpad = 1              -- Padding for scrolloff EOF
 vim.o.sidescrolloff   = 8             -- Keep cursor 8 columns away from horizontal edges
 vim.o.signcolumn      = "yes"         -- Always show signcolumn to prevent flicker
 vim.o.ruler           = false         -- Don't show cursor coordinates
@@ -23,7 +23,7 @@ vim.o.showmode        = false         -- Hide "             -- INSERT --" since 
 vim.o.laststatus      = 3             -- Enable only one status line for entire neovim session
 vim.o.pumheight       = 10            -- Max items in popup menu
 vim.o.winborder       = "rounded"     -- Rounded borders for floating windows
-vim.o.fillchars       = { eob = " " } -- Hide `~` on empty lines
+vim.o.fillchars       = "eob: "       -- Hide `~` on empty lines
 vim.o.splitbelow      = true          -- Horizontal splits will open below
 vim.o.splitright      = true          -- Vertical splits will open to the right
 vim.o.splitkeep       = "screen"      -- Keep text on the same screen line when splitting
@@ -36,7 +36,7 @@ require('vim._core.ui2').enable({ enable = true })
 
 -- Show trailing spaces and tabs
 vim.o.list = true
-vim.o.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
+vim.o.listchars = "tab:» ,trail:·,nbsp:␣"
 
 -- Cursor shape & blinking
 vim.o.guicursor = "n-v-c:block-Cursor/lCursor-blinkwait1000-blinkon100-blinkoff100,i-ci:ver25-Cursor/lCursor,r-cr:hor20-Cursor/lCursor"
