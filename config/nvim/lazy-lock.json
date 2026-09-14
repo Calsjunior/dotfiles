@@ -5,10 +5,10 @@
   "gruvbox-material": { "branch": "master", "commit": "11d779b26a9ab2b3db8c22c6ac9fb6e8ed4fea79" },
   "kitty-scrollback.nvim": { "branch": "main", "commit": "5a163bfeb789c1a2bfa143b0e78b02caa233bc43" },
   "lazy.nvim": { "branch": "main", "commit": "306a05526ada86a7b30af95c5cc81ffba93fef97" },
-  "mini.nvim": { "branch": "main", "commit": "6664ea9af6c43dc31934e27476bbe61c556c8dc1" },
+  "mini.nvim": { "branch": "main", "commit": "ac5dffcc52b8378fbb15efeb0497a83e57a0b01c" },
   "nvim-lspconfig": { "branch": "master", "commit": "ac9d2f7c4757db6320cab6697fe73e5e8adb2457" },
   "plenary.nvim": { "branch": "master", "commit": "74b06c6c75e4eeb3108ec01852001636d85a932b" },
   "smart-splits.nvim": { "branch": "master", "commit": "ec76708f1617ef9e2ac353357fe52d2c997a0f06" },
-  "tiny-cmdline.nvim": { "branch": "main", "commit": "e247d9ee4c980734f8f8bf616d31e0ab7c27485d" },
-  "yazi.nvim": { "branch": "main", "commit": "c99f88a672b915c508748a723c17c4d5c3cc6f8b" }
+  "tiny-cmdline.nvim": { "branch": "main", "commit": "d83700b48d8ff5625dbef4029af071db559544e5" },
+  "yazi.nvim": { "branch": "main", "commit": "82d287b80b504b3da4686d17f59b1bb2c9e47ac9" }
 }
