@@ -12,7 +12,16 @@ local function load_now()
   -- Appearance ================================================================
   require("mini.icons").setup()
   require("mini.icons").mock_nvim_web_devicons()
-  require("mini.starter").setup()
+
+  local starter = require("mini.starter")
+  starter.setup({
+    footer = "",
+    items = {
+      starter.sections.sessions(8, true),
+      starter.sections.recent_files(8, false, false),
+      starter.sections.builtin_actions(),
+    },
+  })
 
   local predicate = function(notif)
     if not (notif.data.source == "lsp_progress" and notif.data.client_name == "lua_ls") then return true end
@@ -51,6 +60,7 @@ local function load_now()
         })
       end
     }
+,
   })
 
   require("mini.tabline").setup({ tabpage_section = "none" })
