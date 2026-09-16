@@ -9,6 +9,8 @@ vim.o.swapfile  = false         -- Disable swap files
 vim.o.hidden    = true          -- Keep unsaved buffers in the background
 vim.o.clipboard = "unnamedplus" -- Sync with system clipboard
 
+vim.o.shada = "'100,<50,s10,:1000,/100,@100,h,r.git/,r/tmp" -- Limit ShaDa file
+
 -- UI =========================================================================
 vim.o.number          = true          -- Show absolute line numbers
 vim.o.relativenumber  = true          -- Show relative line numbers
