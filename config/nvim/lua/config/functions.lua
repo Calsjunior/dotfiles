@@ -203,7 +203,6 @@ function M.lazygit()
 os:
   editPreset: 'nvim-remote'
 gui:
-  nerdFontsVersion: "3"
   theme:
     activeBorderColor   : ['%s', 'bold']
     inactiveBorderColor : ['%s']
@@ -218,8 +217,6 @@ gui:
 
   local temp_config = vim.fn.stdpath("cache") .. "/lazygit-nvim.yml"
   vim.fn.writefile(vim.split(theme_yaml, "\n"), temp_config)
-  local base_config = vim.env.LG_CONFIG_FILE
-    or ((vim.env.XDG_CONFIG_HOME or vim.env.HOME .. "/.config") .. "/lazygit/config.yml")
 
   local width = math.floor(vim.o.columns * 0.9)
   local height = math.floor(vim.o.lines * 0.9)
@@ -254,7 +251,7 @@ gui:
 
   vim.fn.jobstart({ "lazygit" }, {
     term = true,
-    env = { LG_CONFIG_FILE = base_config .. "," .. temp_config },
+    env = { LG_CONFIG_FILE = temp_config },
     on_exit = function()
       if vim.api.nvim_win_is_valid(win) then
         vim.api.nvim_win_close(win, true)

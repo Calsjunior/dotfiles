@@ -31,7 +31,41 @@
 
         # Tools required in configuration
         ripgrep
-        lazygit
+        (symlinkJoin {
+          name = "lazygit";
+          paths = [ lazygit ];
+          nativeBuildInputs = [ makeWrapper ];
+          postBuild = ''
+            wrapProgram $out/bin/lazygit \
+              --prefix LG_CONFIG_FILE "," "${
+                writeText "config.yml" /* yaml */ ''
+                  gui:
+                    nerdFontsVersion: '3'
+                    showFileTree: false
+                    showCommandLog: false
+                    skipRewordInEditorWarning: true
+                    authorColors:
+                      "${config.programs.git.settings.user.name}": 'cyan'
+                      '*': 'magenta'
+                  git:
+                    autoFetch: false
+                    overrideGpg: true
+                    branchLogCmd: 'git log --graph --color=always --abbrev-commit --decorate --date=iso --pretty=medium {{branchName}} --'
+                    allBranchesLogCmds:
+                      - 'git log --all --graph --color=always --abbrev-commit --decorate --date=iso --pretty=medium'
+                  update:
+                    method: 'never'
+                  notARepository: 'quit'
+                  promptToReturnFromSubprocess: false
+                  keybinding:
+                    files:
+                      commitChanges: 'C'
+                      commitChangesWithEditor: 'c'
+                      toggleStagedAll: '<c-8>'
+                ''
+              }"
+          '';
+        })
 
         # Language Servers and Formatters
         # Lua
