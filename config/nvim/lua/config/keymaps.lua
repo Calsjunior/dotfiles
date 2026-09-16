@@ -13,6 +13,8 @@ nmap("Y", "y$", "Yank to end of line")
 
 nmap("H", "_", "Start of line (non-blank)")
 nmap("L", "$", "End of line (non-blank)")
+xmap("H", "_", "Start of line (non-blank)")
+xmap("L", "$", "End of line (non-blank)")
 
 nmap("<C-S-l>", "<cmd>bnext<CR>", "Buffer Next")
 nmap("<C-S-h>", "<cmd>bprevious<CR>", "Buffer Previous")
