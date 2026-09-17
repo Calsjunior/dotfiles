@@ -83,8 +83,10 @@ local function load_later()
   local jump2d = require("mini.jump2d")
   jump2d.setup({ spotter = jump2d.gen_spotter.pattern("[^%s%p]+"), view = { dim = true } })
 
-  require("mini.ai").setup({
+  local ai = require("mini.ai")
+  ai.setup({
     custom_textobjects = {
+      t = false,
       e = { { "%u[%l%d]+%f[^%l%d]", "%f[%S][%l%d]+%f[^%l%d]", "%f[%P][%l%d]+%f[^%l%d]", "^[%l%d]+%f[^%l%d]" }, "^().*()$" } },
   })
 
