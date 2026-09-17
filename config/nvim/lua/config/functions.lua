@@ -202,6 +202,8 @@ function M.lazygit()
   local theme_yaml = string.format([[
 os:
   editPreset: 'nvim-remote'
+  edit: '[ -z "$NVIM" ] && nvim -- "{{filename}}" || nvim --server "$NVIM" --remote-send "<Cmd>lua _G._lazygit_edit([==[{{filename}}]==])<CR>"'
+  editAtLine: '[ -z "$NVIM" ] && nvim +{{line}} -- "{{filename}}" || nvim --server "$NVIM" --remote-send "<Cmd>lua _G._lazygit_edit([==[{{filename}}]==], {{line}})<CR>"'
 gui:
   theme:
     activeBorderColor   : ['%s', 'bold']
@@ -231,7 +233,22 @@ gui:
     title = " Lazygit ", title_pos = "center",
   })
 
-  vim.api.nvim_create_autocmd("VimResized", {
+  _G._lazygit_edit = function(file, line)
+    vim.schedule(function()
+      if vim.api.nvim_win_is_valid(win) then
+        vim.api.nvim_win_close(win, true)
+      end
+      if vim.api.nvim_buf_is_valid(buf) then
+        vim.api.nvim_buf_delete(buf, { force = true })
+      end
+      vim.cmd("edit " .. vim.fn.fnameescape(file))
+      if line then
+        vim.cmd(tostring(line))
+      end
+    end)
+  end
+
+  M.autocmd("VimResized", {
     buffer = buf,
     callback = function()
       if not vim.api.nvim_win_is_valid(win) then
