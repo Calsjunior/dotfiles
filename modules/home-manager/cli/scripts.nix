@@ -16,12 +16,12 @@
           template="''${1:-web}"
           template_dir="${dotfilesPath}/templates/$template"
 
-          if [ ! -d "$template_dir" ]; then
+          if [[ ! -d "$template_dir" ]]; then
             echo "Error: Template '$template' does not exist in ${dotfilesPath}/templates/" >&2
             exit 1
           fi
 
-          if [ ! -d .git ]; then
+          if [[ ! -d .git ]]; then
             git init
           fi
 
@@ -45,24 +45,6 @@
           ${builtins.replaceStrings [ "ctrl-n" "ctrl-p" ] [ "alt-n" "alt-p" ] (
             builtins.readFile "${pkgs.nix-search-tv.src}/nixpkgs.sh"
           )}
-        '';
-      })
-
-      (writeShellApplication {
-        name = "md2pdf";
-        runtimeInputs = with pkgs; [
-          pandoc
-          typst
-        ];
-        text = ''
-          if [ -z "''${1:-}" ]; then
-            echo "Usage: md2pdf <file.md>"
-            exit 1
-          fi
-
-          pandoc "$1" -f markdown -o "''${1%.*}.pdf" --pdf-engine=typst -V mainfont="New Computer Modern"
-
-          echo "Converted $1 to ''${1%.*}.pdf"
         '';
       })
     ];
