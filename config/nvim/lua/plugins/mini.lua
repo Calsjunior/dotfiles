@@ -75,7 +75,19 @@ local function load_later()
   require("mini.pairs").setup()
   require("mini.move").setup()
   require("mini.align").setup()
-  require("mini.surround").setup()
+  require('mini.surround').setup({
+    custom_surroundings = {
+      t = {
+        input = { "<()%-?[%w_:]+()[^>]*>.-</()%-?[%w_:]+()>" },
+        output = function()
+          local tag = MiniSurround.user_input("Tag name")
+          if tag == nil then return nil end
+          return { left = tag, right = tag }
+        end,
+      },
+    },
+  })
+
   require("mini.bracketed").setup()
   require("mini.cmdline").setup()
   require("mini.jump").setup()
