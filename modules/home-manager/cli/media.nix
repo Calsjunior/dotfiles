@@ -28,7 +28,7 @@
           #
           # spotdl uses yt-dlp, which recommends deno for JS execution to prevent errors.
 
-          if [ "$#" -eq 0 ]; then
+          if [[ "$#" -eq 0 ]]; then
             echo "Usage: get-playlist <spotify-url> [additional-args...]"
             exit 1
           fi
@@ -67,7 +67,7 @@
               ;;
           esac
 
-          if [ "$#" -gt 1 ]; then
+          if [[ "$#" -gt 1 ]]; then
             spotdl_args+=("''${@:2}")
           fi
 
