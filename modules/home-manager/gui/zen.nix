@@ -112,6 +112,9 @@
           "extensions.activeThemeID" = "firefox-compact-dark@mozilla.org";
           "media.hardware-video-decoding.force-enabled" = true;
 
+          # Prevent opening pdf right after download
+          "browser.download.open_pdf_attachments_inline" = false;
+
           # Enable cross device syncing
           "services.sync.engine.workspaces" = true;
           "services.sync.engine.tabs" = true;
