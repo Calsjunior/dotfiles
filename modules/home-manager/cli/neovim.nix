@@ -82,9 +82,6 @@
         vtsls
         biome
 
-        # Python
-        ruff
-
         # Nix
         nixd
         nixfmt
