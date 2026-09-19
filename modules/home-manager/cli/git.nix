@@ -16,12 +16,14 @@
           name = "cal";
           email = "sakphea05@gmail.com";
         };
-        init = {
-          defaultBranch = "main";
-        };
-        core = {
-          editor = "nvim";
-        };
+        init.defaultBranch = "main";
+        core.editor = config.home.sessionVariables.EDITOR or "vim";
+        pull.rebase = true;
+        push.autoSetupRemote = true;
+        branch.sort = "-committerdate";
+        checkout.defaultRemote = "origin";
+        fetch.prune = true;
+        rerere.enabled = true;
       };
       ignores = [
         ".direnv"
