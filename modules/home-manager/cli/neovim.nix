@@ -41,7 +41,6 @@
                 writeText "config.yml" /* yaml */ ''
                   gui:
                     nerdFontsVersion: '3'
-                    showFileTree: false
                     showCommandLog: false
                     skipRewordInEditorWarning: true
                     authorColors:
