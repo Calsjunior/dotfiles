@@ -1,22 +1,12 @@
-local M = {}
-
--- For easy autocmds creation =================================================
-local augroups = {}
-function M.autocmd(event, opts)
-  local final_opts = vim.tbl_extend("force", {}, opts)
-
-  if type(opts.group) == "string" then
-    if not augroups[opts.group] then
-      augroups[opts.group] = vim.api.nvim_create_augroup(opts.group, { clear = true })
-    end
-    final_opts.group = augroups[opts.group]
-  end
-
-  vim.api.nvim_create_autocmd(event, final_opts)
+-- Define custom autocommand group
+local gr = vim.api.nvim_create_augroup("custom-config", {})
+Config.new_autocmd = function(event, pattern, callback, desc)
+  local opts = { group = gr, pattern = pattern, callback = callback, desc = desc }
+  vim.api.nvim_create_autocmd(event, opts)
 end
 
 -- Incremental Selection (see keymaps.lua) ====================================
-function M.ts_or_lsp(ts_dir, lsp_mult)
+function Config.ts_or_lsp(ts_dir, lsp_mult)
   return function()
     if not vim.treesitter.get_parser(nil, nil, { error = false }) then
       return vim.lsp.buf.selection_range(lsp_mult * vim.v.count1)
@@ -33,7 +23,7 @@ local function listed_buffers()
   end, vim.api.nvim_list_bufs())
 end
 
-function M.close_other_buffers()
+function Config.close_other_buffers()
   local cur = vim.api.nvim_get_current_buf()
   for _, buf in ipairs(listed_buffers()) do
     if buf ~= cur then
@@ -42,7 +32,7 @@ function M.close_other_buffers()
   end
 end
 
-function M.close_buffers_right()
+function Config.close_buffers_right()
   local cur = vim.api.nvim_get_current_buf()
   local found = false
   for _, buf in ipairs(listed_buffers()) do
@@ -54,7 +44,7 @@ function M.close_buffers_right()
   end
 end
 
-function M.close_buffers_left()
+function Config.close_buffers_left()
   for _, buf in ipairs(listed_buffers()) do
     if buf == vim.api.nvim_get_current_buf() then
       break
@@ -64,7 +54,7 @@ function M.close_buffers_left()
 end
 
 -- Compile/run current file ===================================================
-function M.compile_and_run(compiler, ext)
+function Config.compile_and_run(compiler, ext)
   local raw_dir = vim.fn.expand("%:p:h")
   local dir = vim.fn.shellescape(raw_dir)
   local file = vim.fn.shellescape(vim.fn.expand("%:p"))
@@ -82,7 +72,7 @@ function M.compile_and_run(compiler, ext)
   return nil
 end
 
-function M.run_current_file()
+function Config.run_current_file()
   vim.cmd("silent! w")
   local ft = vim.bo.filetype
 
@@ -91,10 +81,10 @@ function M.run_current_file()
     python = "python3 " .. vim.fn.shellescape(vim.fn.expand("%:p")),
     sh = "bash " .. vim.fn.shellescape(vim.fn.expand("%:p")),
     c = function()
-      return M.compile_and_run("gcc", "c")
+      return Config.compile_and_run("gcc", "c")
     end,
     cpp = function()
-      return M.compile_and_run("g++", "cpp")
+      return Config.compile_and_run("g++", "cpp")
     end,
   }
 
@@ -115,7 +105,7 @@ function M.run_current_file()
 end
 
 -- Project-local config execution =============================================
-function M.source_project_config()
+function Config.source_project_config()
   local local_config = vim.fn.getcwd() .. "/.nvim.lua"
   if vim.fn.filereadable(local_config) == 0 then
     vim.notify("No .nvim.lua found in project root", vim.log.levels.WARN)
@@ -144,7 +134,7 @@ function M.source_project_config()
 end
 
 -- Kitty IPC ==================================================================
-function M.kitty_launch(args, post_cmd)
+function Config.kitty_launch(args, post_cmd)
   local dir = vim.fn.expand("%:p:h")
   if dir == "" then
     dir = vim.fn.getcwd()
@@ -156,7 +146,7 @@ function M.kitty_launch(args, post_cmd)
 end
 
 -- Git ========================================================================
-function M.gitbrowse(is_visual)
+function Config.gitbrowse(is_visual)
   local function git(args)
     local res = vim.system(vim.list_extend({ "git" }, args), { text = true }):wait()
     return res.code == 0 and vim.trim(res.stdout) or nil
@@ -193,7 +183,7 @@ function M.gitbrowse(is_visual)
   end
 end
 
-function M.lazygit()
+function Config.lazygit()
   local function hex(hl_name, attr)
     local hl = vim.api.nvim_get_hl(0, { name = hl_name, link = false })
     return hl[attr] and string.format("#%06x", hl[attr]) or "default"
@@ -248,23 +238,20 @@ gui:
     end)
   end
 
-  M.autocmd("VimResized", {
-    buffer = buf,
-    callback = function()
-      if not vim.api.nvim_win_is_valid(win) then
-        return
-      end
-      local new_width = math.floor(vim.o.columns * 0.9)
-      local new_height = math.floor(vim.o.lines * 0.9)
-      vim.api.nvim_win_set_config(win, {
-        relative = "editor",
-        width = new_width,
-        height = new_height,
-        row = math.floor((vim.o.lines - new_height) / 2),
-        col = math.floor((vim.o.columns - new_width) / 2),
-      })
-    end,
-  })
+  Config.new_autocmd("VimResized", nil, function()
+    if not vim.api.nvim_win_is_valid(win) then
+      return
+    end
+    local new_width = math.floor(vim.o.columns * 0.9)
+    local new_height = math.floor(vim.o.lines * 0.9)
+    vim.api.nvim_win_set_config(win, {
+      relative = "editor",
+      width = new_width,
+      height = new_height,
+      row = math.floor((vim.o.lines - new_height) / 2),
+      col = math.floor((vim.o.columns - new_width) / 2),
+    })
+  end)
 
   vim.fn.jobstart({ "lazygit" }, {
     term = true,
@@ -282,7 +269,7 @@ gui:
   vim.cmd("startinsert")
 end
 
-function M.gh_picker(type, state)
+function Config.gh_picker(type, state)
   local cmd = { "gh", type, "list", "--limit", "50" }
   if state then
     vim.list_extend(cmd, { "--state", state })
@@ -300,5 +287,3 @@ function M.gh_picker(type, state)
     },
   })
 end
-
-return M

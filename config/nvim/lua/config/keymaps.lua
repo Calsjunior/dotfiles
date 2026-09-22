@@ -1,4 +1,3 @@
-local Fn = require("config.functions")
 local map = vim.keymap.set
 
 -- stylua: ignore start
@@ -45,12 +44,11 @@ xmap("[n", function() vim.treesitter.select("prev", vim.v.count1)        end, "S
 xmap("]n", function() vim.treesitter.select("next", vim.v.count1)        end, "Select next node")
 xmap("[N", function() vim.treesitter.select("extend_prev", vim.v.count1) end, "Select previous sibling node")
 xmap("]N", function() vim.treesitter.select("extend_next", vim.v.count1) end, "Select next sibling node")
-map({ "n", "x", "o" }, "=", Fn.ts_or_lsp("parent", 1), { desc = "Grow selection (parent node)" })
-map({ "n", "x", "o" }, "-", Fn.ts_or_lsp("child", -1), { desc = "Shrink selection (child node)" })
+map({ "n", "x", "o" }, "=", Config.ts_or_lsp("parent", 1), { desc = "Grow selection (parent node)" })
+map({ "n", "x", "o" }, "-", Config.ts_or_lsp("child", -1), { desc = "Shrink selection (child node)" })
 
 -- Leader group clues =========================================================
-local M = {}
-M.leader_group_clues = {
+Config.leader_group_clues = {
   { mode = "n", keys = "<leader>b",  desc = "+buffer" },
   { mode = "n", keys = "<leader>c",  desc = "+config" },
   { mode = "n", keys = "<leader>e",  desc = "+explore" },
@@ -74,14 +72,14 @@ nmap_leader("bD", function() require("mini.bufremove").delete(0, true)   end, "D
 nmap_leader("bw", function() require("mini.bufremove").wipeout(0, false) end, "Wipeout")
 nmap_leader("bW", function() require("mini.bufremove").wipeout(0, true)  end, "Wipeout!")
 nmap_leader("bs", function() vim.api.nvim_win_set_buf(0, vim.api.nvim_create_buf(true, true)) end, "Scratch")
-nmap_leader("bo", Fn.close_other_buffers, "Close Others")
-nmap_leader("bl", Fn.close_buffers_left,  "Close Left")
-nmap_leader("br", Fn.close_buffers_right, "Close Right")
+nmap_leader("bo", Config.close_other_buffers, "Close Others")
+nmap_leader("bl", Config.close_buffers_left,  "Close Left")
+nmap_leader("br", Config.close_buffers_right, "Close Right")
 
 -- c is for 'Config' ----------------------------------------------------------
 nmap_leader("cs", "<cmd>w<CR>",               "Save file")
 nmap_leader("cn", "<cmd>noautocmd write<CR>", "Save without formatting")
-nmap_leader("cx", Fn.source_project_config,   "Source project .nvim.lua")
+nmap_leader("cx", Config.source_project_config,   "Source project .nvim.lua")
 
 -- e is for 'Explore' ---------------------------------------------------------
 nmap_leader("e.", "<cmd>Yazi<CR>",     "Open yazi (current file dir)")
@@ -111,13 +109,13 @@ nmap_leader("gd",  "<Cmd>Pick git_hunks<CR>",            "Modified hunks (worksp
 nmap_leader("gD",  '<Cmd>Pick git_hunks path="%"<CR>',   "Modified hunks (buffer)")
 nmap_leader("ghb", function() require("mini.git").show_at_cursor()      end, "Blame Line")
 nmap_leader("ghp", function() require("mini.diff").toggle_overlay()     end, "Preview Hunks (Overlay)")
-nmap_leader("gg",  Fn.lazygit,                                               "Lazygit")
-nmap_leader("gb",  Fn.gitbrowse,                                             "Browse")
-xmap_leader("gb",  function() Fn.gitbrowse(true)                        end, "Browse (selection)")
-nmap_leader("gi",  function() Fn.gh_picker("issue")                     end, "Issues (open)")
-nmap_leader("gI",  function() Fn.gh_picker("issue", "all")              end, "Issues (all)")
-nmap_leader("gp",  function() Fn.gh_picker("pr")                        end, "PRs (open)")
-nmap_leader("gP",  function() Fn.gh_picker("pr", "all")                 end, "PRs (all)")
+nmap_leader("gg",  Config.lazygit,                                               "Lazygit")
+nmap_leader("gb",  Config.gitbrowse,                                             "Browse")
+xmap_leader("gb",  function() Config.gitbrowse(true)                        end, "Browse (selection)")
+nmap_leader("gi",  function() Config.gh_picker("issue")                     end, "Issues (open)")
+nmap_leader("gI",  function() Config.gh_picker("issue", "all")              end, "Issues (all)")
+nmap_leader("gp",  function() Config.gh_picker("pr")                        end, "PRs (open)")
+nmap_leader("gP",  function() Config.gh_picker("pr", "all")                 end, "PRs (all)")
 
 -- l is for 'Language' --------------------------------------------------------
 nmap_leader("la", vim.lsp.buf.code_action,                    "Code action")
@@ -137,12 +135,12 @@ nmap_leader("lo", '<Cmd>Pick lsp scope="document_symbol"<CR>',       "Document S
 nmap_leader("lO", '<Cmd>Pick lsp scope="workspace_symbol_live"<CR>', "Workspace Symbols")
 
 -- n is for 'Neovim' ----------------------------------------------------------
-nmap_leader("nl", "<cmd>Lazy<CR>", "Open Lazy UI")
 nmap_leader("nc", "<cmd>checkhealth lsp<CR>", "Checkhealth LSP")
 nmap_leader("nr", "<cmd>restart<CR>", "Restart Neovim")
+nmap_leader("nu", vim.pack.update, "Update plugins (all)")
 
 -- r is for 'Run' -------------------------------------------------------------
-nmap_leader("r", Fn.run_current_file, "Run/Compile Current File")
+nmap_leader("r", Config.run_current_file, "Run/Compile Current File")
 
 -- q is for 'Quit / Session' --------------------------------------------------
 nmap_leader("qq", "<cmd>confirm qa<CR>", "Quit All")
@@ -172,9 +170,9 @@ nmap_leader("sr", function() -- Simulate grugfar behavior using mini.pick + quic
 end, "Replace in Quickfix lines")
 
 -- t is for 'Terminal' (Kitty splits/tabs) ------------------------------------
-nmap_leader("tv", function() Fn.kitty_launch("--location=vsplit") end, "Kitty Split Vertical")
-nmap_leader("ts", function() Fn.kitty_launch("--location=hsplit", "kitty @ resize-window --axis vertical --increment -5") end, "Kitty Split Horizontal")
-nmap_leader("tt", function() Fn.kitty_launch("--type=tab") end, "Kitty New Tab")
+nmap_leader("tv", function() Config.kitty_launch("--location=vsplit") end, "Kitty Split Vertical")
+nmap_leader("ts", function() Config.kitty_launch("--location=hsplit", "kitty @ resize-window --axis vertical --increment -5") end, "Kitty Split Horizontal")
+nmap_leader("tt", function() Config.kitty_launch("--type=tab") end, "Kitty New Tab")
 
 -- v is for 'Visits' ----------------------------------------------------------
 local make_pick_core = function(cwd, desc)
@@ -196,7 +194,4 @@ nmap_leader("vL", function() require("mini.visits").remove_label()       end, "R
 nmap_leader("wv", "<cmd>vsplit<CR>", "Split window vertically")
 nmap_leader("ws", "<cmd>split<CR>",  "Split window Horizontally")
 nmap_leader("wd", "<cmd>close<CR>",  "Delete current window")
-
-return M
-
 -- stylua: ignore end

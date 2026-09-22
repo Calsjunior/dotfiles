@@ -72,84 +72,71 @@ if vim.fn.has("nvim-0.13") == 1 then
 end
 
 -- Autocommands ===============================================================
-local autocmd = require("config.functions").autocmd
-
 -- Enable treesitters installed with home manager
 local hm_pack = vim.fn.expand("~/.local/share/nvim/site/pack/hm/start/")
 vim.opt.runtimepath:append(hm_pack .. "nvim-treesitter")
 vim.opt.runtimepath:append(hm_pack .. "nvim-treesitter-grammars")
-autocmd("FileType", { pattern = "*", callback = function(args) pcall(vim.treesitter.start, args.buf) end })
+Config.new_autocmd("FileType", "*", function(args) pcall(vim.treesitter.start, args.buf) end)
 
 -- Highlight on yank
-autocmd("TextYankPost", { group = "highlight_yank", callback = function() vim.hl.hl_op() end })
+Config.new_autocmd("TextYankPost", nil, function() vim.hl.hl_op() end)
 
 -- Don't auto comment new line
-autocmd("Filetype", { group = "format_options", command = "set formatoptions-=cro" })
+Config.new_autocmd("FileType", "*", function() vim.cmd("set formatoptions-=cro") end)
 
 -- Close filetypes with 'q'
-autocmd("FileType", {
-  group = "close_with_q", pattern = { "checkhealth", "help", "lspinfo", "qf", "git", "mininotify-history" },
-  callback = function(e)
-    vim.bo[e.buf].buflisted = false
-    vim.schedule(function()
-      vim.keymap.set("n", "q", function()
-        if e.match == "mininotify-history" then return require("mini.bufremove").wipeout(e.buf, true) end
-        pcall(function() vim.cmd("close") end)
-        pcall(vim.api.nvim_buf_delete, e.buf, { force = true })
-      end, { buffer = e.buf, silent = true, desc = "Quit buffer" })
-    end)
-  end,
-})
+Config.new_autocmd("FileType", { "checkhealth", "help", "lspinfo", "qf", "git", "mininotify-history" }, function(e)
+  vim.bo[e.buf].buflisted = false
+  vim.schedule(function()
+    vim.keymap.set("n", "q", function()
+      if e.match == "mininotify-history" then return require("mini.bufremove").wipeout(e.buf, true) end
+      pcall(function() vim.cmd("close") end)
+      pcall(vim.api.nvim_buf_delete, e.buf, { force = true })
+    end, { buffer = e.buf, silent = true, desc = "Quit buffer" })
+  end)
+end)
 
 -- Open binary files in external program
-autocmd("BufReadCmd", {
-  group = "open_external_files",
-  pattern = { "*.png", "*.jpg", "*.jpeg", "*.gif", "*.webp", "*.svg", "*.pdf" },
-  callback = function(e)
-    vim.ui.open(e.match)
-    vim.schedule(function()
-      require("mini.bufremove").wipeout(e.buf, true)
-    end)
-  end,
-})
+Config.new_autocmd("BufReadCmd", { "*.png", "*.jpg", "*.jpeg", "*.gif", "*.webp", "*.svg", "*.pdf" }, function(e)
+  vim.ui.open(e.match)
+  vim.schedule(function()
+    require("mini.bufremove").wipeout(e.buf, true)
+  end)
+end)
 
-autocmd("ColorScheme", {
-  group = "global_ui_overrides",
-  pattern = "*",
-  callback = function()
-    local hi = function(name, data) vim.api.nvim_set_hl(0, name, data) end
-    local get = function(name) return vim.api.nvim_get_hl(0, { name = name }) or {} end
+Config.new_autocmd("ColorScheme", "*", function()
+  local hi = function(name, data) vim.api.nvim_set_hl(0, name, data) end
+  local get = function(name) return vim.api.nvim_get_hl(0, { name = name }) or {} end
 
-    local bg_main       = get("Normal").bg
-    local fg_main       = get("Normal").fg
-    local bg_cursorline = get("CursorLine").bg
-    local bg_visual     = get("Visual").bg
-    local fg_string     = get("String").fg
-    local fg_comment    = get("Comment").fg
-    local bg_toolbar    = get("StatusLineNC").bg
+  local bg_main       = get("Normal").bg
+  local fg_main       = get("Normal").fg
+  local bg_cursorline = get("CursorLine").bg
+  local bg_visual     = get("Visual").bg
+  local fg_string     = get("String").fg
+  local fg_comment    = get("Comment").fg
+  local bg_toolbar    = get("StatusLineNC").bg
 
-    hi("Pmenu",         { bg = bg_main,       fg = fg_main })
-    hi("PmenuSel",      { bg = bg_cursorline, bold = true })
-    hi("PmenuBorder",   { fg = get("StatusLineNC").fg })
-    hi("PmenuSbar",     { bg = bg_main })
-    hi("PmenuThumb",    { bg = bg_visual })
-    hi("PmenuExtra",    { bg = bg_main,       fg = fg_comment })
-    hi("PmenuExtraSel", { bg = bg_cursorline, fg = fg_comment, bold = true })
-    hi("PmenuKind",     { bg = bg_main,       fg = fg_comment })
-    hi("PmenuKindSel",  { bg = bg_cursorline, fg = fg_comment, bold = true })
+  hi("Pmenu",         { bg = bg_main,       fg = fg_main })
+  hi("PmenuSel",      { bg = bg_cursorline, bold = true })
+  hi("PmenuBorder",   { fg = get("StatusLineNC").fg })
+  hi("PmenuSbar",     { bg = bg_main })
+  hi("PmenuThumb",    { bg = bg_visual })
+  hi("PmenuExtra",    { bg = bg_main,       fg = fg_comment })
+  hi("PmenuExtraSel", { bg = bg_cursorline, fg = fg_comment, bold = true })
+  hi("PmenuKind",     { bg = bg_main,       fg = fg_comment })
+  hi("PmenuKindSel",  { bg = bg_cursorline, fg = fg_comment, bold = true })
 
-    hi("MiniTablineCurrent",         { fg = get("StatusLine").fg,   bg = get("NormalNC").bg, bold = true, italic = true })
-    hi("MiniTablineVisible",         { fg = get("StatusLineNC").fg, bg = get("TabLineFill").bg, bold = true })
-    hi("MiniTablineModifiedCurrent", { fg = fg_string,              bg = get("StatusLine").bg, bold = true })
-    hi("MiniTablineModifiedHidden",  { fg = get("WarningMsg").fg,   bg = bg_toolbar })
-    hi("MiniTablineHidden",          { fg = fg_comment,             bg = bg_toolbar })
-    hi("MiniTablineFill",            { bg = bg_toolbar })
+  hi("MiniTablineCurrent",         { fg = get("StatusLine").fg,   bg = get("NormalNC").bg, bold = true, italic = true })
+  hi("MiniTablineVisible",         { fg = get("StatusLineNC").fg, bg = get("TabLineFill").bg, bold = true })
+  hi("MiniTablineModifiedCurrent", { fg = fg_string,              bg = get("StatusLine").bg, bold = true })
+  hi("MiniTablineModifiedHidden",  { fg = get("WarningMsg").fg,   bg = bg_toolbar })
+  hi("MiniTablineHidden",          { fg = fg_comment,             bg = bg_toolbar })
+  hi("MiniTablineFill",            { bg = bg_toolbar })
 
-    hi("NormalFloat", { bg = bg_main })
-    hi("FloatBorder", { fg = get("StatusLineNC").fg, bg = bg_main })
-    hi("CurrentWord", { underline = true })
-  end,
-})
+  hi("NormalFloat", { bg = bg_main })
+  hi("FloatBorder", { fg = get("StatusLineNC").fg, bg = bg_main })
+  hi("CurrentWord", { underline = true })
+end)
 
 -- Diagnostics ================================================================
 local severity = vim.diagnostic.severity
