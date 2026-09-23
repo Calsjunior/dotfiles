@@ -18,17 +18,26 @@ jobs:
       - name: Install Nix
         uses: DeterminateSystems/nix-installer-action@main
 
-      - name: Update lazy-lock.json
+      - name: Write update script
+        run: |
+          cat > update.lua << 'EOF'
+          vim.wait(2000)
+          vim.pack.update(nil, { force = true })
+          vim.cmd('qa')
+          EOF
+
+      - name: Update nvim-pack-lock.json
         run: |
           XDG_CONFIG_HOME="$GITHUB_WORKSPACE/config" \
           XDG_DATA_HOME="$HOME/.local/share" \
-          nix run nixpkgs#neovim -- --headless -c "lua require('lazy').update({wait = true})" -c "qa"
+          nix run github:nix-community/neovim-nightly-overlay -- \
+            --headless -c "lua dofile('update.lua')"
 
       - name: Commit and Create PR
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          if git diff --quiet config/nvim/lazy-lock.json; then
+          if git diff --quiet config/nvim/nvim-pack-lock.json; then
             echo "Neovim plugins are already up to date."
             exit 0
           fi
@@ -40,16 +49,19 @@ jobs:
           import json, subprocess, os
 
           try:
-              old_json = subprocess.check_output(["git", "show", "HEAD:config/nvim/lazy-lock.json"]).decode("utf-8")
-              old_data = json.loads(old_json)
+              old_json = subprocess.check_output(["git", "show", "HEAD:config/nvim/nvim-pack-lock.json"]).decode("utf-8")
+              old_data = json.loads(old_json).get("plugins", {})
           except Exception:
               old_data = {}
 
-          with open("config/nvim/lazy-lock.json") as f:
-              new_data = json.load(f)
+          with open("config/nvim/nvim-pack-lock.json") as f:
+              new_data = json.load(f).get("plugins", {})
+
+          def get_rev(entry):
+              return entry.get("rev")
 
           def get_repo_url(plugin_name):
-              path = os.path.expanduser(f"~/.local/share/nvim/lazy/{plugin_name}")
+              path = os.path.expanduser(f"~/.local/share/nvim/site/pack/core/opt/{plugin_name}")
               if not os.path.isdir(path): return ""
               try:
                   url = subprocess.check_output(["git", "-C", path, "config", "--get", "remote.origin.url"], stderr=subprocess.DEVNULL).decode("utf-8").strip()
@@ -62,33 +74,33 @@ jobs:
           plain_rows = []
           rich_rows = []
           for plugin in sorted(set(old_data) | set(new_data)):
-              old_commit = old_data.get(plugin, {}).get("commit")
-              new_commit = new_data.get(plugin, {}).get("commit")
+              old_rev = get_rev(old_data.get(plugin, {}))
+              new_rev = get_rev(new_data.get(plugin, {}))
 
               url = get_repo_url(plugin)
 
-              def make_link(commit, fallback_text):
-                  if not commit: return fallback_text
-                  short = f"`{commit[:7]}`"
-                  return f"[{short}]({url}/commit/{commit})" if url else short
+              def make_link(rev, fallback_text):
+                  if not rev: return fallback_text
+                  short = f"`{rev[:7]}`"
+                  return f"[{short}]({url}/commit/{rev})" if url else short
 
               if plugin not in new_data:
-                  plain_rows.append((plugin, f"`{old_commit[:7]}`", "*removed*"))
-                  rich_rows.append((plugin, make_link(old_commit, ""), "*removed*"))
+                  plain_rows.append((plugin, f"`{old_rev[:7]}`", "*removed*"))
+                  rich_rows.append((plugin, make_link(old_rev, ""), "*removed*"))
               elif plugin not in old_data:
-                  plain_rows.append((plugin, "*new*", f"`{new_commit[:7]}`"))
-                  rich_rows.append((plugin, "*new*", make_link(new_commit, "")))
-              elif old_commit != new_commit:
-                  plain_rows.append((plugin, f"`{old_commit[:7]}`", f"`{new_commit[:7]}`"))
+                  plain_rows.append((plugin, "*new*", f"`{new_rev[:7]}`"))
+                  rich_rows.append((plugin, "*new*", make_link(new_rev, "")))
+              elif old_rev != new_rev:
+                  plain_rows.append((plugin, f"`{old_rev[:7]}`", f"`{new_rev[:7]}`"))
 
-                  rich_from = make_link(old_commit, "")
-                  rich_to = make_link(new_commit, "")
-                  rich_plugin = f"[{plugin}]({url}/compare/{old_commit}...{new_commit})" if url else plugin
+                  rich_from = make_link(old_rev, "")
+                  rich_to = make_link(new_rev, "")
+                  rich_plugin = f"[{plugin}]({url}/compare/{old_rev}...{new_rev})" if url else plugin
                   rich_rows.append((rich_plugin, rich_from, rich_to))
 
           def write_plain_table(filename, rows):
               with open(filename, "w") as f:
-                  f.write("Automated plugin updates via Lazy.nvim.\n\n")
+                  f.write("Automated plugin updates via vim.pack.\n\n")
                   if rows:
                       w_plugin = max(len("Plugin"), *(len(p) for p, _, _ in rows))
                       w_from = max(len("From"), *(len(a) for _, a, _ in rows))
@@ -102,7 +114,7 @@ jobs:
 
           def write_rendered_table(filename, rows):
               with open(filename, "w") as f:
-                  f.write("Automated plugin updates via Lazy.nvim.\n\n### Plugin Updates\n\n")
+                  f.write("Automated plugin updates via vim.pack.\n\n### Plugin Updates\n\n")
                   if rows:
                       f.write("| Plugin | From | To |\n")
                       f.write("| :--- | :--- | :--- |\n")
@@ -113,16 +125,16 @@ jobs:
           write_rendered_table("pr_body.md", rich_rows)
           '
 
-          git add config/nvim/lazy-lock.json
+          git add config/nvim/nvim-pack-lock.json
           git commit -m "$COMMIT_MSG" -m "$(cat commit_body.md)"
 
-          git checkout -b chore/update-lazy-lock
-          git push -f origin chore/update-lazy-lock
+          git checkout -b chore/update-nvim-pack-lock
+          git push -f origin chore/update-nvim-pack-lock
 
           gh pr create \
             --title "$COMMIT_MSG" \
             --body-file pr_body.md \
             --label "dependencies" || \
-          gh pr edit chore/update-lazy-lock \
+          gh pr edit chore/update-nvim-pack-lock \
             --title "$COMMIT_MSG" \
             --body-file pr_body.md
