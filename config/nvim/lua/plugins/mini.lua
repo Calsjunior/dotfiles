@@ -78,7 +78,7 @@ now(function()
   })
 end)
 
-now(function() require("mini.tabline").setup({ tabpage_section = "none" }) end)
+now(function() require("mini.tabline").setup() end)
 
 -- Deferred Setup ============================================================
 
