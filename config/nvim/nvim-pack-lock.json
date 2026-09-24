@@ -17,7 +17,7 @@
       "src": "https://github.com/sainnhe/gruvbox-material"
     },
     "kitty-scrollback.nvim": {
-      "rev": "b81215fdb138e4f345c82464996e46c0649fc962",
+      "rev": "4994c85e0f291598d0748488653c83cb698fd281",
       "src": "https://github.com/mikesmithgh/kitty-scrollback.nvim"
     },
     "mini.nvim": {
@@ -41,7 +41,7 @@
       "src": "https://github.com/rachartier/tiny-cmdline.nvim"
     },
     "yazi.nvim": {
-      "rev": "12293b16846785e8378ade22df1ae170f7f2764d",
+      "rev": "0be14b2ff3e1eaa84c3df3c05034694cfbbaa081",
       "src": "https://github.com/mikavilpas/yazi.nvim"
     }
   }
