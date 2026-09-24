@@ -15,8 +15,11 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Install Nix
-        uses: DeterminateSystems/nix-installer-action@main
+      - name: Install prebuilt Neovim nightly
+        run: |
+          curl -LO https://github.com/neovim/neovim/releases/download/nightly/nvim-linux-x86_64.tar.gz
+          tar xzf nvim-linux-x86_64.tar.gz
+          echo "$GITHUB_WORKSPACE/nvim-linux-x86_64/bin" >> "$GITHUB_PATH"
 
       - name: Write update script
         run: |
@@ -30,8 +33,7 @@ jobs:
         run: |
           XDG_CONFIG_HOME="$GITHUB_WORKSPACE/config" \
           XDG_DATA_HOME="$HOME/.local/share" \
-          nix run github:nix-community/neovim-nightly-overlay -- \
-            --headless -c "lua dofile('update.lua')"
+          nvim --headless -c "lua dofile('update.lua')"
 
       - name: Commit and Create PR
         env:
