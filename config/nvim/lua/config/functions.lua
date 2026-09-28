@@ -145,6 +145,50 @@ function Config.kitty_launch(args, post_cmd)
   end
 end
 
+-- Helper to create floating terminals ========================================
+local function float_term(cmd, opts)
+  opts = opts or {}
+  local width_pct = opts.width_pct or 0.85
+  local height_pct = opts.height_pct or 0.85
+  local width = math.floor(vim.o.columns * width_pct)
+  local height = math.floor(vim.o.lines * height_pct)
+  local buf = vim.api.nvim_create_buf(false, true)
+
+  -- stylua: ignore
+  local win = vim.api.nvim_open_win(buf, true, {
+    relative = "editor", width = width, height = height,
+    col = math.floor((vim.o.columns - width) / 2),
+    row = math.floor((vim.o.lines - height) / 2),
+    style = "minimal", border = "rounded",
+    title = opts.title and (" " .. opts.title .. " ") or nil,
+    title_pos = opts.title and "center" or nil,
+  })
+
+  local function close()
+    if vim.api.nvim_win_is_valid(win) then
+      vim.api.nvim_win_close(win, true)
+    end
+    if vim.api.nvim_buf_is_valid(buf) then
+      vim.api.nvim_buf_delete(buf, { force = true })
+    end
+  end
+
+  vim.fn.jobstart(cmd, {
+    term = true,
+    env = opts.env,
+    on_exit = function(_, code)
+      close()
+      if opts.on_exit then
+        opts.on_exit(code)
+      end
+    end,
+  })
+
+  vim.cmd("startinsert")
+
+  return { win = win, buf = buf, close = close }
+end
+
 -- Git ========================================================================
 function Config.gitbrowse(is_visual)
   local function git(args)
@@ -210,27 +254,16 @@ gui:
   local temp_config = vim.fn.stdpath("cache") .. "/lazygit-nvim.yml"
   vim.fn.writefile(vim.split(theme_yaml, "\n"), temp_config)
 
-  local width = math.floor(vim.o.columns * 0.9)
-  local height = math.floor(vim.o.lines * 0.9)
-  local buf = vim.api.nvim_create_buf(false, true)
-
-  -- stylua: ignore
-  local win = vim.api.nvim_open_win(buf, true, {
-    relative = "editor", width = width, height = height,
-    col = math.floor((vim.o.columns - width) / 2),
-    row = math.floor((vim.o.lines - height) / 2),
-    style = "minimal", border = "rounded",
-    title = " Lazygit ", title_pos = "center",
+  local term = float_term({ "lazygit" }, {
+    width_pct = 0.9,
+    height_pct = 0.9,
+    title = "Lazygit",
+    env = { LG_CONFIG_FILE = temp_config },
   })
 
   _G._lazygit_edit = function(file, line)
     vim.schedule(function()
-      if vim.api.nvim_win_is_valid(win) then
-        vim.api.nvim_win_close(win, true)
-      end
-      if vim.api.nvim_buf_is_valid(buf) then
-        vim.api.nvim_buf_delete(buf, { force = true })
-      end
+      term.close()
       vim.cmd("edit " .. vim.fn.fnameescape(file))
       if line then
         vim.cmd(tostring(line))
@@ -239,12 +272,12 @@ gui:
   end
 
   Config.new_autocmd("VimResized", nil, function()
-    if not vim.api.nvim_win_is_valid(win) then
+    if not vim.api.nvim_win_is_valid(term.win) then
       return
     end
     local new_width = math.floor(vim.o.columns * 0.9)
     local new_height = math.floor(vim.o.lines * 0.9)
-    vim.api.nvim_win_set_config(win, {
+    vim.api.nvim_win_set_config(term.win, {
       relative = "editor",
       width = new_width,
       height = new_height,
@@ -252,21 +285,24 @@ gui:
       col = math.floor((vim.o.columns - new_width) / 2),
     })
   end)
+end
 
-  vim.fn.jobstart({ "lazygit" }, {
-    term = true,
-    env = { LG_CONFIG_FILE = temp_config },
-    on_exit = function()
-      if vim.api.nvim_win_is_valid(win) then
-        vim.api.nvim_win_close(win, true)
-      end
-      if vim.api.nvim_buf_is_valid(buf) then
-        vim.api.nvim_buf_delete(buf, { force = true })
+-- GitHub issues/PRs picker ====================================================
+local function gh_get_id(item)
+  return item and item:match("^#?(%d+)")
+end
+
+local function gh_run(args)
+  vim.fn.jobstart(vim.list_extend({ "gh" }, args), {
+    on_exit = function(_, code)
+      local msg = table.concat(args, " ")
+      if code == 0 then
+        vim.notify("gh " .. msg .. " ✓")
+      else
+        vim.notify("gh " .. msg .. " failed", vim.log.levels.ERROR)
       end
     end,
   })
-
-  vim.cmd("startinsert")
 end
 
 function Config.gh_picker(type, state)
@@ -275,15 +311,83 @@ function Config.gh_picker(type, state)
     vim.list_extend(cmd, { "--state", state })
   end
 
-  require("mini.pick").builtin.cli({ command = cmd }, {
-    source = {
-      name = "GitHub " .. type:upper() .. (state and " (" .. state .. ")" or ""),
-      choose = function(item)
-        local id = item:match("^#?(%d+)")
+  local mappings = {
+    web = {
+      char = "<C-o>",
+      func = function()
+        local id = gh_get_id(MiniPick.get_picker_matches().current)
         if id then
           vim.fn.jobstart({ "gh", type, "view", "--web", id })
         end
       end,
     },
+  }
+
+  if type == "pr" then
+    mappings.checkout = {
+      char = "<C-c>",
+      func = function()
+        local id = gh_get_id(MiniPick.get_picker_matches().current)
+        if not id then
+          return
+        end
+        MiniPick.stop()
+        vim.schedule(function()
+          gh_run({ "pr", "checkout", id })
+        end)
+      end,
+    }
+    mappings.merge = {
+      char = "<C-e>",
+      func = function()
+        local id = gh_get_id(MiniPick.get_picker_matches().current)
+        if not id then
+          return
+        end
+        MiniPick.stop()
+        vim.schedule(function()
+          float_term({ "gh", "pr", "merge", id }, { title = "PR #" .. id .. " merge" })
+        end)
+      end,
+    }
+    mappings.diff = {
+      char = "<C-d>",
+      func = function()
+        local id = gh_get_id(MiniPick.get_picker_matches().current)
+        if not id then
+          return
+        end
+        MiniPick.stop()
+        vim.schedule(function()
+          float_term({ "gh", "pr", "diff", id }, { title = "PR #" .. id .. " diff" })
+        end)
+      end,
+    }
+    mappings.review = {
+      char = "<C-y>",
+      func = function()
+        local id = gh_get_id(MiniPick.get_picker_matches().current)
+        if not id then
+          return
+        end
+        MiniPick.stop()
+        vim.schedule(function()
+          float_term({ "gh", "pr", "review", id }, { title = "PR #" .. id .. " review" })
+        end)
+      end,
+    }
+  end
+
+  require("mini.pick").builtin.cli({ command = cmd }, {
+    source = {
+      name = "GitHub " .. type:upper() .. (state and " (" .. state .. ")" or ""),
+      choose = function(item)
+        local id = gh_get_id(item)
+        if id then
+          vim.fn.jobstart({ "gh", type, "view", "--web", id })
+        end
+      end,
+    },
+    mappings = mappings,
   })
 end
