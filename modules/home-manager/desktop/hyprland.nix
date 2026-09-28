@@ -21,7 +21,12 @@
 
     desktop = {
       hasCompositor = true;
-      noctalia.extraPaths = [ pkgs.socat ];
+      noctalia.extraPaths = with pkgs; [
+        socat
+        tesseract
+        grim
+        slurp
+      ];
     };
 
     home.packages = with pkgs; [
