@@ -85,7 +85,7 @@ Config.new_autocmd("TextYankPost", nil, function() vim.hl.hl_op() end)
 Config.new_autocmd("FileType", "*", function() vim.cmd("set formatoptions-=cro") end)
 
 -- Close filetypes with 'q'
-Config.new_autocmd("FileType", { "checkhealth", "help", "lspinfo", "qf", "git", "mininotify-history" }, function(e)
+Config.new_autocmd("FileType", { "checkhealth", "help", "lspinfo", "qf", "git", "mininotify-history", "nvim-pack" }, function(e)
   vim.bo[e.buf].buflisted = false
   vim.schedule(function()
     vim.keymap.set("n", "q", function()
