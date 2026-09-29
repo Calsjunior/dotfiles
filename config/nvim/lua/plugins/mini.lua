@@ -127,9 +127,13 @@ later(function()
 end)
 
 later(function()
-  local snippets = require("mini.snippets")
-  snippets.setup({ snippets = { snippets.gen_loader.from_lang() } })
-  snippets.start_lsp_server({ match = false })
+  local snippets, config_path = require("mini.snippets"), vim.fn.stdpath("config")
+  snippets.setup({
+    snippets = {
+      snippets.gen_loader.from_file(config_path .. "/snippets/global.json"),
+      snippets.gen_loader.from_lang(),
+    },
+  })
 end)
 
 later(function()
