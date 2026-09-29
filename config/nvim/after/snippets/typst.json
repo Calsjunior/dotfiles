@@ -30,16 +30,6 @@
     "body": ["$ ${1:E = mc^2} $ <eq_${2:label}>$0"],
     "description": "Centered display equation with a label for cross-referencing"
   },
-  "Piecewise Function (Cases)": {
-    "prefix": "cases",
-    "body": [
-      "$ ${1:f(x)} = cases(",
-      "  ${2:1} \"if\" ${3:x > 0},",
-      "  ${4:0} \"otherwise\"",
-      ") $ $0"
-    ],
-    "description": "Piecewise mathematical function"
-  },
   "Matrix": {
     "prefix": "mat",
     "body": ["$ mat(", "  ${1:1}, ${2:0} ;", "  ${3:0}, ${4:1}", ") $ $0"],
