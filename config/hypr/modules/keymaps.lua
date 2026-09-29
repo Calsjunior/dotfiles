@@ -24,6 +24,7 @@ hl.bind(main_mod .. " +  V", hl.dsp.exec_cmd(ipc .. " panel-toggle clipboard"))
 -- Screenshots
 hl.bind(main_mod .. " + SHIFT + PRINT", hl.dsp.exec_cmd(ipc .. " screenshot-region"))
 hl.bind(main_mod .. " + PRINT", hl.dsp.exec_cmd(ipc .. " screenshot-fullscreen"))
+hl.bind(main_mod .. " + ALT + PRINT", hl.dsp.exec_cmd(ipc .. " plugin fel/ocr:ocr all ocr-region"))
 
 -- Record
 hl.bind(main_mod .. " + R", hl.dsp.exec_cmd(recorder.mon_mic))
