@@ -37,6 +37,14 @@ hl.window_rule({
   center = true,
 })
 
+-- Force GTK screen sharer and portal dialogs to float
+hl.window_rule({
+  name = "screen-share-picker",
+  match = { class = "^(xdg-desktop-portal-.*|hyprland-share-picker)$" },
+  float = true,
+  size = "900 600",
+})
+
 -- Auto-center floating windows on open
 hl.on("window.open", function(w)
   if w.floating then
