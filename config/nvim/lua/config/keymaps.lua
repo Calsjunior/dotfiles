@@ -168,9 +168,9 @@ nmap_leader("sr", function() -- Simulate grugfar behavior using mini.pick + quic
 end, "Replace in Quickfix lines")
 
 -- t is for 'Terminal' (Kitty splits/tabs) ------------------------------------
-nmap_leader("tv", function() Config.kitty_launch("--location=vsplit") end, "Kitty Split Vertical")
-nmap_leader("ts", function() Config.kitty_launch("--location=hsplit", "kitty @ resize-window --axis vertical --increment -5") end, "Kitty Split Horizontal")
-nmap_leader("tt", function() Config.kitty_launch("--type=tab") end, "Kitty New Tab")
+nmap_leader("tv", function() Config.kitty_launch({ "--location=vsplit" }) end, "Kitty Split Vertical")
+nmap_leader("ts", function() Config.kitty_launch({ "--location=hsplit" }, { "kitty", "@", "resize-window", "--axis", "vertical", "--increment", "-5" }) end, "Kitty Split Horizontal")
+nmap_leader("tt", function() Config.kitty_launch({ "--type=tab" }) end, "Kitty New Tab")
 
 -- v is for 'Visits' ----------------------------------------------------------
 local make_pick_core = function(cwd, desc)
