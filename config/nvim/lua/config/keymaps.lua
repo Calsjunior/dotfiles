@@ -58,7 +58,6 @@ Config.leader_group_clues = {
   { mode = "n", keys = "<leader>l",  desc = "+language" },
   { mode = "n", keys = "<leader>n",  desc = "+neovim/system" },
   { mode = "n", keys = "<leader>q",  desc = "+quit/session" },
-  { mode = "n", keys = "<leader>r",  desc = "+run" },
   { mode = "n", keys = "<leader>s",  desc = "+search" },
   { mode = "n", keys = "<leader>t",  desc = "+terminal" },
   { mode = "n", keys = "<leader>v",  desc = "+visits/bookmarks" },
@@ -140,9 +139,6 @@ nmap_leader("lO", '<Cmd>Pick lsp scope="workspace_symbol_live"<CR>', "Workspace 
 nmap_leader("nc", "<cmd>checkhealth lsp<CR>", "Checkhealth LSP")
 nmap_leader("nr", "<cmd>restart<CR>", "Restart Neovim")
 nmap_leader("nu", vim.pack.update, "Update plugins (all)")
-
--- r is for 'Run' -------------------------------------------------------------
-nmap_leader("r", Config.run_current_file, "Run/Compile Current File")
 
 -- q is for 'Quit / Session' --------------------------------------------------
 nmap_leader("qq", "<cmd>confirm qa<CR>", "Quit All")
