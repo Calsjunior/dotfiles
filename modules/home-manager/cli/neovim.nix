@@ -90,6 +90,7 @@
 
         # Grammar lsp
         harper
+        languagetool
       ];
 
       withPython3 = false;

@@ -11,9 +11,9 @@ map({ "n", "i" }, "<Esc>", "<Cmd>noh<CR><Esc>", { desc = "Escape and clear hlsea
 nmap("Y", "y$", "Yank to end of line")
 
 nmap("H", "_", "Start of line (non-blank)")
-nmap("L", "$", "End of line (non-blank)")
+nmap("L", "$", "End of line   (non-blank)")
 xmap("H", "_", "Start of line (non-blank)")
-xmap("L", "$", "End of line (non-blank)")
+xmap("L", "$", "End of line   (non-blank)")
 
 nmap("<C-S-l>", "<cmd>bnext<CR>", "Buffer Next")
 nmap("<C-S-h>", "<cmd>bprevious<CR>", "Buffer Previous")
@@ -61,7 +61,7 @@ Config.leader_group_clues = {
   { mode = "n", keys = "<leader>r",  desc = "+run" },
   { mode = "n", keys = "<leader>s",  desc = "+search" },
   { mode = "n", keys = "<leader>t",  desc = "+terminal" },
-  { mode = "n", keys = "<leader>v", desc = "+visits/bookmarks" },
+  { mode = "n", keys = "<leader>v",  desc = "+visits/bookmarks" },
   { mode = "n", keys = "<leader>w",  desc = "+window" },
 }
 
@@ -108,7 +108,7 @@ nmap_leader("gC",  '<Cmd>Pick git_commits path="%"<CR>', "Commits (buffer)")
 nmap_leader("gd",  "<Cmd>Pick git_hunks<CR>",            "Modified hunks (workspace)")
 nmap_leader("gD",  '<Cmd>Pick git_hunks path="%"<CR>',   "Modified hunks (buffer)")
 nmap_leader("ghb", function() require("mini.git").show_at_cursor()      end, "Blame Line")
-nmap_leader("ghp", function() require("mini.diff").toggle_overlay()     end, "Preview Hunks (Overlay)")
+nmap_leader("ghp", function() require("mini.diff").toggle_overlay()     end, "Preview Hunks (overlay)")
 nmap_leader("gg",  Config.lazygit,                                               "Lazygit")
 nmap_leader("gb",  Config.gitbrowse,                                             "Browse")
 xmap_leader("gb",  function() Config.gitbrowse(true)                        end, "Browse (selection)")
@@ -118,20 +118,22 @@ nmap_leader("gp",  function() Config.gh_picker("pr")                        end,
 nmap_leader("gP",  function() Config.gh_picker("pr", "all")                 end, "PRs (all)")
 
 -- l is for 'Language' --------------------------------------------------------
-nmap_leader("la", vim.lsp.buf.code_action,                    "Code action")
-nmap_leader("lr", vim.lsp.buf.rename,                         "Rename")
-nmap_leader("lh", vim.lsp.buf.hover,                          "Hover documentation")
-nmap_leader("ld", vim.diagnostic.open_float,                  "Line diagnostics float")
-nmap_leader("lD", '<Cmd>Pick diagnostic scope="current"<CR>', "Buffer diagnostics (Picker)")
-nmap_leader("lw", '<Cmd>Pick diagnostic scope="all"<CR>',     "Workspace diagnostics (Picker)")
-nmap_leader("lf", function() require("conform").format() end, "Format")
-xmap_leader("lf", function() require("conform").format() end, "Format selection")
+nmap_leader("la", vim.lsp.buf.code_action,                         "Code action")
+nmap_leader("lr", vim.lsp.buf.rename,                              "Rename")
+nmap_leader("lh", vim.lsp.buf.hover,                               "Hover documentation")
+nmap_leader("ld", vim.diagnostic.open_float,                       "Line diagnostics float")
+nmap_leader("lD", '<Cmd>Pick diagnostic scope="current"<CR>',      "Buffer diagnostics (picker)")
+nmap_leader("lw", '<Cmd>Pick diagnostic scope="all"<CR>',          "Workspace diagnostics (picker)")
+nmap_leader("lf", function() require("conform").format() end,      "Format")
+xmap_leader("lf", function() require("conform").format() end,      "Format selection")
+nmap_leader("lt", function() Config.languagetool_check(false) end, "LanguageTool (buffer)")
+xmap_leader("lt", function() Config.languagetool_check(true) end,  "LanguageTool (selection)")
 
 nmap_leader("ls", '<Cmd>Pick lsp scope="definition"<CR>',            "Source definition")
 nmap_leader("lR", '<Cmd>Pick lsp scope="references"<CR>',            "References")
 nmap_leader("li", '<Cmd>Pick lsp scope="implementation"<CR>',        "Implementation")
 nmap_leader("lt", '<Cmd>Pick lsp scope="type_definition"<CR>',       "Type definition")
-nmap_leader("lo", '<Cmd>Pick lsp scope="document_symbol"<CR>',       "Document Symbols (Outline)")
+nmap_leader("lo", '<Cmd>Pick lsp scope="document_symbol"<CR>',       "Document Symbols (outline)")
 nmap_leader("lO", '<Cmd>Pick lsp scope="workspace_symbol_live"<CR>', "Workspace Symbols")
 
 -- n is for 'Neovim' ----------------------------------------------------------
@@ -158,7 +160,7 @@ nmap_leader("sg", "<Cmd>Pick grep_live<CR>", "Grep (cwd)")
 nmap_leader("s:", '<Cmd>Pick history scope=":"<CR>', "Command History")
 nmap_leader("sn", function() require("mini.notify").show_history() end, "Notifications")
 nmap_leader("sw", '<Cmd>Pick grep pattern="<cword>"<CR>', "Grep word")
-nmap_leader("st", '<Cmd>Pick grep pattern="TODO|FIXME|HACK|NOTE"<CR>', "TODOs (Project)")
+nmap_leader("st", '<Cmd>Pick grep pattern="TODO|FIXME|HACK|NOTE"<CR>', "TODOs (project)")
 nmap_leader("sr", function() -- Simulate grugfar behavior using mini.pick + quickfix
   vim.ui.input({ prompt = "Replace: " }, function(search)
     if not search or search == "" then return end

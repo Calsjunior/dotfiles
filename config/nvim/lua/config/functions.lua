@@ -1,3 +1,4 @@
+-- stylua: ignore start
 -- Define custom autocommand group
 local gr = vim.api.nvim_create_augroup("custom-config", {})
 Config.new_autocmd = function(event, pattern, callback, desc)
@@ -26,9 +27,7 @@ end
 function Config.close_other_buffers()
   local cur = vim.api.nvim_get_current_buf()
   for _, buf in ipairs(listed_buffers()) do
-    if buf ~= cur then
-      MiniBufremove.delete(buf, false)
-    end
+    if buf ~= cur then MiniBufremove.delete(buf, false) end
   end
 end
 
@@ -36,19 +35,14 @@ function Config.close_buffers_right()
   local cur = vim.api.nvim_get_current_buf()
   local found = false
   for _, buf in ipairs(listed_buffers()) do
-    if found then
-      MiniBufremove.delete(buf, false)
-    elseif buf == cur then
-      found = true
-    end
+    if found then MiniBufremove.delete(buf, false)
+    elseif buf == cur then found = true end
   end
 end
 
 function Config.close_buffers_left()
   for _, buf in ipairs(listed_buffers()) do
-    if buf == vim.api.nvim_get_current_buf() then
-      break
-    end
+    if buf == vim.api.nvim_get_current_buf() then break end
     MiniBufremove.delete(buf, false)
   end
 end
@@ -60,9 +54,7 @@ function Config.compile_and_run(compiler, ext)
   local file = vim.fn.shellescape(vim.fn.expand("%:p"))
   local file_no_ext = vim.fn.shellescape(vim.fn.expand("%:p:r"))
 
-  if vim.fn.filereadable(raw_dir .. "/Makefile") == 1 then
-    return "cd " .. dir .. " && make"
-  end
+  if vim.fn.filereadable(raw_dir .. "/Makefile") == 1 then return "cd " .. dir .. " && make" end
   local choice = vim.fn.confirm("Compile Mode:", "&1. Just this file\n&2. All *." .. ext .. " files", 1)
   if choice == 1 then
     return "cd " .. dir .. " && " .. compiler .. " " .. file .. " -o " .. file_no_ext .. " && " .. file_no_ext
@@ -80,12 +72,8 @@ function Config.run_current_file()
     javascript = "node " .. vim.fn.shellescape(vim.fn.expand("%:p")),
     python = "python3 " .. vim.fn.shellescape(vim.fn.expand("%:p")),
     sh = "bash " .. vim.fn.shellescape(vim.fn.expand("%:p")),
-    c = function()
-      return Config.compile_and_run("gcc", "c")
-    end,
-    cpp = function()
-      return Config.compile_and_run("g++", "cpp")
-    end,
+    c = function() return Config.compile_and_run("gcc", "c") end,
+    cpp = function() return Config.compile_and_run("g++", "cpp") end,
   }
 
   local runner = runners[ft]
@@ -95,9 +83,7 @@ function Config.run_current_file()
   end
 
   local cmd = type(runner) == "function" and runner() or runner
-  if not cmd then
-    return
-  end
+  if not cmd then return end
 
   vim.cmd("botright 15new")
   vim.fn.jobstart(cmd, { term = true })
@@ -127,22 +113,16 @@ function Config.source_project_config()
   chunk()
   vim.notify("Sourced: " .. local_config, vim.log.levels.INFO)
   vim.schedule(function()
-    if vim.bo.filetype ~= "" then
-      vim.cmd("doautocmd FileType " .. vim.bo.filetype)
-    end
+    if vim.bo.filetype ~= "" then vim.cmd("doautocmd FileType " .. vim.bo.filetype) end
   end)
 end
 
 -- Kitty IPC ==================================================================
 function Config.kitty_launch(args, post_cmd)
   local dir = vim.fn.expand("%:p:h")
-  if dir == "" then
-    dir = vim.fn.getcwd()
-  end
+  if dir == "" then dir = vim.fn.getcwd() end
   vim.fn.system(string.format("kitty @ launch %s --cwd=%s", args, vim.fn.shellescape(dir)))
-  if post_cmd then
-    vim.fn.system(post_cmd)
-  end
+  if post_cmd then vim.fn.system(post_cmd) end
 end
 
 -- Helper to create floating terminals ========================================
@@ -165,12 +145,8 @@ local function float_term(cmd, opts)
   })
 
   local function close()
-    if vim.api.nvim_win_is_valid(win) then
-      vim.api.nvim_win_close(win, true)
-    end
-    if vim.api.nvim_buf_is_valid(buf) then
-      vim.api.nvim_buf_delete(buf, { force = true })
-    end
+    if vim.api.nvim_win_is_valid(win) then vim.api.nvim_win_close(win, true) end
+    if vim.api.nvim_buf_is_valid(buf) then vim.api.nvim_buf_delete(buf, { force = true }) end
   end
 
   vim.fn.jobstart(cmd, {
@@ -178,9 +154,7 @@ local function float_term(cmd, opts)
     env = opts.env,
     on_exit = function(_, code)
       close()
-      if opts.on_exit then
-        opts.on_exit(code)
-      end
+      if opts.on_exit then opts.on_exit(code) end
     end,
   })
 
@@ -197,9 +171,7 @@ function Config.gitbrowse(is_visual)
   end
 
   local remote = git({ "config", "--get", "remote.origin.url" })
-  if not remote then
-    return vim.notify("No git remote", 3)
-  end
+  if not remote then return vim.notify("No git remote", 3) end
 
   local ref = git({ "rev-parse", "--verify", "@{u}" }) and git({ "rev-parse", "--abbrev-ref", "HEAD" })
     or git({ "rev-parse", "HEAD" })
@@ -222,9 +194,7 @@ function Config.gitbrowse(is_visual)
 
   vim.ui.open(url)
   vim.notify("Opened: " .. url)
-  if is_visual then
-    vim.api.nvim_input("<Esc>")
-  end
+  if is_visual then vim.api.nvim_input("<Esc>") end
 end
 
 function Config.lazygit()
@@ -232,7 +202,6 @@ function Config.lazygit()
     local hl = vim.api.nvim_get_hl(0, { name = hl_name, link = false })
     return hl[attr] and string.format("#%06x", hl[attr]) or "default"
   end
-  -- stylua: ignore
   local theme_yaml = string.format([[
 os:
   editPreset: 'nvim-remote'
@@ -265,16 +234,12 @@ gui:
     vim.schedule(function()
       term.close()
       vim.cmd("edit " .. vim.fn.fnameescape(file))
-      if line then
-        vim.cmd(tostring(line))
-      end
+      if line then vim.cmd(tostring(line)) end
     end)
   end
 
   Config.new_autocmd("VimResized", nil, function()
-    if not vim.api.nvim_win_is_valid(term.win) then
-      return
-    end
+    if not vim.api.nvim_win_is_valid(term.win) then return end
     local new_width = math.floor(vim.o.columns * 0.9)
     local new_height = math.floor(vim.o.lines * 0.9)
     vim.api.nvim_win_set_config(term.win, {
@@ -288,37 +253,29 @@ gui:
 end
 
 -- GitHub issues/PRs picker ====================================================
-local function gh_get_id(item)
-  return item and item:match("^#?(%d+)")
-end
+local function gh_get_id(item) return item and item:match("^#?(%d+)") end
 
 local function gh_run(args)
   vim.fn.jobstart(vim.list_extend({ "gh" }, args), {
     on_exit = function(_, code)
       local msg = table.concat(args, " ")
-      if code == 0 then
-        vim.notify("gh " .. msg .. " ✓")
-      else
-        vim.notify("gh " .. msg .. " failed", vim.log.levels.ERROR)
-      end
+      if code == 0 then vim.notify("gh " .. msg .. " ✓")
+      else vim.notify("gh " .. msg .. " failed", vim.log.levels.ERROR) end
     end,
   })
 end
 
 function Config.gh_picker(type, state)
   local cmd = { "gh", type, "list", "--limit", "50" }
-  if state then
-    vim.list_extend(cmd, { "--state", state })
-  end
+  if state then vim.list_extend(cmd, { "--state", state }) end
 
   local mappings = {
     web = {
       char = "<C-o>",
       func = function()
         local id = gh_get_id(MiniPick.get_picker_matches().current)
-        if id then
-          vim.fn.jobstart({ "gh", type, "view", "--web", id })
-        end
+        if not id then return end
+        vim.fn.jobstart({ "gh", type, "view", "--web", id })
       end,
     },
   }
@@ -328,22 +285,16 @@ function Config.gh_picker(type, state)
       char = "<C-c>",
       func = function()
         local id = gh_get_id(MiniPick.get_picker_matches().current)
-        if not id then
-          return
-        end
+        if not id then return end
         MiniPick.stop()
-        vim.schedule(function()
-          gh_run({ "pr", "checkout", id })
-        end)
+        vim.schedule(function() gh_run({ "pr", "checkout", id }) end)
       end,
     }
     mappings.merge = {
       char = "<C-e>",
       func = function()
         local id = gh_get_id(MiniPick.get_picker_matches().current)
-        if not id then
-          return
-        end
+        if not id then return end
         MiniPick.stop()
         vim.schedule(function()
           float_term({ "gh", "pr", "merge", id }, { title = "PR #" .. id .. " merge" })
@@ -354,9 +305,7 @@ function Config.gh_picker(type, state)
       char = "<C-d>",
       func = function()
         local id = gh_get_id(MiniPick.get_picker_matches().current)
-        if not id then
-          return
-        end
+        if not id then return end
         MiniPick.stop()
         vim.schedule(function()
           float_term({ "gh", "pr", "diff", id }, { title = "PR #" .. id .. " diff" })
@@ -367,9 +316,7 @@ function Config.gh_picker(type, state)
       char = "<C-y>",
       func = function()
         local id = gh_get_id(MiniPick.get_picker_matches().current)
-        if not id then
-          return
-        end
+        if not id then return end
         MiniPick.stop()
         vim.schedule(function()
           float_term({ "gh", "pr", "review", id }, { title = "PR #" .. id .. " review" })
@@ -383,11 +330,99 @@ function Config.gh_picker(type, state)
       name = "GitHub " .. type:upper() .. (state and " (" .. state .. ")" or ""),
       choose = function(item)
         local id = gh_get_id(item)
-        if id then
-          vim.fn.jobstart({ "gh", type, "view", "--web", id })
-        end
+        if id then vim.fn.jobstart({ "gh", type, "view", "--web", id }) end
       end,
     },
     mappings = mappings,
   })
 end
+
+-- LanguageTool integration ===================================================
+local function get_range(is_visual)
+  if not is_visual then return 1, -1 end
+  local a, b = vim.fn.line("v"), vim.fn.line(".")
+  vim.api.nvim_feedkeys(vim.keycode("<Esc>"), "nx", false)
+  return math.min(a, b), math.max(a, b)
+end
+
+local function locate(lines, first, offset)
+  local consumed = 0
+  for i, line in ipairs(lines) do
+    local len = vim.str_utfindex(line, "utf-16")
+    if offset <= consumed + len then
+      return first + i - 1, vim.str_byteindex(line, "utf-16", offset - consumed) + 1
+    end
+    consumed = consumed + len + 1
+  end
+  return first, 1
+end
+
+local function to_qf_item(m, bufnr, lines, first)
+  local lnum, col = locate(lines, first, m.offset)
+
+  -- Skip whitespace warnings
+  local before = lines[lnum - first + 1]:sub(1, col - 1)
+  if m.rule.id == "WHITESPACE_RULE" and before:match("^%s*$") then return nil end
+
+  local fixes = vim
+    .iter(m.replacements or {})
+    :take(3)
+    :map(function(r)
+      return r.value
+    end)
+    :totable()
+  local hint = #fixes > 0 and ("  -> " .. table.concat(fixes, " | ")) or ""
+  return { bufnr = bufnr, lnum = lnum, col = col, type = "W", text = m.message .. hint }
+end
+
+local function request(text)
+  ---@type vim.SystemCompleted
+  local out = vim.async.await(3, vim.system, {
+    "languagetool-commandline", "--json",
+    "-l", "en-US", "-",
+  }, {
+    text = true,
+    stdin = text,
+    timeout = 20000,
+    env = { JAVA_TOOL_OPTIONS = "-XX:+UseSerialGC -XX:TieredStopAtLevel=1" },
+  })
+  vim.async.await(1, vim.schedule)
+  assert(out.code == 0, "languagetool failed: " .. (out.stderr or ""))
+  local json = out.stdout:match("{.*}") -- skip any status lines before the JSON
+  return vim.json.decode(json).matches
+end
+
+local function run_check(text, bufnr, lines, first)
+  local ok, matches = pcall(request, text)
+  if not ok then vim.notify("LanguageTool: " .. tostring(matches), vim.log.levels.ERROR) return
+  end
+
+  local seen = {}
+  local items = vim.iter(matches)
+    :map(function(m) return to_qf_item(m, bufnr, lines, first) end)
+    :filter(function(it)
+      local key = it.lnum .. ":" .. it.col
+      if seen[key] then return false end
+      seen[key] = true
+      return true
+    end)
+    :totable()
+  if #items == 0 then return vim.notify("No issues found") end
+
+  vim.fn.setqflist({}, " ", { title = "LanguageTool (" .. #items .. ")", items = items })
+  vim.cmd.copen()
+end
+
+function Config.languagetool_check(is_visual)
+  local bufnr = vim.api.nvim_get_current_buf()
+  local first, last = get_range(is_visual)
+  local lines = vim.api.nvim_buf_get_lines(bufnr, first - 1, last, false)
+  local text = table.concat(lines, "\n")
+
+  if not text:find("%S") then return vim.notify("Nothing to check", vim.log.levels.WARN) end
+
+  vim.notify("LanguageTool: checking...")
+  vim.async.run(run_check, text, bufnr, lines, first)
+end
+
+-- stylua: ignore end
