@@ -58,7 +58,7 @@
           # Window Behavior
           allow_remote_control = "yes";
           listen_on = "unix:@mykitty";
-          remember_window_size = "yes";
+          remember_window_size = "no";
           initial_window_width = 1000;
           initial_window_height = 650;
           close_on_child_death = "no";
