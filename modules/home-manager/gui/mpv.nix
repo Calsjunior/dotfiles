@@ -37,5 +37,23 @@
         "f" = "cycle fullscreen";
       };
     };
+
+    xdg.mimeApps = {
+      enable = true;
+      defaultApplications = {
+        "video/mp4" = "mpv.desktop";
+        "video/matroska" = "mpv.desktop";
+        "video/x-matroska" = "mpv.desktop";
+        "video/x-msvideo" = "mpv.desktop";
+        "video/webm" = "mpv.desktop";
+        "video/quicktime" = "mpv.desktop";
+        "video/ogg" = "mpv.desktop";
+        "audio/mpeg" = "mpv.desktop";
+        "audio/flac" = "mpv.desktop";
+        "audio/ogg" = "mpv.desktop";
+        "audio/x-wav" = "mpv.desktop";
+        "audio/aac" = "mpv.desktop";
+      };
+    };
   };
 }
