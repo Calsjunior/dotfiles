@@ -5,9 +5,8 @@ ui_scale = 1.0
 [audio]
 enable_overdrive = true
 enable_sounds = false
-notification_sound = ""
+sound_theme = "freedesktop"
 sound_volume = 0.5
-volume_change_sound = ""
 
 [backdrop]
 blur_intensity = 0.5
@@ -114,6 +113,12 @@ event_date_format = "%A %e %B"
 event_time_format = "%H:%M"
 refresh_minutes = 15
 
+    [calendar.reminders]
+    all_day_digest_time = "09:00"
+    default_lead_minutes = 10
+    enabled = true
+    use_event_reminders = true
+
 [control_center]
 hidden_tabs = []
 show_session_button = true
@@ -123,7 +128,7 @@ sidebar_section = "compact"
 width = 700
 
     [control_center.calendar]
-    show_events_card = true
+    show_events_card = false
     show_week_numbers = false
 
     [[control_center.shortcuts]]
@@ -147,14 +152,11 @@ width = 700
 [desktop_widgets]
 enabled = false
 schema_version = 1
-widget_order = []
 
     [desktop_widgets.grid]
     cell_size = 16
     major_interval = 4
     visible = false
-
-    [desktop_widgets.widget]
 
 [dock]
 active_monitor_only = false
@@ -288,11 +290,14 @@ sunset = ""
 allow_empty_password = false
 blur_intensity = 0.5
 blurred_desktop = false
+edge_smoothness = 0.30000001192092896
 enabled = true
 fingerprint = true
 lock_before_suspend = true
 monitors = []
 tint_intensity = 0.30000001192092896
+transition = [ "fade", "wipe", "disc", "stripes", "zoom", "honeycomb" ]
+transition_duration = 1500.0
 wallpaper = ""
 
 [lockscreen_widgets]
@@ -450,6 +455,7 @@ border = true
 collapse_on_dismiss = true
 enable_daemon = true
 history_retention_hours = 0
+keep_dismissed_in_history = true
 layer = "top"
 max_visible = 0
 monitors = []
@@ -505,11 +511,13 @@ auto_update = "none"
 enabled = [ "noctalia/screen_recorder", "noctalia/notes", "profidev/hypr-screen-mirror", "thepunkoff/pomodoro", "fel/ocr" ]
 
     [[plugins.source]]
+    enabled = true
     kind = "git"
     location = "https://github.com/noctalia-dev/official-plugins"
     name = "official"
 
     [[plugins.source]]
+    enabled = true
     kind = "git"
     location = "https://github.com/noctalia-dev/community-plugins"
     name = "community"
@@ -540,6 +548,7 @@ polkit_agent = true
 popup_borders = true
 popup_shadows = true
 screen_time_enabled = false
+settings_expand_all_groups = false
 settings_show_advanced = true
 settings_window_translucent = false
 setup_wizard_enabled = true
@@ -547,6 +556,7 @@ shared_gl_context = true
 show_location = true
 telemetry_enabled = false
 time_format = "{:%I:%M %p}"
+umbriel_overview_type_to_launch_enabled = false
 
     [shell.animation]
     enabled = true
@@ -572,6 +582,9 @@ time_format = "{:%I:%M %p}"
 
         [shell.launcher.dmenu]
 
+        [shell.launcher.panels]
+        ignored = [ "polkit", "setup-wizard", "test", "launcher" ]
+
     [shell.mpris]
     blacklist = []
 
@@ -583,7 +596,6 @@ time_format = "{:%I:%M %p}"
     control_center_position = "auto"
     floating_layer = "overlay"
     floating_offset = 8
-    launcher_compact = true
     launcher_placement = "attached"
     launcher_position = "center"
     list_item_background = false
@@ -611,6 +623,9 @@ time_format = "{:%I:%M %p}"
     size = 32
 
     [shell.screenshot]
+    annotate = false
+    close_on_copy = true
+    close_on_save = true
     confirm_region = false
     copy_to_clipboard = true
     directory = "~/Pictures/screenshots"
@@ -621,6 +636,7 @@ time_format = "{:%I:%M %p}"
     remember_last_region = false
     save_to_file = true
     show_cursor = false
+    skip_annotate_on_copy_save = false
 
     [shell.session]
     grid = false
@@ -684,7 +700,13 @@ time_format = "{:%I:%M %p}"
     direction = "down"
 
     [shell.window_switcher]
+    current_workspace_only = false
     mru = false
+    show_all_outputs = true
+    show_app_icon = true
+    show_caption = true
+    show_count = true
+    style = "carousel"
 
 [storage]
 key_file = "/run/secrets/noctalia_storage_key"
@@ -761,15 +783,6 @@ transition_on_startup = false
     interval_seconds = 1800
     order = "random"
     recursive = true
-
-    [wallpaper.default]
-    path = "/home/cal/Pictures/wallpapers/gruvbox-material/swag-girl.png"
-
-    [wallpaper.last]
-    path = "/home/cal/Pictures/wallpapers/gruvbox-material/swag-girl.png"
-
-    [wallpaper.monitors.eDP-1]
-    path = "/home/cal/Pictures/wallpapers/gruvbox-material/swag-girl.png"
 
 [weather]
 effects = true
