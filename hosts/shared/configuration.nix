@@ -21,15 +21,7 @@
   nixpkgs.config.allowUnfree = true;
   system.stateVersion = "25.11";
 
-  networking = {
-    hostName = "${hostname}";
-    networkmanager.enable = true;
-    networkmanager.dns = "none";
-    nameservers = [
-      "1.1.1.1"
-      "1.0.0.1"
-    ];
-  };
+  networking.hostName = "${hostname}";
 
   hardware.bluetooth = {
     enable = true;
