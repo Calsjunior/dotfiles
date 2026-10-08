@@ -33,8 +33,9 @@
       "src": "https://github.com/nvim-lua/plenary.nvim"
     },
     "smart-splits.nvim": {
-      "rev": "527441d1ccbaea9505c0727bbf941a153af67589",
-      "src": "https://github.com/mrjones2014/smart-splits.nvim"
+      "rev": "ac11b8ed1efe7cca7bb3eae9c588163c926c6894",
+      "src": "https://github.com/smart-splits-nvim/smart-splits.nvim",
+      "version": "'v2.1.1-final'"
     },
     "tiny-cmdline.nvim": {
       "rev": "d83700b48d8ff5625dbef4029af071db559544e5",

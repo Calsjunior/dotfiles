@@ -82,7 +82,7 @@ end)
 
 -- Terminal & Multiplexer =====================================================
 later(function()
-  add({ "https://github.com/mrjones2014/smart-splits.nvim" })
+  add({ { src = "https://github.com/smart-splits-nvim/smart-splits.nvim", version = "v2.1.1-final" } })
   require("smart-splits").setup({
     ignored_filetypes = { "NvimTree" },
     multiplexer_integration = "kitty",
