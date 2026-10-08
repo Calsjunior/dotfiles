@@ -43,9 +43,10 @@
                     nerdFontsVersion: '3'
                     showCommandLog: false
                     skipRewordInEditorWarning: true
-                    authorColors:
-                      "${config.programs.git.settings.user.name}": 'cyan'
-                      '*': 'magenta'
+                    theme:
+                      authorColors:
+                        "${config.programs.git.settings.user.name}": 'cyan'
+                        '*': 'magenta'
                   git:
                     autoFetch: false
                     overrideGpg: true
