@@ -1,9 +1,37 @@
-# Warp via sing-box. To get it working, it needs to be registered per host:
-# cd $(mktemp -d) && nix shell nixpkgs#wgcf
-# wgcf register --accept-tos && wgcf generate && cat wgcf-profile.conf
-#
-# Usage: sudo systemctl start sing-box
-# Check: sudo systemctl is-active sing-box
+/*
+  Cloudflare WARP through sing-box.
+  To get it working, it needs to be registered per host.
+
+  + Make a free WARP account:
+    cd $(mktemp -d) && nix shell nixpkgs#wgcf
+    wgcf register --accept-tos && wgcf generate && cat wgcf-profile.conf
+
+    IMPORTANT: Don't share wgcf-account.toml or wgcf-profile.conf as they hold
+    your account token.
+
+    Store the PrivateKey in your secrets manager. Stay in this folder for the
+    next step.
+
+  + Get your reserved numbers. Without them, the tunnel may only connect some
+    of the time. Run this whole block at once:
+
+    id=$(grep '^device_id' wgcf-account.toml | sed -E "s|.*= *['\"]?([^'\"]*).*|\1|")
+    token=$(grep '^access_token' wgcf-account.toml | sed -E "s|.*= *['\"]?([^'\"]*).*|\1|")
+    curl -s "https://api.cloudflareclient.com/v0a2158/reg/$id" \
+      -H 'User-Agent: okhttp/3.12.1' \
+      -H 'CF-Client-Version: a-6.10-2158' \
+      -H "Authorization: Bearer $token" \
+      | nix run nixpkgs#jq -- -r .config.client_id | base64 -d | od -An -tu1
+
+    Put the three numbers in sys.network.warp.reserved in your host configuration.
+
+  + Once everything is set and working, remove the files from tmp directory.
+    rm -f wgcf-account.toml wgcf-profile.conf
+
+  Start:  sudo systemctl start sing-box
+  Check:  sudo systemctl is-active sing-box
+  Stop:   sudo systemctl stop sing-box   (do this first if the internet hangs)
+*/
 
 {
   config,
@@ -46,25 +74,25 @@ in
       address = lib.mkOption {
         type = lib.types.listOf lib.types.str;
         default = [ "172.16.0.2/32" ];
-        description = "Tunnel IPs from the Address lines of wgcf-profile.conf";
+        description = "Tunnel IPs from the Address lines of wgcf-profile.conf.";
       };
 
       endpointAddress = lib.mkOption {
         type = lib.types.str;
         default = "188.114.97.4";
-        description = "Cloudflare's WARP endpoint IP address";
+        description = "Cloudflare's WARP endpoint IP address.";
       };
 
       endpointPort = lib.mkOption {
         type = lib.types.int;
         default = 1701;
-        description = "Cloudflare WARP endpoint port";
+        description = "Cloudflare WARP endpoint port.";
       };
 
       peerPublicKey = lib.mkOption {
         type = lib.types.str;
         default = "bmXOC+F1FxEMF9dyiK2H5/1SUtzH0JuVo51h2wPfgyo=";
-        description = "Cloudflare's WARP peer public key from wgcf-profile.conf";
+        description = "Cloudflare's WARP public key, from wgcf-profile.conf.";
       };
 
       reserved = lib.mkOption {
@@ -74,7 +102,12 @@ in
           0
           0
         ];
-        description = "Three reserved bytes for your WARP account; zeros if you don't have them";
+        description = "Three numbers from your WARP account.";
+        example = [
+          12
+          34
+          56
+        ];
       };
     };
   };
@@ -103,6 +136,17 @@ in
     })
 
     (lib.mkIf (cfg.enable && cfg.warp.enable) {
+      warnings =
+        lib.optional
+          (
+            cfg.warp.reserved == [
+              0
+              0
+              0
+            ]
+          )
+          "sys.network.warp.reserved is unset. The tunnel may only connect some of the time on your network; see the top of network.nix on how to look up your numbers.";
+
       services.sing-box = {
         enable = true;
         settings = {
