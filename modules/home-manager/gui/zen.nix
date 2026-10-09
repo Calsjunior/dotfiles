@@ -1,7 +1,6 @@
 {
   config,
   lib,
-  pkgs,
   inputs,
   ...
 }:
@@ -48,11 +47,6 @@
           # Return YouTube Dislike
           "{762f9885-5a13-4abd-9c77-433dcd38b8fd}" = {
             install_url = "https://addons.mozilla.org/firefox/downloads/latest/return-youtube-dislikes/latest.xpi";
-            installation_mode = "force_installed";
-          };
-          # React devtools
-          "@react-devtools" = {
-            install_url = "https://addons.mozilla.org/en-US/firefox/addon/react-devtools/";
             installation_mode = "force_installed";
           };
         };
@@ -167,21 +161,6 @@
           "psu.better_ctrltab.shadow_size" = "18px";
           "psu.better_ctrltab.zoom" = "0.8";
 
-          # Better Find Bar
-          "theme-better_find_bar-enable_custom_background" = false;
-          "theme.better_find_bar.custom_background" = "";
-          "theme.better_find_bar.hide_find_status" = false;
-          "theme.better_find_bar.hide_found_matches" = false;
-          "theme.better_find_bar.hide_highlight" = "not_hide";
-          "theme.better_find_bar.hide_match_case" = "not_hide";
-          "theme.better_find_bar.hide_match_diacritics" = "not_hide";
-          "theme.better_find_bar.hide_whole_words" = "not_hide";
-          "theme.better_find_bar.horizontal_position" = "default";
-          "theme.better_find_bar.instant_animations" = false;
-          "theme.better_find_bar.textbox_width" = "800";
-          "theme.better_find_bar.transparent_background" = false;
-          "theme.better_find_bar.vertical_position" = "top";
-
           # Custom Statusbar
           "theme.customstatusbar.border_thickness" = "2px";
           "theme.customstatusbar.color_background" = "var(--zen-colors-tertiary)";
@@ -253,7 +232,6 @@
 
         mods = [
           "72f8f48d-86b9-4487-acea-eb4977b18f21" # Better ctrl tabs
-          "a6335949-4465-4b71-926c-4a52d34bc9c0" # Better far bars
           "ea1a5ace-f698-4b45-ab88-6e8bd3a563f0" # Bookmark Toolbar Tweaks
           "a5f6a231-e3c8-4ce8-8a8e-3e93efd6adec" # Cleaned URL bars
           "32aca67a-ffdd-49e7-95c7-1821793610ca" # Custom Statusbar
