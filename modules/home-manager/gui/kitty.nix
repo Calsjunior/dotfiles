@@ -43,9 +43,11 @@
           map_timeout = "1.5";
 
           # Appearance & Layouts
+          custom_shaders = "cursor-trail-motion-blur";
           cursor_shape = "block";
           cursor_trail = 3;
           cursor_trail_decay = "0.1 0.4";
+          cursor_trail_start_threshold = 2;
           shell_integration = "no-cursor";
           tab_bar_edge = "bottom";
           tab_bar_style = "powerline";
