@@ -54,5 +54,6 @@
         ];
       };
     };
+    swap.enable = true;
   };
 }
