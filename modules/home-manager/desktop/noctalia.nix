@@ -13,26 +13,13 @@
         extraPaths = lib.mkOption {
           type = lib.types.listOf lib.types.package;
           default = [ ];
-          internal = true;
+          description = "Extra packages added to Noctalia's PATH (plugin dependencies).";
         };
-      };
-      hasCompositor = lib.mkOption {
-        type = lib.types.bool;
-        default = false;
-        internal = true;
       };
     };
   };
 
   config = lib.mkIf config.desktop.noctalia.enable {
-
-    assertions = [
-      {
-        assertion = config.desktop.hasCompositor;
-        message = "Noctalia Shell requires a graphical compositor module to be enabled.";
-      }
-    ];
-
     home.packages = [
       (
         if config.desktop.noctalia.extraPaths == [ ] then

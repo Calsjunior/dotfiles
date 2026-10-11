@@ -12,7 +12,15 @@
 
   desktop = {
     hyprland.enable = true;
-    noctalia.enable = true;
+    noctalia = {
+      enable = true;
+      extraPaths = with pkgs; [
+        grim
+        slurp
+        socat
+        tesseract
+      ];
+    };
     theme.enable = true;
     wayland.enable = true;
   };
