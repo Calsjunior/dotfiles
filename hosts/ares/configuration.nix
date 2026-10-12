@@ -46,5 +46,10 @@
         ];
       };
     };
+    swap = {
+      enable = true;
+      sizeMiB = 8 * 1024;
+    };
+    gaming.enable = true;
   };
 }
