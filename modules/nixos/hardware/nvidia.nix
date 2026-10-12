@@ -10,6 +10,12 @@ in
   options.sys.hardware.nvidia = {
     enable = lib.mkEnableOption "Enable Nvidia Drivers";
 
+    enable32Bit = lib.mkOption {
+      type = lib.types.bool;
+      default = false;
+      description = "Enable 32-bit graphics support.";
+    };
+
     prime = {
       enable = lib.mkEnableOption "Enable PRIME Hybrid Offload";
       intelBusId = lib.mkOption {
@@ -25,7 +31,10 @@ in
 
   config = lib.mkIf cfg.enable {
     services.xserver.videoDrivers = [ "nvidia" ];
-    hardware.graphics.enable = true;
+    hardware.graphics = {
+      enable = true;
+      enable32Bit = cfg.enable32Bit;
+    };
     hardware.nvidia = {
       open = false;
       nvidiaSettings = true;
