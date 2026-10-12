@@ -4,7 +4,6 @@
 {
   config,
   lib,
-  pkgs,
   modulesPath,
   ...
 }:
@@ -29,6 +28,12 @@
   fileSystems."/" = {
     device = "/dev/disk/by-uuid/4753150a-7ba2-4b44-9dcd-1dc10e88a457";
     fsType = "ext4";
+  };
+
+  fileSystems."/mnt/hdd" = {
+    device = "/dev/disk/by-uuid/4fca523d-10fe-4ccf-b7b8-f8cd7b9c1042";
+    fsType = "ext4";
+    options = [ "nofail" ];
   };
 
   fileSystems."/boot/efi" = {
