@@ -122,3 +122,5 @@ hl.bind("XF86AudioNext", hl.dsp.exec_cmd(ipc .. " media next"), { locked = true 
 hl.bind("XF86AudioPause", hl.dsp.exec_cmd(ipc .. " media toggle"), { locked = true })
 hl.bind("XF86AudioPlay", hl.dsp.exec_cmd(ipc .. " media toggle"), { locked = true })
 hl.bind("XF86AudioPrev", hl.dsp.exec_cmd(ipc .. " media previous"), { locked = true })
+
+hl.bind(main_mod .. " + M", hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"))
