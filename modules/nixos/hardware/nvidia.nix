@@ -1,7 +1,6 @@
 {
   config,
   lib,
-  pkgs,
   ...
 }:
 let
@@ -43,7 +42,7 @@ in
       };
     };
 
-    services.udev.extraRules = ''
+    services.udev.extraRules = lib.mkIf cfg.prime.enable /* bash */ ''
       # Remove NVIDIA USB xHCI Host Controller, if present
       ACTION=="add", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x0c0330", ATTR{power/control}="auto", ATTR{remove}="1"
       # Remove NVIDIA USB Type-C UCSI, if present
