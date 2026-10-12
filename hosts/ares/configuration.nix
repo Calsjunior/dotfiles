@@ -26,6 +26,7 @@
   sys = {
     hardware = {
       nvidia = {
+        enable32Bit = true;
         enable = true;
         prime = {
           enable = false;
