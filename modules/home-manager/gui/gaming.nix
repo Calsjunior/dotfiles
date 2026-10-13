@@ -30,9 +30,9 @@
       runners.wine.settings.system = {
         env = {
           DXVK_CONFIG = "dxvk.trackPipelineLifetime = True"; # Fixes memory leak
-          DXVK_ENABLE_NVAPI = "1";
           DXVK_STATE_CACHE_PATH = "${config.home.homeDirectory}/.cache/dxvk";
           DXVK_HUD = "0";
+          PROTON_ENABLE_NVAPI = "1";
         };
       };
     };
@@ -40,6 +40,7 @@
     xdg.configFile."lutris/system.yml".text = lib.generators.toYAML { } {
       system = {
         mangohud = true;
+        gamemode = true;
         env = {
           MANGOHUD_CONFIG = "fps,cpu_temp,gpu_temp,ram,toggle_hud=grave,no_display";
           __GL_SHADER_DISK_CACHE_PATH = "${config.home.homeDirectory}/.cache/nvidia";
