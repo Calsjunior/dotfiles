@@ -113,6 +113,9 @@
           "services.sync.engine.workspaces" = true;
           "services.sync.engine.tabs" = true;
 
+          # Remove zen library
+          "zen.library.enabled" = false;
+
           # Move URL bar to the top toolbar
           "zen.view.use-single-toolbar" = false;
 
