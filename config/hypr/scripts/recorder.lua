@@ -7,7 +7,7 @@ local msg_saved = "Recording Saved"
 local notify_time_ms = 1000
 local pre_record_delay = 1.4
 
-local gsr_base = string.format("gpu-screen-recorder -f %d -k h264 -ac opus -cr full", fps)
+local gsr_base = string.format("gpu-screen-recorder -f %d -k h264 -ac opus -cr full -fallback-cpu-encoding yes", fps)
 
 local ghost_slurp = "nix run nixpkgs#slurp -- -f '%wx%h+%x+%y'"
 local ghost_notify = "nix run nixpkgs#libnotify --"
