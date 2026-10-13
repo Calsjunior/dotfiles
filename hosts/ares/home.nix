@@ -23,7 +23,7 @@ in
   };
 
   home.file = {
-    "games".source = config.lib.file.mkOutOfStoreSymlink gamesPath;
+    "games-hdd".source = config.lib.file.mkOutOfStoreSymlink gamesPath;
     "Videos/library".source = config.lib.file.mkOutOfStoreSymlink videosPath;
     "Pictures/library".source = config.lib.file.mkOutOfStoreSymlink imagesPath;
   };
