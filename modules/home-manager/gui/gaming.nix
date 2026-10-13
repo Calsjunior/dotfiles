@@ -6,7 +6,16 @@
 }:
 
 {
-  options.gui.gaming.enable = lib.mkEnableOption "Lutris, MangoHud and gaming tools";
+  options.gui.gaming = {
+    enable = lib.mkEnableOption "Lutris, MangoHud and gaming tools";
+
+    lutris.gamePath = lib.mkOption {
+      type = lib.types.nullOr lib.types.str;
+      default = null;
+      example = "/mnt/hdd/games/library";
+      description = "Optional game directory used by Lutris.";
+    };
+  };
 
   config = lib.mkIf config.gui.gaming.enable {
     programs.lutris = {
@@ -28,17 +37,17 @@
       };
     };
 
-    home.file."games" = {
-      source = config.lib.file.mkOutOfStoreSymlink "/mnt/hdd/games";
+    xdg.configFile."lutris/system.yml".text = lib.generators.toYAML { } {
+      system = {
+        mangohud = true;
+        env = {
+          MANGOHUD_CONFIG = "fps,cpu_temp,gpu_temp,ram,toggle_hud=grave,no_display";
+          __GL_SHADER_DISK_CACHE_PATH = "${config.home.homeDirectory}/.cache/nvidia";
+        };
+      }
+      // lib.optionalAttrs (config.gui.gaming.lutris.gamePath != null) {
+        game_path = config.gui.gaming.lutris.gamePath;
+      };
     };
-
-    xdg.configFile."lutris/system.yml".text = /* yaml */ ''
-      system:
-        game_path: /mnt/hdd/games/library
-        mangohud: true
-        env:
-          MANGOHUD_CONFIG: "fps,cpu_temp,gpu_temp,ram,toggle_hud=grave,no_display"
-          __GL_SHADER_DISK_CACHE_PATH: "${config.home.homeDirectory}/.cache/nvidia"
-    '';
   };
 }
