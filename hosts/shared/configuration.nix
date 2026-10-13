@@ -21,7 +21,7 @@
   nixpkgs.config.allowUnfree = true;
   system.stateVersion = "25.11";
 
-  networking.hostName = "${hostname}";
+  networking.hostName = hostname;
 
   hardware.bluetooth = {
     enable = true;
@@ -32,10 +32,7 @@
 
   users.users.${user} = {
     isNormalUser = true;
-    extraGroups = [
-      "wheel"
-      "networkmanager"
-    ];
+    extraGroups = [ "wheel" ];
   };
 
   sys = {

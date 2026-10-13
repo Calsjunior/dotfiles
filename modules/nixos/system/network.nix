@@ -37,6 +37,7 @@
   config,
   pkgs,
   lib,
+  user,
   ...
 }:
 let
@@ -123,6 +124,10 @@ in
     }
 
     (lib.mkIf cfg.enable {
+      users.users.${user} = {
+        extraGroups = [ "networkmanager" ];
+      };
+
       networking = {
         networkmanager = {
           enable = true;
