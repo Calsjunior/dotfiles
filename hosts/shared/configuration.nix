@@ -56,6 +56,9 @@
 
   wm = {
     hyprland.enable = true;
+  };
+
+  desktop = {
     gpu-screen-recorder.enable = true;
   };
 }
