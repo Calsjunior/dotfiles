@@ -33,12 +33,14 @@
           DXVK_STATE_CACHE_PATH = "${config.home.homeDirectory}/.cache/dxvk";
           DXVK_HUD = "0";
           PROTON_ENABLE_NVAPI = "1";
+          PROTON_ENABLE_WAYLAND = "1"; # Forces native wayland, could break in some games
         };
       };
     };
 
     xdg.configFile."lutris/system.yml".text = lib.generators.toYAML { } {
       system = {
+        disable_runtime = true;
         mangohud = true;
         gamemode = true;
         env = {
