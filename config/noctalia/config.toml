@@ -22,11 +22,13 @@ order = [ "default" ]
     border = "outline"
     border_width = 0.0
     capsule = true
+    capsule_border_width = 1.0
     capsule_fill = "surface_variant"
     capsule_opacity = 1.0
     capsule_padding = 10.0
     capsule_thickness = 0.69999998807907104
-    center = [ "audio_visualizer" ]
+    center = []
+    compositor_blur = true
     concave_edge_corners = true
     contact_shadow = false
     enabled = true
@@ -57,9 +59,98 @@ order = [ "default" ]
 
         [bar.default.dead_zone]
 
+        [bar.default.monitor.DP-1]
+        auto_hide = false
+        background_opacity = 1.0
+        border = "outline"
+        border_width = 0.0
+        capsule = true
+        capsule_border_width = 1.0
+        capsule_fill = "surface_variant"
+        capsule_opacity = 1.0
+        capsule_padding = 10.0
+        capsule_thickness = 0.69999998807907104
+        center = []
+        compositor_blur = true
+        concave_edge_corners = true
+        contact_shadow = false
+        enabled = true
+        end = [ "tray", "group:g4", "group:g2", "group:g1", "session" ]
+        font_scale = 1.0
+        font_weight = 500
+        hover_highlight = true
+        layer = "top"
+        margin_edge = 0
+        margin_ends = 0
+        margin_opposite_edge = 0
+        match = "DP-1"
+        padding = 18
+        panel_overlap = 1
+        radius = 16
+        radius_bottom_left = 16
+        radius_bottom_right = 16
+        radius_top_left = 0
+        radius_top_right = 0
+        reserve_space = true
+        scale = 1.0
+        shadow = true
+        show_on_workspace_switch = true
+        smart_auto_hide = false
+        start = [ "group:g3", "Clock_Date" ]
+        thickness = 38
+        widget_spacing = 8
+
+            [bar.default.monitor.DP-1.dead_zone]
+
+            [[bar.default.monitor.DP-1.capsule_group]]
+            accordion = false
+            accordion_direction = "end"
+            border_width = 1.0
+            enabled = true
+            fill = "surface_variant"
+            id = "g2"
+            members = [ "volume", "input_volume" ]
+            opacity = 1.0
+            padding = 10.0
+
+            [[bar.default.monitor.DP-1.capsule_group]]
+            accordion = false
+            accordion_direction = "end"
+            border_width = 1.0
+            enabled = true
+            fill = "surface_variant"
+            id = "g3"
+            members = [ "workspaces" ]
+            opacity = 1.0
+            padding = 10.0
+
+            [[bar.default.monitor.DP-1.capsule_group]]
+            accordion = true
+            accordion_direction = "end"
+            border_width = 1.0
+            enabled = true
+            fill = "surface_variant"
+            id = "g4"
+            members = [ "notifications", "recorder_3", "ocr", "widget_2", "widget" ]
+            opacity = 1.0
+            padding = 10.0
+            widget_spacing = 12
+
+            [[bar.default.monitor.DP-1.capsule_group]]
+            accordion = false
+            accordion_direction = "end"
+            border_width = 1.0
+            enabled = true
+            fill = "surface_variant"
+            id = "g1"
+            members = [ "network", "bluetooth" ]
+            opacity = 1.0
+            padding = 10.0
+
         [[bar.default.capsule_group]]
         accordion = false
         accordion_direction = "end"
+        border_width = 1.0
         enabled = true
         fill = "surface_variant"
         id = "g1"
@@ -70,6 +161,7 @@ order = [ "default" ]
         [[bar.default.capsule_group]]
         accordion = false
         accordion_direction = "end"
+        border_width = 1.0
         enabled = true
         fill = "surface_variant"
         id = "g2"
@@ -80,6 +172,7 @@ order = [ "default" ]
         [[bar.default.capsule_group]]
         accordion = false
         accordion_direction = "end"
+        border_width = 1.0
         enabled = true
         fill = "surface_variant"
         id = "g3"
@@ -90,6 +183,7 @@ order = [ "default" ]
         [[bar.default.capsule_group]]
         accordion = true
         accordion_direction = "end"
+        border_width = 1.0
         enabled = true
         fill = "surface_variant"
         id = "g4"
@@ -304,6 +398,7 @@ wallpaper = ""
 enabled = true
 schema_version = 1
 widget_order = [
+    "lockscreen-login-box@DP-1",
     "lockscreen-login-box@WAYLAND-1",
     "lockscreen-login-box@winit",
     "lockscreen-login-box@Unknown-1",
@@ -315,6 +410,34 @@ widget_order = [
     cell_size = 8
     major_interval = 4
     visible = true
+
+    [lockscreen_widgets.widget."lockscreen-login-box@DP-1"]
+    box_height = 196.0
+    box_width = 810.0
+    cx = 960.0
+    cy = 898.0
+    enabled = true
+    output = "DP-1"
+    placement_height = 1080.0
+    placement_width = 1920.0
+    rotation = 0.0
+    type = "login_box"
+
+        [lockscreen_widgets.widget."lockscreen-login-box@DP-1".settings]
+        background_color = "surface_variant"
+        background_opacity = 0.88
+        background_radius = 12.0
+        center_password_text = false
+        input_opacity = 1.0
+        input_radius = 6.0
+        layout = "regular"
+        show_caps_lock = true
+        show_keyboard_layout = true
+        show_login_button = true
+        show_media = true
+        show_session_buttons = true
+        show_unlock_hint = true
+        show_weather = true
 
     [lockscreen_widgets.widget."lockscreen-login-box@Unknown-1"]
     box_height = 196.0
@@ -452,8 +575,11 @@ temperature_night = 4900
 [notification]
 background_opacity = 0.97000002861022949
 border = true
+border_color = "outline"
+border_width = 1.0
 collapse_on_dismiss = true
 enable_daemon = true
+follow_focused_output = false
 history_retention_hours = 0
 keep_dismissed_in_history = true
 layer = "top"
@@ -465,11 +591,16 @@ position = "top_right"
 scale = 1.0
 show_actions = true
 show_app_name = true
+width = 360
 
 [osd]
 background_opacity = 0.97000002861022949
 border = true
+border_color = "outline"
+border_width = 1.0
 enabled = true
+follow_focused_output = false
+hide_delay_ms = 1400
 monitors = []
 offset_x = 20
 offset_y = 8
@@ -547,6 +678,7 @@ password_style = "default"
 polkit_agent = true
 popup_borders = true
 popup_shadows = true
+readline_shortcuts = false
 screen_time_enabled = false
 settings_expand_all_groups = false
 settings_show_advanced = true
@@ -791,7 +923,7 @@ refresh_minutes = 30
 unit = "metric"
 
 [widget.Clock_Date]
-format = "{:%I:%M:%S %p} - {:%A, %B %d}"
+format = "{:%I:%M %p} - {:%A, %B %d}"
 type = "clock"
 
 [widget.active_window]
@@ -855,6 +987,7 @@ type = "media"
 [widget.network]
 show_label = false
 type = "network"
+vpn_status = "both"
 
 [widget.network_rx]
 stat = "net_rx"
