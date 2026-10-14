@@ -56,11 +56,11 @@
     # However, games launched via lutris still need to read from lutris's
     # config, so the __GL_SHADER_DISK_CACHE_PATH below may or may not work.
     # https://github.com/ValveSoftware/steam-for-linux/issues/11392#issue-2616538419#1
-    environment.sessionVariables = {
+    environment.sessionVariables = lib.mkIf config.sys.hardware.nvidia.enable {
       __GL_SHADER_DISK_CACHE = "1";
       __GL_SHADER_DISK_CACHE_SIZE = "10737418240";
       __GL_SHADER_DISK_CACHE_SKIP_CLEANUP = "1";
-      __GL_SHADER_DISK_CACHE_PATH = "$" + "{HOME}/.cache/nvidia";
+      __GL_SHADER_DISK_CACHE_PATH = "\${HOME}/.cache/nvidia";
     };
   };
 }
