@@ -1,7 +1,6 @@
 {
   config,
   lib,
-  pkgs,
   ...
 }:
 let
@@ -21,6 +20,20 @@ in
       type = lib.types.nullOr lib.types.int;
       default = null;
       description = "Maximum CPU frequency in kHz while on charger. Leaves uncapped if null.";
+    };
+
+    aspmPolicy = lib.mkOption {
+      type = lib.types.nullOr (
+        lib.types.enum [
+          "default"
+          "performance"
+          "powersave"
+          "powersupersave"
+        ]
+      );
+      default = null;
+      description = "PCIe ASPM policy. Leaves the kernel default if null.";
+      example = "powersupersave";
     };
   };
 
@@ -51,5 +64,7 @@ in
     };
 
     powerManagement.powertop.enable = true;
+
+    boot.kernelParams = lib.optional (cfg.aspmPolicy != null) "pcie_aspm.policy=${cfg.aspmPolicy}";
   };
 }
