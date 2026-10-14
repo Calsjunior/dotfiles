@@ -10,7 +10,7 @@
 
   boot.loader = {
     efi.canTouchEfiVariables = true;
-    efi.efiSysMountPoint = "/boot/efi";
+    efi.efiSysMountPoint = "/boot";
     grub = {
       enable = true;
       efiSupport = true;
