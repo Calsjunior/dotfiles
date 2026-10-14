@@ -4,6 +4,30 @@
   inputs,
   ...
 }:
+let
+  extensions = {
+    ublock-origin = {
+      id = "uBlock0@raymondhill.net";
+      url = "https://addons.mozilla.org/firefox/downloads/latest/ublock-origin/latest.xpi";
+    };
+    bitwarden = {
+      id = "{446900e4-71c2-419f-a6a7-df9c091e268b}";
+      url = "https://addons.mozilla.org/firefox/downloads/latest/bitwarden-password-manager/latest.xpi";
+    };
+    dark-reader = {
+      id = "addon@darkreader.org";
+      url = "https://addons.mozilla.org/firefox/downloads/latest/darkreader/latest.xpi";
+    };
+    sponsorBlock = {
+      id = "sponsorBlocker@ajay.app";
+      url = "https://addons.mozilla.org/firefox/downloads/latest/sponsorblock/latest.xpi";
+    };
+    youtubeDislike = {
+      id = "{762f9885-5a13-4abd-9c77-433dcd38b8fd}";
+      url = "https://addons.mozilla.org/firefox/downloads/latest/return-youtube-dislikes/latest.xpi";
+    };
+  };
+in
 {
   imports = [
     inputs.zen-browser.homeModules.beta
@@ -23,36 +47,25 @@
         DontCheckDefaultBrowser = true;
         DisablePocket = true;
 
-        ExtensionSettings = {
-          # uBlock Origin
-          "uBlock0@raymondhill.net" = {
-            install_url = "https://addons.mozilla.org/firefox/downloads/latest/ublock-origin/latest.xpi";
-            installation_mode = "force_installed";
-          };
-          # Bitwarden
-          "{446900e4-71c2-419f-a6a7-df9c091e268b}" = {
-            install_url = "https://addons.mozilla.org/firefox/downloads/latest/bitwarden-password-manager/latest.xpi";
-            installation_mode = "force_installed";
-          };
-          # Dark Reader
-          "addon@darkreader.org" = {
-            install_url = "https://addons.mozilla.org/firefox/downloads/latest/darkreader/latest.xpi";
-            installation_mode = "force_installed";
-          };
-          # SponsorBlock
-          "sponsorBlocker@ajay.app" = {
-            install_url = "https://addons.mozilla.org/firefox/downloads/latest/sponsorblock/latest.xpi";
-            installation_mode = "force_installed";
-          };
-          # Return YouTube Dislike
-          "{762f9885-5a13-4abd-9c77-433dcd38b8fd}" = {
-            install_url = "https://addons.mozilla.org/firefox/downloads/latest/return-youtube-dislikes/latest.xpi";
-            installation_mode = "force_installed";
-          };
-        };
+        ExtensionSettings = builtins.listToAttrs (
+          map (ext: {
+            name = ext.id;
+            value = {
+              install_url = ext.url;
+              installation_mode = "force_installed";
+            };
+          }) (builtins.attrValues extensions)
+        );
       };
 
       profiles.default = {
+        search = {
+          force = true;
+          default = "ddg";
+        };
+        extensionButtons = {
+          "unified-extensions-area" = map (ext: ext.id) (builtins.attrValues extensions);
+        };
         isDefault = true;
         keyboardShortcutsVersion = 21;
         keyboardShortcuts = [
@@ -113,17 +126,14 @@
           "services.sync.engine.workspaces" = true;
           "services.sync.engine.tabs" = true;
 
-          # Remove zen library
-          "zen.library.enabled" = false;
-
-          # Move URL bar to the top toolbar
-          "zen.view.use-single-toolbar" = false;
+          "zen.welcome-screen.seen" = true;
+          "zen.library.enabled" = false; # Remove zen library
+          "zen.view.use-single-toolbar" = false; # Move URL bar to the top toolbar
+          "zen.workspaces.separate-essentials" = false; # Essentials
+          "zen.theme.hide-unified-extensions-button" = false;
 
           # Hide window controls
           "browser.tabs.inTitlebar" = 0;
-
-          # Essentials
-          "zen.workspaces.separate-essentials" = false;
 
           # Force Dark Theme everywhere
           "ui.systemUsesDarkTheme" = 1;
