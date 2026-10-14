@@ -39,6 +39,7 @@
         enable = true;
         batteryMaxFreq = 2000000;
         chargerMaxFreq = 2600000;
+        aspmPolicy = "powersupersave";
       };
     };
     network = {
