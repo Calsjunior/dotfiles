@@ -1,13 +1,4 @@
-{
-  config,
-  ...
-}:
-let
-  hdd = "/mnt/hdd";
-  gamesPath = "${hdd}/games";
-  videosPath = "${hdd}/videos";
-  imagesPath = "${hdd}/pictures";
-in
+{ config, ... }:
 {
   imports = [
     ../shared/home.nix
@@ -19,12 +10,6 @@ in
 
   gui.gaming = {
     enable = true;
-    lutris.gamePath = "${gamesPath}/library";
-  };
-
-  home.file = {
-    "games-hdd".source = config.lib.file.mkOutOfStoreSymlink gamesPath;
-    "Videos/library".source = config.lib.file.mkOutOfStoreSymlink videosPath;
-    "Pictures/library".source = config.lib.file.mkOutOfStoreSymlink imagesPath;
+    lutris.gamePath = "${config.home.homeDirectory}/games/library";
   };
 }
