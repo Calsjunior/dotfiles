@@ -1,4 +1,9 @@
-{ config, lib, ... }:
+{
+  config,
+  lib,
+  osConfig,
+  ...
+}:
 {
   options = {
     cli.ssh.enable = lib.mkEnableOption "Enable SSH";
@@ -18,7 +23,7 @@
         "github.com" = {
           hostname = "github.com";
           user = "git";
-          identityFile = "~/.ssh/id_ed25519";
+          identityFile = osConfig.sops.secrets.github_ssh_key.path;
         };
       };
     };
