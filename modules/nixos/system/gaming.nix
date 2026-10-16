@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  user,
   ...
 }:
 {
@@ -8,6 +9,7 @@
 
   config = lib.mkIf config.sys.gaming.enable {
     programs.gamemode.enable = true;
+    users.users.${user}.extraGroups = [ "gamemode" ];
 
     services.kanata = {
       enable = true;
