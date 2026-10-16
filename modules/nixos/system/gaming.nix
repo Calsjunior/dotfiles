@@ -11,6 +11,12 @@
     programs.gamemode.enable = true;
     users.users.${user}.extraGroups = [ "gamemode" ];
 
+    # Allow user systemd scopes to manage CPU cores (allow systemd-run --user --scope -p AllowedCPUs=... to work)
+    systemd.services."user@".serviceConfig.Delegate = [
+      "cpu"
+      "cpuset"
+    ];
+
     services.kanata = {
       enable = true;
       keyboards = {
