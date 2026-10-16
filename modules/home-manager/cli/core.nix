@@ -61,7 +61,7 @@
       nix-direnv.enable = true;
       config.global.hide_env_diff = true;
       silent = true;
-      stdlib = ''
+      stdlib = /* bash */ ''
         : "''${XDG_CACHE_HOME:="''${HOME}/.cache"}"
         declare -A direnv_layout_dirs
         direnv_layout_dir() {
@@ -73,6 +73,22 @@
           )}"
         }
       '';
+    };
+
+    programs.aria2 = {
+      enable = true;
+      settings = {
+        bt-max-peers = 0;
+        bt-request-peer-speed-limit = "10M";
+        continue = true;
+        disk-cache = "64M";
+        file-allocation = "none";
+        max-concurrent-downloads = 8;
+        max-connection-per-server = 16;
+        min-split-size = "1M";
+        optimize-concurrent-downloads = true;
+        split = 16;
+      };
     };
 
     home = {
