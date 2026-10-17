@@ -23,13 +23,10 @@
       extraPackages = with pkgs; [
         mangohud
         gamemode
-        winetricks
-        wineWow64Packages.stable
       ];
 
       runners.wine.settings.system = {
         env = {
-          DXVK_CONFIG = "dxvk.trackPipelineLifetime = True"; # Fixes memory leak
           DXVK_STATE_CACHE_PATH = "${config.home.homeDirectory}/.cache/dxvk";
           DXVK_HUD = "0";
           PROTON_ENABLE_NVAPI = "1";
