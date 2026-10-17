@@ -5,6 +5,11 @@
   };
 
   config = lib.mkIf config.sys.dm.ly.enable {
-    services.displayManager.ly.enable = true;
+    services.displayManager.ly = {
+      enable = true;
+      settings = {
+        session_log = null;
+      };
+    };
   };
 }
