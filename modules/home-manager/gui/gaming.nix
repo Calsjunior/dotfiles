@@ -18,12 +18,14 @@
   };
 
   config = lib.mkIf config.gui.gaming.enable {
+
     programs.lutris = {
       enable = true;
       extraPackages = with pkgs; [
         mangohud
         gamemode
       ];
+      steamPackage = pkgs.steam;
 
       runners.wine.settings.system = {
         env = {
