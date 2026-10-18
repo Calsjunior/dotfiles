@@ -25,14 +25,31 @@
         mangohud
         gamemode
       ];
-      steamPackage = pkgs.steam;
+      steamPackage = pkgs.steam.override {
+        extraPkgs = p: with p; [ mangohud ];
+      };
 
-      runners.wine.settings.system = {
-        env = {
-          DXVK_STATE_CACHE_PATH = "${config.home.homeDirectory}/.cache/dxvk";
-          DXVK_HUD = "0";
-          PROTON_ENABLE_NVAPI = "1";
-          PROTON_ENABLE_WAYLAND = "1"; # Forces native wayland, could break in some games
+      runners = {
+        wine.settings.system = {
+          env = {
+            DXVK_STATE_CACHE_PATH = "${config.home.homeDirectory}/.cache/dxvk";
+            DXVK_HUD = "0";
+            PROTON_ENABLE_NVAPI = "1";
+            PROTON_ENABLE_WAYLAND = "1"; # Forces native wayland, could break in some games
+          };
+        };
+
+        steam.settings = {
+          runner = {
+            args = "-silent";
+          };
+          system = {
+            gamemode = false;
+            env = {
+              MANGOHUD = "1";
+              PROTON_ENABLE_WAYLAND = "1";
+            };
+          };
         };
       };
     };
