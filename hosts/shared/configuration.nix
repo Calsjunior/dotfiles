@@ -49,6 +49,7 @@
       enable = true;
       termfilechooser.enable = true;
     };
+    sudo.enable = true;
   };
 
   wm = {
