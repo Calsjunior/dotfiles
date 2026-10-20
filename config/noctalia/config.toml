@@ -77,7 +77,6 @@ order = [ "default" ]
         enabled = true
         end = [ "tray", "group:g4", "group:g2", "group:g1", "session" ]
         font_scale = 1.0
-        font_weight = 500
         hover_highlight = true
         layer = "top"
         margin_edge = 0
@@ -150,7 +149,6 @@ order = [ "default" ]
         [[bar.default.capsule_group]]
         accordion = false
         accordion_direction = "end"
-        border_width = 1.0
         enabled = true
         fill = "surface_variant"
         id = "g1"
@@ -161,7 +159,6 @@ order = [ "default" ]
         [[bar.default.capsule_group]]
         accordion = false
         accordion_direction = "end"
-        border_width = 1.0
         enabled = true
         fill = "surface_variant"
         id = "g2"
@@ -172,7 +169,6 @@ order = [ "default" ]
         [[bar.default.capsule_group]]
         accordion = false
         accordion_direction = "end"
-        border_width = 1.0
         enabled = true
         fill = "surface_variant"
         id = "g3"
@@ -183,7 +179,6 @@ order = [ "default" ]
         [[bar.default.capsule_group]]
         accordion = true
         accordion_direction = "end"
-        border_width = 1.0
         enabled = true
         fill = "surface_variant"
         id = "g4"
@@ -246,11 +241,14 @@ width = 700
 [desktop_widgets]
 enabled = false
 schema_version = 1
+widget_order = []
 
     [desktop_widgets.grid]
     cell_size = 16
     major_interval = 4
     visible = false
+
+    [desktop_widgets.widget]
 
 [dock]
 active_monitor_only = false
@@ -277,7 +275,6 @@ magnification_scale = 1.4500000476837158
 main_axis_padding = 16
 margin_edge = 8
 margin_ends = 0
-monitors = []
 pinned = []
 position = "bottom"
 radius = 16
@@ -398,6 +395,7 @@ wallpaper = ""
 enabled = true
 schema_version = 1
 widget_order = [
+    "lockscreen-login-box@FALLBACK",
     "lockscreen-login-box@DP-1",
     "lockscreen-login-box@WAYLAND-1",
     "lockscreen-login-box@winit",
@@ -424,6 +422,33 @@ widget_order = [
     type = "login_box"
 
         [lockscreen_widgets.widget."lockscreen-login-box@DP-1".settings]
+        background_color = "surface_variant"
+        background_opacity = 0.88
+        background_radius = 12.0
+        center_password_text = false
+        input_opacity = 1.0
+        input_radius = 6.0
+        layout = "regular"
+        show_caps_lock = true
+        show_keyboard_layout = true
+        show_login_button = true
+        show_media = true
+        show_session_buttons = true
+        show_unlock_hint = true
+        show_weather = true
+
+    [lockscreen_widgets.widget."lockscreen-login-box@FALLBACK"]
+    box_height = 196.0
+    box_width = 810.0
+    cx = 960.0
+    cy = 898.0
+    output = "FALLBACK"
+    placement_height = 1080.0
+    placement_width = 1920.0
+    rotation = 0.0
+    type = "login_box"
+
+        [lockscreen_widgets.widget."lockscreen-login-box@FALLBACK".settings]
         background_color = "surface_variant"
         background_opacity = 0.88
         background_radius = 12.0
@@ -642,13 +667,11 @@ auto_update = "none"
 enabled = [ "noctalia/screen_recorder", "noctalia/notes", "profidev/hypr-screen-mirror", "thepunkoff/pomodoro", "fel/ocr" ]
 
     [[plugins.source]]
-    enabled = true
     kind = "git"
     location = "https://github.com/noctalia-dev/official-plugins"
     name = "official"
 
     [[plugins.source]]
-    enabled = true
     kind = "git"
     location = "https://github.com/noctalia-dev/community-plugins"
     name = "community"
@@ -703,8 +726,10 @@ umbriel_overview_type_to_launch_enabled = false
     app_grid = false
     auto_paste = "auto"
     categories = true
+    category_icons_only = true
     compact = false
     fetch_exchange_rates = true
+    layout = "simple"
     pinned = []
     provider_prefix = "/"
     show_app_actions = false
@@ -728,6 +753,7 @@ umbriel_overview_type_to_launch_enabled = false
     control_center_position = "auto"
     floating_layer = "overlay"
     floating_offset = 8
+    launcher_compact = true
     launcher_placement = "attached"
     launcher_position = "center"
     list_item_background = false
@@ -916,6 +942,18 @@ transition_on_startup = false
     order = "random"
     recursive = true
 
+    [wallpaper.default]
+    path = "/home/cal/Pictures/wallpapers/gruvbox-material/creation-of-adam-zoom.png"
+
+    [wallpaper.last]
+    path = "/home/cal/Pictures/wallpapers/gruvbox-material/creation-of-adam-zoom.png"
+
+    [wallpaper.monitors.DP-1]
+    path = "/home/cal/Pictures/wallpapers/gruvbox-material/creation-of-adam-zoom.png"
+
+    [wallpaper.monitors.eDP-1]
+    path = "/home/cal/Pictures/wallpapers/gruvbox-material/creation-of-adam-zoom.png"
+
 [weather]
 effects = true
 enabled = true
@@ -937,17 +975,6 @@ type = "active_window"
 [widget.battery]
 display_mode = "graphic"
 type = "battery"
-
-[widget.cat]
-type = "noctalia/bongocat:cat"
-
-[widget.cat_2]
-tappy_mode = true
-type = "noctalia/bongocat:cat"
-
-[widget.cat_3]
-input_devices = "/dev/input/event0"
-type = "noctalia/bongocat:cat"
 
 [widget.control-center]
 glyph = "navigation-filled"
@@ -1028,14 +1055,6 @@ type = "spacer"
 [widget.spacer_2]
 type = "spacer"
 
-[widget.special-workspaces]
-color = "primary"
-type = "jamesfeeder/special-workspaces:special-workspaces"
-
-[widget.special_workspaces_2]
-hide_inactive = true
-type = "jamesfeeder/special-workspaces:special-workspaces"
-
 [widget.temp]
 stat = "cpu_temp"
 type = "sysmon"
@@ -1053,6 +1072,5 @@ hide_when_empty = false
 label_source = "id"
 labels_only_when_occupied = true
 max_label_chars = 7
-minimal = false
 occupied_color = "secondary"
 type = "workspaces"
