@@ -651,6 +651,9 @@ scale = 1.0
     volume_output = true
     wifi = true
 
+[plugin_settings."andrewdems/printers"]
+poll_interval_seconds = 300
+
 [plugin_settings."noctalia/notes"]
 notes_dir = "~/Documents/notes"
 
@@ -662,9 +665,19 @@ directory = "~/Videos/recordings"
 video_encoder = "cpu"
 video_source = "focused"
 
+[plugin_settings."profidev/hypr-screen-mirror"]
+panel_placement = "attached"
+
 [plugins]
 auto_update = "none"
-enabled = [ "noctalia/screen_recorder", "noctalia/notes", "profidev/hypr-screen-mirror", "thepunkoff/pomodoro", "fel/ocr" ]
+enabled = [
+    "noctalia/screen_recorder",
+    "noctalia/notes",
+    "profidev/hypr-screen-mirror",
+    "thepunkoff/pomodoro",
+    "fel/ocr",
+    "andrewdems/printers"
+]
 
     [[plugins.source]]
     kind = "git"

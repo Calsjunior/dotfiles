@@ -1,4 +1,6 @@
 {
+  lib,
+  osConfig,
   pkgs,
   user,
   ...
@@ -14,12 +16,15 @@
     hyprland.enable = true;
     noctalia = {
       enable = true;
-      extraPaths = with pkgs; [
-        grim
-        slurp
-        socat
-        tesseract
-      ];
+      extraPaths =
+        with pkgs;
+        [
+          grim
+          slurp
+          socat
+          tesseract
+        ]
+        ++ lib.optional (osConfig.sys.printing.enable or false) system-config-printer;
     };
     theme.enable = true;
     wayland.enable = true;
