@@ -49,5 +49,6 @@
       sizeMiB = 8 * 1024;
     };
     gaming.enable = true;
+    printing.enable = true;
   };
 }
