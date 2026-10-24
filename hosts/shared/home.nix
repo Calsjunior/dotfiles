@@ -1,4 +1,5 @@
 {
+  config,
   lib,
   osConfig,
   pkgs,
@@ -16,15 +17,32 @@
     hyprland.enable = true;
     noctalia = {
       enable = true;
-      extraPaths =
-        with pkgs;
-        [
-          grim
-          slurp
-          socat
-          tesseract
-        ]
-        ++ lib.optional (osConfig.sys.printing.enable or false) system-config-printer;
+      storageKeyFile = osConfig.sops.secrets.noctalia_storage_key.path or null;
+      plugins = lib.mkMerge [
+        {
+          "noctalia/notes".settings.notes_dir = "${config.xdg.userDirs.documents}/notes";
+          "noctalia/screen_recorder".settings = {
+            audio_source = "both";
+            color_range = "full";
+            copy_to_clipboard = true;
+            directory = "~/Videos/recordings";
+            video_encoder = "cpu";
+            video_source = "focused";
+          };
+          "thepunkoff/pomodoro" = { };
+          "fel/ocr".extraPaths = with pkgs; [
+            tesseract
+            grim
+            slurp
+          ];
+        }
+        (lib.mkIf (osConfig.sys.printing.enable or false) {
+          "andrewdems/printers" = {
+            settings.poll_interval_seconds = 300;
+            extraPaths = with pkgs; [ system-config-printer ];
+          };
+        })
+      ];
     };
     theme.enable = true;
     wayland.enable = true;
