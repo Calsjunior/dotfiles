@@ -1,4 +1,8 @@
 {
+  pkgs,
+  ...
+}:
+{
   imports = [
     ../shared/home.nix
   ];
@@ -9,5 +13,11 @@
 
   cli = {
     media.enable = true;
+  };
+
+  desktop = {
+    noctalia.plugins = {
+      "profidev/hypr-screen-mirror".extraPaths = with pkgs; [ socat ];
+    };
   };
 }

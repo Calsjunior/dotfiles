@@ -1,0 +1,282 @@
+[audio]
+enable_overdrive = true
+
+[bar.default]
+capsule = true
+capsule_padding = 10.0
+capsule_thickness = 0.69999998807907104
+center = []
+end = [ "tray", "group:g3", "group:g2", "group:g1", "session" ]
+margin_ends = 0
+padding = 18
+radius = 16
+radius_top_left = 0
+radius_top_right = 0
+start = [ "workspaces", "clock_date" ]
+thickness = 38
+widget_spacing = 8
+
+    [bar.default.monitor.DP-1]
+    end = [ "tray", "group:g3", "group:g2", "group:g1", "session" ]
+
+        [[bar.default.monitor.DP-1.capsule_group]]
+        accordion = false
+        accordion_direction = "end"
+        border_width = 1.0
+        enabled = true
+        fill = "surface_variant"
+        id = "g1"
+        members = [ "network", "bluetooth" ]
+        opacity = 1.0
+        padding = 10.0
+
+        [[bar.default.monitor.DP-1.capsule_group]]
+        accordion = false
+        accordion_direction = "end"
+        border_width = 1.0
+        enabled = true
+        fill = "surface_variant"
+        id = "g2"
+        members = [ "volume", "input_volume" ]
+        opacity = 1.0
+        padding = 10.0
+
+        [[bar.default.monitor.DP-1.capsule_group]]
+        accordion = true
+        accordion_direction = "end"
+        border_width = 1.0
+        enabled = true
+        fill = "surface_variant"
+        id = "g3"
+        members = [ "notifications", "recorder", "widget" ]
+        opacity = 1.0
+        padding = 10.0
+
+    [[bar.default.capsule_group]]
+    accordion = false
+    accordion_direction = "end"
+    border_width = 1.0
+    enabled = true
+    fill = "surface_variant"
+    id = "g1"
+    members = [ "battery", "network", "bluetooth" ]
+    opacity = 1.0
+    padding = 10.0
+
+    [[bar.default.capsule_group]]
+    accordion = false
+    accordion_direction = "end"
+    border_width = 1.0
+    enabled = true
+    fill = "surface_variant"
+    id = "g2"
+    members = [ "volume", "brightness" ]
+    opacity = 1.0
+    padding = 10.0
+
+    [[bar.default.capsule_group]]
+    accordion = true
+    accordion_direction = "end"
+    border_width = 1.0
+    enabled = true
+    fill = "surface_variant"
+    id = "g3"
+    members = [ "notifications", "recorder", "widget", "widget_2" ]
+    opacity = 1.0
+    padding = 10.0
+
+[control_center]
+sidebar = "full"
+sidebar_section = "full"
+
+    [[control_center.shortcuts]]
+    type = "wifi"
+
+    [[control_center.shortcuts]]
+    type = "bluetooth"
+
+    [[control_center.shortcuts]]
+    type = "caffeine"
+
+    [[control_center.shortcuts]]
+    type = "nightlight"
+
+    [[control_center.shortcuts]]
+    type = "notification"
+
+    [[control_center.shortcuts]]
+    type = "system"
+
+[keybinds]
+down = [ "Down", "Ctrl+j", "Ctrl+n" ]
+left = [ "Left", "Ctrl+h" ]
+right = [ "Right", "Ctrl+l" ]
+up = [ "Up", "Ctrl+k", "Ctrl+p" ]
+
+[location]
+auto_locate = true
+
+[lockscreen_widgets]
+enabled = true
+schema_version = 2
+widget_order = [
+    "lockscreen-login-box@eDP-1",
+    "lockscreen-login-box@DP-1",
+    "lockscreen-widget-0000000000000001",
+    "lockscreen-widget-0000000000000002"
+]
+
+    [lockscreen_widgets.grid]
+    cell_size = 8
+    major_interval = 4
+    visible = true
+
+    [lockscreen_widgets.widget."lockscreen-login-box@DP-1"]
+    box_height = 70.0
+    box_width = 400.0
+    cx = 960.0
+    cy = 898.0
+    output = "DP-1"
+    placement_height = 1080.0
+    placement_width = 1920.0
+    rotation = 0.0
+    type = "login_box"
+
+        [lockscreen_widgets.widget."lockscreen-login-box@DP-1".settings]
+        background_color = "surface_variant"
+        background_opacity = 0.88
+        background_radius = 12.0
+        center_password_text = false
+        input_opacity = 1.0
+        input_radius = 6.0
+        layout = "compact"
+        show_caps_lock = true
+        show_keyboard_layout = true
+        show_login_button = true
+        show_media = true
+        show_password_reveal = true
+        show_session_buttons = true
+        show_unlock_hint = true
+        show_weather = true
+
+    [lockscreen_widgets.widget."lockscreen-login-box@eDP-1"]
+    box_height = 70.0
+    box_width = 400.0
+    cx = 960.0
+    cy = 898.0
+    output = "eDP-1"
+    placement_height = 1080.0
+    placement_width = 1920.0
+    rotation = 0.0
+    type = "login_box"
+
+        [lockscreen_widgets.widget."lockscreen-login-box@eDP-1".settings]
+        background_color = "surface_variant"
+        background_opacity = 0.88
+        background_radius = 12.0
+        center_password_text = false
+        input_opacity = 1.0
+        input_radius = 6.0
+        layout = "compact"
+        show_caps_lock = true
+        show_keyboard_layout = true
+        show_login_button = true
+        show_media = true
+        show_password_reveal = true
+        show_session_buttons = true
+        show_unlock_hint = true
+        show_weather = true
+
+    [lockscreen_widgets.widget.lockscreen-widget-0000000000000001]
+    box_height = 0.0
+    box_width = 0.0
+    cx = 960.0
+    cy = 236.0
+    output = "DP-1"
+    placement_height = 1080.0
+    placement_width = 1920.0
+    rotation = 0.0
+    type = "clock"
+
+        [lockscreen_widgets.widget.lockscreen-widget-0000000000000001.settings]
+        clock_style = "digital"
+        format = "{:%H:%M %p}"
+
+    [lockscreen_widgets.widget.lockscreen-widget-0000000000000002]
+    box_height = 0.0
+    box_width = 0.0
+    cx = 960.0
+    cy = 236.0
+    output = "eDP-1"
+    placement_height = 1080.0
+    placement_width = 1920.0
+    rotation = 0.0
+    type = "clock"
+
+        [lockscreen_widgets.widget.lockscreen-widget-0000000000000002.settings]
+        format = "{:%H:%M %p}"
+
+[nightlight]
+enabled = true
+force = true
+temperature_day = 4700
+temperature_night = 4700
+
+[shell]
+clipboard_auto_paste = "off"
+font_family = "Lilex Nerd Font Mono"
+polkit_agent = true
+
+    [shell.launcher]
+    category_icons_only = true
+    layout = "simple"
+
+    [shell.panel]
+    clipboard_placement = "attached"
+    launcher_placement = "attached"
+
+[theme]
+builtin = "Gruvbox"
+
+    [theme.templates]
+    builtin_ids = [ "gtk3", "gtk4", "hyprland", "qt" ]
+    community_ids = [ "zen-browser", "discord", "telegram", "zathura" ]
+
+[wallpaper]
+directory = "/home/cal/Pictures/wallpapers"
+
+    [wallpaper.default]
+    path = "/home/cal/Pictures/wallpapers/gruvbox-material/creation-of-adam-zoom.png"
+
+    [wallpaper.last]
+    path = "/home/cal/Pictures/wallpapers/gruvbox-material/creation-of-adam-zoom.png"
+
+    [wallpaper.monitors.DP-1]
+    path = "/home/cal/Pictures/wallpapers/gruvbox-material/creation-of-adam-zoom.png"
+
+[widget.battery]
+display_mode = "graphic"
+
+[widget.clock_date]
+format = "{:%I:%M %p} - {:%A, %B %d}"
+type = "clock"
+
+[widget.network]
+show_label = false
+
+[widget.recorder]
+type = "noctalia/screen_recorder:recorder"
+
+[widget.session]
+glyph = "snowflake"
+
+[widget.widget]
+type = "thepunkoff/pomodoro:widget"
+
+[widget.widget_2]
+type = "profidev/hypr-screen-mirror:widget"
+
+[widget.workspaces]
+active_pill_size = 2.5
+empty_color = "on_primary"
+labels_only_when_occupied = true
