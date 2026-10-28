@@ -104,6 +104,25 @@ Config.new_autocmd("BufReadCmd", { "*.png", "*.jpg", "*.jpeg", "*.gif", "*.webp"
   end)
 end)
 
+-- Hide status line when searching
+local saved_laststatus = nil
+local function is_search_cmd()
+  return vim.fn.getcmdtype() == "/" or vim.fn.getcmdtype() == "?"
+end
+
+Config.new_autocmd("CmdlineEnter", nil, function()
+  if not is_search_cmd() then return end
+  saved_laststatus = vim.opt.laststatus:get()
+  vim.opt.laststatus = 0
+end, "Hide statusline when searching")
+
+Config.new_autocmd("CmdlineLeave", nil, function()
+  if not is_search_cmd() or saved_laststatus == nil then return end
+  vim.opt.laststatus = saved_laststatus
+  saved_laststatus = nil
+end, "Restore statusline after searching")
+
+
 Config.new_autocmd("ColorScheme", "*", function()
   local hi = function(name, data) vim.api.nvim_set_hl(0, name, data) end
   local get = function(name) return vim.api.nvim_get_hl(0, { name = name }) or {} end
