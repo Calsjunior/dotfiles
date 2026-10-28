@@ -24,7 +24,7 @@ widget_spacing = 8
         accordion_direction = "end"
         border_width = 1.0
         enabled = true
-        fill = "surface_variant"
+        fill = "surface_container"
         id = "g1"
         members = [ "network", "bluetooth" ]
         opacity = 1.0
@@ -35,7 +35,7 @@ widget_spacing = 8
         accordion_direction = "end"
         border_width = 1.0
         enabled = true
-        fill = "surface_variant"
+        fill = "surface_container"
         id = "g2"
         members = [ "volume", "input_volume" ]
         opacity = 1.0
@@ -46,7 +46,7 @@ widget_spacing = 8
         accordion_direction = "end"
         border_width = 1.0
         enabled = true
-        fill = "surface_variant"
+        fill = "surface_container"
         id = "g3"
         members = [ "notifications", "recorder", "widget" ]
         opacity = 1.0
@@ -57,7 +57,7 @@ widget_spacing = 8
     accordion_direction = "end"
     border_width = 1.0
     enabled = true
-    fill = "surface_variant"
+    fill = "surface_container"
     id = "g1"
     members = [ "battery", "network", "bluetooth" ]
     opacity = 1.0
@@ -68,7 +68,7 @@ widget_spacing = 8
     accordion_direction = "end"
     border_width = 1.0
     enabled = true
-    fill = "surface_variant"
+    fill = "surface_container"
     id = "g2"
     members = [ "volume", "brightness" ]
     opacity = 1.0
@@ -79,7 +79,7 @@ widget_spacing = 8
     accordion_direction = "end"
     border_width = 1.0
     enabled = true
-    fill = "surface_variant"
+    fill = "surface_container"
     id = "g3"
     members = [ "notifications", "recorder", "widget", "widget_2" ]
     opacity = 1.0
@@ -162,7 +162,7 @@ widget_order = [
     type = "login_box"
 
         [lockscreen_widgets.widget."lockscreen-login-box@DP-1".settings]
-        background_color = "surface_variant"
+        background_color = "surface_container"
         background_opacity = 0.88
         background_radius = 12.0
         center_password_text = false
@@ -190,7 +190,7 @@ widget_order = [
     type = "login_box"
 
         [lockscreen_widgets.widget."lockscreen-login-box@FALLBACK".settings]
-        background_color = "surface_variant"
+        background_color = "surface_container"
         background_opacity = 0.88
         background_radius = 12.0
         center_password_text = false
@@ -218,7 +218,7 @@ widget_order = [
     type = "login_box"
 
         [lockscreen_widgets.widget."lockscreen-login-box@eDP-1".settings]
-        background_color = "surface_variant"
+        background_color = "surface_container"
         background_opacity = 0.88
         background_radius = 12.0
         center_password_text = false
@@ -267,7 +267,7 @@ widget_order = [
 enabled = true
 force = true
 temperature_day = 4700
-temperature_night = 4700
+temperature_night = 4600
 
 [shell]
 clipboard_auto_paste = "off"
@@ -323,9 +323,6 @@ glyph = "snowflake"
 
 [widget.widget]
 type = "thepunkoff/pomodoro:widget"
-
-[widget.widget_2]
-type = "profidev/hypr-screen-mirror:widget"
 
 [widget.workspaces]
 active_pill_size = 2.5
