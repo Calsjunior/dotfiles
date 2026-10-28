@@ -9,7 +9,7 @@
       "src": "https://github.com/NotAShelf/direnv.nvim"
     },
     "friendly-snippets": {
-      "rev": "b4d01b0fdf3c9a549961c2f9ffe8dc09be166219",
+      "rev": "b2ea5c41a150ba72fb656eedb4ed0a86d138d945",
       "src": "https://github.com/rafamadriz/friendly-snippets"
     },
     "gruvbox-material": {
@@ -21,11 +21,11 @@
       "src": "https://github.com/mikesmithgh/kitty-scrollback.nvim"
     },
     "mini.nvim": {
-      "rev": "d79805a0dfe9e8dc82c0988aec0d85e5440e86eb",
+      "rev": "a03ad899bda446b5a81cfa99d8aeeb92241522f3",
       "src": "https://github.com/nvim-mini/mini.nvim"
     },
     "nvim-lspconfig": {
-      "rev": "77b7432d4770d23b277d37923e5a08a442d8bb07",
+      "rev": "4feaba4d3980032b3f62f3ba5df4de27fdf59cfd",
       "src": "https://github.com/neovim/nvim-lspconfig"
     },
     "plenary.nvim": {
@@ -38,11 +38,11 @@
       "version": "'v2.1.1-final'"
     },
     "tiny-cmdline.nvim": {
-      "rev": "d83700b48d8ff5625dbef4029af071db559544e5",
+      "rev": "ac9c6557c66da6308eb523643df8778f3cbe652f",
       "src": "https://github.com/rachartier/tiny-cmdline.nvim"
     },
     "yazi.nvim": {
-      "rev": "969ef006fb8b6d3c1384eb6755c6d7060100837a",
+      "rev": "ca3470f3bbd0e857b687cd2de7ae0db2922190fe",
       "src": "https://github.com/mikavilpas/yazi.nvim"
     }
   }
