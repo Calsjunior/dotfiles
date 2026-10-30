@@ -22,7 +22,6 @@
         scroll-full-overlap = "0.01";
         scroll-step = "100";
         selection-clipboard = "clipboard";
-        recolor = true;
       };
 
       extraConfig = ''
