@@ -12,7 +12,8 @@
   config = lib.mkIf config.gui.documents.enable {
 
     home.packages = with pkgs; [
-      onlyoffice-desktopeditors
+      wordcraft
+      gridcraft
     ];
 
     programs.zathura = {
@@ -30,23 +31,20 @@
     };
 
     xdg.mimeApps = {
-      enable = true;
       defaultApplications = {
         # Make Zathura the default for all PDFs
         "application/pdf" = [ "org.pwmt.zathura.desktop" ];
-
-        # Make OnlyOffice the default for Office documents
-        "application/vnd.openxmlformats-officedocument.wordprocessingml.document" = [
-          "onlyoffice-desktopeditors.desktop"
-        ]; # .docx
-        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" = [
-          "onlyoffice-desktopeditors.desktop"
-        ]; # .xlsx
-        "application/vnd.openxmlformats-officedocument.presentationml.presentation" = [
-          "onlyoffice-desktopeditors.desktop"
-        ]; # .pptx
-      };
+      }
+      // lib.genAttrs [
+        "application/vnd.openxmlformats-officedocument.wordprocessingml.document" # .docx
+        "application/vnd.oasis.opendocument.text" # .odt
+        "application/msword" # .doc
+        "application/rtf"
+      ] (_: [ "ai.storyteller.wordcraft.desktop" ])
+      // lib.genAttrs [
+        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" # .xlsx
+        "application/vnd.ms-excel" # .xls
+      ] (_: [ "ai.storyteller.gridcraft.desktop" ]);
     };
-
   };
 }
