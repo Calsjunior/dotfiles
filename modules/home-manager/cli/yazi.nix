@@ -77,6 +77,7 @@
             { on = [ "c" "m" ]; run = "plugin chmod";                desc = "Chmod on selected files"; }
             { on = [ "p" ];     run = [ "plugin ucp paste notify" ]; desc = "Paste yanked system clipboard files"; }
             { on = [ "y" ];     run = [ "plugin ucp copy notify" ];  desc = "Yank selected files (copy)"; }
+            { on = [ "i" ];     run = [ "plugin easyjump" ];         desc = "Easyjump"; }
           ];
         };
       };
@@ -89,13 +90,16 @@
           package = full-border;
           setup = true;
         };
-
         git = {
           package = git;
           setup = true;
           settings = {
             order = 1500;
           };
+        };
+        easyjump = {
+          package = easyjump;
+          setup = true;
         };
 
         ucp = {
