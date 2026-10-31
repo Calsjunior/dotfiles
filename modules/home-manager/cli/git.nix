@@ -3,18 +3,34 @@
   lib,
   ...
 }:
+let
+  cfg = config.cli.git;
+in
 {
-  options = {
-    cli.git.enable = lib.mkEnableOption "Enable Git and GitHub CLI";
+  options.cli.git = {
+    enable = lib.mkEnableOption "Enable Git and GitHub CLI";
+
+    user = {
+      name = lib.mkOption {
+        type = lib.types.str;
+        example = "John Doe";
+        description = "The name for Git commits.";
+      };
+      email = lib.mkOption {
+        type = lib.types.str;
+        example = "johndoe@gmail.com";
+        description = "The email for Git commits.";
+      };
+    };
   };
 
-  config = lib.mkIf config.cli.git.enable {
+  config = lib.mkIf cfg.enable {
     programs.git = {
       enable = true;
       settings = {
         user = {
-          name = "cal";
-          email = "sakphea05@gmail.com";
+          name = cfg.user.name;
+          email = cfg.user.email;
         };
         init.defaultBranch = "main";
         core.editor = config.home.sessionVariables.EDITOR or "vim";

@@ -49,14 +49,20 @@
   };
 
   cli = {
-    shell.zsh.enable = true;
     core.enable = true;
-    oh-my-posh.enable = true;
-    neovim.enable = true;
-    git.enable = true;
-    ssh.enable = true;
-    scripts.enable = true;
     formatters.enable = true;
+    git = {
+      enable = true;
+      user = {
+        name = "cal";
+        email = "sakphea05@gmail.com";
+      };
+    };
+    neovim.enable = true;
+    oh-my-posh.enable = true;
+    scripts.enable = true;
+    shell.zsh.enable = true;
+    ssh.enable = true;
     yazi = {
       enable = true;
       terminalCmd = "${pkgs.kitty}/bin/kitty";
