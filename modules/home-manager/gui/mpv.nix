@@ -20,6 +20,7 @@
           modernz
           mpv-playlistmanager
           thumbfast
+          eisa01.smartskip
         ];
       };
 
@@ -32,8 +33,10 @@
 
         fullscreen = "yes";
         force-seekable = "yes";
-        keep-open = "always";
+        keep-open = "yes";
         reset-on-next-file = "pause";
+        save-position-on-quit = "yes";
+        watch-later-options = "start,volume,mute,sub-delay,sub-visibility,sid,aid,speed";
 
         dither-depth = 8;
         scale-antiring = 0.6;
@@ -111,6 +114,10 @@
             seekbarfg_color = accent;
             window_controls = "no";
           };
+        SmartSkip = {
+          add_chapter_keybind = ''["alt+c"]'';
+          write_chapters_keybind = ''["alt+w"]'';
+        };
       };
 
       profiles = {
