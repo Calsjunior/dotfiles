@@ -16,7 +16,6 @@
   };
 
   config = lib.mkIf config.cli.yazi.enable {
-
     desktop.termfilechooser = {
       enable = true;
       wrapperCmd = "${pkgs.xdg-desktop-portal-termfilechooser}/share/xdg-desktop-portal-termfilechooser/yazi-wrapper.sh";
@@ -30,7 +29,7 @@
         wl-clipboard # Required by the 'clipboard' plugin
       ];
 
-      initLua = ''
+      initLua = /* lua */ ''
         -- Fix directories blue color icon
         function Entity:icon()
           local icon = th.icon:match(self._file)
@@ -57,22 +56,15 @@
         end
       '';
 
+      /*nixfmt:disable*/
       settings = {
         mgr = {
           sort_by = "natural";
         };
         plugin = {
           prepend_fetchers = [
-            {
-              url = "*";
-              run = "git";
-              group = "git";
-            }
-            {
-              url = "*/";
-              run = "git";
-              group = "git";
-            }
+            { url = "*";  run = "git"; group = "git"; }
+            { url = "*/"; run = "git"; group = "git"; }
           ];
         };
       };
@@ -80,40 +72,15 @@
       keymap = {
         mgr = {
           prepend_keymap = [
-            {
-              on = [
-                "c"
-                "m"
-              ];
-              run = "plugin chmod";
-              desc = "Chmod on selected files";
-            }
-            {
-              on = [ "F" ];
-              run = "plugin smart-filter";
-              desc = "Smart Filter";
-            }
-            {
-              on = [ "S" ];
-              run = "plugin fr rg";
-              desc = "Search file by content";
-            }
-            {
-              on = [ "y" ];
-              run = [
-                "yank"
-                "plugin ucp copy notify"
-              ];
-              desc = "Yank selected files (copy)";
-            }
-            {
-              on = [ "p" ];
-              run = [ "plugin ucp paste notify" ];
-              desc = "Paste yanked system clipboard files";
-            }
+            { on = [ "F" ];     run = "plugin smart-filter";         desc = "Smart Filter"; }
+            { on = [ "S" ];     run = "plugin fr rg";                desc = "Search file by content"; }
+            { on = [ "c" "m" ]; run = "plugin chmod";                desc = "Chmod on selected files"; }
+            { on = [ "p" ];     run = [ "plugin ucp paste notify" ]; desc = "Paste yanked system clipboard files"; }
+            { on = [ "y" ];     run = [ "plugin ucp copy notify" ];  desc = "Yank selected files (copy)"; }
           ];
         };
       };
+      /*nixfmt:enable*/
 
       plugins = with pkgs.yaziPlugins; {
         chmod.package = chmod;
