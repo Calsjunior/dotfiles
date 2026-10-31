@@ -21,11 +21,11 @@
       "src": "https://github.com/mikesmithgh/kitty-scrollback.nvim"
     },
     "mini.nvim": {
-      "rev": "a03ad899bda446b5a81cfa99d8aeeb92241522f3",
+      "rev": "6d5a29e86a7352739506c28e0bc50fe214b5216f",
       "src": "https://github.com/nvim-mini/mini.nvim"
     },
     "nvim-lspconfig": {
-      "rev": "4feaba4d3980032b3f62f3ba5df4de27fdf59cfd",
+      "rev": "d8d2fda7aae57030452ce8cd6e770b1eb704514e",
       "src": "https://github.com/neovim/nvim-lspconfig"
     },
     "plenary.nvim": {
@@ -42,7 +42,7 @@
       "src": "https://github.com/rachartier/tiny-cmdline.nvim"
     },
     "yazi.nvim": {
-      "rev": "ca3470f3bbd0e857b687cd2de7ae0db2922190fe",
+      "rev": "2603c6dbf128ca3c7586d099aa245142c44069b5",
       "src": "https://github.com/mikavilpas/yazi.nvim"
     }
   }
