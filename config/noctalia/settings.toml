@@ -291,7 +291,7 @@ builtin = "Gruvbox"
 
     [theme.templates]
     builtin_ids = [ "gtk3", "gtk4", "hyprland", "qt" ]
-    community_ids = [ "zen-browser", "discord", "telegram", "zathura" ]
+    community_ids = [ "zen-browser", "discord", "telegram", "zathura", "hyprtoolkit" ]
 
 [wallpaper]
 directory = "/home/cal/Pictures/wallpapers"
