@@ -17,10 +17,17 @@ hl.window_rule({
 })
 
 -- Auto launch Zen into web special workspace if empty
-hl.workspace_rule({
-  workspace = "special:web",
-  on_created_empty = apps.browser,
-})
+local web_spawning = false
+hl.on("workspace.created", function(ws)
+  if ws.name == "special:web" and ws.is_empty and not web_spawning then
+    web_spawning = true
+    hl.dispatch(hl.dsp.exec_cmd(apps.browser))
+  end
+end)
+
+hl.on("window.open", function()
+  web_spawning = false
+end)
 
 hl.window_rule({
   name = "zen-browser-special",
