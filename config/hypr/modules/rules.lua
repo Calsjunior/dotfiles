@@ -11,7 +11,7 @@ hl.workspace_rule({
 -- Remove borders and rounding for that single window
 hl.window_rule({
   name = "smart-gaps-border",
-  match = { workspace = "w[tv1]" },
+  match = { workspace = "w[tv1]", float = false },
   border_size = 0,
   rounding = 0,
 })
