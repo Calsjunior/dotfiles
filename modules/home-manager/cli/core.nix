@@ -15,14 +15,6 @@
   };
 
   config = lib.mkIf config.cli.core.enable {
-
-    home.packages = with pkgs; [
-      fd
-      eza
-      bat
-      trash-cli
-    ];
-
     programs.man.generateCaches = true;
 
     programs.nix-index-database.comma.enable = true;
@@ -91,30 +83,43 @@
       };
     };
 
-    home = {
-      sessionVariables = {
-        _ZO_EXCLUDE_DIRS = "$HOME:$HOME/.local/*:$HOME/.cache/*:$HOME/.git/*:$HOME/node_modules/*";
-      };
+    home =
+      let
+        ignoreDirs = [
+          ".local"
+          ".cache"
+          ".git"
+          ".npm"
+          ".config"
+          "node_modules"
+        ];
+        ignoreFiles = [
+          "package-lock.json"
+          "flake.lock"
+        ];
+      in
+      {
+        packages = with pkgs; [
+          fd
+          eza
+          bat
+          trash-cli
+        ];
 
-      shellAliases = {
-        ls = "eza --icons -H --group-directories-first --git -1";
-        rm = "echo 'Use trash (or \\\\rm to bypass and permanently delete)'; false";
-        tp = "trash-put";
-        te = "trash-empty";
-        tl = "trash-list";
-        tr = "trash-restore";
-      };
-    };
+        file.".ignore".text = lib.concatStringsSep "\n" (ignoreDirs ++ ignoreFiles) + "\n";
 
-    home.file.".ignore".text = ''
-      .local
-      .cache
-      .git
-      .npm
-      .config
-      node_modules
-      package-lock.json
-      flake.lock
-    '';
+        sessionVariables = {
+          _ZO_EXCLUDE_DIRS = lib.concatStringsSep ":" ([ "$HOME" ] ++ map (dir: "$HOME/${dir}/*") ignoreDirs);
+        };
+
+        shellAliases = {
+          ls = "eza --icons -H --group-directories-first --git -1";
+          rm = "echo 'Use trash (or \\\\rm to bypass and permanently delete)'; false";
+          tp = "trash-put";
+          te = "trash-empty";
+          tl = "trash-list";
+          tr = "trash-restore";
+        };
+      };
   };
 }
