@@ -27,11 +27,12 @@
     programs.fzf = {
       enable = true;
       enableZshIntegration = config.cli.shell.zsh.enable;
-      defaultCommand = "fd --hidden";
-      changeDirWidget.command = "fd --type d";
-      fileWidget.command = "fd --type f";
+      defaultCommand = "fd --hidden --color=always";
+      changeDirWidget.command = "fd --type d --color=always";
+      fileWidget.command = "fd --type f --color=always";
       historyWidget.options = [ "--preview-window hidden" ];
       defaultOptions = [
+        "--ansi"
         "--scheme=path"
         "--tiebreak=end,length"
         "--preview 'if [[ -d {} ]]; then eza --tree --level=1 --color=always --icons=always {}; elif [[ -f {} ]]; then bat --color=always {}; fi'"
