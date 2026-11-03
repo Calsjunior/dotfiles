@@ -25,7 +25,7 @@
       "src": "https://github.com/nvim-mini/mini.nvim"
     },
     "nvim-lspconfig": {
-      "rev": "d8d2fda7aae57030452ce8cd6e770b1eb704514e",
+      "rev": "adfbb74472f6c231b651b650a89f414c2680fb31",
       "src": "https://github.com/neovim/nvim-lspconfig"
     },
     "plenary.nvim": {
@@ -42,7 +42,7 @@
       "src": "https://github.com/rachartier/tiny-cmdline.nvim"
     },
     "yazi.nvim": {
-      "rev": "2603c6dbf128ca3c7586d099aa245142c44069b5",
+      "rev": "f32b2dbd498a585c26dcee0b6b698a2ce1318ce5",
       "src": "https://github.com/mikavilpas/yazi.nvim"
     }
   }
