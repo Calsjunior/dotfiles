@@ -48,7 +48,7 @@ widget_spacing = 8
         enabled = true
         fill = "surface_container"
         id = "g3"
-        members = [ "notifications", "recorder", "widget" ]
+        members = [ "notifications", "recorder", "widget", "ocr" ]
         opacity = 1.0
         padding = 10.0
 
@@ -81,7 +81,7 @@ widget_spacing = 8
     enabled = true
     fill = "surface_container"
     id = "g3"
-    members = [ "notifications", "recorder", "widget", "widget_2" ]
+    members = [ "notifications", "recorder", "widget", "ocr", "widget_2" ]
     opacity = 1.0
     padding = 10.0
 
@@ -314,6 +314,9 @@ type = "clock"
 
 [widget.network]
 show_label = false
+
+[widget.ocr]
+type = "fel/ocr:ocr"
 
 [widget.recorder]
 type = "noctalia/screen_recorder:recorder"
