@@ -5,6 +5,7 @@
   ...
 }:
 let
+  cfg = config.gui.browser.zen;
   extensions = {
     ublock-origin = {
       id = "uBlock0@raymondhill.net";
@@ -33,9 +34,23 @@ in
     inputs.zen-browser.homeModules.beta
   ];
 
-  options.gui.browser.zen.enable = lib.mkEnableOption "Enable Zen Browser";
+  options.gui.browser.zen = {
+    enable = lib.mkEnableOption "Enable Zen Browser";
 
-  config = lib.mkIf config.gui.browser.zen.enable {
+    chromeImports = lib.mkOption {
+      type = lib.types.listOf lib.types.str;
+      default = [ ];
+      description = "CSS files @import-ed by userChrome.css.";
+    };
+
+    contentImports = lib.mkOption {
+      type = lib.types.listOf lib.types.str;
+      default = [ ];
+      description = "CSS files @import-ed by userContent.css.";
+    };
+  };
+
+  config = lib.mkIf cfg.enable {
 
     programs.zen-browser = {
       enable = true;
@@ -59,6 +74,9 @@ in
       };
 
       profiles.default = {
+        userChrome = lib.concatMapStrings (p: ''@import "${p}";'' + "\n") cfg.chromeImports;
+        userContent = lib.concatMapStrings (p: ''@import "${p}";'' + "\n") cfg.contentImports;
+
         search = {
           force = true;
           default = "ddg";
