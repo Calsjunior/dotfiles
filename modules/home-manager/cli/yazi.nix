@@ -58,7 +58,7 @@
         -- Navigation history: records visited directories and hovered files
         local HOME = os.getenv("HOME")
         local CONFIG = {
-          log_path   = (os.getenv("XDG_STATE_HOME") or (HOME .. "/.local/state")) .. "/yazi-recent",
+          log_path   = (os.getenv("XDG_STATE_HOME") or (HOME .. "/.local/state")) .. "/yazi/yazi-recent",
           max_lines  = 5000, -- trim the log once it grows past this
           keep_lines = 3000, -- ...down to this many unique, newest entries
           hover_secs = 1.5, -- time required on a file to log it
@@ -190,7 +190,7 @@
       keymap =
       let
         recent = pkgs.writeShellScript "yazi-recent" ''
-          f="''${XDG_STATE_HOME:-$HOME/.local/state}/yazi-recent"
+          f="''${XDG_STATE_HOME:-$HOME/.local/state}/yazi/yazi-recent"
           [ -r "$f" ] || exit 0
           cd "$HOME" || exit 1
 
