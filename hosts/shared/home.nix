@@ -70,10 +70,18 @@
   };
 
   gui = {
-    kitty.enable = true;
-    browser.zen.enable = true;
+    browser.zen = {
+      enable = true;
+      chromeImports = lib.mkIf config.desktop.noctalia.enable [
+        "${config.xdg.cacheHome}/noctalia/zen-browser/zen-userChrome.css"
+      ];
+      contentImports = lib.mkIf config.desktop.noctalia.enable [
+        "${config.xdg.cacheHome}/noctalia/zen-browser/zen-userContent.css"
+      ];
+    };
     comms.enable = true;
-    mpv.enable = true;
     documents.enable = true;
+    kitty.enable = true;
+    mpv.enable = true;
   };
 }
