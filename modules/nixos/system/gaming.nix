@@ -11,6 +11,9 @@
     programs.gamemode.enable = true;
     users.users.${user}.extraGroups = [ "gamemode" ];
 
+    # Enable controller support
+    hardware.steam-hardware.enable = true;
+
     # Allow user systemd scopes to manage CPU cores (allow systemd-run --user --scope -p AllowedCPUs=... to work)
     systemd.services."user@".serviceConfig.Delegate = [
       "cpu"
