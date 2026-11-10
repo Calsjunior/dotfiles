@@ -141,7 +141,6 @@
         "J" = "add volume -10";
         "SPACE" = "cycle pause";
         "P" = "script-binding playlistmanager/showplaylist";
-        "gg" = "playlist-play-index 0";
         "ctrl+n" = "playlist-next";
         "ctrl+p" = "playlist-prev";
         "]" = "add speed 0.1";
