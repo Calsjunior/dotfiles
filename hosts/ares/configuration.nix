@@ -22,6 +22,7 @@
   sops.secrets.wg_private_key_ares = { };
 
   sys = {
+    appimage.enable = true;
     hardware = {
       nvidia = {
         enable32Bit = true;
