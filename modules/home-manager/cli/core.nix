@@ -10,9 +10,7 @@
     inputs.nix-index-database.homeModules.nix-index
   ];
 
-  options = {
-    cli.core.enable = lib.mkEnableOption "Enable core CLI utilities";
-  };
+  options.cli.core.enable = lib.mkEnableOption "core CLI utilities";
 
   config = lib.mkIf config.cli.core.enable {
     programs.man.generateCaches = true;

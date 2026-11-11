@@ -5,9 +5,7 @@
   ...
 }:
 {
-  options = {
-    desktop.theme.enable = lib.mkEnableOption "Enable desktop theming and cursors";
-  };
+  options.desktop.theme.enable = lib.mkEnableOption "desktop theming and cursors";
 
   config = lib.mkIf config.desktop.theme.enable {
     home.pointerCursor = with pkgs; {

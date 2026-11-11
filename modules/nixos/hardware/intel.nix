@@ -5,7 +5,7 @@
   ...
 }:
 {
-  options.sys.hardware.intel.enable = lib.mkEnableOption "Enable Intel GPU support";
+  options.sys.hardware.intel.enable = lib.mkEnableOption "Intel GPU support";
   config = lib.mkIf config.sys.hardware.intel.enable {
     # https://wiki.nixos.org/wiki/Intel_Graphics
     services.xserver.videoDrivers = [ "modesetting" ];

@@ -5,7 +5,7 @@
   ...
 }:
 {
-  options.sys.secrets.enable = lib.mkEnableOption "Enable Sops-Nix Secret Management";
+  options.sys.secrets.enable = lib.mkEnableOption "sops-nix secret management";
 
   config = lib.mkIf config.sys.secrets.enable {
     sops = {

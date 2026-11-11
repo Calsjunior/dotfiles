@@ -29,7 +29,7 @@ let
 in
 {
   options.desktop.noctalia = {
-    enable = lib.mkEnableOption "Enable Noctalia Shell Environment";
+    enable = lib.mkEnableOption "noctalia shell environment";
 
     extraPaths = lib.mkOption {
       type = lib.types.listOf lib.types.package;

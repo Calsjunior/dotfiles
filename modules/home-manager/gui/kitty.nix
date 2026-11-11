@@ -6,7 +6,7 @@
 }:
 {
   options.gui.kitty = {
-    enable = lib.mkEnableOption "Enable Kitty Terminal";
+    enable = lib.mkEnableOption "kitty terminal";
 
     fontName = lib.mkOption {
       type = lib.types.str;

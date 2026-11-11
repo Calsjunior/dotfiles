@@ -6,7 +6,7 @@
   ...
 }:
 {
-  options.sys.core.enable = lib.mkEnableOption "Enable core system utilities";
+  options.sys.core.enable = lib.mkEnableOption "core system utilities";
 
   config = lib.mkIf config.sys.core.enable {
     documentation = {

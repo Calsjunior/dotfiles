@@ -6,9 +6,7 @@
   ...
 }:
 {
-  options = {
-    cli.shell.zsh.enable = lib.mkEnableOption "Enable Zsh Configuration";
-  };
+  options.cli.shell.zsh.enable = lib.mkEnableOption "zsh with custom configurations";
 
   config = lib.mkIf config.cli.shell.zsh.enable {
 

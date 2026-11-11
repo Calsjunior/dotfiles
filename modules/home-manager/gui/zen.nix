@@ -35,7 +35,7 @@ in
   ];
 
   options.gui.browser.zen = {
-    enable = lib.mkEnableOption "Enable Zen Browser";
+    enable = lib.mkEnableOption "zen browser";
 
     chromeImports = lib.mkOption {
       type = lib.types.listOf lib.types.str;

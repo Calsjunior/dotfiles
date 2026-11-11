@@ -4,7 +4,6 @@
   pkgs,
   ...
 }:
-
 {
   options.gui.gaming = {
     enable = lib.mkEnableOption "Lutris, MangoHud and gaming tools";

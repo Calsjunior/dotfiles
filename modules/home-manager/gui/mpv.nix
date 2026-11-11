@@ -5,9 +5,7 @@
   ...
 }:
 {
-  options.gui.mpv = {
-    enable = lib.mkEnableOption "Enable MPV Video Player with custom config";
-  };
+  options.gui.mpv.enable = lib.mkEnableOption "mpv video player with custom configurations";
 
   config = lib.mkIf config.gui.mpv.enable {
     programs.mpv = {

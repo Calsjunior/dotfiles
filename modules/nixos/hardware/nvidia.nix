@@ -8,7 +8,7 @@ let
 in
 {
   options.sys.hardware.nvidia = {
-    enable = lib.mkEnableOption "Enable Nvidia Drivers";
+    enable = lib.mkEnableOption "nvidia drivers";
 
     enable32Bit = lib.mkOption {
       type = lib.types.bool;

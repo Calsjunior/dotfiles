@@ -1,6 +1,6 @@
 { config, lib, ... }:
 {
-  options.sys.appimage.enable = lib.mkEnableOption "Enable AppImage support";
+  options.sys.appimage.enable = lib.mkEnableOption "appImage support";
 
   config = lib.mkIf config.sys.appimage.enable {
     programs.appimage = {

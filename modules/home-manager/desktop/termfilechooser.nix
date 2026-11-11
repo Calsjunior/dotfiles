@@ -26,7 +26,7 @@ let
 in
 {
   options.desktop.termfilechooser = {
-    enable = lib.mkEnableOption "Terminal File Chooser Portal";
+    enable = lib.mkEnableOption "terminal file chooser portal";
 
     wrapperCmd = lib.mkOption {
       type = lib.types.str;

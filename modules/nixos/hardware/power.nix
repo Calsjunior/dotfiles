@@ -8,7 +8,7 @@ let
 in
 {
   options.sys.hardware.power = {
-    enable = lib.mkEnableOption "Enable laptop power management";
+    enable = lib.mkEnableOption "laptop power management";
 
     batteryMaxFreq = lib.mkOption {
       type = lib.types.nullOr lib.types.int;

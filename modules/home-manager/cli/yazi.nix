@@ -6,7 +6,7 @@
 }:
 {
   options.cli.yazi = {
-    enable = lib.mkEnableOption "Enable Yazi";
+    enable = lib.mkEnableOption "yazi with custom configurations and plugins";
 
     terminalCmd = lib.mkOption {
       type = lib.types.str;

@@ -1,8 +1,6 @@
 { config, lib, ... }:
 {
-  options = {
-    sys.dm.ly.enable = lib.mkEnableOption "Enable Ly Display Manager";
-  };
+  options.sys.dm.ly.enable = lib.mkEnableOption "ly display manager";
 
   config = lib.mkIf config.sys.dm.ly.enable {
     services.displayManager.ly = {

@@ -5,7 +5,7 @@
   ...
 }:
 {
-  options.sys.gaming.enable = lib.mkEnableOption "Enable system configs for gaming (Gamemode, SOCD)";
+  options.sys.gaming.enable = lib.mkEnableOption "system configurations for gaming (Gamemode, SOCD)";
 
   config = lib.mkIf config.sys.gaming.enable {
     programs.gamemode.enable = true;

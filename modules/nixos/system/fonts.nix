@@ -6,7 +6,7 @@
 }:
 {
   options.sys.fonts = {
-    enable = lib.mkEnableOption "Enable custom system fonts";
+    enable = lib.mkEnableOption "custom system fonts";
 
     defaultSansSerif = lib.mkOption {
       type = lib.types.str;

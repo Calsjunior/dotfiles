@@ -7,9 +7,7 @@
   ...
 }:
 {
-  options = {
-    desktop.hyprland.enable = lib.mkEnableOption "Enable Hyprland Configs";
-  };
+  options.desktop.hyprland.enable = lib.mkEnableOption "hyprland configs";
 
   config = lib.mkIf config.desktop.hyprland.enable {
     assertions = [

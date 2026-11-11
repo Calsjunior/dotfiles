@@ -6,7 +6,7 @@
 }:
 {
   options.sys.portals.xdg-desktop-portal = {
-    enable = lib.mkEnableOption "Enable basic Wayland portals";
+    enable = lib.mkEnableOption "basic wayland portals";
     termfilechooser.enable = lib.mkEnableOption "Route FileChooser through terminal backend";
   };
 

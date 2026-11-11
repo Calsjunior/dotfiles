@@ -5,9 +5,7 @@
   ...
 }:
 {
-  options = {
-    cli.formatters.enable = lib.mkEnableOption "Enable formatters to $HOME and $XDG_CONFIG_HOME";
-  };
+  options.cli.formatters.enable = lib.mkEnableOption "formatters to $HOME and $XDG_CONFIG_HOME directories";
 
   config = lib.mkIf config.cli.formatters.enable {
     home.file = {

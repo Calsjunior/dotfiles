@@ -7,9 +7,7 @@
   ...
 }:
 {
-  options = {
-    cli.neovim.enable = lib.mkEnableOption "Enable Neovim";
-  };
+  options.cli.neovim.enable = lib.mkEnableOption "neovim with configurations";
 
   config = lib.mkIf config.cli.neovim.enable {
     programs.neovim = {

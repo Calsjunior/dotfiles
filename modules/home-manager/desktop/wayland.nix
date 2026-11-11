@@ -5,9 +5,7 @@
   ...
 }:
 {
-  options = {
-    desktop.wayland.enable = lib.mkEnableOption "Enable Wayland clipboard and CLI tools";
-  };
+  options.desktop.wayland.enable = lib.mkEnableOption "wayland clipboard and CLI tools";
 
   config = lib.mkIf config.desktop.wayland.enable {
     home.packages = with pkgs; [

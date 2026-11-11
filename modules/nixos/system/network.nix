@@ -45,7 +45,7 @@ let
 in
 {
   options.sys.network = {
-    enable = lib.mkEnableOption "NetworkManager with fixed DNS resolvers";
+    enable = lib.mkEnableOption "networkmanager with fixed DNS resolvers";
 
     warp = {
       enable = lib.mkEnableOption "Cloudflare WARP via sing-box (WireGuard, wgcf account)";

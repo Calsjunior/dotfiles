@@ -6,7 +6,7 @@
   ...
 }:
 {
-  options.cli.scripts.enable = lib.mkEnableOption "Enable custom scripts";
+  options.cli.scripts.enable = lib.mkEnableOption "custom scripts";
 
   config = lib.mkIf config.cli.scripts.enable {
     home.packages = with pkgs; [

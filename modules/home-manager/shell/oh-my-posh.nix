@@ -1,8 +1,6 @@
 { config, lib, ... }:
 {
-  options = {
-    cli.oh-my-posh.enable = lib.mkEnableOption "Enable Oh My Posh Prompt";
-  };
+  options.cli.oh-my-posh.enable = lib.mkEnableOption "oh my posh prompt";
 
   config = lib.mkIf config.cli.oh-my-posh.enable {
     programs.oh-my-posh = {

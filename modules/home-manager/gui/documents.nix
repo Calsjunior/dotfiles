@@ -5,9 +5,7 @@
   ...
 }:
 {
-  options = {
-    gui.documents.enable = lib.mkEnableOption "Enable Document Viewers and Editors";
-  };
+  options.gui.documents.enable = lib.mkEnableOption "document viewers and editors";
 
   config = lib.mkIf config.gui.documents.enable {
 

@@ -1,8 +1,6 @@
 { config, lib, ... }:
 {
-  options = {
-    cli.starship.enable = lib.mkEnableOption "Enable Starship Prompt";
-  };
+  options.cli.starship.enable = lib.mkEnableOption "starship prompt";
 
   config = lib.mkIf config.cli.starship.enable {
     programs.starship = {

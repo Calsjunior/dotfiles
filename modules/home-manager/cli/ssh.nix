@@ -5,9 +5,7 @@
   ...
 }:
 {
-  options = {
-    cli.ssh.enable = lib.mkEnableOption "Enable SSH";
-  };
+  options.cli.ssh.enable = lib.mkEnableOption "SSH";
 
   config = lib.mkIf config.cli.ssh.enable {
     services.ssh-agent.enable = true;

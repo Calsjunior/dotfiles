@@ -5,9 +5,7 @@
   ...
 }:
 {
-  options = {
-    cli.media.enable = lib.mkEnableOption "Enable media related CLI";
-  };
+  options.cli.media.enable = lib.mkEnableOption "media related CLI";
 
   config = lib.mkIf config.cli.media.enable {
     home.packages = with pkgs; [
