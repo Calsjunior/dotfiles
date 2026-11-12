@@ -85,7 +85,6 @@ in
           "unified-extensions-area" = map (ext: ext.id) (builtins.attrValues extensions);
         };
         isDefault = true;
-        keyboardShortcutsVersion = 21;
         keyboardShortcuts = [
           {
             id = "zen-compact-mode-toggle";
