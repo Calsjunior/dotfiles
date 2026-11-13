@@ -23,6 +23,8 @@
 
   sys = {
     appimage.enable = true;
+    dm.ly.autologin = true;
+    gaming.enable = true;
     hardware = {
       nvidia = {
         enable32Bit = true;
@@ -45,11 +47,10 @@
         ];
       };
     };
+    printing.enable = true;
     swap = {
       enable = true;
       sizeMiB = 8 * 1024;
     };
-    gaming.enable = true;
-    printing.enable = true;
   };
 }
