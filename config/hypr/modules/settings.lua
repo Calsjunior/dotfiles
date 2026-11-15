@@ -59,7 +59,9 @@ hl.config({
     repeat_delay = 200,
 
     follow_mouse = 1,
-    sensitivity = 0.5,
+    sensitivity = 0.2,
+
+    accel_profile = "flat",
 
     touchpad = {
       natural_scroll = true,
@@ -77,13 +79,13 @@ hl.config({
   },
 })
 
+hl.device({
+  name = "ftcs0038:00-2808:0106-touchpad",
+  sensitivity = 1,
+})
+
 hl.gesture({
   fingers = 3,
   direction = "horizontal",
   action = "workspace",
-})
-
-hl.device({
-  name = "razer-razer-deathadder-v3",
-  sensitivity = -0.5,
 })
