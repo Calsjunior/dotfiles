@@ -11,6 +11,8 @@
     programs.gamemode.enable = true;
     users.users.${user}.extraGroups = [ "gamemode" ];
 
+    boot.kernelModules = lib.optional (lib.versionAtLeast config.boot.kernelPackages.kernel.version "6.14") "ntsync";
+
     # Enable controller support
     hardware.steam-hardware.enable = true;
 
