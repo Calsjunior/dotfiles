@@ -2,25 +2,32 @@ name: Update Flake Lock
 run-name: "chore(deps): update flake.lock"
 on:
   workflow_dispatch:
+  schedule:
+    - cron: "0 20 * * 0,3"
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: update-flake-lock
+  cancel-in-progress: false
+
+env:
+  BRANCH: chore/update-flake-lock
+  COMMIT_MSG: "chore(deps): update flake.lock"
 
 jobs:
   update:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
-      pull-requests: write
-    env:
-      COMMIT_MSG: "chore(deps): update flake.lock"
+    outputs:
+      changed: ${{ steps.update.outputs.changed }}
+      hosts: ${{ steps.update.outputs.hosts }}
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Install Nix
-        uses: DeterminateSystems/nix-installer-action@main
-
-      - name: Update flake.lock and Create PR
-        env:
-          GH_TOKEN: ${{ github.token }}
+      - uses: actions/checkout@v4
+      - uses: DeterminateSystems/nix-installer-action@main
+      - name: Update flake.lock, push branch, list hosts
+        id: update
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
@@ -31,19 +38,54 @@ jobs:
 
           if [ "$old_head" = "$new_head" ]; then
             echo "Flake inputs are already up to date."
+            echo "changed=false" >> "$GITHUB_OUTPUT"
             exit 0
           fi
 
+          git log -1 --format=%b > body.md
+          git commit --amend -m "$COMMIT_MSG" -m "$(cat body.md)"
+          git push -f origin "HEAD:refs/heads/$BRANCH"
+
+          hosts=$(nix eval .#nixosConfigurations --apply builtins.attrNames --json)
+          echo "Hosts: $hosts"
+          echo "changed=true" >> "$GITHUB_OUTPUT"
+          echo "hosts=$hosts" >> "$GITHUB_OUTPUT"
+
+  build:
+    needs: update
+    if: needs.update.outputs.changed == 'true'
+    strategy:
+      fail-fast: false
+      matrix:
+        host: ${{ fromJSON(needs.update.outputs.hosts) }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: jlumbroso/free-disk-space@main
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ env.BRANCH }}
+      - uses: DeterminateSystems/nix-installer-action@main
+      - name: Build ${{ matrix.host }}
+        run: nix build ".#nixosConfigurations.${{ matrix.host }}.config.system.build.toplevel" --no-link --print-build-logs
+
+  merge:
+    needs: [update, build]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ env.BRANCH }}
+      - name: Open PR and squash-merge
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
           git log -1 --format=%b > pr_body.md
-          git commit --amend -m "$COMMIT_MSG" -m "$(cat pr_body.md)"
-
-          git checkout -b chore/update-flake-lock
-          git push -f origin chore/update-flake-lock
-
           gh pr create \
+            --base main --head "$BRANCH" \
             --title "$COMMIT_MSG" \
             --body-file pr_body.md \
             --label "dependencies" || \
-          gh pr edit chore/update-flake-lock \
+          gh pr edit "$BRANCH" \
             --title "$COMMIT_MSG" \
             --body-file pr_body.md
+          gh pr merge "$BRANCH" --squash --delete-branch
