@@ -65,8 +65,6 @@ jobs:
         with:
           ref: ${{ env.BRANCH }}
       - uses: DeterminateSystems/nix-installer-action@main
-      - uses: DeterminateSystems/magic-nix-cache-action@main
-        continue-on-error: true
       - name: Build ${{ matrix.host }}
         run: nix build ".#nixosConfigurations.${{ matrix.host }}.config.system.build.toplevel" --no-link --print-build-logs
 
