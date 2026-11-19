@@ -61,16 +61,18 @@ later(function()
       -- stylua: ignore start
       c               = { 'clang-format' },
       cpp             = { 'clang-format' },
-      lua             = { 'stylua' },
-      html            = { 'biome-check' },
       css             = { 'biome-check' },
+      html            = { 'biome-check' },
       javascript      = { 'biome-check' },
       javascriptreact = { 'biome-check' },
-      typescript      = { 'biome-check' },
-      typescriptreact = { 'biome-check' },
       json            = { 'biome-check' },
       jsonc           = { 'biome-check' },
+      lua             = { 'stylua' },
+      markdown        = { 'biome-check' },
       nix             = { 'nixfmt' },
+      typescript      = { 'biome-check' },
+      typescriptreact = { 'biome-check' },
+      yaml            = { 'biome-check' },
       -- stylua: ignore end
     },
     format_on_save = {
