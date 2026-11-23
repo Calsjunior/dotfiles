@@ -88,4 +88,5 @@ jobs:
           gh pr edit "$BRANCH" \
             --title "$COMMIT_MSG" \
             --body-file pr_body.md
-          gh pr merge "$BRANCH" --squash --delete-branch
+          gh pr merge "$BRANCH" --squash
+          git push origin --delete "$BRANCH" || true
