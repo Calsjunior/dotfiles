@@ -3,7 +3,7 @@ run-name: "chore(deps): update flake.lock"
 on:
   workflow_dispatch:
   schedule:
-    - cron: "0 20 * * 0,3"
+    - cron: "23 17 * * 0,3"
 
 permissions:
   contents: write
