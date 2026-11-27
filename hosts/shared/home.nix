@@ -25,7 +25,7 @@
             audio_source = "both";
             color_range = "full";
             copy_to_clipboard = true;
-            directory = "~/Videos/recordings";
+            directory = "${config.xdg.userDirs.videos}/recordings";
             video_encoder = "cpu";
             video_source = "focused";
           };
